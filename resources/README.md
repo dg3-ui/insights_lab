@@ -42,7 +42,7 @@ Persona views (e.g. a "climate scientist" agent) are **composed at runtime** by 
 
 | Resource | Domain | Family (docs/02) | Actors | Status |
 |---|---|---|---|---|
-| [el_nino_enso](weather_and_climate/el_nino_enso/) | `weather_and_climate` | Exposure | owner · investor · lender · offtaker | v0 scaffold — manual test not yet run |
+| [el_nino_enso](weather_and_climate/el_nino_enso/) | `weather_and_climate` | Exposure | owner · investor · lender · offtaker | manual test 001 PASS · status `draft` (not default-indexed until eval-gated → `active`, see `docs/07`) |
 
 ## Tag Vocabulary
 

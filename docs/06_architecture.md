@@ -99,6 +99,8 @@ sequenceDiagram
     CL-->>BD: validated insight -> report / card / account note
 ```
 
+> The sequence sketches the **single-skill-today** case; the authoritative `find_methodology` return is a ranked `SkillIndexRecord[]` the session confirms (top-N, never silent auto-bind) — full contract in `07_discovery_spec.md` §4.
+
 ## 5. Terminology — Package · Skill · Agent · Project · Tool
 
 The pieces have distinct names and are easy to conflate — the v0 test docs say "load into a Claude **project**/session" while this doc says "**skill**," and they are NOT the same thing. The glossary:
@@ -125,6 +127,8 @@ PACKAGE (source, many files) ──publish──▶ SKILL (served: SKILL.md + bu
 
 **Naming:** a package/slug is snake_case (`el_nino_enso`); the published Skill `name` is its kebab-case form (`el-nino-enso`) per the Claude Skill spec (lowercase + hyphens, ≤64 chars). Discovery matches on the Skill **`description`**, so that field must say *what it does and when to use it*.
 
+**Format vs delivery** (different axes — do not conflate): a package is *authored* in the Agent-Skill **format** (`SKILL.md` + bundled files). How it is *delivered* is a separate choice (§13 #1): **v0 serves** it via the InfraSure MCP — `get_methodology` returns the body as tool output, so `find_methodology` is the authoritative discovery path. *Installing* it as a **native** Agent Skill (where the model auto-selects by `description`) is a valid alternative — but then `find_methodology` is only a catalog aid, and the two are **not combined**. Same format either way.
+
 ## 6. Artifact Roles (which file feeds what)
 
 ```text
@@ -136,24 +140,25 @@ SERVED to the model (the skill payload)          AUTHORED for humans / validatio
 
 `resource.yml` is load-bearing — one file drives **three** things: **discovery** (taxonomy/tags), **the served prompt** (which sections to inject), and **the validation gates** (`confidence_rules` + `blocked_claims`).
 
-## 7. Delivery Model (recommended hybrid)
+## 7. Delivery Model
 
 ```text
-METHODOLOGY (how to reason)  → Claude Skills           (alt: MCP Prompts)
+METHODOLOGY (how to reason)  → SKILL.md-format packages, SERVED via the InfraSure MCP (get_methodology
+                               returns the body)  [v0]   ·   or INSTALLED as native Agent Skills [alt]
 DATA        (what is true)    → MCP tools               (live today)
 DISCOVERY   (find the skill)  → MCP tool over the registry (resource.yml.taxonomy — mirrored in resources/README.md)
 ```
 
 Mapping to platform primitives:
 
-| Need | Mechanism | Notes |
+| Need | Mechanism (v0) | Notes |
 |---|---|---|
-| Reason like an analyst | **Claude Agent Skill** per package | description-matched + progressively loaded; `prompt_projection` ≈ the skill body, `knowledge.md` a bundled file |
+| Reason like an analyst | method authored in `SKILL.md` format, **served** by `get_methodology` as tool output | `prompt_projection` ≈ the skill body; `knowledge.md` a bundled file fetched on demand |
+| Find the right skill | **MCP Tool** `find_methodology` over the registry | the authoritative path in the served model (nothing else auto-selects) |
 | Retrieve grounded data | **MCP Tools** | already implemented |
-| Find the right skill | **MCP Tool** `find_methodology` (or skill-catalog search) | indexes the taxonomy we built |
-| Optional: serve method text | **MCP Prompts / Resources** | viable alternative to Skills if delivery must be MCP-only |
+| *Alternative delivery* | **install** as native Claude Agent Skills | model auto-selects by `description`; then `find_methodology` is a catalog aid, not the loader — **not combined** with the served model |
 
-Recommendation: **Skills for method + MCP for data + an MCP discovery tool.** It matches the BizDev mental model ("search a topic → get a skill") and reuses the registry/taxonomy as the index.
+Recommendation (v0): **author in `SKILL.md` format, serve via the InfraSure MCP** (`find_methodology` + `get_methodology`) alongside the data tools — one MCP, coherent discovery, matching the BizDev mental model ("search a topic → get a skill"). Native-Skill install is a valid alternative where the host supports it. Full contract: `07_discovery_spec.md`.
 
 ## 8. Discovery In Detail
 
@@ -162,7 +167,7 @@ find_methodology(query | domain | family | actor)
    → ranks skills by taxonomy match (resource.yml.taxonomy: domain · family · drivers · actors)
    → returns {slug, title, domain, family, summary, confidence_default}
 get_methodology(slug)
-   → returns the skill payload (prompt_projection + knowledge.md + example)
+   → returns the skill payload (the compiled SKILL.md body + bundled knowledge.md / examples / data_requirements + version) — full shape in 07 §8
 
 slug = resource.yml.identity.slug — the single get_methodology resolution key, and the
        source folder name MUST equal it (the publish step asserts this).
@@ -171,7 +176,9 @@ slug = resource.yml.identity.slug — the single get_methodology resolution key,
 
 Example: `find_methodology("el nino solar exposure")` → returns the **ENSO Exposure** skill (slug `el_nino_enso`; domain `weather_and_climate`; family `exposure`; drivers `enso, irradiance`). This is why the taxonomy exists — it is the discovery index, not decoration.
 
-`find_methodology` is the **single authoritative discovery path**: when methodology is delivered as a Claude Agent Skill, the skill is loaded via the `find_methodology` / `get_methodology` result — not by relying on (or racing) the client's native description-matching. Where that discovery logic *lives* is Open Decision 2.
+In v0, methodology is **served via the InfraSure MCP**: `get_methodology` returns the SKILL.md-format body as tool output, so `find_methodology` is the authoritative discovery path (nothing else auto-selects). If instead the packages are *installed* as native Claude Agent Skills, the model auto-selects by `description` and `find_methodology` becomes a catalog aid — that delivery choice is §13 #1; *where* the discovery logic lives is §13 #2.
+
+**Full contract** — input/output shapes, the ranking algorithm, edge cases, and the synonym map — is specified in `07_discovery_spec.md`.
 
 ## 9. Validation Gate
 
@@ -206,7 +213,7 @@ In production these become *enforced* gates and a *trace* attached to each insig
 | Source repo + taxonomy registry | ✅ built | — |
 | One validated skill (ENSO) | ✅ test 001 PASS | — |
 | Skill **format** (`SKILL.md` from a package) | ✅ ENSO `SKILL.md` authored | generalize: a build script that compiles `SKILL.md` from any package |
-| Discovery tool (`find_methodology`) | ☐ design | spec it over the registry |
+| Discovery tool (`find_methodology`) | ◑ spec'd (`07_discovery_spec.md`) | implement as an MCP tool over the registry index |
 | Publish step (repo → served) | ☐ design | minimal: a build script that emits skill bundles + a registry index |
 | Eval harness (examples/test_runs → CI) | ☐ design | turn golden outputs into pass/fail checks |
 
@@ -220,11 +227,11 @@ In production these become *enforced* gates and a *trace* attached to each insig
 
 ## 13. Open Decisions
 
-1. **Delivery format**: Claude Agent Skills vs MCP Prompts vs both (recommend Skills + MCP data + MCP discovery).
+1. **Delivery format** — RESOLVED 2026-06-05 toward **MCP-served** for v0: author in the Agent-Skill (`SKILL.md`) *format*, but *deliver* by serving the body via the InfraSure MCP (`get_methodology`), so `find_methodology` is the coherent, authoritative discovery path. Installing packages as **native** Agent Skills (model auto-selects by `description`) is a valid alternative deployment — but then `find_methodology` is only a catalog aid and the two are **not combined**. See §5 (Format vs delivery) + `07` §1.
 2. **Where discovery lives**: an InfraSure MCP tool vs a separate catalog service.
 3. **State freshness enforcement**: how a skill guarantees the external state (NOAA) was pulled within an acceptable window before it renders.
 4. **Skill versioning & coherence**: how `resource.yml.version` + eval suite gate a re-publish — *and* how a single publish stamps every derived artifact (skill bundle, registry index entry, enforced gate set) with that version, so a session can confirm the loaded prompt, the discovery entry, and the gates all came from one `resource.yml`. (Make publish atomic per resource; have `get_methodology` and the insight trace echo the version.)
-5. **Discovery index at scale**: the taxonomy is a flat tag rank with one skill today; revisit before ~15–20 skills. (a) a controlled `drivers` vocabulary + synonym/alias map (e.g. `enso ← el_nino, la_nina, oni`) vs. fuzzy query matching — `drivers` is currently free-form, which fragments across authors; (b) auto-bind the single top match (as §4/§8 show) vs. return ranked top-N for the session to choose; (c) tie-break order (exact-driver > family > actor) + zero-match behavior.
+5. **Discovery index at scale**: the taxonomy is a flat tag rank with one skill today; revisit before ~15–20 skills. (a) a controlled `drivers` vocabulary + synonym/alias map (e.g. `enso ← el_nino, la_nina, oni`) vs. fuzzy query matching — `drivers` is free-form, which fragments **[`07` §7 adopts an alias map as the v0 middle; still open]**; (b) RESOLVED 2026-06-05 → **return ranked top-N; never silent auto-bind** (`find_methodology` is pure retrieval; `get_methodology(slug)` is the only session-initiated load — `07` §4/§6); (c) RESOLVED → tie-break `exact-driver > family > actor > text`, epsilon-gated (`07` §5).
 6. **Canonical slug** — RESOLVED 2026-06-05: canonical = `el_nino_enso` (folder == `identity.slug`); the descriptive "exposure" lives in `title` + the `family` tag, not the slug. All surfaces aligned. Remaining: the publish step should *assert* `folder == identity.slug` (and revisit if one phenomenon ever needs multiple family-skills — see #5).
 7. **Catalog maintainership & deprecation**: who owns the served catalog and approves a publish, and how a skill is marked deprecated/unpublished so it stops surfacing in `find_methodology`.
 

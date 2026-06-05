@@ -39,6 +39,7 @@ insights_lab/
 │   ├── 04_context_and_data_map.md
 │   ├── 05_mcp_test_protocol.md
 │   ├── 06_architecture.md
+│   ├── 07_discovery_spec.md
 │   └── learning/
 ├── resources/
 │   ├── README.md               # methodology registry (domain · family · actor)
@@ -60,6 +61,7 @@ README.md
   -> docs/01_scope_v0.md
   -> docs/02_analysis_catalog.md
   -> docs/06_architecture.md
+  -> docs/07_discovery_spec.md
 ```
 
 For a junior contributor:
