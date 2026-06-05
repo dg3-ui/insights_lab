@@ -1,0 +1,171 @@
+identity:
+  slug: "el_nino_enso_exposure"
+  title: "El Nino / ENSO Exposure For Renewable Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-05"
+
+taxonomy:
+  domain: weather_and_climate     # folder axis — shares NOAA/ENSO external inputs + region crosswalks
+  family: exposure                # docs/02 analysis family (facet, not folder)
+  drivers:
+    - enso
+    - irradiance
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - offtaker
+
+question_grammar:
+  allowed_questions:
+    - "Which assets, regions, owners, or offtakers are directionally exposed to the current or forecast ENSO state?"
+    - "Through what mechanism are they exposed?"
+    - "What can InfraSure claim with confidence, and what must remain caveated?"
+    - "Who should monitor the exposure, and why?"
+  blocked_questions:
+    - "What exact LMP impact will ENSO cause?"
+    - "What exact plant-level generation loss will occur?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+    - offtaker_optional
+  fuels_or_technologies:
+    - solar
+  regions_or_markets:
+    - "one selected region or market per test"
+  lifecycle_phases:
+    - operating
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - offtaker
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_region"
+      required: true
+      use: "Resolve assets in scoped region/market"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Filter solar assets"
+    - name: "capacity_mw"
+      required: true
+      use: "Filter material assets; recommended threshold >= 50 MW"
+    - name: "operating_status"
+      required: true
+      use: "Limit v0 to operating assets"
+    - name: "owner_company"
+      required: false
+      use: "Identify actor relevance"
+    - name: "generation_or_capacity_factor"
+      required: false
+      use: "Add performance context when available"
+    - name: "pricing_or_revenue_context"
+      required: false
+      use: "Add caveated market relevance when available"
+  external_inputs:
+    - name: "NOAA_CPC_ENSO_status"
+      required: true
+      freshness: "current or explicitly dated"
+      use: "Establish ENSO condition"
+    - name: "NOAA_CPC_seasonal_outlook_or_historical_ENSO_reference"
+      required: false
+      freshness: "current or explicitly dated"
+      use: "Support regional tendency and caveats"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; not claim grounding alone"
+  actor_context:
+    - name: "offtaker_or_ppa_context"
+      required: false
+      use: "Commercial relevance where available"
+
+procedure:
+  steps:
+    - "Identify current or forecast ENSO condition from external source."
+    - "State the regional mechanism and claim type."
+    - "Select one region/market and one asset class."
+    - "Retrieve InfraSure substrate data for assets in scope."
+    - "Filter to material operating solar assets."
+    - "Retrieve owner/company and optional offtaker context."
+    - "Draft the claim using condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block or downgrade unsupported downstream claims."
+
+allowed_claims:
+  - "Directional exposure claims for a scoped asset set"
+  - "Mechanism statements supported by external sources"
+  - "Asset, owner, offtaker, or portfolio relevance grounded in InfraSure substrate"
+  - "Caveated market or revenue implications"
+  - "Monitoring recommendations"
+
+blocked_claims:
+  - "Exact LMP forecasts from ENSO alone"
+  - "Exact plant-level generation forecasts without plant-level modeling"
+  - "National conclusions from one regional test"
+  - "Claims based only on generic climate commentary"
+  - "Outreach copy before applied insight validation"
+  - "Causal claims where evidence supports only correlation or direction"
+
+confidence_rules:
+  high: "Narrow mechanism, current source, resolved asset scope, and no downstream forecast claim."
+  medium: "Regional tendency and asset scope are credible but one input/crosswalk is imperfect."
+  low: "Scenario-based, directional, or dependent on external forecasts and incomplete mapping."
+  blocked: "ENSO source missing/stale, asset scope unresolved, or claim asks for precise market/plant forecast."
+
+caveats:
+  required:
+    - "Directional exposure is not a plant-level production forecast."
+    - "ENSO teleconnections vary by region and season."
+    - "Market-price effects depend on market structure, demand, hydro, congestion, and marginal generation."
+    - "Asset-level relevance depends on owner, offtaker, contract, and operating context."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Monitor seasonal operating variance and asset concentration."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Identify portfolio concentration and downside sensitivity."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "Watch operational/revenue stress signals for financed assets."
+    renderings:
+      - account_note
+  - actor: "offtaker"
+    why: "Understand exposure in linked supply assets where PPA context exists."
+    renderings:
+      - account_note
+      - informative_email_draft
+
+staleness_signals:
+  - "NOAA/CPC ENSO status changes"
+  - "Seasonal outlook changes materially"
+  - "Plant/generator/owner/offtaker data refreshes"
+  - "Region crosswalk changes"
+  - "Pricing or generation substrate improves for scoped region"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"
+

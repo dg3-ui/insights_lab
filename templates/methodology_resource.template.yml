@@ -1,0 +1,49 @@
+identity:
+  slug: ""
+  title: ""
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: ""
+  last_reviewed: ""
+
+question_grammar:
+  allowed_questions: []
+  blocked_questions: []
+
+scope:
+  entity_types: []
+  fuels_or_technologies: []
+  regions_or_markets: []
+  lifecycle_phases: []
+  actors: []
+
+inputs:
+  substrate_inputs: []
+  external_inputs: []
+  descriptive_context: []
+  actor_context: []
+  logic_inputs: []
+
+procedure:
+  steps: []
+
+allowed_claims: []
+blocked_claims: []
+
+confidence_rules:
+  high: ""
+  medium: ""
+  low: ""
+  blocked: ""
+
+caveats:
+  required: []
+
+actor_relevance: []
+
+staleness_signals: []
+
+prompt_projection:
+  include_in_prompt: []
+  exclude_from_prompt: []
+
