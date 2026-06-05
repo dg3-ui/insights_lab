@@ -1,71 +1,71 @@
-# Data Requirements - El Nino / ENSO Exposure
+# Data Requirements - El Niño / ENSO Exposure
 
-> **Status**: v0 checklist.
+> **Status**: v0 input map, deepened 2026-06-05.
 >
-> **Purpose**: define what data the manual MCP/Claude test must retrieve or explicitly mark as missing.
+> **Purpose**: define exactly what the manual MCP/Claude test must retrieve (and from where), what is external, and what to do when an input is missing.
+>
+> **Companions**: `knowledge.md` (mechanism + sources), `resource.md` (method).
+
+## Input Layers (by job)
+
+```text
+EXTERNAL    ENSO state/forecast        -> NOAA CPC / IRI (pull live)            knowledge.md §3, §8
+KNOWLEDGE   mechanism + robustness     -> knowledge.md §4–§6                    (cite, don't re-derive)
+SUBSTRATE   assets, capacity, region   -> search_plants → get_plant            (grounds the claim)
+SUBSTRATE   generation / CF            -> get_plant.generation                 (seasonal baseline)
+ACTOR       owner / offtaker           -> get_plant.ownership / .offtakers     (routes the insight)
+DESCRIPTIVE plant blurb / Wikipedia    -> get_plant.context                    (frames only — never grounds)
+LOGIC       thresholds, region map     -> ≥50 MW, state=CA crosswalk           (converts inputs to claims)
+```
 
 ## Required Inputs
 
-| Input | Type | Needed For | Minimum V0 Standard |
+| Input | Type | Needed for | Minimum standard |
 |---|---|---|---|
-| ENSO state / forecast | external | Establish condition | Source name, date/vintage, state or forecast |
-| Region / market scope | substrate / logic | Limit test | One resolvable region or market |
-| Plant/generator list | substrate | Asset scope | Operating solar assets in selected region |
-| Capacity | substrate | Materiality filter | Recommended first threshold: >= 50 MW |
-| Location / region fields | substrate | Region matching | Enough to justify inclusion in scope |
-| Owner/company context | substrate / actor | Actor relevance | Owner/company name where available |
+| ENSO state / forecast | external | establish condition | source name, access date, phase + Alert status + DJF outlook + strength |
+| Mechanism + robustness | knowledge | the "why" + confidence ceiling | cite `knowledge.md` teleconnection rating |
+| Region / market scope | substrate / logic | bound the test | one resolvable region (`state="CA"` for CAISO) |
+| Plant / generator list | substrate | asset scope | operating solar in scope |
+| Capacity | substrate | materiality | recommended ≥ 50 MW |
+| Owner / company | substrate / actor | actor relevance | owner/operator name where available |
 
-## Recommended Inputs
+## External STATE — Where To Pull It
 
-| Input | Type | Use |
+The ENSO state is **not** in the substrate. Pull it live each test and cite the access date:
+
+| Source | Use | URL |
 |---|---|---|
-| Seasonal outlook | external | Regional mechanism and caveats |
-| Historical ENSO reference | external | Context for directional tendency |
-| Generation / capacity factor | substrate | Optional performance context |
-| Pricing / revenue context | substrate | Optional caveated market relevance |
-| Offtaker / PPA context | actor | Optional commercial relevance |
-| News facts | substrate | Optional corroborating context |
-| Plant/company descriptions | descriptive | Framing only |
+| NOAA CPC ENSO Diagnostic Discussion | current phase, Alert status, DJF forecast | https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso_advisory/ensodisc.shtml |
+| NOAA CPC ENSO probabilities / ONI | strength probabilities | https://www.cpc.ncep.noaa.gov/products/analysis_monitoring/enso/roni/probabilities/ |
+| IRI ENSO Forecast | model-ensemble plume | https://iri.columbia.edu/our-expertise/climate/forecasts/enso/current/ |
 
-## Input Classification
+## First-Test Retrieval Plan (the real call sequence)
 
 ```text
-External methodology input
-  NOAA CPC / ONI / seasonal outlook
-
-Grounding substrate
-  plant, generator, capacity, region, owner/company, generation, pricing
-
-Descriptive context
-  plant descriptions, Wikipedia summaries, external links
-
-Actor context
-  owner, developer, offtaker, PPA, company/account context
-
-Logic layer
-  filters, thresholds, region crosswalk, confidence rules
+1. STATE:    WebFetch NOAA CPC ENSO discussion → phase, Alert, DJF %, strength    (cite access date)
+2. SCOPE:    search_plants(fuel="solar", state="CA", minMw=50)                      → fleet rows
+             ⚠ DO NOT use iso="CAISO" — it returns [] (see "Known gaps")
+3. SIZE:     aggregate(entity="plants", group_by="state", metric="total_capacity", filter={fuel:"SUN"})
+4. DRILL:    get_plant(<id>)  → seasonal capacity_factor, regions.iso_rto, ownership, offtakers
+5. ACTOR:    get_plant.ownership / .offtakers  (or plants_by_owner for portfolio view)
+6. DRAFT:    assemble the claim; cap confidence at the weakest link; block quantitative claims
 ```
 
-## First Test Retrieval Plan
+## Known Gaps (log, then work around)
 
-For the first manual test, ask Claude to:
+| Gap | Reality | Workaround | Roadmap |
+|---|---|---|---|
+| `search_plants(iso="CAISO")` → `[]` | ISO filter unwired; data exists per-plant in `get_plant.regions.iso_rto` | scope by `state="CA"`, confirm per-plant | wire ISO filter / add `resolve_region` tool |
+| No plant-level irradiance/weather model | substrate has *historical* CF, not a forward production model | keep claims directional; block plant-level forecasts | future modeling layer |
+| ENSO strength unknown at lead time | NOAA gives occurrence % but not strength early | cap confidence at LOW | re-pull as forecasts sharpen |
 
-1. Identify the external ENSO state/source it needs.
-2. Select or confirm one region/market.
-3. Retrieve operating solar assets in that scope.
-4. Filter to assets >= 50 MW if capacity is available.
-5. Retrieve owner/company context for the scoped assets.
-6. Retrieve offtaker/PPA context only if available through existing tools.
-7. Draft the insight with explicit source refs and caveats.
+## Missing-Data Handling
 
-## Missing Data Handling
-
-| Missing Input | Required Action |
+| Missing input | Required action |
 |---|---|
-| ENSO source | Block the insight; cannot establish condition |
-| Region cannot be resolved | Downgrade or switch to a resolvable region |
-| Asset list unavailable | Block the insight; no scoped entity set |
-| Owner/company unavailable | Draft asset-level claim only; actor relevance becomes generic |
-| Offtaker unavailable | Omit offtaker relevance |
-| Generation/pricing unavailable | Keep market/revenue implications directional and caveated |
-
+| ENSO source | **Block** the insight — cannot establish the condition |
+| Region cannot be resolved | downgrade, or switch to a resolvable region |
+| Asset list unavailable | **Block** — no scoped entity set |
+| Owner/company unavailable | asset-level claim only; actor relevance goes generic |
+| Offtaker unavailable | omit offtaker relevance (do not infer) |
+| Generation/pricing unavailable | keep revenue implications directional and caveated |

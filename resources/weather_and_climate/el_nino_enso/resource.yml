@@ -18,6 +18,8 @@ taxonomy:
     - lender
     - offtaker
 
+knowledge_ref: "knowledge.md"   # domain mechanism library (cited); see also data_requirements.md
+
 question_grammar:
   allowed_questions:
     - "Which assets, regions, owners, or offtakers are directionally exposed to the current or forecast ENSO state?"
