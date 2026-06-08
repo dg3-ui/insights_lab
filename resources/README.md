@@ -20,9 +20,12 @@ A resource lives in exactly one **domain** folder and is *tagged* with its famil
 ```text
 resources/
 ├── README.md                  # this registry
+├── _reference/                # exemplar corpus (form, not facts) — feeds rendering + eval, NOT grounding
 └── weather_and_climate/       # domain (driver-grouped)
     └── el_nino_enso/          # self-contained package: resource.md/.yml/prompt_projection.md/examples/test_runs
 ```
+
+`_reference/` is **not** a methodology domain — it is a style/eval library, quarantined from any claim's grounding (`_reference/README.md`, `docs/08_design_principles.md` P2). It sorts above the domain folders by the leading underscore.
 
 ## Planned Domains
 

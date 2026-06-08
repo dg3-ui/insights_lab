@@ -64,9 +64,15 @@ Loading one skill (not a whole domain) keeps context lean; skills **compose** at
 └───────────────────────────────────────────┬───────────────────────────────────────────────────┘
                                   validated insight object
                                              ▼
-┌─ LAYER 3 · OUTPUT — the scope file's activation split ──────────────────────────────────────────┐
-│   report · platform card / Ask answer    ── | ──    account note · informative email            │
-│                              (a rendering of a VALIDATED insight — never before it passes)       │
+┌─ LAYER 3 · OUTPUT — the CONTENT ENGINE (renderings of a validated insight; see 08 P2) ───────────┐
+│   validated insight object                                                                       │
+│        │  render (audience × length) — NEVER a source of truth, only a projection of the insight │
+│        ├─► BLOG / briefing            (the rich parent; many smaller renderings derive from it)  │
+│        ├─► curated outreach email / account note                                                 │
+│        ├─► platform card / Ask answer                                                            │
+│        └─► LinkedIn / social post                                                                │
+│   human-in-the-loop throughout — augment the analyst with more hands, never replace the judgment │
+│                          (a rendering of a VALIDATED insight — never before it passes the gate)  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -74,8 +80,17 @@ Loading one skill (not a whole domain) keeps context lean; skills **compose** at
 
 - **Layer 0 — Source.** The repo. Authored, reviewed, version-controlled. The `resource.yml` is the spec that downstream everything reads.
 - **Layer 1 — Served.** Two cooperating surfaces: the **MCP data tools** (already live) and a **skill catalog** (one skill per package). A small **discovery** capability (an MCP tool or a skill-catalog search) matches a user's topic to a skill via the taxonomy.
-- **Layer 2 — Runtime.** A Claude session (the "agent") discovers → loads → grounds → assembles → gates. Grounding uses *both* the external state (NOAA) and the InfraSure substrate.
-- **Layer 3 — Output.** Only a **validated** insight is rendered — as a report/card for the platform or an account note/email for BizDev. Activation never precedes validation.
+- **Layer 2 — Runtime.** A Claude session (the "agent") discovers → loads → grounds → assembles → gates. Grounding uses *both* the external state (NOAA) and the InfraSure substrate. **It is a loop, not a line** — a one-shot draft is rarely the product; the enrichment happens across turns, and the human checkpoint in that loop is the product, not overhead (`08_design_principles.md` P4):
+
+```text
+   discover → load → ground → assemble → GATE
+                 ▲                          │
+                 └──── human checkpoint ◀────┘
+                    (enrich · re-scope · challenge · approve)
+   the loop is "more hands, more dimension"; the eval suite must see the loop, not just the final draft
+```
+
+- **Layer 3 — Output.** The **content engine**: only a **validated** insight is rendered, into whatever audience/length the moment needs — blog or briefing (the rich parent), curated email / account note, platform card / Ask answer, social post. Every rendering is a *projection of the same validated insight object*, never a new source of truth, and never produced before the gate passes (`08` P2).
 
 ## 4. Request Lifecycle
 
@@ -237,4 +252,4 @@ In production these become *enforced* gates and a *trace* attached to each insig
 
 ---
 
-**See also**: `00_project_brief.md` (why), `01_scope_v0.md` (the v0 deliverable + after-V0 split), `resources/README.md` (the registry this discovery indexes), `resources/weather_and_climate/el_nino_enso/` (the first validated skill).
+**See also**: `00_project_brief.md` (why), `01_scope_v0.md` (the v0 deliverable + after-V0 split), `08_design_principles.md` (the stable/volatile seam, the runtime loop, content-downstream-of-insight), `resources/README.md` (the registry this discovery indexes), `resources/weather_and_climate/el_nino_enso/` (the first validated skill).
