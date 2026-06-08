@@ -29,7 +29,8 @@ The methodology resource should name each input by job. If you cannot say which 
 |---|---|---|
 | Grounding substrate | `total_capacity_mw` 313.7 · `generation.capacity_factor` 0.24 · `grid.lmp_node` · `ownership.chain` | Supports material claims |
 | Descriptive context | `context.description` (Gemini-generated) · Wikipedia summary · external links | Frames the entity; does **not** validate a claim alone |
-| External methodology input | NOAA CPC ENSO status · ONI · seasonal outlooks · climate-region definitions | Supplies non-platform causal / scenario state |
+| Foundational knowledge | `.learning/` shared vault (→ `~/Desktop/Learning`): risk · weather/climate · electricity-market · project-finance notes | Backs the cited **mechanism** (`knowledge.md`) — the stable *why*; cite it, it is **not** live state |
+| External methodology input | NOAA CPC ENSO status · ONI · seasonal outlooks · climate-region definitions | Supplies non-platform causal / scenario **state** (live — has a freshness clock) |
 | Actor context | `ownership` (Clearway → TotalEnergies) · `offtakers` (PG&E, 28 contracts) · developer | Determines who should care + how it renders |
 | Logic layer | thresholds (≥50 MW) · region crosswalk · confidence rules · caveat rules | Converts inputs into claims |
 

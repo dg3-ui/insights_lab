@@ -69,6 +69,8 @@ taxonomy:
 
 ## Adding A Resource
 
+**Fast path:** run `/new-resource <topic>` (`.claude/commands/new-resource.md`) — the guided, generalized ENSO-creation process. The steps below are what it automates; foundational knowledge for the mechanism layer (`knowledge.md`) comes from the `.learning/` shared vault (symlink → `~/Desktop/Learning`).
+
 ```text
 1. Pick the domain (driver). Reuse an existing folder; create one only for a genuinely new driver.
 2. Copy templates/ into resources/<domain>/<slug>/.
