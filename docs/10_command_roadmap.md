@@ -28,8 +28,10 @@ TIER   COMMAND          STAGE      WHAT IT DOES (thin conductor over →)       
  1     /test-resource   TEST       run the manual MCP test loop on an existing slug   ◑ next   (docs/05 · P4)
  1     /extract         RESOLVE    transcript → test_run + extraction + ledger        ◑ next   (docs/05 capture · P3)
  1     /log-gap         (loop)     one-line append to docs/09 from anywhere           ☐ cheap  (docs/09)
- 2     /gate-check      GATE       INDEPENDENT validate vs contract + blocked_claims  ☐ tier2  (docs/03·06 §9)
- 2     /render          RENDER     validated insight → blog/email/card/post           ☐ tier2  (docs/06 L3 · P2 · _reference)
+ 1     /intake-feedback (loop)     triage out-of-loop feedback → routed homes + log    ☐ cheap  (docs/05 §intake · template)
+ 2     /gate-check      GATE       INDEPENDENT validate vs contract + blocked_claims  ☐ tier2  (docs/03·06 §9·_principles)
+ 2     /render          RENDER     validated insight → blog/brief/email/post per      ☐ tier2  (docs/06 L3 · P2 · _style
+                                   the _style contract (direction×audience×format)              · _craft · _reference)
  3     /eval-resource   EVAL       run examples/test_runs + fail→fix as pass/fail      ☐ later  (paused; eat process data first)
  3     /find-methodology DISCOVER  rank resources by taxonomy for a query             ☐ later  (revisit ~10 skills; 07)
  3     /sync-docs       MAINTAIN   house-style + cross-ref + registry consistency      ☐ later  (when drift is real)
@@ -41,8 +43,8 @@ TIER   COMMAND          STAGE      WHAT IT DOES (thin conductor over →)       
 
 ## Why Tier 2 Matters (but later)
 
-- **`/gate-check`** patches a known weakness: `docs/06` §9 admits the v0 gate is *self-policing* (the same session that drafts also judges). Running validation as a separate command in a fresh context is the cheapest way to get an *independent* check without building production enforcement.
-- **`/render`** is the **content engine** end goal (`docs/06` Layer 3) — and the first real consumer of `resources/_reference/` (form, not facts). It must refuse to render where no validated insight exists upstream (`docs/08` P2).
+- **`/gate-check`** patches a known weakness: `docs/06` §9 admits the v0 gate is *self-policing* (the same session that drafts also judges). Running validation as a separate command in a fresh context is the cheapest way to get an *independent* check without building production enforcement. It is also where the rubric's **accuracy** criterion is judged independently (`resources/_principles/rubric.md` §2 — style self-critique stays in-session; accuracy never).
+- **`/render`** is the **content engine** end goal (`docs/06` Layer 3) — and the first real consumer of the render-side shared layers: `_style` (brand + the output-contract matrix), `_craft` (grounded plots), `_reference` (form, not facts). It must refuse to render where no validated insight exists upstream (`docs/08` P2).
 
 ## Design Rule (so the toolchain doesn't become rigidity)
 

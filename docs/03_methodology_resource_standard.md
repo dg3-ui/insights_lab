@@ -59,7 +59,7 @@ methodology_resource
 | `confidence_rules` | When to keep, downgrade, or block a claim |
 | `caveats` | Required caveats by claim type |
 | `actor_relevance` | Who cares, why, and which rendering uses it |
-| `staleness_signals` | Data or external events that force review |
+| `staleness_signals` | Data or external events that force review — including a version change in a shared `resources/_*` layer the resource was validated against (`resources/README.md`, Shared Layers) |
 
 `blocked_claims` carries the most weight: a resource with sharp "blocked" rules produces safe output even when the "allowed" language is loose. The reverse is not true.
 
@@ -156,6 +156,7 @@ Do not allow:
 - claims grounded only in descriptive context (e.g. the Gemini-generated plant description — see `docs/04`)
 - broad national conclusions from one regional test
 - causal language where the resource only supports correlation or directional exposure
+- **charts of any of the above** — a plot is a set of claims; a series with no `source_ref`/`as_of`, a drawn forecast curve with no model, or a chart from exemplar data is the same blocked claim in ink (`resources/_craft/plot_generation.md`)
 
 ## Review Checklist
 

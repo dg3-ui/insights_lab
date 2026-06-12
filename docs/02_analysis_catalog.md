@@ -109,7 +109,7 @@ Real: aggregate(plants, group_by=state, metric=total_capacity, filter=fuel:SUN) 
 Claim type: directional exposure. Block exact LMP / plant-output forecasts.
 ```
 
-This is the v0 family — see `resources/weather_and_climate/el_nino_enso/`. (The families are **orthogonal to the use-case buckets** in `docs/11`: Exposure can run bottom-up — asset → phenomenon — *or* top-down — phenomenon → assets.)
+This is the v0 family — see `resources/weather_and_climate/el_nino_enso/`. (The families are **orthogonal to the use-case buckets** in `docs/11`: Exposure can run bottom-up — asset → phenomenon — *or* top-down — phenomenon → assets. This axis is also the **direction key** of the output contracts, `resources/_style/output_contracts.md` §1.)
 
 ### Performance
 
@@ -217,3 +217,5 @@ portfolio, or counterparty?
 ```
 
 If the answer needs no InfraSure entity, ID, or field to stand up, it is commentary — not a candidate for a methodology resource.
+
+**Form vs. topic** (so the exemplar corpus doesn't read as a contradiction): Grid Status blogs and Substack grid-studies live in `resources/_reference/` for their *form* — structure, hooks, caveat craft. Their *topics* enjoy no exemption from the bar above: a grid-study-shaped piece still needs InfraSure entities, IDs, and fields to stand up, or it is the "broad energy thought piece" this section rules out.

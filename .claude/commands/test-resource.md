@@ -39,7 +39,7 @@ This is the lab's heartbeat — the discover→ground→assemble→GATE loop, ex
 
 ## STEP 5 — RECORD (resolve into the test run)
 
-- Scaffold the next `test_runs/test_run_NNN.md` from `templates/mcp_test_run.template.md`. Record: loaded files · tools/data used · accepted claims · rejected/downgraded claims · failures by the `docs/05` taxonomy · next fixes · link to the raw transcript.
+- Scaffold the next `test_runs/test_run_NNN.md` from `templates/mcp_test_run.template.md`. Record: loaded files (incl. composed shared-layer versions) · tools/data used · accepted claims · rejected/downgraded claims · failures by the `docs/05` taxonomy · rubric scores + self-critique delta (`resources/_principles/rubric.md`) · next fixes · link to the raw transcript.
 - (For the deep extraction — prompting moves, enrichment deltas, fail→fix pairs — run **`/extract`** on the saved transcript.)
 
 ## STEP 6 — CLOSE THE LOOPS
@@ -50,6 +50,6 @@ This is the lab's heartbeat — the discover→ground→assemble→GATE loop, ex
 ## Guardrails (`docs/08` + `CLAUDE.md` don'ts)
 
 - **Ground or downgrade.** Review every claim against `blocked_claims` + the gate: source ref + `as_of` present? confidence capped at the weakest input? caveats attached? **no `$/MWh`/LMP from a driver alone, no plant-level forecast without a model, no causal-where-directional.**
-- One region / one asset class. No outreach/content here (that is `/render`, after the gate). Don't trust tool labels — verify the entity is the one you wanted.
+- One region / one asset class. No **un-gated** rendering here — a contract rendering of a *gated* insight is `/render`'s job, after the gate (`docs/05` Avoid list, `docs/08` P2). Don't trust tool labels — verify the entity is the one you wanted.
 
 **Deliverable**: a saved transcript + a filled `test_run_NNN.md`, with gaps logged and learning recorded. To turn the transcript into reusable process data, run `/extract`.

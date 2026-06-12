@@ -48,6 +48,8 @@ VIEW 4 · reconciliation with the meet-thread "3 prompting buckets"
        (Bucket 2 top-down, customer/public renderings, and multi-resource are POST-V0)
 ```
 
+> **Updated 2026-06-12**: V0 closed on this slice, with one correction — Test 001 ran **top-down** by `docs/11`'s own definitions (phenomenon → fleet scan; see the reconciliation there). The POST-V0 line above is now governed by **`docs/plans/2026-06-11_layered_reference_v1.md`**, which deliberately ships the top-down + client/public **output contracts** (`resources/_style/`) ahead of multi-resource; bottom-up completes in its Phase 5.
+
 ## Scope Statement
 
 V0 creates one methodology-backed insight package for:
@@ -220,4 +222,4 @@ validated insight object
 
 The in-house track builds controlled API orchestration, retrieval planning, trace capture, validation gates, persistence, and review queues. (Every tool gap logged during testing — like the `iso` filter — is an input to this track's MCP roadmap.)
 
-The activation track uses validated insight objects with contacts/company/offtaker context to create platform cards, account notes, and informative email drafts.
+The activation track uses validated insight objects with contacts/company/offtaker context to create contract renderings — briefs, curated emails, posts (`resources/_style/output_contracts.md`; the platform card is a post-v0 platform rendering).

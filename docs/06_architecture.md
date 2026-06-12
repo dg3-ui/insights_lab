@@ -66,11 +66,13 @@ Loading one skill (not a whole domain) keeps context lean; skills **compose** at
                                              ▼
 ┌─ LAYER 3 · OUTPUT — the CONTENT ENGINE (renderings of a validated insight; see 08 P2) ───────────┐
 │   validated insight object                                                                       │
-│        │  render (audience × length) — NEVER a source of truth, only a projection of the insight │
-│        ├─► BLOG / briefing            (the rich parent; many smaller renderings derive from it)  │
-│        ├─► curated outreach email / account note                                                 │
-│        ├─► platform card / Ask answer                                                            │
-│        └─► LinkedIn / social post                                                                │
+│        │  render per the _style OUTPUT CONTRACT (direction × audience × format) — NEVER a        │
+│        │  source of truth, only a projection of the insight                                      │
+│        ├─► BLOG                       (the rich parent; many smaller renderings derive from it)  │
+│        ├─► BRIEF — account / portfolio note (internal or client)                                 │
+│        ├─► EMAIL — curated, post-gate, named account                                             │
+│        ├─► POST — LinkedIn / social (derives from the blog parent)                               │
+│        └─► (platform card / Ask answer — post-v0 platform rendering, not a v0 contract cell)     │
 │   human-in-the-loop throughout — augment the analyst with more hands, never replace the judgment │
 │                          (a rendering of a VALIDATED insight — never before it passes the gate)  │
 └──────────────────────────────────────────────────────────────────────────────────────────────────┘
@@ -90,7 +92,7 @@ Loading one skill (not a whole domain) keeps context lean; skills **compose** at
    the loop is "more hands, more dimension"; the eval suite must see the loop, not just the final draft
 ```
 
-- **Layer 3 — Output.** The **content engine**: only a **validated** insight is rendered, into whatever audience/length the moment needs — blog or briefing (the rich parent), curated email / account note, platform card / Ask answer, social post. Every rendering is a *projection of the same validated insight object*, never a new source of truth, and never produced before the gate passes (`08` P2).
+- **Layer 3 — Output.** The **content engine**: only a **validated** insight is rendered, per a declared `_style` output contract (direction × audience × format) — blog (the rich parent), brief (account/portfolio note), curated email, social post (`resources/_style/output_contracts.md`; platform card / Ask answer is a post-v0 platform rendering). Every rendering is a *projection of the same validated insight object*, never a new source of truth, and never produced before the gate passes (`08` P2).
 
 ## 4. Request Lifecycle
 
@@ -111,7 +113,7 @@ sequenceDiagram
     CL->>MCP: search_plants(state=CA, solar, min 50MW) / get_plant / aggregate
     MCP-->>CL: real assets, CF, owners, offtakers (as_of)
     CL->>CL: assemble insight + enforce confidence / blocked-claim gates
-    CL-->>BD: validated insight -> report / card / account note
+    CL-->>BD: validated insight -> contract rendering (blog · brief · email · post)
 ```
 
 > The sequence sketches the **single-skill-today** case; the authoritative `find_methodology` return is a ranked `SkillIndexRecord[]` the session confirms (top-N, never silent auto-bind) — full contract in `07_discovery_spec.md` §4.
@@ -185,7 +187,8 @@ get_methodology(slug)
    → returns the skill payload (the compiled SKILL.md body + bundled knowledge.md / examples / data_requirements + version) — full shape in 07 §8
 
 slug = resource.yml.identity.slug — the single get_methodology resolution key, and the
-       source folder name MUST equal it (the publish step asserts this).
+       source folder name MUST equal it (the publish step asserts this — packages only:
+       `_`-prefixed shared layers are not packages and are excluded from the scan, 07 §3).
        Canonical today: folder == slug == el_nino_enso. (Resolved — see Open Decision 6.)
 ```
 
@@ -217,7 +220,7 @@ In production these become *enforced* gates and a *trace* attached to each insig
 |---|---|
 | validated insight object | Layer 2 output (the applied-insight contract) |
 | in-house architecture track | the publish step + discovery + enforced gates + trace capture (Layer 0→1) |
-| activation / outreach track | Layer 3 rendering (report / card / account note / email) |
+| activation / outreach track | Layer 3 rendering (blog / brief / email / post — the `_style` output contract) |
 | "outreach is a rendering, not the source" | the validation gate sits *between* insight and activation |
 
 ## 11. Build Status & Roadmap
@@ -247,7 +250,7 @@ In production these become *enforced* gates and a *trace* attached to each insig
 3. **State freshness enforcement**: how a skill guarantees the external state (NOAA) was pulled within an acceptable window before it renders.
 4. **Skill versioning & coherence**: how `resource.yml.version` + eval suite gate a re-publish — *and* how a single publish stamps every derived artifact (skill bundle, registry index entry, enforced gate set) with that version, so a session can confirm the loaded prompt, the discovery entry, and the gates all came from one `resource.yml`. (Make publish atomic per resource; have `get_methodology` and the insight trace echo the version.)
 5. **Discovery index at scale**: the taxonomy is a flat tag rank with one skill today; revisit before ~15–20 skills. (a) a controlled `drivers` vocabulary + synonym/alias map (e.g. `enso ← el_nino, la_nina, oni`) vs. fuzzy query matching — `drivers` is free-form, which fragments **[`07` §7 adopts an alias map as the v0 middle; still open]**; (b) RESOLVED 2026-06-05 → **return ranked top-N; never silent auto-bind** (`find_methodology` is pure retrieval; `get_methodology(slug)` is the only session-initiated load — `07` §4/§6); (c) RESOLVED → tie-break `exact-driver > family > actor > text`, epsilon-gated (`07` §5).
-6. **Canonical slug** — RESOLVED 2026-06-05: canonical = `el_nino_enso` (folder == `identity.slug`); the descriptive "exposure" lives in `title` + the `family` tag, not the slug. All surfaces aligned. Remaining: the publish step should *assert* `folder == identity.slug` (and revisit if one phenomenon ever needs multiple family-skills — see #5).
+6. **Canonical slug** — RESOLVED 2026-06-05: canonical = `el_nino_enso` (folder == `identity.slug`); the descriptive "exposure" lives in `title` + the `family` tag, not the slug. All surfaces aligned. Remaining: the publish step should *assert* `folder == identity.slug` for package folders (leading-underscore shared layers are excluded from the scan and the assertion — `07` §3, `resources/README.md`), and revisit if one phenomenon ever needs multiple family-skills — see #5.
 7. **Catalog maintainership & deprecation**: who owns the served catalog and approves a publish, and how a skill is marked deprecated/unpublished so it stops surfacing in `find_methodology`.
 
 ---

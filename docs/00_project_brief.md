@@ -69,7 +69,8 @@ LAYER 1  SERVED     InfraSure MCP (DATA tools, live)  +  skill catalog (one skil
 LAYER 2  RUNTIME    a Claude session = the "agent":  discover → load → ground → assemble → GATE
    │                  ▲___________ human checkpoint (enrich · re-scope · challenge) ___________│  (a LOOP)
    ▼  validated insight object
-LAYER 3  OUTPUT     the CONTENT ENGINE: blog · platform card / Ask answer · account note / email
+LAYER 3  OUTPUT     the CONTENT ENGINE: blog · brief · email · post — per the _style output
+                      contract (direction × audience × format; resources/_style/)
                       = renderings of a VALIDATED insight, never before the gate (08 P2)
 ```
 
@@ -95,7 +96,8 @@ Four fundamentals (`learning/02`–`03`) and five principles (`08_design_princip
 ```text
 RULE A · every input does ONE job — label it before citing it
          GROUNDS (capacity·CF·PPA·node) · FRAMES (descriptions/Wiki — never proof) ·
-         ROUTES (owner·offtaker) · EXTERNAL (NOAA causal state) · LOGIC (crosswalks)
+         ROUTES (owner·offtaker) · EXTERNAL (NOAA causal state) · LOGIC (crosswalks) ·
+         FORM (resources/_* style·exemplars — shapes the rendering, never grounding)
 RULE B · every material claim = 7 slots:
          condition + scoped entities + mechanism + evidence + confidence + caveat + actor
          (a slot you can't fill = a downgrade or a blocked claim)

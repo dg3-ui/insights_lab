@@ -33,6 +33,7 @@ The methodology resource should name each input by job. If you cannot say which 
 | External methodology input | NOAA CPC ENSO status · ONI · seasonal outlooks · climate-region definitions | Supplies non-platform causal / scenario **state** (live — has a freshness clock) |
 | Actor context | `ownership` (Clearway → TotalEnergies) · `offtakers` (PG&E, 28 contracts) · developer | Determines who should care + how it renders |
 | Logic layer | thresholds (≥50 MW) · region crosswalk · confidence rules · caveat rules | Converts inputs into claims |
+| Form layer (`resources/_*`) | `_reference/` exemplars · `_style/` brand kit + output contracts · `_craft/` plot rules | Shapes the **rendering**; never grounds, frames, or routes a claim — loads post-gate (`_principles` voice/rubric is the one pre-gate exception) |
 
 **The descriptive-context trap**: `get_plant(57993).context.description` reads like fact but carries `model: "google/gemini-2.0-flash-001"` — it is generated prose. Framing only. A claim grounded solely in it is a **blocked claim** (`docs/03`).
 
@@ -118,6 +119,8 @@ Two filled examples (real, 2026-06-05):
 
 The `vintage_or_accessed_at` for any substrate ref is the `_meta.as_of` envelope every tool returns. Never drop it — it is what makes the claim auditable later.
 
+**Form-layer quarantine**: material from `resources/_reference/`, `_style/`, or `_craft/` is **never** a valid `source_ref` — no `source_type`, no `role` admits it. A claim grounded in an exemplar is a **blocked claim**, same severity as the descriptive-context trap above. (A `_craft`-generated plot is a set of claims: every plotted series needs its own substrate/external `source_ref` with `as_of`.)
+
 ## Activation Boundary
 
 Actor/account context matters, but it should not change the analytical method.
@@ -126,8 +129,8 @@ Actor/account context matters, but it should not change the analytical method.
 methodology resource
   -> validates the insight claim
 
-contacts / account context
-  -> routes and renders the validated insight
+contacts / account context + the form layer (_style contracts · _craft plots · _reference exemplars)
+  -> routes and renders the VALIDATED insight (and only then loads)
 ```
 
-Do not write email copy before the applied insight has passed review.
+Do not render **any** contract format — email copy, blog, post, brief — before the applied insight has passed review. The render side may never change the analytical method.

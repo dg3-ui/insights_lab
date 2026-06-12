@@ -26,12 +26,13 @@ The MCP surface is a **floor, not a ceiling**. Whenever you hit "this call / fie
 ## Key Conventions
 
 - **Ground or downgrade** — no tool result / named source ⇒ commentary, not an insight.
-- **Label every input's job**: grounds · frames (never proof) · routes · external · logic (`learning/02`).
+- **Label every input's job**: grounds · frames (never proof) · routes · external · logic · form (never grounding) (`learning/02`).
 - **Claim grammar**: condition + scoped entities + mechanism + evidence + confidence + caveat + actor relevance.
 - **Content is downstream of validated insight**: insight → gate → render, never the reverse (`08` P2).
 - **Stable methodology, swappable execution** — absorb LLM advances by swapping the engine, not the discipline (`08` P1).
 - **Naming**: slug/folder `snake_case` (`el_nino_enso`) = `resource.yml.identity.slug`; published Skill `name` `kebab-case` (`el-nino-enso`).
 - **House doc style**: `> **Status**` header, ASCII diagrams, terse tables, `See also` footer.
+- **`_`-prefixed `resources/` folders are shared layers, not packages** (`_principles` rubric/voice · `_style` brand/contracts · `_craft` plots · `_reference` exemplars) — no `resource.yml`/slug, composed at session time; only `_principles` loads pre-gate; none ever grounds a claim. Packages carry ONLY the method.
 - **`resources/_reference/` is form, not facts** — exemplars feed rendering + eval, never grounding.
 
 ## Don'ts

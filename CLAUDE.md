@@ -48,7 +48,7 @@ Four layers, repo → served → runtime → output (full diagram: `docs/06_arch
 LAYER 0  SOURCE      this repo: authored, versioned methodology packages
 LAYER 1  SERVED      InfraSure MCP (data tools, live) + skill catalog (one skill per package)
 LAYER 2  RUNTIME     a Claude session: discover → load → ground → assemble → GATE  (a LOOP, w/ human checkpoint)
-LAYER 3  OUTPUT      the content engine: blog · email · card · post — renderings of a VALIDATED insight only
+LAYER 3  OUTPUT      the content engine: blog · brief · email · post (the _style output contract) — renderings of a VALIDATED insight only
 ```
 
 The load-bearing seam is `resource.yml` (taxonomy → discovery, prompt sections → the served method, confidence_rules + blocked_claims → the gates). Keep the **methodology layer stable** and the **execution layer (model, orchestration, delivery, phrasing) swappable** — that is how the project absorbs LLM advances without rebuilding (`08` P1).
@@ -57,11 +57,12 @@ The load-bearing seam is `resource.yml` (taxonomy → discovery, prompt sections
 
 - **House doc style.** Every doc opens with a `> **Status**` blockquote, reasons in ASCII diagrams + tight tables, stays terse and grounded, and ends with a `See also` footer. Match it.
 - **Ground or downgrade.** A claim with no tool result / named source is commentary, not an insight. Cross every material number to a structured field.
-- **Label every input's job** before citing it: *grounds* (capacity, CF, PPA) · *frames* (descriptions, Wikipedia — never proof) · *routes* (owner, offtaker) · *external* (NOAA) · *logic* (crosswalks). (`learning/02`.)
+- **Label every input's job** before citing it: *grounds* (capacity, CF, PPA) · *frames* (descriptions, Wikipedia — never proof) · *routes* (owner, offtaker) · *external* (NOAA) · *logic* (crosswalks) · *form* (`resources/_*` — shapes the rendering, never grounding). (`learning/02`.)
 - **The claim grammar**: condition + scoped entities + mechanism + evidence + confidence + caveat + actor relevance. A slot you can't fill is a downgrade or a blocked claim.
 - **Content is downstream of validated insight** — always insight → gate → render, never the reverse (`08` P2).
 - **Naming.** Package/slug is `snake_case` (`el_nino_enso`); the published Skill `name` is `kebab-case` (`el-nino-enso`). Folder name MUST equal `resource.yml.identity.slug`.
 - **One domain folder + faceted tags.** A resource lives in one driver-grouped `domain/` folder, tagged with family · drivers · actors (`resources/README.md`).
+- **`_`-prefixed `resources/` folders are shared layers, not packages** — no `resource.yml`/slug, composed at session time: `_principles` (rubric · voice) loads at draft; `_style` · `_craft` · `_reference` load post-gate only. Packages carry ONLY the method (`resources/README.md`, the underscore rule).
 - **`resources/_reference/` is form, not facts** — competitor/LinkedIn exemplars feed rendering + eval, quarantined from any claim's grounding.
 
 ## Don'ts

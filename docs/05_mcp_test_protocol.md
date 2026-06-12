@@ -4,7 +4,7 @@
 >
 > **Purpose**: define how to test a methodology resource manually with Claude and existing InfraSure MCP/data tools.
 >
-> **Companion**: `docs/learning/01_mcp_basics.md` (the tool surface) and `04_prompt_projection.md` (the surface under test).
+> **Companion**: `docs/learning/01_mcp_basics.md` (the tool surface), `04_prompt_projection.md` (the surface under test), and `resources/_principles/rubric.md` (the scoring layer the checkpoint applies).
 
 ## Test Goal
 
@@ -30,22 +30,29 @@ Before running a test, confirm:
 - `data_requirements.md` names required inputs
 - `prompt_projection.md` is concise and pasteable
 - `examples/applied_insight_001.md` shows the target output shape
+- `resources/_principles/` (rubric + voice) is loaded alongside the projection — the only shared layer loaded before the gate (`_style`/`_craft`/`_reference` are post-gate, render-side)
+- the output contract is **declared** — the `direction × audience × format` tuple named at test start (`resources/_style/output_contracts.md` §1; *naming* the tuple, not loading `_style`)
 - the test question is scoped to one region, asset set, company, or offtaker
 
 ## Manual Test Flow
 
 ```text
 1.  Open Claude with InfraSure MCP/data tools available.
-2.  Load or paste prompt_projection.md.
+2.  Load or paste prompt_projection.md (+ resources/_principles/ — rubric and voice).
 3.  Provide the test question.
 4.  Ask Claude to identify required data/tools before drafting.
 5.  Let Claude retrieve data using available tools.
 6.  Ask Claude to draft the applied insight.
 7.  Review each claim against source refs and methodology rules.
 8.  ITERATE — enrich, re-scope, or challenge; a one-shot draft is rarely the product (see below).
-9.  Save the FULL transcript (raw source), not just the final output.
-10. Record the resolved result in test_runs/test_run_NNN.md.
-11. Record learning in docs/learning/logs/.
+9.  SELF-CRITIQUE, stage 1 (≤2 passes, style only): the model checks the draft against the
+    9-section skeleton — structure conformance, not prose polish. Accuracy is NEVER self-judged
+    (resources/_principles/rubric.md §2); the human at step 7 stays the accuracy judge.
+10. SCORE THE RUBRIC — the human records pass/flag/fail on the 5 criteria (rubric.md §1).
+    Render-stage criteria (format-vs-contract, presentability) are fully scored only post-gate.
+11. Save the FULL transcript (raw source, INCLUDING the critique turns), not just the final output.
+12. Record the resolved result in test_runs/test_run_NNN.md.
+13. Record learning in docs/learning/logs/.
 ```
 
 **Iteration is expected, not a failure** (`08_design_principles.md` P4). The first draft is a draft. The enrichment that makes an insight useful happens in the loop, and the human checkpoint in that loop is the product, not overhead. Do not treat "it needed three turns" as a defect — treat the turns as the most valuable thing the test produced.
@@ -89,8 +96,9 @@ Avoid:
 
 - national all-asset scans
 - exact LMP forecasts
-- automated email drafting
-- unbounded "write an article" prompts
+- **un-gated rendering** — email/blog/post copy before the insight passes the gate (a declared
+  contract rendering of a *gated* insight is `/render`'s job, not banned — `docs/08` P2)
+- unbounded "write an article" prompts (an article is a post-gate rendering, never the test ask)
 
 ## Pass / Fail Criteria
 
@@ -114,6 +122,8 @@ Fail means:
 - the output jumps directly to outreach copy
 - the resource does not constrain the model's reasoning
 
+**The rubric sits on top, never instead.** This binary pass/fail is the gate. The 5-criteria rubric (`resources/_principles/rubric.md` — format · relevancy · usefulness · accuracy-with-calibration · presentability, scored pass/flag/fail) is a per-run scoring layer recorded in the test record; a good rubric score never overrides a gate fail.
+
 ## Failure Taxonomy
 
 Log every failure as one of the following. The right-hand column is a real or concrete example to calibrate against:
@@ -126,6 +136,8 @@ Log every failure as one of the following. The right-hand column is a real or co
 | Context gap | Actor, offtaker, company, or descriptive context was missing | queue rows return `developer: null` (DARDEN, UMBRIEL…) — no actor to route to |
 | Prompt gap | The prompt projection was too broad, vague, or verbose | model wrote prose with no `plant_id`s — projection didn't force retrieval |
 | Review gap | The output could not be judged because refs/confidence/caveats were unclear | a claim with no `source_ref` or `as_of` to check against |
+| Style/contract gap | The output ignored its declared shape or the voice rules | draft missing skeleton sections; rendered output off-contract (wrong structure/length/tone); AI-tell prose (`_principles/voice.md`) |
+| Craft/plot gap | A chart violated the grounded-plot rules | a plotted series with no `source_ref`/`as_of`; a chart of a blocked quantity (forecast $/MWh) |
 
 **MCP/tool gaps are roadmap inputs, not dead ends** (see `docs/learning/01_mcp_basics.md`). Log them in three parts so they feed the expandable tool surface:
 
@@ -158,6 +170,33 @@ Three rules:
 
 The extracted `fail→fix` pairs map straight onto the Failure Taxonomy below: each becomes a concrete row, and each row that recurs is a candidate eval case.
 
+## Feedback Intake (suggestions from outside the loop)
+
+Feedback also arrives from **outside** the `/test-resource → /extract` loop — a build in another chat window, a colleague's review, owner notes. It is neither silently applied nor silently dropped; it runs the intake:
+
+```text
+1 CAPTURE    the feedback verbatim (or the source transcript) — raw source, kept (P3)
+2 TRIAGE     every item gets a verdict: accept · reject · defer · already-covered — WITH a reason.
+             Not every suggestion is useful; a reasoned REJECT is a first-class outcome, recorded.
+3 ROUTE      each accepted item to exactly ONE home:
+               voice / altitude        → resources/_principles/
+               envelope / brand        → resources/_style/        (contract cells · brand.md)
+               charts                  → resources/_craft/
+               form lesson / prompt    → resources/_reference/    (exemplars/ · prompts/)
+               tool gap                → docs/09  (gap · workaround · roadmap)
+               method / claims         → the package (resource.yml · blocked_claims)
+               process / protocol      → docs/05 (this file) · commands
+4 RECORD     the triage table → docs/learning/logs/<date>_<source>_intake.md
+             (template: templates/feedback_intake.template.md)
+5 ESCALATE   an accepted item that is STRUCTURAL — a new layer, a new contract cell, a new
+             decision, a re-sequencing — is NOT patched inline: it becomes a plan in docs/plans/
+             (or an amendment to the active plan's ladder). Small fixes route directly; structure
+             goes through a plan. When in doubt: if it changes a §1 decision or adds a folder,
+             it is a plan.
+```
+
+Three rules make this stick: **no canon edit without an intake record** (the record is what turns feedback into process data instead of drift — P3/P5); a batch that arrives as a *finished diff* (another session already edited the repo) gets its intake record **retroactively**, same table, plus a consistency cross-check for drift the edits left behind (skeletons, examples, sibling layers); and every feedback-driven edit **bumps the touched layer's version** and trips the staleness signal for dependents (`docs/03`).
+
 ## Test Record
 
 Each test record should include:
@@ -171,6 +210,9 @@ Each test record should include:
 - accepted claims
 - rejected or downgraded claims
 - failures found (by type above)
+- rubric scores (the 5 criteria, pass/flag/fail — `resources/_principles/rubric.md`)
+- self-critique delta (what the bounded style pass changed; ≤2 iterations)
+- composed shared-layer versions (e.g. `_principles v0.1`)
 - next fixes
 - link to the raw transcript (the source this record resolves)
 - extracted prompting moves / enrichment deltas / fail→fix pairs (the reusable yield)

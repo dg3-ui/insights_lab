@@ -1,8 +1,8 @@
 # Resources — Methodology Registry
 
-> **Status**: v0 registry, 2026-06-05.
+> **Status**: v0 registry, updated 2026-06-12 (shared layers added per `docs/plans/2026-06-11_layered_reference_v1.md`).
 >
-> **Purpose**: index every methodology resource by **domain · family · actor**, and define how new resources are placed. This is the `resources/` analog of the Learning vault's `_tag_taxonomy.md` + Maps of Content.
+> **Purpose**: index every methodology resource by **domain · family · actor**, define how new resources are placed, and define the **shared layers** (underscore folders) every resource composes with. This is the `resources/` analog of the Learning vault's `_tag_taxonomy.md` + Maps of Content.
 
 ## Organizing Model
 
@@ -20,16 +20,30 @@ A resource lives in exactly one **domain** folder and is *tagged* with its famil
 ```text
 resources/
 ├── README.md                  # this registry
-├── _reference/                # exemplar corpus (form, not facts) — feeds rendering + eval, NOT grounding
+├── _principles/               # shared layer: rubric · voice · altitude (loads at draft + render)
+├── _style/                    # shared layer: brand kit · output contracts (loads at render, post-gate)
+├── _craft/                    # shared layer: analytic plot generation (loads at render, post-gate)
+├── _reference/                # shared layer: exemplar corpus (form, not facts) — feeds rendering + eval, NOT grounding
 └── weather_and_climate/       # domain (driver-grouped)
-    └── el_nino_enso/          # self-contained package: resource.md/.yml/prompt_projection.md/examples/test_runs
+    └── el_nino_enso/          # package = METHOD ONLY: resource.md/.yml/prompt_projection.md/examples/test_runs
 ```
 
-`_reference/` is **not** a methodology domain — it is a style/eval library, quarantined from any claim's grounding (`_reference/README.md`, `docs/08_design_principles.md` P2). It sorts above the domain folders by the leading underscore.
+**The underscore rule.** A leading-underscore folder is a **shared cross-cutting layer, not a package**: no `resource.yml`, no slug, exempt from `folder == slug`, excluded from any publish scan / discovery index (`docs/07` §3), and registered in the Shared Layers table below — not in the resource Registry. Shared layers sort above the domain folders and are **composed at session time** (the same doctrine as persona views: a view, not a storage axis). Packages carry ONLY the method — voice, rubric, brand, output contracts, plot craft, and exemplars are never restated inside a package.
+
+## Shared Layers
+
+| Layer | Role | Feeds | Stage | Status |
+|---|---|---|---|---|
+| [`_principles/`](_principles/) | judging rubric · voice · altitude · anti-microprompting · show-don't-flaunt | the checkpoint's scoring · every drafting session | draft + render | ✅ v0.2 |
+| [`_style/`](_style/) | brand kit (Inter-primary) · output contracts (direction × audience × format) · artifact skeleton | rendering only | post-gate | ✅ v0.2 |
+| [`_craft/`](_craft/) | analytic plot generation — selection by question · blocked plots · grounded-plot rules · spatial fallback | rendering only | post-gate | ✅ v0.2 |
+| [`_reference/`](_reference/) | exemplar corpus — form, not facts | rendering + eval, **never** grounding | post-gate | README only; populates in plan Phase 4 |
+
+Quarantine: shared-layer material **never grounds a claim** — it is never a valid `source_ref` (`docs/04`). `_principles` is the only layer loaded before the gate.
 
 ## Planned Domains
 
-Materialize a domain folder when its **first** resource lands — not before (keep `resources/` from becoming a flat pile).
+Materialize a **domain** folder when its **first** resource lands — not before (keep `resources/` from becoming a flat pile). Shared `_` layers follow the same discipline against their own ladder: each materializes when its phase in the active plan lands.
 
 | Domain | External driver | Shared machinery | Example resources |
 |---|---|---|---|

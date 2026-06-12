@@ -88,6 +88,85 @@ observed:   inferred from 04_context_and_data_map + confidence_rules discipline 
 status:     open      kind: new tool / introspection
 ```
 
+### R6 — Brand assets not served via MCP
+
+```text
+gap:        rendered outputs need the brand kit (Inter / JetBrains Mono faces, palette, logo) in
+            every session; nothing serves it — fonts ride a CDN link, the logo is vendored SVG.
+workaround: brand vendored in resources/_style/ (brand.md + brand_assets/), composed post-gate.
+roadmap:    serve the brand kit as MCP resources (logo SVG, palette tokens, artifact skeleton) so
+            any session/agent renders on-brand without carrying files.
+observed:   docs/plans/2026-06-11_layered_reference_v1.md Phase 2 (2026-06-12)
+status:     open      kind: new tool / served asset
+```
+
+### R7 — No rendering/export tool (HTML artifact + DOCX assembled by hand)
+
+```text
+gap:        the canonical rendering is an HTML artifact hand-assembled from the skeleton each
+            session; DOCX export for client deliverables is manual. Artifact-sandbox font fetches
+            may also fail (the mandatory degradation stack covers it — _style/brand.md §1).
+workaround: brand_assets/artifact_skeleton.html + the output-contract envelopes; degrade to the
+            system grotesque stack when the font CDN is blocked.
+roadmap:    a render/export tool: validated insight object + contract tuple → styled HTML/DOCX,
+            with the gate precondition enforced at the tool layer (not prompt-level).
+observed:   docs/plans/2026-06-11_layered_reference_v1.md Phase 2 (2026-06-12)
+status:     open      kind: new tool / rendering
+```
+
+### R8 — `aggregate` cannot group_by county
+
+```text
+gap:        aggregate group_by = state | fuel | iso | technology | status | owner only.
+            No COUNTY. The top-down ENSO build wanted county concentration (Riverside,
+            San Bernardino, Kern) — the geography the signal actually lands on.
+workaround: pull flagship plants and read each one's county field; cannot get a county rollup.
+roadmap:    add `county` (and ideally `ba`/`nerc`) to aggregate group_by, so exposure can be
+            rolled to the sub-state geography an Exposure piece leads with.
+observed:   InfraSure_ENSO_California_Solar build (2026-06-12)
+status:     open      kind: field/coverage gap
+```
+
+### R9 — `aggregate(group_by=owner)` does not canonicalize parents
+
+```text
+gap:        owner rollup returned "Intersect" (2,586 MW) and "Intersect Power" (1,336 MW) as
+            SEPARATE owners (substring/canonical_owner). Risk of splitting one parent's book,
+            or double-counting, in any concentration claim.
+workaround: name owners as returned; flag the split in text; do not sum across look-alikes.
+roadmap:    parent-level canonicalization for the owner dimension (map aliases → UBO), or expose
+            a parent_id to group on. Pairs with the 4-layer ownership chain get_plant already has.
+observed:   InfraSure_ENSO_California_Solar build (2026-06-12)
+status:     open      kind: field/coverage gap
+```
+
+### R10 — No served geometry for a real map
+
+```text
+gap:        a true geographic choropleth (the owner-requested CONUS map) needs state/county
+            centroids or simplified boundaries; the MCP serves none, and the sandbox lacks
+            Chrome/geopandas, so only a schematic tile-grid is renderable in-session.
+workaround: matplotlib statebin tile-grid (the _craft spatial fallback) keyed to aggregate GW.
+roadmap:    serve lightweight geometry (state/county centroids + simplified polygons) as an MCP
+            resource so the render tool (R7) can draw an accurate map. Data side of R7.
+observed:   InfraSure_ENSO_California_Solar build (2026-06-12)
+status:     open      kind: new tool / served asset
+```
+
+### R11 — News corpus does not index climate / weather signals
+
+```text
+gap:        search_news for "El Nino / ENSO / winter" → 0 articles. The ~57K-article corpus
+            indexes deal/construction/regulatory lanes, not climate-driver signals, so a
+            weather-driven Exposure piece gets no corroborating news.
+workaround: rely on the external NOAA pull + substrate; omit the news channel; do NOT confess
+            the gap in client copy (voice §5).
+roadmap:    a climate/weather lane in the news classifier (NWS alerts already flow into the
+            platform pipeline upstream — surface + link them per plant/region).
+observed:   InfraSure_ENSO_California_Solar build (2026-06-12)
+status:     open      kind: field/coverage gap
+```
+
 ---
 
 **See also**: `learning/01_mcp_basics.md` (the floor-not-ceiling thesis + the gap-log format), `05_mcp_test_protocol.md` (the failure taxonomy each gap maps to), `06_architecture.md` §11 (the tool roadmap these entries feed), `08_design_principles.md` P3 (why this is resolved data, not instruction), `CLAUDE.md` (the standing instruction to log here).

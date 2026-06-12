@@ -43,6 +43,8 @@ Each bucket is produced **internal-team first**, then a **customer / public** su
 
 **Rule (`08` P2):** the internal read is the source of truth; the customer/public artifact is a *rendering* of it. Nothing is published externally that has not passed the gate internally first.
 
+**Refinement (2026-06-12, the layered-reference plan):** the customer/public level splits into **`client`** (a named account — briefs, curated email) and **`public`** (blog, post). The operational form of this whole grid is the output-contract matrix `direction × audience(internal | client | public) × format(blog | brief | email | post)` in `resources/_style/output_contracts.md`. Two instruments, not one: the **rubric** (`resources/_principles/rubric.md`) scores any rendered artifact's quality; the **with/without method** below proves the moat — quality vs. reachability, neither replaces the other.
+
 ## The Connection — one cycle, not two silos
 
 ```text
@@ -97,7 +99,9 @@ V0 deliberately picks a **subset**:
    later =  Bucket 2 (top-down) · customer/public renderings · multi-resource
 ```
 
-The full V0 cut and its boundary live in `01_scope_v0.md` (which also carries the four-plot panorama).
+**Reconciliation (2026-06-12):** Test Run 001 actually ran **top-down** by this doc's own definitions — a phenomenon → fleet scan (El Niño → CA ≥50 MW solar), not an asset-anchored drill. The V0 slice label was wrong on direction; the record stands corrected here rather than rewritten. The genuinely missing slice is **bottom-up**, completed by the layered-reference plan's Phase 5; the top-down contract cells are live first (`resources/_style/output_contracts.md`).
+
+The full V0 cut and its boundary live in `01_scope_v0.md` (which also carries the four-plot panorama). The "later" line above is now governed by **`docs/plans/2026-06-11_layered_reference_v1.md`**, which deliberately ships the top-down + client/public *contracts* ahead of multi-resource.
 
 ---
 

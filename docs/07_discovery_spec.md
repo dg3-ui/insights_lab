@@ -51,7 +51,7 @@ SkillIndexRecord {
 
 **Description cap**: `description` is the platform-capped (≤1024-char) model-facing field, so it is *intentionally* the match text; the publish step should lint a warning when a description nears the cap (and may later also match `title` + `drivers`).
 
-**Index lifecycle**: the index — the `SkillIndexRecord` set **plus** the §7 alias map — is one artifact, **fully rebuilt** by every publish from a full scan of `resources/` (not incrementally patched); a removed or deprecated package drops/flags its record on the next publish (the §6 rows consume the flag). The index carries a build timestamp + content hash, echoed in `find_methodology`'s `query_echo`, so a running session can confirm which index vintage it queried. This extends `06` §13 #4 atomicity from per-resource to the whole-catalog index.
+**Index lifecycle**: the index — the `SkillIndexRecord` set **plus** the §7 alias map — is one artifact, **fully rebuilt** by every publish from a full scan of `resources/` (not incrementally patched). The scan covers **package folders only**: leading-underscore folders (`_principles` · `_style` · `_craft` · `_reference`) are shared layers, not packages — no `resource.yml`, no slug, never a `SkillIndexRecord`; the `folder == slug` assertion applies to packages only (`resources/README.md`, the underscore rule). A removed or deprecated package drops/flags its record on the next publish (the §6 rows consume the flag). The index carries a build timestamp + content hash, echoed in `find_methodology`'s `query_echo`, so a running session can confirm which index vintage it queried. This extends `06` §13 #4 atomicity from per-resource to the whole-catalog index.
 
 ## 4. `find_methodology` — Contract
 

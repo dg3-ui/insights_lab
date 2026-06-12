@@ -152,6 +152,8 @@ external input    -> supplies causal state    (NOAA ENSO)
 descriptive       -> frames only              (LLM description, Wikipedia)
 actor context     -> routes / activates       (offtaker, owner, investor)
 logic / crosswalk -> converts inputs to claims (thresholds, region map, confidence rules)
+form              -> shapes the rendering     (resources/_* — exemplars, brand, contracts, plot
+                                               rules; never grounds; post-gate except _principles)
 ```
 
 If you cannot say which job a field does, you cannot yet cite it.
