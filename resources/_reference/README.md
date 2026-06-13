@@ -6,7 +6,7 @@
 >
 > **Two reference kinds** (both quarantined the same way):
 > - **`exemplars/`** — pieces whose *form* we imitate (structure, hook, caveat style).
-> - **`prompts/`** — the *messaging that traveled with the references* and produced good output (prompting moves, `docs/08` P3 process data); each entry maps its moves to the shared layer that absorbed them.
+> - **`prompts/`** — the *messaging that traveled with the references* and produced good output (prompting moves, `../../docs/principles.md` P3 process data); each entry maps its moves to the shared layer that absorbed them.
 
 ## The One Rule: Form, Not Facts
 
@@ -21,7 +21,7 @@ length / tone for an audience
 
 A competitor's insight can show us *how to say it well*. It can **never** be the source behind one of our claims. Every grounded claim still traces to the InfraSure substrate + a named external source (`docs/learning/02_infrasure_data_substrate.md`). This is the same `grounds / frames / routes` discipline applied to outside material — a reference exemplar **frames** style only.
 
-The trap to avoid: ingesting a competitor note and parroting its *assertions* instead of its *form*. Extract the structure; discard the claims. (`08_design_principles.md` P2: content is downstream of validated insight; this corpus feeds rendering, never grounding.)
+The trap to avoid: ingesting a competitor note and parroting its *assertions* instead of its *form*. Extract the structure; discard the claims. (`../../docs/principles.md` P2: content is downstream of validated insight; this corpus feeds rendering, never grounding.)
 
 ## What It Feeds
 
@@ -66,4 +66,4 @@ resources/_reference/
 
 ---
 
-**See also**: `docs/08_design_principles.md` (P2: content downstream of insight), `docs/learning/02_infrasure_data_substrate.md` (grounds / frames / routes), `docs/02_analysis_catalog.md` (the families a strong rendering should still respect).
+**See also**: `../../docs/principles.md` (P2: content downstream of insight), `docs/learning/02_infrasure_data_substrate.md` (grounds / frames / routes), `../../docs/method/analysis_families.md` (the families a strong rendering should still respect).

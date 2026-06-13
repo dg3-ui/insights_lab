@@ -4,7 +4,7 @@
 >
 > **Role**: the shared **judging and voice layer** — the canonical output rubric, the bounded self-critique rules, and the house voice/altitude discipline. Cross-cutting: applies to every phenomenon package (ENSO, drought, grid studies…), which is why it lives here and not inside any of them.
 >
-> **Not a package**: no `resource.yml`, no slug, never indexed for discovery (`docs/07` §3). It is a shared layer per the underscore rule in `resources/README.md`.
+> **Not a package**: no `resource.yml`, no slug, never indexed for discovery (`../../docs/method/discovery_spec.md` §3). It is a shared layer per the underscore rule in `resources/README.md`.
 
 ## Stage Placement
 
@@ -14,7 +14,7 @@ loads at DRAFT/TEST                      stays loaded through RENDER
   stage-1 self-critique (skeleton only)    stage-2 self-critique (contract cell)
 ```
 
-`_principles` is the only shared layer loaded **before** the gate. `_style` / `_craft` / `_reference` load **post-gate only** (`docs/04` Activation Boundary). Loading this layer is part of the pre-test checklist (`docs/05`).
+`_principles` is the only shared layer loaded **before** the gate. `_style` / `_craft` / `_reference` load **post-gate only** (`../../docs/method/data_map.md` Activation Boundary). Loading this layer is part of the pre-test checklist (`../../docs/process/test_protocol.md`).
 
 ## Contents
 
@@ -26,18 +26,18 @@ loads at DRAFT/TEST                      stays loaded through RENDER
 ## What This Layer Feeds
 
 ```text
-rubric.md  ──► the human checkpoint's scoring step (docs/05 flow) ──► test_run records
-           ──► /gate-check (when built, docs/10) — the INDEPENDENT accuracy judge
+rubric.md  ──► the human checkpoint's scoring step (../../docs/process/test_protocol.md flow) ──► test_run records
+           ──► /gate-check (when built, ../../docs/process/commands.md) — the INDEPENDENT accuracy judge
 voice.md   ──► every drafting session (loaded with the projection)
            ──► every rendering (the humanization rules bind output prose)
 ```
 
-What it must **never** do: override a package's `blocked_claims` / `confidence_rules` / `caveats` (those stay per-resource, `docs/03`), or ground a claim (this layer is FORM/logic, not evidence — `docs/04`).
+What it must **never** do: override a package's `blocked_claims` / `confidence_rules` / `caveats` (those stay per-resource, `../../docs/method/resource_standard.md`), or ground a claim (this layer is FORM/logic, not evidence — `../../docs/method/data_map.md`).
 
 ## Versioning
 
-The version in the Status line is bumped on any material change; test runs record which version they composed (`templates/mcp_test_run.template.md`). A version change here is a staleness signal for resources validated against the old one (`docs/03`).
+The version in the Status line is bumped on any material change; test runs record which version they composed (`templates/mcp_test_run.template.md`). A version change here is a staleness signal for resources validated against the old one (`../../docs/method/resource_standard.md`).
 
 ---
 
-**See also**: `../README.md` (the underscore-layer rule + Shared Layers table), `../../docs/05_mcp_test_protocol.md` (where the rubric scores land), `../../docs/08_design_principles.md` (P2/P4 — the gate order and the loop this layer serves), `../../docs/plans/2026-06-11_layered_reference_v1.md` (D1/D2/D6 — the decisions this layer implements).
+**See also**: `../README.md` (the underscore-layer rule + Shared Layers table), `../../docs/process/test_protocol.md` (where the rubric scores land), `../../docs/principles.md` (P2/P4 — the gate order and the loop this layer serves), `../../docs/plans/2026-06-11_layered_reference_v1.md` (D1/D2/D6 — the decisions this layer implements).

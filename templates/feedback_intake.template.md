@@ -1,6 +1,6 @@
 # Feedback Intake — <source> (<YYYY-MM-DD>)
 
-> **Status**: intake record (`docs/05` §Feedback Intake).
+> **Status**: intake record (`../docs/process/test_protocol.md` §Feedback Intake).
 >
 > **Source**: <who/where — e.g. owner review of build X · colleague notes · another session's diff> · **Captured**: <link to transcript / verbatim block / the source session's log>.
 >
@@ -32,4 +32,4 @@ What the edits left inconsistent — skeletons, examples, sibling layers, regist
 
 ---
 
-**See also**: `docs/05_mcp_test_protocol.md` §Feedback Intake (the procedure), `docs/learning/logs/` (where this record lives), `docs/09_mcp_roadmap.md` (tool gaps routed there).
+**See also**: `../docs/process/test_protocol.md` §Feedback Intake (the procedure), `docs/learning/logs/` (where this record lives), `../docs/status/mcp_gaps.md` (tool gaps routed there).

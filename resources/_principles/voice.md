@@ -20,7 +20,7 @@ caveats owned, not buried                    hedging that hides the claim ("it c
 "watch X next" — a forward hook               argued that…")
 ```
 
-The reader should finish a paragraph knowing **what is claimed, on what evidence, with what confidence** — the claim grammar (`docs/03`) wearing prose.
+The reader should finish a paragraph knowing **what is claimed, on what evidence, with what confidence** — the claim grammar (`../../docs/method/resource_standard.md`) wearing prose.
 
 ## §2 · Humanization Rules (the AI tells)
 
@@ -40,7 +40,7 @@ The calibration discipline that defines accuracy's character (rubric criterion 4
 TOO PRECISE                                  TOO GENERAL
 "a 4.7% winter generation loss"              "El Niño may affect US electricity markets"
 an exact, unmodeled number INVITES the       so hedged it claims nothing; commentary,
-question mark it cannot survive — if no      not insight (docs/02: needs an entity, an
+question mark it cannot survive — if no      not insight (../../docs/method/analysis_families.md: needs an entity, an
 model produced it, it is a BLOCKED claim     ID, or a field to stand up)
 
                     THE RIGHT ALTITUDE
@@ -53,7 +53,7 @@ When in doubt, go one level more specific on the **entities** and one level more
 
 ## §4 · Anti-Microprompting (the doctrine)
 
-How this whole layer is *used*. We do not script the model token-by-token — that is brittle, model-bound, and dies at the next release (`docs/08` P1).
+How this whole layer is *used*. We do not script the model token-by-token — that is brittle, model-bound, and dies at the next release (`../../docs/principles.md` P1).
 
 ```text
 GIVE THE MODEL                               DO NOT GIVE THE MODEL
@@ -63,11 +63,11 @@ constraints    blocked claims · the rubric   "say exactly this, then this"
                · these voice rules           rules that encode one model's quirks
 ```
 
-The test of a good instruction: it would still produce the right artifact on a different model. If a rule only works by over-constraining phrasing, it belongs in the bin, not the canon. Flexibility lives in the wording; discipline lives in the claims (`docs/08` P5).
+The test of a good instruction: it would still produce the right artifact on a different model. If a rule only works by over-constraining phrasing, it belongs in the bin, not the canon. Flexibility lives in the wording; discipline lives in the claims (`../../docs/principles.md` P5).
 
 ## §5 · Audience Discipline — Show, Don't Flaunt (owner feedback, 2026-06-12)
 
-A rendered insight **demonstrates** value; it never **advertises** it. The reachability argument — "a general model can't do this", "15,000 plants", "unreachable without us" — is the **sales narrative** (the pitch deck, the with/without method in `docs/11`), not customer copy. Even when the artifact is produced internally, write it as the thing you would hand a client.
+A rendered insight **demonstrates** value; it never **advertises** it. The reachability argument — "a general model can't do this", "15,000 plants", "unreachable without us" — is the **sales narrative** (the pitch deck, the with/without method in `../../docs/use_cases.md`), not customer copy. Even when the artifact is produced internally, write it as the thing you would hand a client.
 
 ```text
 DON'T (flaunting the moat)                   DO (showing it)
@@ -83,4 +83,4 @@ DON'T (flaunting the moat)                   DO (showing it)
 
 ---
 
-**See also**: `rubric.md` (criterion 5 cites §1–§2; criterion 4 cites §3), `../../docs/08_design_principles.md` (P1 stable-vs-volatile — §4 is its prompting corollary), `../../docs/03_methodology_resource_standard.md` (the claim grammar §1 puts into prose), `../_reference/` (the exemplar corpus that *shows* what §1 tells).
+**See also**: `rubric.md` (criterion 5 cites §1–§2; criterion 4 cites §3), `../../docs/principles.md` (P1 stable-vs-volatile — §4 is its prompting corollary), `../../docs/method/resource_standard.md` (the claim grammar §1 puts into prose), `../_reference/` (the exemplar corpus that *shows* what §1 tells).

@@ -5,15 +5,15 @@ argument-hint: <slug> [optional narrow question, e.g. "CAISO solar >=50MW this w
 
 You are running a **manual MCP test** on an existing InfraSure Insight resource: **$ARGUMENTS**
 
-This is the lab's heartbeat — the discover→ground→assemble→GATE loop, exercised on its own (not as part of authoring). It is a **loop, not a one-shot** (`docs/05`, `docs/08` P4). It conducts `docs/05_mcp_test_protocol.md`; follow it, do not duplicate it.
+This is the lab's heartbeat — the discover→ground→assemble→GATE loop, exercised on its own (not as part of authoring). It is a **loop, not a one-shot** (`../../docs/process/test_protocol.md`, `../../docs/principles.md` P4). It conducts `../../docs/process/test_protocol.md`; follow it, do not duplicate it.
 
 ## STEP 0 — RESOLVE THE TARGET
 
 - Parse `$ARGUMENTS`: first token = resource **slug**; the rest (if any) = the narrow test question.
 - Open `resources/<domain>/<slug>/` and load: `prompt_projection.md`, `knowledge.md`, `data_requirements.md`. If the slug is unknown, list the `resources/README.md` registry and ask which one.
-- If no question was given, propose one in the `docs/05` shape: **one region · one asset class**. Never a national/all-asset scan.
+- If no question was given, propose one in the `../../docs/process/test_protocol.md` shape: **one region · one asset class**. Never a national/all-asset scan.
 
-## STEP 1 — PRE-TEST CHECKLIST (`docs/05`)
+## STEP 1 — PRE-TEST CHECKLIST (`../../docs/process/test_protocol.md`)
 
 - `prompt_projection.md` is concise and pasteable · `data_requirements.md` names the inputs · the question is narrow. If a piece is missing, fix the resource first (or fall back to `/new-resource`).
 
@@ -25,11 +25,11 @@ This is the lab's heartbeat — the discover→ground→assemble→GATE loop, ex
 
 ## STEP 3 — ITERATE (the loop is the product)
 
-- Enrich, re-scope, challenge. A one-shot draft is a draft. The human checkpoint in this loop *is* the product, not overhead (`docs/08` P4).
+- Enrich, re-scope, challenge. A one-shot draft is a draft. The human checkpoint in this loop *is* the product, not overhead (`../../docs/principles.md` P4).
 
 ## STEP 4 — SAVE THE RAW TRANSCRIPT
 
-- Save the **full transcript** (every turn, tool calls, dead ends) as raw source to `resources/<domain>/<slug>/test_runs/transcripts/<run>.md` (`docs/08` P3). This is the source `/extract` later resolves.
+- Save the **full transcript** (every turn, tool calls, dead ends) as raw source to `resources/<domain>/<slug>/test_runs/transcripts/<run>.md` (`../../docs/principles.md` P3). This is the source `/extract` later resolves.
 
 ---
 
@@ -39,17 +39,17 @@ This is the lab's heartbeat — the discover→ground→assemble→GATE loop, ex
 
 ## STEP 5 — RECORD (resolve into the test run)
 
-- Scaffold the next `test_runs/test_run_NNN.md` from `templates/mcp_test_run.template.md`. Record: loaded files (incl. composed shared-layer versions) · tools/data used · accepted claims · rejected/downgraded claims · failures by the `docs/05` taxonomy · rubric scores + self-critique delta (`resources/_principles/rubric.md`) · next fixes · link to the raw transcript.
+- Scaffold the next `test_runs/test_run_NNN.md` from `templates/mcp_test_run.template.md`. Record: loaded files (incl. composed shared-layer versions) · tools/data used · accepted claims · rejected/downgraded claims · failures by the `../../docs/process/test_protocol.md` taxonomy · rubric scores + self-critique delta (`resources/_principles/rubric.md`) · next fixes · link to the raw transcript.
 - (For the deep extraction — prompting moves, enrichment deltas, fail→fix pairs — run **`/extract`** on the saved transcript.)
 
 ## STEP 6 — CLOSE THE LOOPS
 
-- Any empty result / unwired filter / missing field ⇒ a tool gap: log it to `docs/09_mcp_roadmap.md` (`gap · workaround · roadmap`), use the workaround, keep moving.
+- Any empty result / unwired filter / missing field ⇒ a tool gap: log it to `../../docs/status/mcp_gaps.md` (`gap · workaround · roadmap`), use the workaround, keep moving.
 - Log learning under `docs/learning/logs/`.
 
-## Guardrails (`docs/08` + `CLAUDE.md` don'ts)
+## Guardrails (`../../docs/principles.md` + `CLAUDE.md` don'ts)
 
 - **Ground or downgrade.** Review every claim against `blocked_claims` + the gate: source ref + `as_of` present? confidence capped at the weakest input? caveats attached? **no `$/MWh`/LMP from a driver alone, no plant-level forecast without a model, no causal-where-directional.**
-- One region / one asset class. No **un-gated** rendering here — a contract rendering of a *gated* insight is `/render`'s job, after the gate (`docs/05` Avoid list, `docs/08` P2). Don't trust tool labels — verify the entity is the one you wanted.
+- One region / one asset class. No **un-gated** rendering here — a contract rendering of a *gated* insight is `/render`'s job, after the gate (`../../docs/process/test_protocol.md` Avoid list, `../../docs/principles.md` P2). Don't trust tool labels — verify the entity is the one you wanted.
 
 **Deliverable**: a saved transcript + a filled `test_run_NNN.md`, with gaps logged and learning recorded. To turn the transcript into reusable process data, run `/extract`.

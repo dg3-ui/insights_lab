@@ -1,18 +1,18 @@
-# 09 - MCP Roadmap Ledger
+# MCP Gap Ledger
 
 > **Status**: living ledger, opened 2026-06-05.
 >
 > **Purpose**: the persistent home for "this MCP call / field / filter would be super useful" — the agent's back-of-mind for the tool surface. Every gap or idea hit while authoring or testing a resource lands here, so the *expandable floor* (`learning/01`) actually accumulates instead of evaporating at the end of a session.
 >
-> **This is data, not instruction.** The *instruction* to log here lives in `CLAUDE.md` / `AGENTS.md`; this file is the resolved ledger it feeds (`08_design_principles.md` P3).
+> **This is data, not instruction.** The *instruction* to log here lives in `CLAUDE.md` / `AGENTS.md`; this file is the resolved ledger it feeds (`../principles.md` P3).
 
 ## Why This File Exists
 
-A model has no memory between sessions. An MCP gap noticed today is gone tomorrow unless it is written down. This ledger is the tool-surface analog of what `test_runs/` extraction is to the methodology: **resolved feedback that grows the platform** (`06_architecture.md` §11 tool roadmap). Each entry is also a roadmap input for the post-V0 in-house track (`01_scope_v0.md`).
+A model has no memory between sessions. An MCP gap noticed today is gone tomorrow unless it is written down. This ledger is the tool-surface analog of what `test_runs/` extraction is to the methodology: **resolved feedback that grows the platform** (`capabilities.md` (the capability roadmap)). Each entry is also a roadmap input for the post-V0 in-house track (`../use_cases.md`).
 
 ## How To Add An Entry
 
-Every entry has the three-part shape from `learning/01_mcp_basics.md` + `05_mcp_test_protocol.md`, plus where it was observed and a status:
+Every entry has the three-part shape from `../learning/01_mcp_basics.md` + `../process/test_protocol.md`, plus where it was observed and a status:
 
 ```text
 gap/idea:   what the surface can't do, or what would help
@@ -36,7 +36,7 @@ workaround: scope by state="CA" (CA ≈ CAISO, minus LADWP/SMUD/IID), then confi
             regions.iso_rto via get_plant.
 roadmap:    wire the search_plants ISO filter to the existing per-plant region join, OR add a
             resolve_region tool. This single fix turns the surface from 12 tools toward 13.
-observed:   learning/01_mcp_basics.md + test_run_001 (2026-06-05)
+observed:   ../learning/01_mcp_basics.md + test_run_001 (2026-06-05)
 status:     open      kind: filter
 ```
 
@@ -60,7 +60,7 @@ gap:        search_projects rows return developer: null across DARDEN / UMBRIEL 
 workaround: omit actor relevance where absent; do NOT infer a developer. Flag as a context gap.
 roadmap:    extend resolved-fact coverage onto queue projects (find_by_extracted_fact over projects),
             or expose a coverage flag so the agent knows when routing is simply unavailable.
-observed:   02_analysis_catalog.md (Development Risk) (2026-06-05)
+observed:   ../method/analysis_families.md (Development Risk) (2026-06-05)
 status:     open      kind: field/coverage gap
 ```
 
@@ -84,7 +84,7 @@ idea:       the agent cannot cheaply ask "what fraction of this scoped fleet has
 workaround: drill plants until a pattern is obvious; expensive and ad hoc.
 roadmap:    a coverage(entity, fields, filter) call returning fill-rates per field over a scope, so the
             confidence-cap-for-missing-context rule (08 P-data / confidence_rules) can fire deterministically.
-observed:   inferred from 04_context_and_data_map + confidence_rules discipline (2026-06-05)
+observed:   inferred from ../method/data_map.md + confidence_rules discipline (2026-06-05)
 status:     open      kind: new tool / introspection
 ```
 
@@ -169,4 +169,4 @@ status:     open      kind: field/coverage gap
 
 ---
 
-**See also**: `learning/01_mcp_basics.md` (the floor-not-ceiling thesis + the gap-log format), `05_mcp_test_protocol.md` (the failure taxonomy each gap maps to), `06_architecture.md` §11 (the tool roadmap these entries feed), `08_design_principles.md` P3 (why this is resolved data, not instruction), `CLAUDE.md` (the standing instruction to log here).
+**See also**: `../learning/01_mcp_basics.md` (the floor-not-ceiling thesis + the gap-log format), `../process/test_protocol.md` (the failure taxonomy each gap maps to), `capabilities.md` (the capability roadmap these entries feed), `../principles.md` P3 (why this is resolved data, not instruction), `CLAUDE.md` (the standing instruction to log here).

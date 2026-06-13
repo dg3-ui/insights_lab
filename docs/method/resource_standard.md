@@ -1,4 +1,4 @@
-# 03 - Methodology Resource Standard
+# Methodology Resource Standard
 
 > **Status**: v0 standard, deepened 2026-06-05.
 >
@@ -13,7 +13,7 @@ Each methodology resource package should contain:
 ```text
 resource.md          human-readable method
 resource.yml         structured operational fields
-data_requirements.md input map (see docs/04)
+data_requirements.md input map (see data_map.md)
 prompt_projection.md pasteable session surface (see docs/learning/04)
 examples/            target + validated applied-insight shapes
 test_runs/           manual validation records
@@ -121,7 +121,7 @@ caveat: "Directional exposure; not a plant-level production forecast; SW telecon
 actor_relevance: "Owner (Clearway/BHE) and offtaker (PG&E) should monitor seasonal generation variance"
 ```
 
-Each material claim should carry at least one `source_ref` (taxonomy in `docs/04`). Filled example:
+Each material claim should carry at least one `source_ref` (taxonomy in `data_map.md`). Filled example:
 
 ```yaml
 source_ref:
@@ -153,7 +153,7 @@ Do not allow:
 - exact LMP forecasts from ENSO alone
 - plant-level production forecasts without plant-level weather/resource data
 - account/outreach claims before the insight claim is valid
-- claims grounded only in descriptive context (e.g. the Gemini-generated plant description — see `docs/04`)
+- claims grounded only in descriptive context (e.g. the Gemini-generated plant description — see `data_map.md`)
 - broad national conclusions from one regional test
 - causal language where the resource only supports correlation or directional exposure
 - **charts of any of the above** — a plot is a set of claims; a series with no `source_ref`/`as_of`, a drawn forecast curve with no model, or a chart from exemplar data is the same blocked claim in ink (`resources/_craft/plot_generation.md`)

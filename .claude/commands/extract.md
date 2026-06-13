@@ -5,7 +5,7 @@ argument-hint: <path to saved transcript> [slug, if not inferable]
 
 You are **resolving a raw test transcript into reusable process data**: **$ARGUMENTS**
 
-A saved transcript is **raw source**; the value is the **extraction** (`docs/08` P3, `docs/05` "Session Capture & Extraction"). A pile of un-extracted transcripts is a swamp, not an asset. This command turns one transcript into the things that sharpen the next resource. It conducts `docs/05`; follow it, do not duplicate it.
+A saved transcript is **raw source**; the value is the **extraction** (`../../docs/principles.md` P3, `../../docs/process/test_protocol.md` "Session Capture & Extraction"). A pile of un-extracted transcripts is a swamp, not an asset. This command turns one transcript into the things that sharpen the next resource. It conducts `../../docs/process/test_protocol.md`; follow it, do not duplicate it.
 
 ## STEP 0 — LOAD
 
@@ -23,15 +23,15 @@ TOOL GAPS          empty results / unwired filters / missing fields hit during t
 
 ## STEP 2 — WRITE THE RESOLVED RECORD
 
-- Create/update `resources/<domain>/<slug>/test_runs/test_run_NNN.md` (from `templates/mcp_test_run.template.md`): accepted / rejected / downgraded claims, failures by the `docs/05` taxonomy, **a link to the raw transcript**, and the **extracted yield** (the four buckets above).
+- Create/update `resources/<domain>/<slug>/test_runs/test_run_NNN.md` (from `templates/mcp_test_run.template.md`): accepted / rejected / downgraded claims, failures by the `../../docs/process/test_protocol.md` taxonomy, **a link to the raw transcript**, and the **extracted yield** (the four buckets above).
 
 ## STEP 3 — FEED THE LOOPS
 
-- **Tool gaps →** append each to `docs/09_mcp_roadmap.md` in `gap · workaround · roadmap` form (note a repeat rather than duplicating).
+- **Tool gaps →** append each to `../../docs/status/mcp_gaps.md` in `gap · workaround · roadmap` form (note a repeat rather than duplicating).
 - **Fail→fix pairs →** each is (a) a candidate `prompt_projection.md` / `blocked_claims` edit, and (b) a candidate **eval case** for the future eval harness. Note them as such.
 - **Learning →** log unclear/confusing/missing-context notes under `docs/learning/logs/`.
 
-## Guardrails (`docs/08`)
+## Guardrails (`../../docs/principles.md`)
 
 - **Model-agnostic by design** (P1): the outputs are prompts, evals, and process — never model-training data.
 - **Resolve, don't restate**: extract the signal; do not transcribe the whole chat into the record.

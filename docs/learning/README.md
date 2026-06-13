@@ -8,7 +8,7 @@ Learning lives under `docs/learning/` so the top-level repo stays scalable for f
 
 ## What Each Doc Delivers
 
-For the whole-project overview (goal · architecture · scope · principles, drawn), read `docs/00_project_brief.md` first — that is project canon, not onboarding. This track is purely the fundamentals you need to *build and test* resources.
+For the whole-project overview (goal · architecture · scope · principles, drawn), read `../architecture.md` first — that is project canon, not onboarding. This track is purely the fundamentals you need to *build and test* resources.
 
 | Doc | The question it answers | Grounded in |
 |---|---|---|
@@ -20,7 +20,7 @@ For the whole-project overview (goal · architecture · scope · principles, dra
 ## Read Order
 
 ```text
-(docs/00_project_brief.md          <- the whole-project overview, if you haven't read it)
+(../architecture.md          <- the whole-project overview, if you haven't read it)
 01_mcp_basics.md                   <- start the onboarding track here
   -> 02_infrasure_data_substrate.md
   -> 03_methodology_resources.md
@@ -28,7 +28,7 @@ For the whole-project overview (goal · architecture · scope · principles, dra
   -> logs/
 ```
 
-Each doc ends by pointing to the next; `04` points you to the first real test.
+Each doc ends by pointing to the next; `data_map.md` points you to the first real test.
 
 ## Two Themes That Run Through All Four
 

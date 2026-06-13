@@ -1,4 +1,4 @@
-# 04 - Context And Data Map
+# Context & Data Map
 
 > **Status**: v0 map, deepened 2026-06-05.
 >
@@ -35,7 +35,7 @@ The methodology resource should name each input by job. If you cannot say which 
 | Logic layer | thresholds (≥50 MW) · region crosswalk · confidence rules · caveat rules | Converts inputs into claims |
 | Form layer (`resources/_*`) | `_reference/` exemplars · `_style/` brand kit + output contracts · `_craft/` plot rules | Shapes the **rendering**; never grounds, frames, or routes a claim — loads post-gate (`_principles` voice/rubric is the one pre-gate exception) |
 
-**The descriptive-context trap**: `get_plant(57993).context.description` reads like fact but carries `model: "google/gemini-2.0-flash-001"` — it is generated prose. Framing only. A claim grounded solely in it is a **blocked claim** (`docs/03`).
+**The descriptive-context trap**: `get_plant(57993).context.description` reads like fact but carries `model: "google/gemini-2.0-flash-001"` — it is generated prose. Framing only. A claim grounded solely in it is a **blocked claim** (`resource_standard.md`).
 
 ## InfraSure Substrate
 

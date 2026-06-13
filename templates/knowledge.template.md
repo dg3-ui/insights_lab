@@ -60,7 +60,7 @@ NET for <driver> → asset:   DIRECTIONAL, <LOW>. Never "High". Never a number.
 
 | &lt;Driver&gt; region | InfraSure scoping | Note (filter gaps?) |
 |---|---|---|
-| &lt;region&gt; | `state=` / `iso=` / `region=` | &lt;known filter caveats — log to docs/09&gt; |
+| &lt;region&gt; | `state=` / `iso=` / `region=` | &lt;known filter caveats — log to ../docs/status/mcp_gaps.md&gt; |
 
 ## 8. Sources
 
@@ -75,4 +75,4 @@ NET for <driver> → asset:   DIRECTIONAL, <LOW>. Never "High". Never a number.
 
 ---
 
-**See also**: `resource.md` (the method that consumes this), `docs/04_context_and_data_map.md` (input taxonomy), `docs/08_design_principles.md` (P2: content downstream of insight). Worked exemplar: `resources/weather_and_climate/el_nino_enso/knowledge.md`.
+**See also**: `resource.md` (the method that consumes this), `../docs/method/data_map.md` (input taxonomy), `../docs/principles.md` (P2: content downstream of insight). Worked exemplar: `resources/weather_and_climate/el_nino_enso/knowledge.md`.

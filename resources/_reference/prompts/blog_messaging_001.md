@@ -4,7 +4,7 @@
 >
 > **Provenance**: Divy, manual prompting during the first ENSO blog iterations (claude.ai project, June 2026). Captured verbatim below.
 >
-> **Why it is here**: process data (`docs/08` P3). The point of the layered reference is that these moves stop being manual — each move below is either **absorbed** into a shared layer (so no session needs to type it again) or marked **session-time** (legitimately per-run). When a future prompt works well, capture it here the same way.
+> **Why it is here**: process data (`../../../docs/principles.md` P3). The point of the layered reference is that these moves stop being manual — each move below is either **absorbed** into a shared layer (so no session needs to type it again) or marked **session-time** (legitimately per-run). When a future prompt works well, capture it here the same way.
 
 ## The Prompt (verbatim)
 
@@ -52,4 +52,4 @@ https://blog.gridstatus.io/tag/ercot/  Grid Status Exports  ERCOT - Grid Status 
 
 ---
 
-**See also**: `../README.md` (intake protocol — prompt exemplars follow it too), `../../_style/output_contracts.md` §3 (the cell these moves landed in), `../../../docs/05_mcp_test_protocol.md` (Session Capture — where future prompting moves get extracted from transcripts).
+**See also**: `../README.md` (intake protocol — prompt exemplars follow it too), `../../_style/output_contracts.md` §3 (the cell these moves landed in), `../../../docs/process/test_protocol.md` (Session Capture — where future prompting moves get extracted from transcripts).

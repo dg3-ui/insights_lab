@@ -4,33 +4,54 @@
 >
 > **What a contract is**: the **envelope** a rendering must fit — length band · tone · rendering target · what NOT to include · the gate guard. **Inner structure flexes by analysis family and granularity** (D11): the method package and family-tagged exemplars resolve the inside; the cell fixes the outside. No microprompting (`_principles/voice.md` §4).
 >
-> **THE GATE PRECONDITION — stamped on every cell, no exceptions**: a contract renders **only a validated insight** — one that has passed the `docs/05` gate with its `review_trace` complete. Rendering before the gate is the `docs/08` P2 violation; `/render` must refuse it.
+> **THE GATE PRECONDITION — stamped on every cell, no exceptions**: a contract renders **only a validated insight** — one that has passed the `../../docs/process/test_protocol.md` gate with its `review_trace` complete. Rendering before the gate is the `../../docs/principles.md` P2 violation; `/render` must refuse it.
 
 ## §1 · The Key
 
 ```text
 direction:  top_down (phenomenon → assets)  ·  bottom_up (asset/portfolio → phenomenon)
-            — the docs/02 §Exposure axis verbatim; one axis across 02/11/_style
+            — the ../../docs/method/analysis_families.md §Exposure axis verbatim; one axis across analysis_families/use_cases/_style
 audience:   internal  ·  client (a named account)  ·  public
-format:     blog  ·  brief  ·  email  ·  post
+format:     report  ·  vlog  ·  email      ← the three output TYPES (a set, not a sequence)
 ```
 
-**Declaring**: the session names its tuple at test/render start — one line, e.g. `contract: top_down × internal × brief`. Naming the tuple is a pre-test checklist item (`docs/05`); *loading* this file stays post-gate.
+**The three outputs:**
+- **report** — the specialized, rich, long-form analysis (internal, client, or public; a *public* report is what gets published as a blog post). The RICH format.
+- **vlog** — a narrated version of a report (script + delivery). Also rich.
+- **email** — a terse, targeted distillation for a named lead. The LEAN format.
 
-Mappings from the old vocabulary: `account_note`/`portfolio_note` → **brief** · `informative_email_draft` → **email** · `platform_card`/Ask answer → **platform rendering, post-v0** (not a contract cell) · internal **vlog** → the narration-script variant of `top_down × internal × brief` (§4).
+(Old vocabulary maps in: "brief" = a short report · "blog" = a public report · "post"/`platform_card` = a delivery *channel* for a report, not a separate output type · `account_note`/`portfolio_note` = a client report · `informative_email_draft` = **email**.)
+
+**Build order ≠ delivery order** (do not conflate — this is the load-bearing distinction):
+
+```text
+BUILD ORDER (how we develop + validate the engine)
+   report / vlog  FIRST   ──►  email  LAST
+   the RICH formats create the richest feedback loop: iterating a report or vlog shows
+   whether the insight is deep and well-grounded. You cannot judge insight-richness from a
+   terse email, so email is the WRONG place to start the loop — it is the final, distilled
+   output, built once the engine is proven on the rich formats.
+
+DELIVERY ORDER (which output ships when, to whom)
+   a SEPARATE business question, NOT settled here, and NOT the build order — do not conflate.
+```
+
+**Declaring**: the session names its tuple at test/render start — one line, e.g. `contract: top_down × internal × report`. Naming the tuple is a pre-test checklist item (`../../docs/process/test_protocol.md`); *loading* this file stays post-gate.
 
 ## §2 · The Matrix
 
-| direction × audience | blog | brief | email | post |
-|---|---|---|---|---|
-| **top_down × public** | **§3 FILLED** | — | ✗ (no un-gated mass email; client-only) | derives from §3's parent insight (post-v1) |
-| **top_down × internal** | use §3, internal register | **§4 FILLED** (+ vlog variant) | — | — |
-| **bottom_up × internal** | — | **§5 STUB** (fills Phase 5) | — | — |
-| **bottom_up × client** | — | derives from §5 | **§6 STUB** (fills Phase 5 — the P&R on-ramp) | — |
+Columns are ordered by **build priority** (report/vlog first, email last — §1); they are output *types*, not a delivery sequence.
+
+| direction × audience | report | vlog | email |
+|---|---|---|---|
+| **top_down × public** | **§3 FILLED** (public report; publishable as a blog post) | variant of §3 (narrated) | ✗ (no un-gated mass email; client-only) |
+| **top_down × internal** | **§4 FILLED** (internal report) | **§4 vlog variant** | — |
+| **bottom_up × internal** | **§5 STUB** (fills Phase 5 — the feedback-loop anchor) | variant of §5 | — |
+| **bottom_up × client** | client report (feeds §6) | variant | **§6 STUB** (the lean distillation — built LAST) |
 
 Unlisted combinations derive from the nearest filled cell under the same envelope rules; if none fits, that is a new cell (version-bumped), not an improvisation.
 
-## §3 · `top_down × public × blog` — FILLED (the cracked structure)
+## §3 · `top_down × public × report` — FILLED (the cracked structure; a public report, publishable as a blog post)
 
 What made the day-one top-down work, codified: references + structure (the Grid Status form — `_reference/exemplars/`; the messaging that produced it — `_reference/prompts/blog_messaging_001.md`).
 
@@ -71,13 +92,13 @@ Structure (the moves, in order):
    + FOOTER  then sources + as_of register · brand line exemplar's close (lesson 6) + brand.md §4
 ```
 
-Not-include: price/LMP forecasts · plant-level production forecasts · outreach CTAs · unscoped national claims · exemplar-derived facts · **internal-taxonomy labels** (the bucket name, "top-down exposure brief" — the artifact is reader-facing; the kicker names a topic, never our categorization) · **moat / meta-pitch language** ("unreachable without a general model", "15,000 plants" as a boast) — that is the sales narrative (`docs/11`), not reader copy (`../_principles/voice.md` §5: show, don't flaunt). Family/granularity notes: exposure pieces lead with the entity table + the spatial view; event-translation pieces lead with the event (the Rabbit Hill drill trajectory — `_reference/exemplars/grid_status_rabbit_hill.md`); single-region scope keeps one table, multi-region gets one per region — depth flexes, the moves do not.
+Not-include: price/LMP forecasts · plant-level production forecasts · outreach CTAs · unscoped national claims · exemplar-derived facts · **internal-taxonomy labels** (the bucket name, "top-down exposure brief" — the artifact is reader-facing; the kicker names a topic, never our categorization) · **moat / meta-pitch language** ("unreachable without a general model", "15,000 plants" as a boast) — that is the sales narrative (`../../docs/use_cases.md`), not reader copy (`../_principles/voice.md` §5: show, don't flaunt). Family/granularity notes: exposure pieces lead with the entity table + the spatial view; event-translation pieces lead with the event (the Rabbit Hill drill trajectory — `_reference/exemplars/grid_status_rabbit_hill.md`); single-region scope keeps one table, multi-region gets one per region — depth flexes, the moves do not.
 
 **Show value, don't announce it (owner feedback, 2026-06-12).** Where a draft is tempted to brag about reach ("none of this is reachable by a general model"), the client/public cell instead carries a **product deep-link** — e.g. "the detailed modeling for these plants is at infrasure.ai" (move 6, the Grid-Status product-demo move; `brand.md` §3 deep-links). The grounding proves the value; the link routes the reader to the platform; the moat argument stays in the deck (`../_principles/voice.md` §5).
 
-**Confidence display, public vs internal (added 2026-06-12, owner feedback).** A public rendering conveys calibration as *analytical posture* ("a forward, directional read on the season ahead"), carried by precise grounding and the honest caveat. It does **not** print a self-deprecating "Confidence: LOW" badge or a "we make no forecast" disclaimer: both undercut the work and InfraSure's image, and neither is the purpose of the piece. The discipline (no magnitude, no $/MWh, no plant-level forecast) is honored by *not writing those claims*, plus the caveat that names what is still resolving. The **internal brief (§4) keeps the explicit confidence line** — the decider needs the label; the public reader needs the posture. The gate's LOW/directional verdict underneath is unchanged (`../_principles/rubric.md` criterion 4); only its surfacing differs by audience.
+**Confidence display, public vs internal (added 2026-06-12, owner feedback).** A public rendering conveys calibration as *analytical posture* ("a forward, directional read on the season ahead"), carried by precise grounding and the honest caveat. It does **not** print a self-deprecating "Confidence: LOW" badge or a "we make no forecast" disclaimer: both undercut the work and InfraSure's image, and neither is the purpose of the piece. The discipline (no magnitude, no $/MWh, no plant-level forecast) is honored by *not writing those claims*, plus the caveat that names what is still resolving. The **internal report (§4) keeps the explicit confidence line** — the decider needs the label; the public reader needs the posture. The gate's LOW/directional verdict underneath is unchanged (`../_principles/rubric.md` criterion 4); only its surfacing differs by audience.
 
-## §4 · `top_down × internal × brief` — FILLED
+## §4 · `top_down × internal × report` — FILLED (short internal report)
 
 | Envelope | Value |
 |---|---|
@@ -90,14 +111,14 @@ Structure: claim (one paragraph) → scope table (entities · IDs · MW) → mec
 
 **Vlog variant (the internal narration script)**: ~60–90 seconds spoken (≈150–220 words) · spoken register (numbers rounded as said aloud: "about thirty-seven gigawatts") · structure: hook → condition → who's exposed → the one caveat that matters → watch line · no charts; sources land on an end-card list. The video itself is out of scope; the contract covers the script.
 
-## §5 · `bottom_up × internal × brief` — STUB (fills Phase 5)
+## §5 · `bottom_up × internal × report` — STUB (fills Phase 5 — the feedback-loop anchor, built FIRST)
 
-Anchor: **one asset or one portfolio** → its exposure to the phenomenon. Envelope (provisional): markdown · 300–600 words · the asset's numbers from the substrate with `as_of`. **Anti-target (already decided)**: *not a generic plant profile* (available elsewhere, adds nothing) and *no unmodeled "X% loss" figures* — exposure read: mechanism on THIS asset's seasonal baseline, actor relevance, caveats. Filled by the Phase-5 iterate-and-compare runs; until then this cell does not render.
+Anchor: **one asset or one portfolio** → its exposure to the phenomenon. This is the **rich** bottom-up output, and it is built **first** (per §1 build order) — it is where the bottom-up feedback loop actually cracks (you can see whether the insight is deep). Envelope (provisional): markdown · 300–600 words · the asset's numbers from the substrate with `as_of`. **Anti-target (already decided)**: *not a generic plant profile* (available elsewhere, adds nothing) and *no unmodeled "X% loss" figures* — exposure read: mechanism on THIS asset's seasonal baseline, actor relevance, caveats. Filled by the Phase-5 iterate-and-compare runs; until then this cell does not render.
 
-## §6 · `bottom_up × client × email` — STUB (fills Phase 5; the Prashant & Ross on-ramp)
+## §6 · `bottom_up × client × email` — STUB (built LAST — the lean distillation of §5's report)
 
-**GATE PRECONDITION (doubly so): renders only a validated insight, for a named account, after human review of the rendering itself — no send automation, ever** (`docs/01` activation track). Envelope (provisional): short (120–250 words) · one claim, one number with `as_of`, one watch line · DOCX/email-body export from the same brand kit. Designed for the client-specific successor plan; do not fill ahead of Phase 5.
+The terse client output. **Built last, not first** (§1 build order): it is a distillation of the validated bottom-up *report* (§5), so the report must crack the feedback loop before this is meaningful. **GATE PRECONDITION (doubly so): renders only a validated insight, for a named account, after human review of the rendering itself — no send automation, ever** (`../../docs/use_cases.md` activation track). Envelope (provisional): short (120–250 words) · one claim, one number with `as_of`, one watch line · DOCX/email-body export from the same brand kit.
 
 ---
 
-**See also**: `brand.md` (the anatomy every cell renders into), `../_principles/rubric.md` (criterion 1 judges against the declared cell; stage-2 self-critique checks it), `../_reference/` (the exemplars that teach each cell's form — Phase 4), `templates/output_contract.template.md` (adding a cell), `../../docs/11_use_cases.md` (the bucket × audience grid this operationalizes).
+**See also**: `brand.md` (the anatomy every cell renders into), `../_principles/rubric.md` (criterion 1 judges against the declared cell; stage-2 self-critique checks it), `../_reference/` (the exemplars that teach each cell's form — Phase 4), `templates/output_contract.template.md` (adding a cell), `../../docs/use_cases.md` (the bucket × audience grid this operationalizes).

@@ -5,13 +5,13 @@
 **Where this sits (naming, so sessions don't get confused):**
 - `~/code/personal/renewablesinfo_org` — the **platform repo** (`riorg` package + Next.js web app + the data pipeline that the MCP tools serve). The data lives there.
 - `~/code/personal/renewablesinfo` — the **lab repo** (experiments). `insights_lab/` is one lab project inside it. **You are here.**
-- This repo is **methodology only** — no data pipeline, no app, no build CLI (yet). It is "MCP-ready, not MCP-integrated" (`docs/01_scope_v0.md`).
+- This repo is **methodology only** — no data pipeline, no app, no build CLI (yet). It is "MCP-ready, not MCP-integrated" (`docs/use_cases.md`).
 
-**Status**: v0. One validated skill (`el_nino_enso`, test 001 PASS). The publish step, discovery tool, and eval harness are designed but not built — deliberately paused (see `TODO`-equivalent in `docs/06_architecture.md` §11).
+**Status**: v0. One validated skill (`el_nino_enso`, test 001 PASS). The publish step, discovery tool, and eval harness are designed but not built — deliberately paused (see `TODO`-equivalent in `docs/status/capabilities.md`).
 
 ## How To Work Here
 
-There is **no build system**. The operational loop is the manual MCP/Claude test, and it is a **loop, not a one-shot** (`08_design_principles.md` P4):
+There is **no build system**. The operational loop is the manual MCP/Claude test, and it is a **loop, not a one-shot** (`docs/principles.md` P4):
 
 ```text
 1. Load/paste resources/<domain>/<skill>/prompt_projection.md (+ knowledge.md, data_requirements.md).
@@ -21,12 +21,12 @@ There is **no build system**. The operational loop is the manual MCP/Claude test
 5. ITERATE — enrich, re-scope, challenge. The loop is the product, not overhead.
 6. SAVE THE FULL TRANSCRIPT (raw source) — not just the final output.
 7. Resolve it into test_runs/test_run_NNN.md (accepted/rejected claims, failures, fixes).
-8. Log learning in docs/learning/logs/ and any tool gap in docs/09_mcp_roadmap.md.
+8. Log learning in docs/learning/logs/ and any tool gap in docs/status/mcp_gaps.md.
 ```
 
-Full protocol: `docs/05_mcp_test_protocol.md`. Onboarding fundamentals: `docs/learning/`.
+Full protocol: `docs/process/test_protocol.md`. Onboarding fundamentals: `docs/learning/`.
 
-This loop is packaged as slash commands (thin conductors over the canon, not restatements — `docs/10_command_roadmap.md`): **`/new-resource`** (author), **`/test-resource`** (run the test loop on an existing slug), **`/extract`** (resolve a saved transcript into a `test_run` + ledger/learning), plus **`/recap`** (ASCII structural recap + honest friction). Tier-2 `/gate-check` and `/render` are planned.
+This loop is packaged as slash commands (thin conductors over the canon, not restatements — `docs/process/commands.md`): **`/new-resource`** (author), **`/test-resource`** (run the test loop on an existing slug), **`/extract`** (resolve a saved transcript into a `test_run` + ledger/learning), plus **`/recap`** (ASCII structural recap + honest friction). Tier-2 `/gate-check` and `/render` are planned.
 
 ## The MCP Feedback Loop (standing instruction)
 
@@ -34,15 +34,15 @@ This loop is packaged as slash commands (thin conductors over the canon, not res
 
 ```text
 DON'T treat a gap as a dead end and silently work around it.
-DO   log it to docs/09_mcp_roadmap.md in the gap · workaround · roadmap form,
+DO   log it to docs/status/mcp_gaps.md in the gap · workaround · roadmap form,
      then use the workaround to keep moving.
 ```
 
-This is not optional housekeeping — a model has no memory between sessions, so `docs/09_mcp_roadmap.md` *is* the persistent back-of-mind for the tool surface. Each entry is a roadmap input that grows the platform from 12 tools toward 13 (`learning/01_mcp_basics.md`, `06_architecture.md` §11). The ledger is **data**; this instruction is what keeps it fed (`08` P3).
+This is not optional housekeeping — a model has no memory between sessions, so `docs/status/mcp_gaps.md` *is* the persistent back-of-mind for the tool surface. Each entry is a roadmap input that grows the platform from 12 tools toward 13 (`learning/01_mcp_basics.md`, `docs/status/capabilities.md`). The ledger is **data**; this instruction is what keeps it fed (`principles.md` P3).
 
 ## Architecture
 
-Four layers, repo → served → runtime → output (full diagram: `docs/06_architecture.md`):
+Four layers, repo → served → runtime → output (full diagram: `docs/architecture.md`):
 
 ```text
 LAYER 0  SOURCE      this repo: authored, versioned methodology packages
@@ -51,7 +51,7 @@ LAYER 2  RUNTIME     a Claude session: discover → load → ground → assemble
 LAYER 3  OUTPUT      the content engine: blog · brief · email · post (the _style output contract) — renderings of a VALIDATED insight only
 ```
 
-The load-bearing seam is `resource.yml` (taxonomy → discovery, prompt sections → the served method, confidence_rules + blocked_claims → the gates). Keep the **methodology layer stable** and the **execution layer (model, orchestration, delivery, phrasing) swappable** — that is how the project absorbs LLM advances without rebuilding (`08` P1).
+The load-bearing seam is `resource.yml` (taxonomy → discovery, prompt sections → the served method, confidence_rules + blocked_claims → the gates). Keep the **methodology layer stable** and the **execution layer (model, orchestration, delivery, phrasing) swappable** — that is how the project absorbs LLM advances without rebuilding (`principles.md` P1).
 
 ## Key Conventions
 
@@ -59,7 +59,7 @@ The load-bearing seam is `resource.yml` (taxonomy → discovery, prompt sections
 - **Ground or downgrade.** A claim with no tool result / named source is commentary, not an insight. Cross every material number to a structured field.
 - **Label every input's job** before citing it: *grounds* (capacity, CF, PPA) · *frames* (descriptions, Wikipedia — never proof) · *routes* (owner, offtaker) · *external* (NOAA) · *logic* (crosswalks) · *form* (`resources/_*` — shapes the rendering, never grounding). (`learning/02`.)
 - **The claim grammar**: condition + scoped entities + mechanism + evidence + confidence + caveat + actor relevance. A slot you can't fill is a downgrade or a blocked claim.
-- **Content is downstream of validated insight** — always insight → gate → render, never the reverse (`08` P2).
+- **Content is downstream of validated insight** — always insight → gate → render, never the reverse (`principles.md` P2).
 - **Naming.** Package/slug is `snake_case` (`el_nino_enso`); the published Skill `name` is `kebab-case` (`el-nino-enso`). Folder name MUST equal `resource.yml.identity.slug`.
 - **One domain folder + faceted tags.** A resource lives in one driver-grouped `domain/` folder, tagged with family · drivers · actors (`resources/README.md`).
 - **`_`-prefixed `resources/` folders are shared layers, not packages** — no `resource.yml`/slug, composed at session time: `_principles` (rubric · voice) loads at draft; `_style` · `_craft` · `_reference` load post-gate only. Packages carry ONLY the method (`resources/README.md`, the underscore rule).
@@ -70,36 +70,32 @@ The load-bearing seam is `resource.yml` (taxonomy → discovery, prompt sections
 - **No blocked claims**: never emit an exact `$/MWh` or LMP from ENSO alone, never a plant-level production forecast without a model, never causal language where the evidence is directional.
 - **No outreach/content before the gate passes** — a rendering is never the source of truth.
 - **No unscoped scans** ("all US solar") — one region, one asset class per test.
-- **No new MCP tools / agents / orchestrators / DB schemas in v0** — log the gap instead (`docs/09_mcp_roadmap.md`).
+- **No new MCP tools / agents / orchestrators / DB schemas in v0** — log the gap instead (`docs/status/mcp_gaps.md`).
 - **No `code/`, `scripts/`, or `data/` folders** until there is real implementation that belongs there (`README.md`).
 - **Don't trust tool labels** — verify the entity you got is the one you wanted (the `get_plant` docstring mislabels 56051 as Topaz; it is a gas peaker).
 
 ## Docs Index
 
-| Doc | What |
-|-----|------|
-| `README.md` | Repo map, read order, working rules, current task |
-| `docs/00_project_brief.md` | What InfraSure Insights is + why (the moat) |
-| `docs/01_scope_v0.md` | The exact v0 deliverable, what's out of scope, the after-V0 split |
-| `docs/02_analysis_catalog.md` | The 7 analysis families (v0 = Exposure) |
-| `docs/03_methodology_resource_standard.md` | The resource contract every package must meet |
-| `docs/04_context_and_data_map.md` | Input taxonomy: substrate / external / descriptive / actor |
-| `docs/05_mcp_test_protocol.md` | How to run the manual test; session capture + extraction; failure taxonomy |
-| `docs/06_architecture.md` | The 4 layers, request lifecycle, terminology, gates, roadmap |
-| `docs/07_discovery_spec.md` | `find_methodology` / `get_methodology` contract |
-| `docs/08_design_principles.md` | Stable vs volatile · content downstream · process-data laws · iteration · no-mush |
-| `docs/09_mcp_roadmap.md` | **The MCP feedback ledger** — log tool gaps/ideas here |
-| `docs/10_command_roadmap.md` | The command/skill toolchain (author → test → resolve → gate → render) |
-| `docs/11_use_cases.md` | The 2-bucket use cases (Pillar 3, bottom-up/top-down × audience) + the validation method |
-| `docs/learning/` | Onboarding: MCP basics, the substrate, methodology resources, prompt projection |
-| `resources/README.md` | Methodology registry (domain · family · actor) |
+Docs are grouped by job (folder = job), with the stable/volatile seam as a folder boundary (P1). Full front-door map + per-audience read order: `docs/README.md`.
+
+| Doc | Job |
+|-----|-----|
+| `docs/architecture.md` | **The front door** — what it is, the end-to-end flow (Mermaid + ASCII), the 4 layers, terminology, the gate |
+| `docs/principles.md` | The discipline (P1–P5): stable vs volatile · content downstream · process-data laws · iteration · no-mush |
+| `docs/use_cases.md` | The 2 buckets × audience (Pillar 3) + the V0 scope contract + the validation method |
+| `docs/method/` | The "how to reason & build" contract: `analysis_families` · `resource_standard` · `data_map` (source_ref owner) · `discovery_spec` |
+| `docs/process/` | The loop: `test_protocol` (manual test, capture, failure taxonomy, feedback intake) · `commands` (the toolchain design) |
+| `docs/status/` | **Volatile hub**: `capabilities` (build status + open decisions) · `mcp_gaps` (tool-gap ledger) · `commands` (registry) |
+| `docs/plans/` | The active working plans (the real currency of "what's next") |
+| `docs/learning/` | Onboarding fundamentals: MCP basics · substrate · methodology resources · prompt projection |
+| `resources/README.md` | The package + shared-layer registry (domain · family · actor + the underscore rule) |
 | `resources/_reference/` | Exemplar corpus (form, not facts) |
 | `resources/weather_and_climate/el_nino_enso/` | The first validated skill |
-| `AGENTS.md` | The lean, vendor-neutral cut of this file |
+| `README.md` / `AGENTS.md` | Repo map + working rules / the lean vendor-neutral cut of this file |
 
 ## Read Order
 
 ```text
-new contributor:  README.md → docs/01 → docs/learning/ (01→04) → resources/weather_and_climate/el_nino_enso/
-senior reviewer:  README.md → docs/00 → docs/01 → docs/02 → docs/06 → docs/07 → docs/08
+new contributor:  README.md → docs/architecture.md → docs/learning/ (01→04) → resources/weather_and_climate/el_nino_enso/
+senior reviewer:  docs/architecture.md → docs/principles.md → docs/use_cases.md → docs/method/ → docs/status/
 ```

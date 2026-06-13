@@ -6,7 +6,7 @@
 >
 > **Knowledge companion**: the full theory (perception science, color, the agentic pipeline) lives in the Learning vault — `.learning/Data Analytics/data_visualization/data_visualization_complete_guide.md`. This file is its terse, gated projection; cite the vault, don't restate it.
 >
-> **Scope**: loads at **RENDER only, post-gate** (`docs/04`). Brand values come from `../_style/brand.md` §2 — cite, never copy.
+> **Scope**: loads at **RENDER only, post-gate** (`../../docs/method/data_map.md`). Brand values come from `../_style/brand.md` §2 — cite, never copy.
 
 ## §0 · The One Rule
 
@@ -20,11 +20,11 @@ per chart:    says NOTHING the gated insight does not say — a chart that impli
               forecast, a magnitude, or a causal link the insight blocked is itself blocked
 ```
 
-The figure caption is the chart's citation line. A reader must be able to audit any plotted number back to a tool result or a dated external source, same as any claim (`docs/03`, `docs/04`).
+The figure caption is the chart's citation line. A reader must be able to audit any plotted number back to a tool result or a dated external source, same as any claim (`../../docs/method/resource_standard.md`, `../../docs/method/data_map.md`).
 
 ## §1 · Selection — Question First, Never Chart First
 
-The most damaging mistake is starting with the chart type (vault §12 #1). Classify the question, then pick from the family. Mapped to the analysis families (`docs/02`):
+The most damaging mistake is starting with the chart type (vault §12 #1). Classify the question, then pick from the family. Mapped to the analysis families (`../../docs/method/analysis_families.md`):
 
 | The question sounds like | Chart family | First picks | Claim type (what's blocked) |
 |---|---|---|---|
@@ -53,8 +53,8 @@ If the insight's confidence is LOW/directional, the honest chart is the **baseli
 
 ## §3 · Blocked Plots (mirrors blocked claims)
 
-- **No forecast `$/MWh` / LMP chart from a driver alone** — and no plant-level production-forecast curve without a plant-level model (`docs/03` blocked claims, the ENSO cap: "Never a number").
-- **No chart from `_reference` exemplar data** — exemplars are form, never data (`docs/04` quarantine).
+- **No forecast `$/MWh` / LMP chart from a driver alone** — and no plant-level production-forecast curve without a plant-level model (`../../docs/method/resource_standard.md` blocked claims, the ENSO cap: "Never a number").
+- **No chart from `_reference` exemplar data** — exemplars are form, never data (`../../docs/method/data_map.md` quarantine).
 - **No undated series** — a series whose `as_of` is unknown does not render.
 - **No truncated bar baselines** (bars start at zero), **no dual y-axes** (use small multiples; if unavoidable, disclose the scaling in the caption), **no 3D**, **no pie beyond 3 categories**, **no rainbow ramps on sequential data**, **no area/bubble size as the primary magnitude encoding** (vault §7, §12).
 - **No extrapolated line tails** — observed history ends where the data ends; the future is text, not ink.
@@ -90,7 +90,7 @@ Pre-ship checklist (the vault §8 list, compressed): units on axes · zero-basel
 
 ## §6 · Spatial Fallback — A Map Without Geo Libraries (2026-06-12)
 
-A "where" view often wants a US map, but the sandbox has **no Chrome (kaleido) and no geopandas**, and the MCP serves no geometry yet (`docs/09` R10). The self-contained technique that works:
+A "where" view often wants a US map, but the sandbox has **no Chrome (kaleido) and no geopandas**, and the MCP serves no geometry yet (`../../docs/status/mcp_gaps.md` R10). The self-contained technique that works:
 
 ```text
 STATEBIN TILE-GRID   each state = one rounded square on a fixed (row,col) grid (matplotlib
@@ -103,8 +103,8 @@ LOGO / SVG ASSETS    rasterize brand SVGs to PNG with `sharp` (svg → png at de
                      embed in a DOCX header/PPT; artifacts/LibreOffice handle PNG reliably.
 ```
 
-This is a *fallback*, not the target: when the render tool + served geometry land (`docs/09` R7/R10), the same grounded series drops into a true choropleth. Caption it as a schematic ("each tile is a state").
+This is a *fallback*, not the target: when the render tool + served geometry land (`../../docs/status/mcp_gaps.md` R7/R10), the same grounded series drops into a true choropleth. Caption it as a schematic ("each tile is a state").
 
 ---
 
-**See also**: `README.md` (stage placement + versioning), `../_style/brand.md` §2/§4 (palette + the figure anatomy), `../_principles/voice.md` §3 (altitude — why drawn precision is false precision), `../../docs/02_analysis_catalog.md` (the families §1 keys on), `../../docs/04_context_and_data_map.md` (the per-series source_ref rule), `.learning/Data Analytics/data_visualization/data_visualization_complete_guide.md` (the full theory).
+**See also**: `README.md` (stage placement + versioning), `../_style/brand.md` §2/§4 (palette + the figure anatomy), `../_principles/voice.md` §3 (altitude — why drawn precision is false precision), `../../docs/method/analysis_families.md` (the families §1 keys on), `../../docs/method/data_map.md` (the per-series source_ref rule), `.learning/Data Analytics/data_visualization/data_visualization_complete_guide.md` (the full theory).

@@ -6,7 +6,7 @@
 >
 > **Companions**: `knowledge.md` (mechanism + sources), `resource.md` (method).
 
-## Input Layers (by job — see `docs/04`)
+## Input Layers (by job — see `../docs/method/data_map.md`)
 
 ```text
 EXTERNAL     <driver> state/forecast    → <external source> (pull live)           knowledge.md §3, §8
@@ -46,7 +46,7 @@ LOGIC        thresholds, region map     → <≥N MW, crosswalk>                
 6. DRAFT:   assemble the claim; cap confidence; block quantitative claims
 ```
 
-## Known Gaps (log to `docs/09`, then work around)
+## Known Gaps (log to `../docs/status/mcp_gaps.md`, then work around)
 
 | Gap | Reality | Workaround | Roadmap |
 |---|---|---|---|

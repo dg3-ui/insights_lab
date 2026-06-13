@@ -2,9 +2,9 @@
 
 > **Status**: v0.1, 2026-06-12 (Phase 2 deliverable; D3 of the active plan, font set refined by owner decision 2026-06-12 — **Inter-primary**).
 >
-> **Provenance**: vendored from the live infrasure.ai web app — `renewablesinfo_org/web/src/app/globals.css` (OKLCH tokens), `layout.tsx` (font loading), `src/lib/brand.ts` + `fuel-colors.ts`, pulled 2026-06-11. **The web app remains the source of truth**; this file is the projection rendered documents use. Re-sync when the site theme changes (a version bump here = staleness signal, `docs/03`).
+> **Provenance**: vendored from the live infrasure.ai web app — `renewablesinfo_org/web/src/app/globals.css` (OKLCH tokens), `layout.tsx` (font loading), `src/lib/brand.ts` + `fuel-colors.ts`, pulled 2026-06-11. **The web app remains the source of truth**; this file is the projection rendered documents use. Re-sync when the site theme changes (a version bump here = staleness signal, `../../docs/method/resource_standard.md`).
 >
-> **Scope**: rendered outputs only (HTML artifacts, DOCX exports). Loads **post-gate** (`docs/04` Activation Boundary).
+> **Scope**: rendered outputs only (HTML artifacts, DOCX exports). Loads **post-gate** (`../../docs/method/data_map.md` Activation Boundary).
 
 ## §1 · Type — Inter-led
 
@@ -36,7 +36,7 @@
 
 Accent discipline: **green and amber are accents, not paint** — kickers, links, callout left-borders, chart series. Body stays near-black on white (or the inverse). Never set body text in brand colors.
 
-**Chart / fuel colors** (per-series; every series still needs its `source_ref` — `docs/04`):
+**Chart / fuel colors** (per-series; every series still needs its `source_ref` — `../../docs/method/data_map.md`):
 
 ```text
 fuel:   solar #efa30f · wind #00a7dd · hydro #00bec7 · bess #00bc7b ·
@@ -87,8 +87,8 @@ Rules: **every figure is bordered with its caption below it** (description under
 
 ## §5 · What This File Is Not
 
-Not a methodology input: brand never grounds, frames, or routes a claim (FORM job, `docs/04`). Not a per-document override surface: a rendering that needs to deviate is a contract-cell change (version-bumped), not an inline exception.
+Not a methodology input: brand never grounds, frames, or routes a claim (FORM job, `../../docs/method/data_map.md`). Not a per-document override surface: a rendering that needs to deviate is a contract-cell change (version-bumped), not an inline exception.
 
 ---
 
-**See also**: `output_contracts.md` (which cell uses which anatomy), `brand_assets/artifact_skeleton.html` (this file as working CSS), `../_principles/voice.md` (the prose these bones carry), `../../docs/09_mcp_roadmap.md` R6/R7 (serving brand assets / a render tool — the roadmap), `../README.md` (the underscore rule).
+**See also**: `output_contracts.md` (which cell uses which anatomy), `brand_assets/artifact_skeleton.html` (this file as working CSS), `../_principles/voice.md` (the prose these bones carry), `../../docs/status/mcp_gaps.md` R6/R7 (serving brand assets / a render tool — the roadmap), `../README.md` (the underscore rule).

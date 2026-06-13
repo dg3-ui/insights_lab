@@ -1,4 +1,4 @@
-# 08 - Design Principles
+# Design Principles
 
 > **Status**: v0 governing principles, 2026-06-05.
 >
@@ -37,7 +37,7 @@ The payoff is the answer to "how do we ride LLM progress?": **you do not keep th
 
 ## Principle 2 — Content Is Downstream of Validated Insight
 
-The moat is grounding, not fluency (`00_project_brief.md`). A generic LLM already writes well. The moment the rendering layer is allowed to pull the methodology toward "make this read well," the moat is gone and we have rebuilt a content farm.
+The moat is grounding, not fluency (`architecture.md`). A generic LLM already writes well. The moment the rendering layer is allowed to pull the methodology toward "make this read well," the moat is gone and we have rebuilt a content farm.
 
 ```text
 ALWAYS this order — no exceptions:
@@ -51,7 +51,7 @@ A blog, a curated outreach email, an Ask answer, a LinkedIn post — these are a
 
 ## Principle 3 — Process Data Obeys the Same Laws as Asset Data
 
-We already solved "how to make raw inputs trustworthy" in the data layer. Apply the same pattern to the *process* of producing insights (the saved sessions — see `05_mcp_test_protocol.md`).
+We already solved "how to make raw inputs trustworthy" in the data layer. Apply the same pattern to the *process* of producing insights (the saved sessions — see `process/test_protocol.md`).
 
 ```text
 ASSET DATA  (already built)               PROCESS DATA  (the sessions we save)
@@ -66,7 +66,7 @@ grounds a claim                           sharpens prompt_projection + the eval 
 
 Three rules carry over unchanged:
 
-- **Source, not served.** A raw transcript is source of truth, never the deliverable — exactly as we never bolt the raw `weather_and_climate/` folder onto MCP (`06` §2).
+- **Source, not served.** A raw transcript is source of truth, never the deliverable — exactly as we never bolt the raw `weather_and_climate/` folder onto MCP (`architecture.md` §2).
 - **Resolve or it is a swamp.** A pile of unprocessed transcripts is as low-signal as a pile of unread news articles. The value is the extraction step, planned from day one (manual at first is fine).
 - **Floor, not ceiling.** A gap surfaced mid-session (a missing tool, a vague rule) is a roadmap input, logged — not a dead end (`learning/01`).
 
@@ -83,7 +83,7 @@ discover → load → ground → assemble → GATE
                  (enrich · re-scope · challenge · approve)
 ```
 
-So the architecture's runtime is a loop, not a line (`06` §3, Layer 2), and the eval suite must be able to consume *iteration traces*, not only static golden outputs.
+So the architecture's runtime is a loop, not a line (`architecture.md` §3, Layer 2), and the eval suite must be able to consume *iteration traces*, not only static golden outputs.
 
 ## Principle 5 — Flexibility Is Not an Excuse for Non-Commitment
 
@@ -112,4 +112,4 @@ facing an open call    -> P5: decide and version it, or name exactly what blocks
 
 ---
 
-**See also**: `00_project_brief.md` (the moat = grounding), `01_scope_v0.md` (the after-V0 activation split that P2 governs), `05_mcp_test_protocol.md` (where P3/P4 are operationalized), `06_architecture.md` (the stable/volatile seam + the runtime loop), `resources/_reference/` (the exemplar corpus P2 feeds, quarantined from grounding).
+**See also**: `architecture.md` (the moat = grounding), `use_cases.md` (the after-V0 activation split that P2 governs), `process/test_protocol.md` (where P3/P4 are operationalized), `architecture.md` (the stable/volatile seam + the runtime loop), `resources/_reference/` (the exemplar corpus P2 feeds, quarantined from grounding).

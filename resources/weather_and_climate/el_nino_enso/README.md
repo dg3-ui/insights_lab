@@ -4,7 +4,7 @@
 >
 > **Purpose**: create the first InfraSure Insights methodology resource and validate it manually with Claude + existing MCP/data tools.
 >
-> **Domain**: `weather_and_climate` (driver-grouped). Family: Exposure (`docs/02`). Registry: `resources/README.md`.
+> **Domain**: `weather_and_climate` (driver-grouped). Family: Exposure (`../../../docs/method/analysis_families.md`). Registry: `resources/README.md`.
 
 ## Resource Scope
 

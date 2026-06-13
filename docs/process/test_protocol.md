@@ -1,4 +1,4 @@
-# 05 - MCP Test Protocol
+# MCP Test Protocol
 
 > **Status**: v0 protocol, deepened 2026-06-05.
 >
@@ -55,7 +55,7 @@ Before running a test, confirm:
 13. Record learning in docs/learning/logs/.
 ```
 
-**Iteration is expected, not a failure** (`08_design_principles.md` P4). The first draft is a draft. The enrichment that makes an insight useful happens in the loop, and the human checkpoint in that loop is the product, not overhead. Do not treat "it needed three turns" as a defect — treat the turns as the most valuable thing the test produced.
+**Iteration is expected, not a failure** (`../principles.md` P4). The first draft is a draft. The enrichment that makes an insight useful happens in the loop, and the human checkpoint in that loop is the product, not overhead. Do not treat "it needed three turns" as a defect — treat the turns as the most valuable thing the test produced.
 
 ## A Real First-Call Trace (2026-06-05)
 
@@ -97,7 +97,7 @@ Avoid:
 - national all-asset scans
 - exact LMP forecasts
 - **un-gated rendering** — email/blog/post copy before the insight passes the gate (a declared
-  contract rendering of a *gated* insight is `/render`'s job, not banned — `docs/08` P2)
+  contract rendering of a *gated* insight is `/render`'s job, not banned — `../principles.md` P2)
 - unbounded "write an article" prompts (an article is a post-gate rendering, never the test ask)
 
 ## Pass / Fail Criteria
@@ -136,7 +136,7 @@ Log every failure as one of the following. The right-hand column is a real or co
 | Context gap | Actor, offtaker, company, or descriptive context was missing | queue rows return `developer: null` (DARDEN, UMBRIEL…) — no actor to route to |
 | Prompt gap | The prompt projection was too broad, vague, or verbose | model wrote prose with no `plant_id`s — projection didn't force retrieval |
 | Review gap | The output could not be judged because refs/confidence/caveats were unclear | a claim with no `source_ref` or `as_of` to check against |
-| Style/contract gap | The output ignored its declared shape or the voice rules | draft missing skeleton sections; rendered output off-contract (wrong structure/length/tone); AI-tell prose (`_principles/voice.md`) |
+| Style/contract gap | The output ignored its declared shape or the voice rules | draft missing skeleton sections; rendered output off-contract (wrong structure/length/tone); AI-tell prose (`resources/_principles/voice.md`) |
 | Craft/plot gap | A chart violated the grounded-plot rules | a plotted series with no `source_ref`/`as_of`; a chart of a blocked quantity (forecast $/MWh) |
 
 **MCP/tool gaps are roadmap inputs, not dead ends** (see `docs/learning/01_mcp_basics.md`). Log them in three parts so they feed the expandable tool surface:
@@ -149,7 +149,7 @@ roadmap:    wire ISO filter to the region join, or add a resolve_region tool
 
 ## Session Capture & Extraction (The Process Is Data)
 
-A test produces two things, and they are not the same artifact. The transcript is **raw source**; the test record is the **resolved extraction**. Treat them with the same discipline the data layer applies to news vs. resolved facts (`08_design_principles.md` P3).
+A test produces two things, and they are not the same artifact. The transcript is **raw source**; the test record is the **resolved extraction**. Treat them with the same discipline the data layer applies to news vs. resolved facts (`../principles.md` P3).
 
 ```text
 RAW SOURCE                                RESOLVED EXTRACTION
@@ -166,7 +166,7 @@ Three rules:
 
 - **Save the whole chat, every experiment** — the intern's, the reviewer's, the agent's. The raw transcript is cheap to keep and impossible to reconstruct later.
 - **Resolve it, or it is a swamp.** A folder of transcripts nobody extracts from is as useless as unread news. The extraction step (manual at first) is where the value is.
-- **Extraction targets are model-agnostic.** Prompting moves, eval cases, and rule fixes survive the next model release; that is the point (`08` P1). "Fine-tuning the workflow" = improving prompts/evals/process, not training a model.
+- **Extraction targets are model-agnostic.** Prompting moves, eval cases, and rule fixes survive the next model release; that is the point (`principles.md` P1). "Fine-tuning the workflow" = improving prompts/evals/process, not training a model.
 
 The extracted `fail→fix` pairs map straight onto the Failure Taxonomy below: each becomes a concrete row, and each row that recurs is a candidate eval case.
 
@@ -183,9 +183,9 @@ Feedback also arrives from **outside** the `/test-resource → /extract` loop �
                envelope / brand        → resources/_style/        (contract cells · brand.md)
                charts                  → resources/_craft/
                form lesson / prompt    → resources/_reference/    (exemplars/ · prompts/)
-               tool gap                → docs/09  (gap · workaround · roadmap)
+               tool gap                → ../status/mcp_gaps.md  (gap · workaround · roadmap)
                method / claims         → the package (resource.yml · blocked_claims)
-               process / protocol      → docs/05 (this file) · commands
+               process / protocol      → test_protocol.md (this file) · commands
 4 RECORD     the triage table → docs/learning/logs/<date>_<source>_intake.md
              (template: templates/feedback_intake.template.md)
 5 ESCALATE   an accepted item that is STRUCTURAL — a new layer, a new contract cell, a new
@@ -195,7 +195,7 @@ Feedback also arrives from **outside** the `/test-resource → /extract` loop �
              it is a plan.
 ```
 
-Three rules make this stick: **no canon edit without an intake record** (the record is what turns feedback into process data instead of drift — P3/P5); a batch that arrives as a *finished diff* (another session already edited the repo) gets its intake record **retroactively**, same table, plus a consistency cross-check for drift the edits left behind (skeletons, examples, sibling layers); and every feedback-driven edit **bumps the touched layer's version** and trips the staleness signal for dependents (`docs/03`).
+Three rules make this stick: **no canon edit without an intake record** (the record is what turns feedback into process data instead of drift — P3/P5); a batch that arrives as a *finished diff* (another session already edited the repo) gets its intake record **retroactively**, same table, plus a consistency cross-check for drift the edits left behind (skeletons, examples, sibling layers); and every feedback-driven edit **bumps the touched layer's version** and trips the staleness signal for dependents (`../method/resource_standard.md`).
 
 ## Test Record
 

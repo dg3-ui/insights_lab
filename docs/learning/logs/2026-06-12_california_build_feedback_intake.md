@@ -1,6 +1,6 @@
 # Feedback Intake — California-solar build review (2026-06-12)
 
-> **Status**: intake record (`docs/05` §Feedback Intake) — the **first** run of the procedure, retroactive.
+> **Status**: intake record (`../../process/test_protocol.md` §Feedback Intake) — the **first** run of the procedure, retroactive.
 >
 > **Source**: owner test of the layered reference in a separate session (the `InfraSure_ENSO_California_Solar` build) + the owner's review feedback. Captured: that session's own log, `2026-06-12_enso_render_build.md` (the fail→fix table), and the owner's pasted summary.
 >
@@ -17,8 +17,8 @@
 | 5 | Reader-facing kicker, never internal taxonomy ("TOP-DOWN EXPOSURE BRIEF") | **accept** | artifacts are reader-facing; bucket names are ours | contract §3 not-include | ✅ applied, verified |
 | 6 | DOCX: guaranteed sans fallback · real running header/footer · rasterized logo | **accept** | the Inter→serif substitution trap is real; D3 said DOCX derives from the brand kit — now it says how | brand §4 DOCX note | ✅ applied, verified |
 | 7 | Statebin tile-grid as the no-geo-libs map fallback | **accept** | honest schematic + "bar if rank is the message" guard included | `_craft` §6 | ✅ applied, verified |
-| 8 | Four tool gaps: county rollup · owner canonicalization · served geometry · climate news lane | **accept** | all four are real floor-not-ceiling entries in correct form | docs/09 R8–R11 | ✅ applied, verified |
-| 9 | Meta-lesson: ad-hoc builds (reference not loaded, no gate stop) produce slop | **already-covered** | this *is* docs/05 + 08 P4; value is the recorded evidence | the build log (kept) | ✅ |
+| 8 | Four tool gaps: county rollup · owner canonicalization · served geometry · climate news lane | **accept** | all four are real floor-not-ceiling entries in correct form | ../../status/mcp_gaps.md R8–R11 | ✅ applied, verified |
+| 9 | Meta-lesson: ad-hoc builds (reference not loaded, no gate stop) produce slop | **already-covered** | this *is* ../../process/test_protocol.md + 08 P4; value is the recorded evidence | the build log (kept) | ✅ |
 
 Rejected: none in this batch (the owner pre-filtered well). The verdict column exists for the day that isn't true.
 
@@ -45,4 +45,4 @@ None — no new layer, cell, or §1-decision change; everything routed inline. (
 
 ---
 
-**See also**: `2026-06-12_enso_render_build.md` (the source session's fail→fix log this record wraps), `../../05_mcp_test_protocol.md` §Feedback Intake (the procedure, born from this batch), `../../../templates/feedback_intake.template.md`.
+**See also**: `2026-06-12_enso_render_build.md` (the source session's fail→fix log this record wraps), `../../process/test_protocol.md` §Feedback Intake (the procedure, born from this batch), `../../../templates/feedback_intake.template.md`.

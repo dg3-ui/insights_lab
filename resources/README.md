@@ -28,7 +28,7 @@ resources/
     └── el_nino_enso/          # package = METHOD ONLY: resource.md/.yml/prompt_projection.md/examples/test_runs
 ```
 
-**The underscore rule.** A leading-underscore folder is a **shared cross-cutting layer, not a package**: no `resource.yml`, no slug, exempt from `folder == slug`, excluded from any publish scan / discovery index (`docs/07` §3), and registered in the Shared Layers table below — not in the resource Registry. Shared layers sort above the domain folders and are **composed at session time** (the same doctrine as persona views: a view, not a storage axis). Packages carry ONLY the method — voice, rubric, brand, output contracts, plot craft, and exemplars are never restated inside a package.
+**The underscore rule.** A leading-underscore folder is a **shared cross-cutting layer, not a package**: no `resource.yml`, no slug, exempt from `folder == slug`, excluded from any publish scan / discovery index (`../docs/method/discovery_spec.md` §3), and registered in the Shared Layers table below — not in the resource Registry. Shared layers sort above the domain folders and are **composed at session time** (the same doctrine as persona views: a view, not a storage axis). Packages carry ONLY the method — voice, rubric, brand, output contracts, plot craft, and exemplars are never restated inside a package.
 
 ## Shared Layers
 
@@ -39,7 +39,7 @@ resources/
 | [`_craft/`](_craft/) | analytic plot generation — selection by question · blocked plots · grounded-plot rules · spatial fallback | rendering only | post-gate | ✅ v0.2 |
 | [`_reference/`](_reference/) | exemplar corpus — form, not facts | rendering + eval, **never** grounding | post-gate | README only; populates in plan Phase 4 |
 
-Quarantine: shared-layer material **never grounds a claim** — it is never a valid `source_ref` (`docs/04`). `_principles` is the only layer loaded before the gate.
+Quarantine: shared-layer material **never grounds a claim** — it is never a valid `source_ref` (`../docs/method/data_map.md`). `_principles` is the only layer loaded before the gate.
 
 ## Planned Domains
 
@@ -57,15 +57,15 @@ Persona views (e.g. a "climate scientist" agent) are **composed at runtime** by 
 
 ## Registry
 
-| Resource | Domain | Family (docs/02) | Actors | Status |
+| Resource | Domain | Family (../docs/method/analysis_families.md) | Actors | Status |
 |---|---|---|---|---|
-| [el_nino_enso](weather_and_climate/el_nino_enso/) | `weather_and_climate` | Exposure | owner · investor · lender · offtaker | manual test 001 PASS · status `draft` (not default-indexed until eval-gated → `active`, see `docs/07`) |
+| [el_nino_enso](weather_and_climate/el_nino_enso/) | `weather_and_climate` | Exposure | owner · investor · lender · offtaker | manual test 001 PASS · status `draft` (not default-indexed until eval-gated → `active`, see `../docs/method/discovery_spec.md`) |
 
 ## Tag Vocabulary
 
 ```text
 domain  (folder):   weather_and_climate · hazard · market · policy · commercial
-family  (docs/02):  exposure · performance · commercial · development_risk ·
+family  (../docs/method/analysis_families.md):  exposure · performance · commercial · development_risk ·
                     portfolio_strategy · market_context · event_translation
 actors:             owner_operator · investor · lender · offtaker · developer
 drivers:            free-form leaf tags — enso, irradiance, wildfire, congestion, …
@@ -88,9 +88,9 @@ taxonomy:
 ```text
 1. Pick the domain (driver). Reuse an existing folder; create one only for a genuinely new driver.
 2. Copy templates/ into resources/<domain>/<slug>/.
-3. Meet the contract in docs/03_methodology_resource_standard.md.
+3. Meet the contract in ../docs/method/resource_standard.md.
 4. Fill resource.yml.taxonomy and add a row to the Registry above.
-5. Run docs/05_mcp_test_protocol.md; log gaps (tool gaps → the MCP roadmap).
+5. Run ../docs/process/test_protocol.md; log gaps (tool gaps → the MCP roadmap).
 ```
 
-See `docs/02_analysis_catalog.md` for family definitions and `docs/learning/` for onboarding.
+See `../docs/method/analysis_families.md` for family definitions and `docs/learning/` for onboarding.

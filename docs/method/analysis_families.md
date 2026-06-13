@@ -1,4 +1,4 @@
-# 02 - Analysis Catalog
+# Analysis Families
 
 > **Status**: v0 catalog, deepened 2026-06-05.
 >
@@ -17,7 +17,7 @@ GATE 1: What kind of intelligence should InfraSure produce?
         decides which methodology resources deserve to exist
 ```
 
-Gate 2 is handled by the methodology resource standard (`docs/03`) and the context/data map (`docs/04`).
+Gate 2 is handled by the methodology resource standard (`resource_standard.md`) and the context/data map (`data_map.md`).
 
 ## Core Position
 
@@ -109,7 +109,7 @@ Real: aggregate(plants, group_by=state, metric=total_capacity, filter=fuel:SUN) 
 Claim type: directional exposure. Block exact LMP / plant-output forecasts.
 ```
 
-This is the v0 family — see `resources/weather_and_climate/el_nino_enso/`. (The families are **orthogonal to the use-case buckets** in `docs/11`: Exposure can run bottom-up — asset → phenomenon — *or* top-down — phenomenon → assets. This axis is also the **direction key** of the output contracts, `resources/_style/output_contracts.md` §1.)
+This is the v0 family — see `resources/weather_and_climate/el_nino_enso/`. (The families are **orthogonal to the use-case buckets** in `../use_cases.md`: Exposure can run bottom-up — asset → phenomenon — *or* top-down — phenomenon → assets. This axis is also the **direction key** of the output contracts, `resources/_style/output_contracts.md` §1.)
 
 ### Performance
 

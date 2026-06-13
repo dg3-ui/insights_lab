@@ -1,12 +1,12 @@
 # Log — ENSO blog render build (2026-06-12)
 
-> **Status**: process-capture (`docs/08` P3), the `/extract` step this ad-hoc build skipped.
+> **Status**: process-capture (`../../principles.md` P3), the `/extract` step this ad-hoc build skipped.
 >
 > **What**: built a `top_down × public × blog` rendering for El Niño × California solar (`InfraSure_ENSO_California_Solar.docx`), grounded live via the InfraSure MCP and shaped by the reference. Captured here because it was built by hand, not through `/test-resource` + `/extract`, so the fail→fix pairs had no `test_run`.
 
 ## The headline lesson
 
-Building **ad hoc** (reference not loaded up front, no gate checkpoint) is exactly why the first two drafts were slop. Loading `_style`/`_principles`/`_craft` *before* drafting, and pausing at the human gate, is what caught every fix below. This is `docs/08` P4 (the loop is the product) earning its place.
+Building **ad hoc** (reference not loaded up front, no gate checkpoint) is exactly why the first two drafts were slop. Loading `_style`/`_principles`/`_craft` *before* drafting, and pausing at the human gate, is what caught every fix below. This is `../../principles.md` P4 (the loop is the product) earning its place.
 
 ## Fail → fix pairs (each routed to its home)
 
@@ -26,7 +26,7 @@ in-body header band, no page footer                running Word header/footer + 
   + "15,000 plants" as a boast                       infrasure.ai; moat stays in the deck    (owner feedback)
 ```
 
-## MCP gaps hit (logged to docs/09)
+## MCP gaps hit (logged to ../../status/mcp_gaps.md)
 
 `R8` county aggregation · `R9` owner-name parent canonicalization · `R10` served geometry for a real map · `R11` news corpus has no climate/weather lane. The choropleth limit (`R10` + `R7` render tool) is why the map is a schematic tile-grid for now.
 
@@ -36,4 +36,4 @@ Live MCP grounding (CA 36.8 GW, 153 plants ≥50 MW, owner ranking, Desert Sunli
 
 ---
 
-**See also**: `../../09_mcp_roadmap.md` (R8–R11), `../../../resources/_principles/voice.md` §5 (show, don't flaunt), `../../../resources/_style/output_contracts.md` §3, `../../05_mcp_test_protocol.md` (the capture this stands in for), `../../08_design_principles.md` P3/P4.
+**See also**: `../../status/mcp_gaps.md` (R8–R11), `../../../resources/_principles/voice.md` §5 (show, don't flaunt), `../../../resources/_style/output_contracts.md` §3, `../../process/test_protocol.md` (the capture this stands in for), `../../principles.md` P3/P4.

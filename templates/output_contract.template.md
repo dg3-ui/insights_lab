@@ -2,7 +2,7 @@
 
 > Copy into `resources/_style/output_contracts.md` as a new §. A cell is an **envelope, not a straitjacket** (plan D11): fix the outside, let the method package + family-tagged exemplars resolve the inside. No microprompting (`_principles/voice.md` §4).
 
-**GATE PRECONDITION (mandatory, verbatim)**: renders **only a validated insight** — `review_trace` passed (`docs/05`); never before (`docs/08` P2).
+**GATE PRECONDITION (mandatory, verbatim)**: renders **only a validated insight** — `review_trace` passed (`../docs/process/test_protocol.md`); never before (`../docs/principles.md` P2).
 
 | Envelope | Value |
 |---|---|
@@ -22,6 +22,6 @@ Structure (the moves, in order — keep to 5–9):
 
 Not-include: <the blocked content for this cell — price forecasts · outreach CTAs · …>
 
-Family/granularity notes: <how the inside flexes — by analysis family (`docs/02`), by scope granularity (asset / portfolio / fleet)>
+Family/granularity notes: <how the inside flexes — by analysis family (`../docs/method/analysis_families.md`), by scope granularity (asset / portfolio / fleet)>
 
 Exemplars: <`_reference/` entries that teach this cell's form>

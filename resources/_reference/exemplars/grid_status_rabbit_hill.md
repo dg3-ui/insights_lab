@@ -4,7 +4,7 @@
 >
 > **Provenance**: Grid Status blog · blog.gridstatus.io · 2025-04-22 · https://blog.gridstatus.io/exploring-extreme-prices-in-ercot-with-grid-status/ · 8 min read · tag: batteries · ~2,100 words, ~9 charts.
 >
-> **Why it is here**: the **event → mechanics → named asset** trajectory — the closest external form to our top-down → bottom-up drill (`docs/11`'s one-cycle connection), ending on a single asset's actual performance (Rabbit Hill). Exercises: Event Translation + Exposure. Cells: `_style/output_contracts.md` §3 and (form input for) §5 bottom-up.
+> **Why it is here**: the **event → mechanics → named asset** trajectory — the closest external form to our top-down → bottom-up drill (`../../../docs/use_cases.md`'s one-cycle connection), ending on a single asset's actual performance (Rabbit Hill). Exercises: Event Translation + Exposure. Cells: `_style/output_contracts.md` §3 and (form input for) §5 bottom-up.
 
 ## Form Lessons (what to imitate)
 
@@ -21,4 +21,4 @@ All price/constraint/battery-performance assertions quarantined — form only.
 
 ---
 
-**See also**: `../README.md`, `../../_style/output_contracts.md` §3/§5, `../../../docs/11_use_cases.md` (the bucket connection this form embodies).
+**See also**: `../README.md`, `../../_style/output_contracts.md` §3/§5, `../../../docs/use_cases.md` (the bucket connection this form embodies).
