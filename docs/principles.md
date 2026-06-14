@@ -100,6 +100,25 @@ decisions are made, then revisited       decisions are deferred forever
 
 If you cannot say which layer a change touches (P1) or which job an input does (`learning/02`: grounds / frames / routes), you are not yet ready to commit it — but the answer is to *resolve that*, not to leave it open indefinitely.
 
+## Principle 6 — References Inform, They Don't Bind (preserve the model's creativity)
+
+A reference — an external exemplar in `resources/_reference/`, an internal golden output, a baked-in structural cue — exists for **one job: to improve the output**. It is never ground truth, and it is never a constraint. The model's own creativity, design judgment, adaptability, and current knowledge are a genuine advantage; a reference must *sharpen* that intuition, never *replace* or *cage* it.
+
+```text
+A reference EARNS its place only by making the output better.
+   it helps the output            → use it
+   it doesn't help                → drop it; do NOT force-fit a reference
+   the model's instinct is better → trust the instinct
+
+   a small, well-placed cue can have outsized POSITIVE impact (e.g. the InfraSure
+   ENSO / CA-solar prompts) — but that is because it helped, not because it was required.
+   the same cue forced where it doesn't fit makes the output worse.
+```
+
+This is the deliberate counterweight to "bake references in so quality is automatic" (the `_reference` corpus, the `_style` contracts): bake them in as **available inspiration**, never as a rule the model must satisfy. Slavishly following the reference folder produces flatter, worse output than a model trusted to reason — and it throws away the exact thing an LLM is good at (creativity, design, the latest information, adaptability).
+
+What stays binding is the **discipline** — grounding, `blocked_claims`, the gate, the claim grammar — never the *form* a reference happens to show. This is P1's volatile layer seen from the inside (the model is the swappable, *trusted* layer, so we don't shackle it), the anti-microprompting doctrine (`../resources/_principles/voice.md` §4) applied to references, and the floor-not-ceiling rule applied to form. **This one does not get walked back.**
+
 ## How To Use These Principles
 
 ```text
@@ -108,6 +127,7 @@ writing a rendering   -> P2: is there a validated insight upstream of it? if not
 saving a session      -> P3: capture raw, but plan the extraction; serve the resolution
 reviewing an output   -> P4: is this a draft or did the loop run? evals must see the loop
 facing an open call    -> P5: decide and version it, or name exactly what blocks the decision
+using a reference     -> P6: does it improve THIS output? if not, drop it — never force-fit; trust the model
 ```
 
 ---

@@ -67,7 +67,7 @@ docs/
 
 ## 4 · Cheap Corrections (in scope)
 
-- **Output model + build-vs-delivery order** (owner direction, 2026-06-13): the three outputs are **report · vlog · email** (a set, tagged by direction × audience). **BUILD order = report/vlog first, email last** (the rich formats anchor the feedback loop; you can't judge insight-richness from a terse email). **DELIVERY order** (which output ships when, to whom) is a separate, unsettled business question, NOT the build order. Owned **once** in the matrix owner (`_style/output_contracts.md` §1), with `architecture.md`, `use_cases.md`, `status/capabilities.md` pointing there.
+- **Output model + build-vs-delivery order** (owner direction, 2026-06-13): the three outputs are **blog · report · email** — blog = top-down/generic, report = the same format scoped to a specific portfolio/client/region/purpose (blog↔report overlap in nature), email = a condensed subset of either. (No "vlog" — that was a loose thread term, dropped.) **BUILD order = blog/report first, email last** (the rich pair anchors the feedback loop; you can't judge insight-richness from a terse email). **DELIVERY order** (which output ships when, to whom) is a separate, unsettled business question, NOT the build order. Owned **once** in `_style/output_contracts.md` §1, with `architecture.md`, `use_cases.md`, `status/capabilities.md` pointing there.
 - **Relocate** the two `2026-06-12_*` session logs so they aren't read as fundamentals (stay under `learning/logs/`, but `learning/README` frames logs as session records, not the learning track).
 - **Date-sync** the front door to 2026-06-13 and link the active plans.
 - **Reconcile** `status/commands.md` to the filesystem (`/recap` marked built but absent; `/test-resource`+`/extract` exist).

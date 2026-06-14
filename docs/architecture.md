@@ -69,13 +69,14 @@ flowchart TD
 
     subgraph L3["LAYER 3 · OUTPUT — render a VALIDATED insight only (post-gate)"]
         direction TB
-        STYLE["compose render-side shared layers<br/>_style contract (direction × audience × format)<br/>+ _craft grounded plots + _reference form"]
-        REPORT["REPORT — the rich, specialized analysis (build FIRST)"]
-        VLOG["VLOG — narrated report (build FIRST)"]
-        EMAIL["EMAIL — terse distillation (build LAST)"]
+        STYLE["compose render-side shared layers<br/>_style output (blog · report · email)<br/>+ _craft grounded plots + _reference form"]
+        BLOG["BLOG — top-down, generic (build FIRST)"]
+        REPORT["REPORT — a blog scoped to a portfolio/client/region (build FIRST)"]
+        EMAIL["EMAIL — condensed subset of a blog/report (build LAST)"]
+        STYLE --> BLOG
         STYLE --> REPORT
-        STYLE --> VLOG
-        REPORT -->|"distill, once proven"| EMAIL
+        BLOG -->|"distill, once proven"| EMAIL
+        REPORT -->|"distill"| EMAIL
     end
 
     PROC["process data<br/>(prompting moves · fail→fix pairs)"]
@@ -91,7 +92,7 @@ flowchart TD
     class DATA live;
 ```
 
-The three outputs are **report · vlog · email**, tagged by direction (top-down/bottom-up) and audience. The arrows in Layer 3 are **build order, not delivery order**: the **rich formats (report / vlog) are built first** because they create the richest feedback loop — iterating a report shows whether the insight is deep and well-grounded — and **email is built last**, as the terse distillation of a proven report (you cannot judge insight-richness from a terse email, so it is the wrong place to start the loop). *Delivery* sequencing (which output goes out when, to whom) is a separate business question, not settled here. The format matrix is owned by `resources/_style/output_contracts.md`; this doc points, it does not re-enumerate.
+The three outputs are **blog · report · email**: a **blog** is top-down, generic-but-useful; a **report** is the same format scoped to a specific portfolio/client/region/purpose (blog and report overlap in nature); an **email** is a condensed subset of either. The arrows in Layer 3 are **build order, not delivery order**: the **rich pair (blog / report) is built first** because it creates the richest feedback loop — iterating a blog or report shows whether the insight is deep and well-grounded — and **email is built last**, as the distillation of a proven piece. *Delivery* sequencing (which output goes out when, to whom) is a separate business question, not settled here. The output model is owned by `resources/_style/output_contracts.md`; this doc points, it does not re-enumerate.
 
 ## 3 · The Four Layers (the stack)
 
@@ -105,9 +106,9 @@ LAYER 1  SERVED     InfraSure MCP DATA tools (live)  +  skill catalog + discover
 LAYER 2  RUNTIME    a Claude session = the agent: discover → ground → assemble → GATE
    │                  ▲___ human checkpoint (enrich · re-scope · challenge) ___│   (a LOOP — §4)
    ▼  validated insight object
-LAYER 3  OUTPUT     the content engine: report · vlog · email (the three outputs, tagged by
-                      direction × audience). BUILD order = report/vlog first, email last (rich
-                      formats anchor the feedback loop); delivery order is a separate business call.
+LAYER 3  OUTPUT     the content engine: blog · report · email (blog = generic; report = blog
+                      scoped to a portfolio/client/region; email = subset of either). BUILD order =
+                      blog/report first (anchor the feedback loop), email last; delivery order is separate.
                       = renderings of a VALIDATED insight, never before the gate (principles.md P2)
 ```
 

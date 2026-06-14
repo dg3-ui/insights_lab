@@ -25,13 +25,15 @@ Each bucket is produced **internal-team first**, then a **customer / public** su
 ```text
                      BUCKET 1 · bottom-up              BUCKET 2 · top-down
    INTERNAL (first)  team exposure / risk read         internal scan of what's affected
-   CLIENT (named)    client report → email distillation  client report → email distillation
-   PUBLIC            (subset of the internal read)      public report (publishable as a blog/post)
+   CLIENT (named)    a REPORT (targeted) → EMAIL        a REPORT (targeted) → EMAIL
+   PUBLIC            (rarely — client-first)            a BLOG (generic, public)
 ```
+
+(Output types: **blog** = top-down/generic/public · **report** = a blog scoped to a portfolio/client/region · **email** = the condensed subset of either — see `resources/_style/output_contracts.md`.)
 
 **Rule (`principles.md` P2):** the internal read is the source of truth; the customer/public artifact is a *rendering* of it. Nothing is published externally that has not passed the gate internally first.
 
-**Outputs and build order.** The three outputs are **report · vlog · email** (tagged by direction × audience). **Build order ≠ delivery order**: we build the **rich formats (report / vlog) first** — they create the richest feedback loop, where you can see whether the insight is deep and well-grounded — and **email last**, as the terse distillation of a proven report. *Delivery* sequencing (which output ships when, to whom) is a separate business question, not settled here; do not conflate it with how we build. The operational matrix (`direction × audience × format`) is owned by `resources/_style/output_contracts.md` — this doc points, it does not re-enumerate.
+**Outputs and build order.** The three outputs are **blog · report · email**: a **blog** is top-down/generic, a **report** is the same format scoped to a specific portfolio/client/region/purpose (blog and report overlap in nature), and an **email** is a condensed subset of either. **Build order ≠ delivery order**: we build the **rich pair (blog / report) first** — they create the richest feedback loop, where you can see whether the insight is deep and well-grounded — and **email last**, as the distillation of a proven piece. *Delivery* sequencing (which output ships when, to whom) is a separate business question, not settled here; do not conflate it with how we build. The output model is owned by `resources/_style/output_contracts.md` — this doc points, it does not re-enumerate.
 
 > Two judging instruments, not one: the **rubric** (`resources/_principles/rubric.md`) scores any rendered artifact's quality; the **with/without method** below proves the moat.
 
@@ -72,7 +74,7 @@ The collaboration thread lists **three prompting buckets**; this doc defines **t
 ```text
 USE-CASE buckets (2)          prompting buckets (the meet thread, 3)
 Bucket 1 · bottom-up    =     #1 single-user query  (asset → phenomenon)
-Bucket 2 · top-down     =     #2 internal vlog       (phenomenon → asset/region)
+Bucket 2 · top-down     =     #2 internal top-down   (phenomenon → asset/region)
                               #3 precise/structured  = a TESTING LENS, not a 3rd use case
 ```
 
@@ -129,4 +131,4 @@ V0 is complete when a new contributor can explain the deliverable from `README.m
 
 ---
 
-**See also**: `architecture.md` (the 3-pillar overview + the 4 layers), `method/analysis_families.md` (the families, orthogonal to these buckets), `resources/_style/output_contracts.md` (the output matrix this scopes), `principles.md` P2 (content downstream of validated insight), `status/capabilities.md` (where V0 stands).
+**See also**: `architecture.md` (the 3-pillar overview + the 4 layers), `method/analysis_families.md` (the families, orthogonal to these buckets), `resources/_style/output_contracts.md` (the three-output model this scopes), `principles.md` P2 (content downstream of validated insight), `status/capabilities.md` (where V0 stands).

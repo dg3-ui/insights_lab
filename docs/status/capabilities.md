@@ -48,8 +48,8 @@ The active build is governed by the working plans, not this table — see `../pl
 ```text
 validated insight object
         ├── in-house architecture track  → publish step · discovery · enforced gates · trace capture · persistence
-        └── activation / outreach track   → renderings (report · vlog · email); BUILD report/vlog
-                                            first (feedback loop), email last
+        └── activation / outreach track   → renderings (blog · report · email); BUILD blog/report
+                                            first (feedback loop), email last (the subset)
 ```
 
 Every tool gap logged during testing (like the `iso` filter) is an input to the in-house track's roadmap — see `mcp_gaps.md`.

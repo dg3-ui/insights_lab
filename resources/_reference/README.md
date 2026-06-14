@@ -23,6 +23,10 @@ A competitor's insight can show us *how to say it well*. It can **never** be the
 
 The trap to avoid: ingesting a competitor note and parroting its *assertions* instead of its *form*. Extract the structure; discard the claims. (`../../docs/principles.md` P2: content is downstream of validated insight; this corpus feeds rendering, never grounding.)
 
+## The Other Rule: A Reference Informs, It Doesn't Bind (`../../docs/principles.md` P6)
+
+Even for *form*, this corpus is **inspiration, not a constraint**. It exists to *improve* the output, not to be satisfied. Use a reference only when it makes the output better; if it doesn't sharpen the model's own intuition, **drop it — do not force-fit it**. The model's creativity, design judgment, adaptability, and current knowledge are an advantage to *use*, not suppress; leaning on this folder slavishly produces flatter, worse output than trusting the model to reason. A reference earns its place by helping — nothing here is mandatory. (The binding part is the discipline — grounding, `blocked_claims`, the gate — never the form a reference shows.) **This does not get walked back.**
+
 ## What It Feeds
 
 ```text
@@ -44,16 +48,24 @@ exemplar corpus ─┬─► RENDERING layer (Layer 3): the _style output contra
 
 ## Contents
 
+Two wings — **external** (others' work, form only) and **internal** (our own validated outputs we like):
+
 ```text
 resources/_reference/
-├── README.md                              # this file (the quarantine rule + intake)
-├── exemplars/
+├── README.md                              # this file (the two rules + intake)
+├── exemplars/                             # EXTERNAL — others' work, form not facts
 │   ├── grid_status_curtailment.md         # the phenomenon-explainer form (top_down blog)
 │   ├── grid_status_4cp_storage.md         # the seasonal-mechanism data piece (+ header-personality dose)
 │   └── grid_status_rabbit_hill.md         # event → mechanics → named asset (the bucket-2→1 drill)
-└── prompts/
-    └── blog_messaging_001.md              # the messaging that cracked top-down, moves mapped to layers
+├── prompts/                               # EXTERNAL — the messaging that cracked top-down
+│   └── blog_messaging_001.md
+└── internal/                              # INTERNAL — our own golden outputs (own README + schema)
+    ├── blog/   enso_ca_solar_2026-06.{docx,md}    # first entry — the CA-solar blog we liked
+    ├── report/   (none yet — cracked in Phase 5)
+    └── email/    (none yet — built last)
 ```
+
+Both wings teach **form/quality, never live facts**, and both are **non-binding inspiration** (P6). The internal wing has its own README + metadata schema (`internal/README.md`).
 
 ## Pending Intake (owner-provided; not a blocker — logged so it isn't lost)
 
