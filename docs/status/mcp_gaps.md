@@ -36,7 +36,9 @@ workaround: scope by state="CA" (CA ≈ CAISO, minus LADWP/SMUD/IID), then confi
             regions.iso_rto via get_plant.
 roadmap:    wire the search_plants ISO filter to the existing per-plant region join, OR add a
             resolve_region tool. This single fix turns the surface from 12 tools toward 13.
-observed:   ../learning/01_mcp_basics.md + test_run_001 (2026-06-05)
+observed:   ../learning/01_mcp_basics.md + ENSO test_run_001 (2026-06-05);
+            REPEAT confirmed for iso="ERCOT" in hail_solar + hurricane_high_wind_wind (incl. fuel=wind)
+            test_runs (2026-06-14) — not CAISO- or solar-specific.
 status:     open      kind: filter
 ```
 
@@ -105,7 +107,7 @@ status:     open      kind: new tool / served asset
 ```text
 gap:        the canonical rendering is an HTML artifact hand-assembled from the skeleton each
             session; DOCX export for client deliverables is manual. Artifact-sandbox font fetches
-            may also fail (the mandatory degradation stack covers it — _style/brand.md §1).
+            may also fail (the mandatory degradation stack covers it — _style/brand.md §B1).
 workaround: brand_assets/artifact_skeleton.html + the output-contract envelopes; degrade to the
             system grotesque stack when the font CDN is blocked.
 roadmap:    a render/export tool: validated insight object + contract tuple → styled HTML/DOCX,
@@ -136,7 +138,8 @@ gap:        owner rollup returned "Intersect" (2,586 MW) and "Intersect Power" (
 workaround: name owners as returned; flag the split in text; do not sum across look-alikes.
 roadmap:    parent-level canonicalization for the owner dimension (map aliases → UBO), or expose
             a parent_id to group on. Pairs with the 4-layer ownership chain get_plant already has.
-observed:   InfraSure_ENSO_California_Solar build (2026-06-12)
+observed:   InfraSure_ENSO_California_Solar build (2026-06-12); CONFIRMED LIVE in offtaker_concentration
+            test_run_001 (2026-06-14): "Intersect Power" 2,389.2 MW vs "Intersect USA, LLC" 1,375.5 MW as separate groups.
 status:     open      kind: field/coverage gap
 ```
 
@@ -159,11 +162,76 @@ status:     open      kind: new tool / served asset
 gap:        search_news for "El Nino / ENSO / winter" → 0 articles. The ~57K-article corpus
             indexes deal/construction/regulatory lanes, not climate-driver signals, so a
             weather-driven Exposure piece gets no corroborating news.
+            NB: physical-HAZARD events (hail/wildfire/hurricane) ARE indexed in the `hazards` category with
+            structured details_json — this gap is specifically CLIMATE/WEATHER drivers (ENSO). (hail_solar test 001)
 workaround: rely on the external NOAA pull + substrate; omit the news channel; do NOT confess
             the gap in client copy (voice §5).
 roadmap:    a climate/weather lane in the news classifier (NWS alerts already flow into the
             platform pipeline upstream — surface + link them per plant/region).
 observed:   InfraSure_ENSO_California_Solar build (2026-06-12)
+status:     open      kind: field/coverage gap
+```
+
+### R12 — No served hazard peril-risk model (+ hazards-news classifier noise)
+
+```text
+gap:        hazard EXPOSURE + realized EVENT-TRANSLATION ground today (substrate geometry/CF + the
+            `hazards` news category), but the modeled peril RISK — hail return-period/severity, EAL/PML,
+            $ loss, insurance pricing — lives in model-gpr, not the MCP. Also the hazards classifier
+            carries false positives (a "hails decree" regulatory article + a boiler explosion both mis-tagged).
+workaround: ship DIRECTIONAL (geography + observed CF impact); block the $ / return-period; add a VERIFY
+            step to every hazard resource's procedure (don't trust the classification label).
+roadmap:    a served hazard peril model (return-period · severity · EAL by asset) — upgrades hazard
+            resources directional → quantitative (Wave-2 "wire model-gpr"); + a classifier-precision pass.
+observed:   hail_solar (2026-06-14); EXTENDED across Wave-1 — no thermal/cell-temp model (extreme_heat_derate,
+            so weather × performance hits the same wall), no TC/high-wind model (hurricane_high_wind_wind);
+            AND: hazards news does NOT link to wind plants (TX hurricane articles link to nuclear/hydro/gas only);
+            AND: monthly CF is too coarse to show a storm cut-out or an intra-day heat de-rate (need hourly/daily/availability feed).
+status:     open      kind: field/coverage gap · external-state
+```
+
+### R13 — Offtaker grounding: `offtakers` array null; resolved buyer lives in `news_extracted.buyer`
+
+```text
+gap:        get_plant.offtakers is null on EVERY plant drilled (Ragsdale, Baldy Mesa, Cedar Creek, Blue Creek,
+            Sunstone, Hill Solar 1) even where a PPA demonstrably exists — the resolved counterparty lives in
+            news_extracted.buyer. Also: find_by_extracted_fact(buyer) returns entity_ids but no summed capacity,
+            and aggregate has no group_by=buyer (can't size a named-offtaker book in one call). And
+            news_extracted.deal_value_usd carries cross-tagged $ noise (a $16.9B Spain figure on CA's Baldy Mesa).
+workaround: ground on find_by_extracted_fact(buyer) + per-plant news_extracted.buyer (VERIFY); never read a null
+            offtakers array as "no PPA"; drill each id for capacity + sum verified-only; never use deal_value_usd
+            as a PPA price.
+roadmap:    serve a first-class offtakers array from the resolution layer; add group_by=buyer to aggregate;
+            a precision pass on the $ fields.
+observed:   offtaker_concentration test_run_001 (2026-06-14); + confirmed in the brookfield_standard_solar studio
+            brief (2026-06-14) — offtakers null per-asset for an owner rollup; compare_entities also returns
+            canonical_owner=null (owner on a nested path it doesn't surface).
+status:     open      kind: field/coverage gap
+```
+
+### R14 — No geometry/coordinate-seeded nearby query
+
+```text
+gap:        nearby_plants requires a center plant_id — you cannot ask "what plants are within R km of an arbitrary
+            lat/lon." For an OFF-SUBSTRATE pin (a port, a mine, any non-power asset), you must first anchor on a known
+            nearby plant to fan out (the anten_ports brief anchored on Baytown 55327 to read the Galveston cluster).
+workaround: find a known in-substrate plant near the target, then nearby_plants from it.
+roadmap:    a nearby_by_coords(lat, lon, radius_km, fuel?) call — turns ANY off-substrate outlier (the outlier
+            playbook's class) into a substrate-grounded energy-cluster overlay directly.
+observed:   anten_ports studio brief (2026-06-14)
+status:     open      kind: new tool / filter
+```
+
+### R15 — No elevation / surge / flood-zone attribute on a plant
+
+```text
+gap:        get_plant carries lat/lon + boundary geometry but no coastal-elevation, storm-surge, or FEMA-flood-zone
+            attribute — so a coastal/surge exposure read must pull the hazard footprint from external public sources
+            (the anten_ports brief used City-of-Houston surge briefings), not the substrate.
+workaround: external surge/elevation sources, cited + dated; co-location MW from nearby_plants as the substrate anchor.
+roadmap:    a served coastal-elevation / surge / flood-zone field per plant (pairs with R10 served-geometry) — makes the
+            COASTAL hazard class substrate-grounded instead of research-grounded.
+observed:   anten_ports studio brief (2026-06-14)
 status:     open      kind: field/coverage gap
 ```
 

@@ -15,7 +15,7 @@
 ```text
 per series:   a source_ref (substrate | external) + as_of        — no ref, no plot
 per figure:   bordered · caption BELOW · caption names what it shows + source + as_of
-                                                                   (brand.md §4, mandatory)
+                                                                   (brand.md §A4, mandatory)
 per chart:    says NOTHING the gated insight does not say — a chart that implies a
               forecast, a magnitude, or a causal link the insight blocked is itself blocked
 ```

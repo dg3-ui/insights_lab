@@ -13,7 +13,8 @@
 
    STATUS LADDER:
      [✅] data tools (MCP) live            [✅] source repo + taxonomy registry
-     [✅] ENSO skill authored (SKILL.md)   [✅] Test Run 001 — PASS (with logged gaps)
+     [✅] 5 methodology skills authored, each test-001 PASS (ENSO · hail · heat · hurricane-wind · offtaker)
+     [✅] recipe layer + _method scaffold built (KB-expansion plan Ph0-1)
      [✅] shared layers built (_principles · _style · _craft · _reference — layered-reference plan Ph1-4)
      [◑ ] bottom-up cracked — layered-reference plan Phase 5
      [◑ ] find_methodology discovery — spec'd (../method/discovery_spec.md), not built
@@ -28,7 +29,7 @@ The active build is governed by the working plans, not this table — see `../pl
 |---|---|---|
 | Data tools (MCP) | ✅ live | wire the `iso` filter (gap R1) / add region resolution |
 | Source repo + taxonomy registry | ✅ built | — |
-| One validated skill (ENSO) | ✅ test 001 PASS | — |
+| Validated methodology skills | ✅ 5 (ENSO · hail · heat · hurricane-wind · offtaker), each test 001 PASS | Wave-2: wire model-gpr for the $/EAL layer |
 | Shared layers (`_principles`/`_style`/`_craft`/`_reference`) | ✅ built (v0.2) | bottom-up cells fill in plan Phase 5 |
 | Skill **format** (`SKILL.md` from a package) | ✅ ENSO authored | generalize: a build script that compiles `SKILL.md` from any package |
 | Discovery tool (`find_methodology`) | ◑ spec'd (`../method/discovery_spec.md`) | implement as an MCP tool over the registry index |

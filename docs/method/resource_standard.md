@@ -28,6 +28,7 @@ Every resource must define:
 ```text
 methodology_resource
 ├── identity
+├── maturity            (grounding_maturity · data_maturity)
 ├── question_grammar
 ├── scope
 ├── inputs            (substrate_inputs · external_inputs · descriptive_context · actor_context)
@@ -47,6 +48,7 @@ methodology_resource
 | Field | What It Means |
 |---|---|
 | `identity` | Slug, title, version, status, owner, and review date |
+| `maturity` | `grounding_maturity` + `data_maturity` — set the confidence ceiling + the build order (defined in *Maturity, Peril & Stationarity* below) |
 | `question_grammar` | The exact questions this resource is allowed to answer |
 | `scope` | Entity types, fuels, regions, lifecycle phases, and actors |
 | `substrate_inputs` | InfraSure data/tool inputs needed for grounding |
@@ -62,6 +64,39 @@ methodology_resource
 | `staleness_signals` | Data or external events that force review — including a version change in a shared `resources/_*` layer the resource was validated against (`resources/README.md`, Shared Layers) |
 
 `blocked_claims` carries the most weight: a resource with sharp "blocked" rules produces safe output even when the "allowed" language is loose. The reverse is not true.
+
+## Maturity, Peril & Stationarity Fields
+
+> Added 2026-06-14 (`../plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 1) — three additions that keep expansion grounding-led and make peril authoring repeatable.
+
+### Maturity (every resource)
+
+Two facets in `resource.yml.maturity`. They **do not categorize** (not discovery tags); they set the **confidence ceiling** and the **build order**:
+
+| Field | Values | Meaning |
+|---|---|---|
+| `grounding_maturity` | `substrate-only` \| `model-not-wired` \| `needs-data` | Can the public MCP + one named feed ground a defensible claim **today**? `substrate-only` → ship now (directional). `model-not-wired` → the quantified claim lives in `model-gpr`; ship the **directional** claim now + **log the gap** (`../status/mcp_gaps.md`). `needs-data` → defer. |
+| `data_maturity` | `H` \| `M` \| `L` | Substrate coverage for this resource's scope; sparse coverage caps confidence and forces *omit-don't-infer*. |
+
+**Rule**: a resource's confidence ceiling never exceeds what `grounding_maturity` supports — a `model-not-wired` resource must **not** emit the quantified claim its model would (EAL, forward LMP, DSCR); it ships the directional claim and logs the gap.
+
+### Peril-field standard (hazard / peril resources)
+
+A peril resource's `resource.yml` adopts the vault's hazard-CSV columns, so peril authoring is a CSV-row → package transform:
+
+| Field | Meaning |
+|---|---|
+| `predictability` | Lead-time skill of the hazard (forecastable vs sudden-onset). |
+| `key_datasets` | The named external footprint/event feed(s) — e.g. NOAA-SPC hail, NHC track, NIFC fire perimeter. |
+| `climate_attribution_confidence` | Strength of the climate-change trend signal (caps trend claims). |
+| `financial_materiality` | Typical $ severity to the asset class — a **tie-breaker, never the grounding**. |
+| `insurance_treatment` | How the peril is carried/excluded in cover — the bridge to the commercial $ layer. |
+
+The hazard **EXPOSURE + EVENT-TRANSLATION** claim is groundable today (substrate + the `hazards` news category + one feed → **directional**); the hazard **LOSS / $** (EAL, PML, insurance pricing) is `model-gpr` → set `grounding_maturity: model-not-wired`, log the gap. Hazard news carries **classifier noise** (false positives) — a peril resource's `procedure` **must include a VERIFY step** (`CLAUDE.md` "don't trust tool labels").
+
+### Non-stationarity (climate / weather resources)
+
+Every weather/climate resource carries a standard `confidence_rule`: **climate non-stationarity caps trend claims.** A historical teleconnection or baseline (an ENSO composite, a hail climatology) is an odds-shift on a *shifting* baseline, not a stationary law — never assert a stationary return-period from a historical record alone.
 
 ## Applied-Insight Thin Contract
 

@@ -1,6 +1,6 @@
 # Plan — Docs Reorganization: purpose-folders along the P1 seam
 
-> **Status**: **ACTIVE**, opened 2026-06-13. Branch `docs-reorg`.
+> **Status**: **DONE** 2026-06-14 — every old→new move in §2 landed; the docs are in their new homes (`method/`, `process/`, `status/`, `architecture.md`, `principles.md`, `use_cases.md`). Opened 2026-06-13, branch `docs-reorg`. Archived to `done/`.
 >
 > **Owner**: Divy. **Why**: the docs are Divy's communication channel with the agent; the flat `00–11` sequence mixed stable canon with volatile roadmap, buried the architecture, and triplicated three "roadmaps." Decisions confirmed 2026-06-13 (purpose-folders · reorg + cheap corrections · architecture doc as front door).
 >

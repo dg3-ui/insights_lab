@@ -1,12 +1,14 @@
 # Architecture — InfraSure Insights, End to End
 
-> **Status**: the front door, 2026-06-13. The single intuitive map of the whole system — what it is, how it flows, and where every other doc fits. It **summarizes and points**; the deep docs own the detail.
+> **Status**: the front door, 2026-06-13 · **amended 2026-06-14** with the climate-&-weather-risk product framing (§1, `plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 0). The single intuitive map of the whole system — what it is, how it flows, and where every other doc fits. It **summarizes and points**; the deep docs own the detail.
 >
 > **Audience**: anyone new to the project (read this first); seniors vetting the direction; the model itself, for orientation.
 >
 > **Read next**: `principles.md` (what must not move), `method/` (how to reason & build), `process/` (the loop), `use_cases.md` (who it's for), `status/` (what's built / next).
 
 ## 1 · What This Is — The Second Surface (the moat)
+
+**What InfraSure is** (the product this serves): a **climate & weather risk-analytics platform for energy infrastructure** — forward-looking, asset-specific hazard / exposure / resilience intelligence for owners · investors · lenders. Its spine is **(hazard × asset-class) + (weather × asset-class) + the commercial layer they resolve into** — e.g. *hail → a solar fleet's panels → a hail-insurance dollar claim*. It is an **intelligence system whose reasoning is evidence-disciplined**: the validation gate (§7) is its **firewall, not its purpose** — it keeps the intelligence from becoming fluent mush, it does not replace it.
 
 InfraSure already has one surface: **data** — a curated US energy-infrastructure substrate (~15.5K plants, ~29.7K generators, ~9.8K queue projects, ~57K classified news articles) reachable through read-only MCP tools. That surface answers *"what is true."*
 

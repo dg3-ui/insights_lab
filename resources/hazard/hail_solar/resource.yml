@@ -1,0 +1,182 @@
+identity:
+  slug: "hail_solar"
+  title: "Severe Hail Exposure For Solar Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-14"
+
+maturity:
+  grounding_maturity: "substrate-only"   # exposure + realized event-translation ground TODAY; the $ LOSS layer
+                                         # (EAL / insurance pricing / modeled hail risk) is model-gpr — see blocked_claims + mcp_gaps R12
+  data_maturity: "H"                     # TX solar: 378 plants, geometry, monthly CF, owner chain, hazards news all present
+
+taxonomy:
+  domain: hazard                  # folder axis — shares FEMA/SPC/hazards-news machinery + footprint logic
+  family: exposure                # primary family; the resource ALSO serves event_translation (realized event → asset)
+  drivers:
+    - hail
+    - severe_convective_storm
+    - natcat                       # maps the hazards-news risk_factor R12_NATCAT_FM
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:                            # the peril-field standard (resource_standard.md)
+  predictability: "sudden-onset"  # hours-to-days warning at best; managed via climatology + hail-stow, not forecast
+  key_datasets: ["NOAA SPC severe-hail climatology / storm reports", "InfraSure hazards news category (subcategory=hail)"]
+  climate_attribution_confidence: "low-to-medium"   # hail-trend attribution is contested — caps any trend claim
+  financial_materiality: "high"   # hail is a leading cause of utility-scale solar insurance loss — TIE-BREAKER, never grounding
+  insurance_treatment: "often sub-limited / separate hail deductible"   # the bridge to the commercial $ layer
+
+question_grammar:
+  allowed_questions:
+    - "Which solar assets / owners / regions sit in a severe-hail-exposed geography, and how materially?"
+    - "What did a realized hail event mean for a specific solar asset (observed operating impact)?"
+    - "Through what mechanism is the array exposed, and what mitigation applies?"
+    - "Who should monitor or harden against the exposure, and why?"
+  blocked_questions:
+    - "What is the exact dollar loss / EAL / insurance payout from this hail event?"
+    - "What is the forward annual probability or return-period of damaging hail at this site?"
+    - "What exact plant-level generation loss will the next hail season cause?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - solar
+  regions_or_markets:
+    - "one selected region or market per test (test 001 = ERCOT / Texas)"
+  lifecycle_phases:
+    - operating
+    - queue          # siting-stage exposure is in scope (developer actor)
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place the asset in / out of the hail footprint (lat/lon, county, boundary)"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Filter solar; trackers/module type sharpen the mechanism"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "OBSERVED realized impact — the post-event CF dip (the substrate-grounded event-translation)"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + portfolio hail-geography concentration"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event grounding — search_news(category=hazards) hazard_type/affected_area/operational_impact (VERIFY)"
+    - name: "nearby_plants"
+      required: false
+      use: "Same-footprint fan-out — other solar in the hail cell"
+  external_inputs:
+    - name: "SPC_severe_hail_climatology"
+      required: true
+      freshness: "climatology (stable) + recent storm reports (dated)"
+      use: "Establish the hail-exposed geography; cite the source"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Route the insight; insurance/financing relevance where available"
+
+procedure:
+  steps:
+    - "Establish the hail-exposed geography (SPC climatology) and/or a realized hail event (hazards news)."
+    - "State the mechanism (hail → c-Si module/array damage; tracker hail-stow mitigation) and claim type."
+    - "Select one region/market and the solar asset class."
+    - "Resolve the solar fleet via the MCP (state= proxy; the iso filter is unwired — see data_requirements)."
+    - "Identify assets in the hail footprint (geometry + nearby_plants); VERIFY any hazards-news classification."
+    - "Where a realized event exists, drill get_plant.generation for the OBSERVED post-event CF change."
+    - "Retrieve owner/company context for actor relevance and portfolio concentration."
+    - "Assemble: condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade the $ loss, the forward probability, and any single-cause attribution."
+
+allowed_claims:
+  - "Directional hail-exposure claims for a scoped solar asset set / geography"
+  - "Realized event-translation: a named hail event → a specific asset, with OBSERVED operating impact (CF)"
+  - "Owner / portfolio concentration in a hail-exposed geography"
+  - "Mechanism + mitigation statements (hail-stow, hail-rated modules), cited"
+  - "Monitoring / hardening recommendations for owners, lenders, developers"
+
+blocked_claims:
+  - "Exact $ damage, EAL, PML, or insurance payout from hail (model-gpr / not on the MCP)"
+  - "Forward annual hail probability or return-period from climatology alone (needs a hail model)"
+  - "Plant-level generation forecasts without plant-level modeling"
+  - "Single-cause attribution — asserting an observed CF change was caused ONLY by hail"
+  - "National conclusions from one regional test"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "A realized event with multi-source corroboration AND an observed substrate signal (e.g. a post-event CF dip) — reachable for event-translation."
+  medium: "Exposure framing on a climatologically clear geography with resolved asset scope, no realized-event signal."
+  low: "Forward / probabilistic exposure without a hail model; or a single noisy input."
+  blocked: "No verified hazard classification, scope unresolved, or a $ / return-period / plant-level-forecast is requested."
+
+caveats:
+  required:
+    - "An observed CF change is CONSISTENT WITH hail damage, not proof hail was the sole cause (curtailment/weather also move CF)."
+    - "Hazard-news classification is VERIFIED, not taken on the label (the classifier has false positives)."
+    - "Hail is sudden-onset and climatologically concentrated; exposure is geographic, not a dated forecast."
+    - "Dollar severity and insurance outcome are NOT modeled here (directional only)."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Asset hardening (hail-stow protocols, hail-rated glass), insurance deductible exposure, outage recovery."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio concentration in hail-exposed geography; downside to availability/revenue."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "DSCR stress from a hail-driven outage on a financed asset (directional)."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Siting + design choices (tracker hail-stow, module spec) for queue-stage projects in the hail maximum."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "New hazards news for the scoped region/assets"
+  - "Generation substrate refresh (a new post-event CF month)"
+  - "SPC hail climatology / a new severe-hail season"
+  - "Plant geometry / ownership refresh"
+  - "A served hazard peril-risk model becomes available (mcp_gaps R12) — upgrades directional → quantitative"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"

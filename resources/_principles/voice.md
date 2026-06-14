@@ -1,6 +1,6 @@
 # Voice — How An InfraSure Analyst Sounds
 
-> **Status**: v0.1, 2026-06-12 (Phase 1 deliverable).
+> **Status**: v0.1, 2026-06-12 (Phase 1 deliverable) · **v0.2 amendment 2026-06-14 — §6 the studio creative-punch guard** (`../../docs/plans/2026-06-14_studio_and_bottom_up.md`).
 >
 > **Purpose**: the house voice, the humanization rules, the altitude ("smartfulness") discipline, and the anti-microprompting doctrine. Loaded at **draft** time with every projection (phrasing hygiene is cheaper applied at draft than retrofitted at render) and binding on every rendering.
 >
@@ -80,6 +80,16 @@ DON'T (flaunting the moat)                   DO (showing it)
 - **No meta-comparison to general AI**, no scale-boasts as bragging, no "look what we can do."
 - **Demonstrate instead**: be grounded (named entities, IDs, dated sources), and **deep-link to infrasure.ai** for the detailed result. This is the Grid-Status "the blog *is* the product demo, without saying so" lesson (`../_reference/exemplars/grid_status_rabbit_hill.md` lesson 4; `../_style/brand.md` §3 deep-links).
 - The moat language is correct and important — **in the deck**. In the insight it reads as insecurity and breaks the client register.
+
+## §6 · Creative Punch — the studio amplification (selective)
+
+When a piece goes through `studio/` for the home-run treatment (`../_style/output_contracts.md` §5), the creative punch obeys the same discipline as the prose:
+
+- the punch lands on the **hook / title / framing / hero visual** — **never** on a claim's magnitude (§3: an unmodeled number is a blocked claim, however punchy);
+- the hook is **grounded** — the attention-grabbing comparison ("better/worse positioned than X over 12 months") is a real MCP result, not invention (§5: show by grounding, don't flaunt);
+- it is **post-gate** — you amplify a *validated* insight; you never write the punchy version first.
+
+A catchy title is voice; a bigger number is a broken claim. **The creative budget buys reach, never accuracy.**
 
 ---
 

@@ -1,6 +1,6 @@
 # Output Contracts — blog · report · email
 
-> **Status**: v0.2, 2026-06-13 (revamped to the three-output model; the earlier direction×audience×format matrix was over-built — simplified to the three output *types*).
+> **Status**: v0.2, 2026-06-13 (revamped to the three-output model; the earlier direction×audience×format matrix was over-built — simplified to the three output *types*) · **§5 studio creative-layer guards added 2026-06-14** (`../../docs/plans/2026-06-14_studio_and_bottom_up.md`).
 >
 > **What a contract is**: a light **envelope** for an output — roughly its length, tone, the shape readers expect, what NOT to include, and the gate guard. It is **not a template to satisfy** and not a cage: it is inspiration the model uses when it helps and sets aside when it doesn't (`../../docs/principles.md` P6). The inside flexes by phenomenon, scope, and the model's judgment; the envelope just keeps the outside coherent and on-brand.
 >
@@ -50,7 +50,7 @@ The validated form, codified from what worked (the InfraSure ENSO / CA-solar pie
 Structural moves (a guide, not a checklist — P6):
 
 ```text
-0 DISPLAY    topic kicker · date · read time   (the title block, brand.md §4)
+0 DISPLAY    topic kicker · date · read time   (the title block, brand.md §A4)
 1 TITLE+DEK  catchy via a rhetorical device; honest numbers (hyperbole never lands on a claim, voice.md §3)
              dek = informative subtitle: what the piece covers + why now
 2 SUMMARY    3–4 takeaway bullets + a calibration cue (posture, not a pejorative "LOW" stamp)
@@ -82,6 +82,20 @@ Same format family and structural moves as the blog (§2); the difference is **t
 The terse output: a distillation of a validated **blog or report** (§2/§3), not a thing built from scratch. Because it is a subset, it is **built last** — the rich piece must crack the feedback loop first; you can't tell from an email whether the underlying insight is deep.
 
 **GATE PRECONDITION (doubly so): renders only a validated insight, for a named account, after human review of the rendering itself — no send automation, ever** (`../../docs/use_cases.md` activation boundary). Envelope: short (~120–250 words) · one claim, one number with `as_of`, one watch line · DOCX/email-body export from the same brand kit.
+
+## §5 · Studio — the creative & activation layer (selective · the cherry, not a gate)
+
+`studio/` (`../../studio/`) is where an output gets the **home-run treatment**: a captured creative layer — *hero visual · punchline/hook · the comparison framing · channel notes* — on top of a gated insight, in a cloud-attachable brief (`../../studio/_brief_template.md`). It is **opt-in**, for pieces that must land; **most outputs stay on the baseline** (gated insight → render) with no studio pass. It spans all output types and both directions.
+
+Three guards keep the creative layer from eroding the moat (the moat's blast radius — non-negotiable):
+
+```text
+1. GATE STAYS UPSTREAM (P2)   studio dresses a VALIDATED insight; it never originates one. insight → gate → render → creative.
+2. CREATIVE ≠ OVERCLAIM        the punch lands on the HOOK / title / framing / hero visual — NEVER on a claim's magnitude
+                               (§3 confidence display · `../_principles/voice.md` §3 + §6). A catchy title, yes; a bigger number, never.
+3. THE HOOK IS GROUNDED        the home-run line (the comparison, "you vs peers") is an MCP result — real, not invented;
+                               the creative layer AMPLIFIES a grounded comparison, it never manufactures one.
+```
 
 ---
 

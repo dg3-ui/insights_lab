@@ -2,7 +2,7 @@
 
 > **Status**: opened 2026-06-11 — the home for multi-phase execution plans that are too big for the README "Current Task" line.
 >
-> **Rule**: one **ACTIVE** plan at a time (others may be **PAUSED** — started, set down to let a more urgent plan run — or **QUEUED** — opened as a stub, not started). A plan is a *working doc*: its phase ladder is updated as phases complete, and the ACTIVE one is what the README "Current Task" routes to. When a plan is done or superseded, mark it and leave it in place as the record; do not rewrite history.
+> **Rule**: one **ACTIVE** plan at a time (others may be **PAUSED** — started, set down to let a more urgent plan run — or **QUEUED** — opened as a stub, not started). A plan is a *working doc*: its phase ladder is updated as phases complete, and the ACTIVE one is what the README "Current Task" routes to. When a plan is **done** or **superseded**, mark its final status and **move the file into [`done/`](done/)** — a relocation, not a rewrite; the file is preserved verbatim as the record and the index keeps a pointer. So the top-level `plans/` only ever shows **live** work (ACTIVE · QUEUED · PAUSED); `done/` is the archive.
 
 ## How A Plan Works Here
 
@@ -27,8 +27,12 @@ Plans follow house doc style (`Status` blockquote · ASCII + tight tables · `Se
 
 | Plan | Opened | Status |
 |---|---|---|
-| [2026-06-13_docs_reorg.md](2026-06-13_docs_reorg.md) — reorganize `docs/` into purpose-folders along the P1 seam; `architecture.md` as the front door | 2026-06-13 | **ACTIVE** |
-| [2026-06-11_layered_reference_v1.md](2026-06-11_layered_reference_v1.md) — restructure `resources/` into shared layers (_principles · _style · _craft · _reference) + output contracts + rubric | 2026-06-11 | **PAUSED** behind the reorg — Phases 1–4 ✅ · Phase 5 (crack bottom-up) next |
+| [2026-06-14_studio_and_bottom_up.md](2026-06-14_studio_and_bottom_up.md) — the **output half**: stand up `studio/` + the creative & activation layer (with the moat guards) + the first bottom-up home-run examples (Anten · Brookfield) | 2026-06-14 | **ACTIVE** — Phases 1–2 ✅ (studio + 2 home-run briefs, for review) · Phase 3 deferred (trigger met) |
+| [2026-06-14_outlier_showcase_red_dog.md](2026-06-14_outlier_showcase_red_dog.md) — the off-substrate / reverse-engineering lane: the Red Dog bottom-up report (worked proof) + the reusable outlier method | 2026-06-14 | **DONE** (Phases 1–2 ✅, 2026-06-14) — report drafted (owner review pending) + outlier playbook; archives to `done/` at supersession |
+| [2026-06-13_knowledge_base_expansion_v1.md](2026-06-13_knowledge_base_expansion_v1.md) — the authored-intelligence scaffold (recipe layer + `_method`) + the first hazard-led resource wave (hail×solar · heat×solar · hurricane/wind×wind · offtaker) | 2026-06-13 | **DONE** (Phases 0–4 ✅, 2026-06-14) — scaffold + 5 resources + 1 proven recipe; archives to `done/` at supersession |
+| [2026-06-11_layered_reference_v1.md](2026-06-11_layered_reference_v1.md) — restructure `resources/` into shared layers (_principles · _style · _craft · _reference) + output contracts + rubric | 2026-06-11 | **PAUSED** — Phases 1–4 ✅ · Phase 5 (bottom-up) **superseded by** `2026-06-14_studio_and_bottom_up.md` |
+
+Completed plans are archived in [`done/`](done/).
 
 ---
 

@@ -1,6 +1,6 @@
 # docs/ — Index & Read Order
 
-> **Status**: the docs map, 2026-06-13. Docs are grouped by **job** (folder = job), and the **stable/volatile seam is a folder boundary** — the project's own P1 principle applied to its own documentation. Reorganized from the flat `00–11` sequence per `plans/2026-06-13_docs_reorg.md`.
+> **Status**: the docs map, 2026-06-13. Docs are grouped by **job** (folder = job), and the **stable/volatile seam is a folder boundary** — the project's own P1 principle applied to its own documentation. Reorganized from the flat `00–11` sequence per `plans/done/2026-06-13_docs_reorg.md`.
 
 ## The Map
 
@@ -16,9 +16,11 @@ docs/
 │
 ├── method/           HOW TO REASON & BUILD (the contract)
 │   ├── analysis_families.md   the 7 families (V0 = Exposure) + the Q&A grammar
-│   ├── resource_standard.md   the methodology_resource + applied_insight contracts
+│   ├── resource_standard.md   the methodology_resource + applied_insight contracts (+ maturity/peril fields)
 │   ├── data_map.md            the input taxonomy + the source_ref shape (sole owner)
-│   └── discovery_spec.md      find_methodology / get_methodology contract
+│   ├── discovery_spec.md      find_methodology / get_methodology contract
+│   ├── workflow_recipes.md    the recipe layer — composing resources into jobs (docs, not a runtime)
+│   └── outlier_playbook.md    reverse-engineering an off-substrate outlier (the ad-hoc / research-grounded lane)
 │
 ├── process/          THE LOOP
 │   ├── test_protocol.md       the manual test, session capture, failure taxonomy, feedback intake
@@ -36,7 +38,7 @@ docs/
 ```text
 STABLE CANON                          VOLATILE                         NAVIGATIONAL
 architecture · principles · use_cases   status/ (3 ledgers)              README (this)
-method/ (4) · process/ (2)              plans/ (working plans)           See-also footers
+method/ (6) · process/ (2)              plans/ (working plans)           See-also footers
                                         learning/logs/ (session records)
 read once, trust                        check for what's live            wayfinding
 ```
@@ -64,4 +66,4 @@ AUTHOR (a new     architecture.md  →  method/resource_standard.md  →  method
 
 ---
 
-**See also**: `architecture.md` (the front door), `../README.md` (repo map + working rules), `../CLAUDE.md` (the full agent instructions), `plans/2026-06-13_docs_reorg.md` (why this structure).
+**See also**: `architecture.md` (the front door), `../README.md` (repo map + working rules), `../CLAUDE.md` (the full agent instructions), `plans/done/2026-06-13_docs_reorg.md` (why this structure).

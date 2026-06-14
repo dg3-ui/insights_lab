@@ -1,6 +1,6 @@
 # Design Principles
 
-> **Status**: v0 governing principles, 2026-06-05.
+> **Status**: v0 governing principles, 2026-06-05 · **amended 2026-06-14** (P1 corollary: authored scaffold vs runtime intelligence + the no-code rail; P6 asymmetry guard — `plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 0).
 >
 > **Audience**: anyone authoring resources, building the engine, or deciding what to freeze vs. leave open.
 >
@@ -34,6 +34,8 @@ confidence-capped-at-weakest-input
 The payoff is the answer to "how do we ride LLM progress?": **you do not keep the methodology loose — you keep it tight and hot-swap the engine underneath it.** A better model does not change what a grounded, caveated insight is; it just executes the same discipline more cheaply and more reliably. Volatility lives in the engine, never in the standard.
 
 `resource.yml` is the seam between the layers: it encodes the stable contract (taxonomy, confidence_rules, blocked_claims) so the volatile engine can be rebuilt around it without touching the discipline.
+
+**Corollary — the intelligence is the model's job; we author the scaffold.** InfraSure is an intelligence system (`architecture.md` §1), and "intelligence" splits along this same seam. The **authored scaffold** — recipes, `_method` primitives, the family map, the claim/Q&A grammar — is **stable / L0**: methodology a model *reads*. The **planning + synthesis** that turns a question into a grounded insight (decompose → retrieve → rank → drill → synthesize) is **volatile / L2 = the model's job** (the table above already lists *the orchestration, manual → agentic* as volatile). So a recipe or `_method` artifact is **a docs/spec the model READS, never an engine we BUILD** — no `code/`, no `scripts/`, no planner/orchestrator in v0. "Build the intelligent system" must always resolve to "author the scaffold that makes the model reason like an InfraSure analyst," or it has frozen intelligence into the swappable layer.
 
 ## Principle 2 — Content Is Downstream of Validated Insight
 
@@ -118,6 +120,8 @@ A reference EARNS its place only by making the output better.
 This is the deliberate counterweight to "bake references in so quality is automatic" (the `_reference` corpus, the `_style` contracts): bake them in as **available inspiration**, never as a rule the model must satisfy. Slavishly following the reference folder produces flatter, worse output than a model trusted to reason — and it throws away the exact thing an LLM is good at (creativity, design, the latest information, adaptability).
 
 What stays binding is the **discipline** — grounding, `blocked_claims`, the gate, the claim grammar — never the *form* a reference happens to show. This is P1's volatile layer seen from the inside (the model is the swappable, *trusted* layer, so we don't shackle it), the anti-microprompting doctrine (`../resources/_principles/voice.md` §4) applied to references, and the floor-not-ceiling rule applied to form. **This one does not get walked back.**
+
+**The asymmetry guard.** Borrow *form and packaging* from external references (a competitor's structure, a big-firm repo's layering); **never trade the gate for a reference's thinner guardrails.** A richer-scale repo can be ahead on packaging and still behind on the evidence discipline that is our moat — borrowing its shape must never dilute `blocked_claims`, `confidence_rules`, or the gate.
 
 ## How To Use These Principles
 

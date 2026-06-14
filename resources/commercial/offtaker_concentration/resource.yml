@@ -1,0 +1,181 @@
+identity:
+  slug: "offtaker_concentration"
+  title: "Offtaker Concentration & Merchant Exposure"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-14"
+
+maturity:
+  grounding_maturity: "substrate-only"   # the FACT (who buys, how concentrated, what is merchant) grounds TODAY
+                                          # via the resolution layer (find_by_extracted_fact buyer + news_extracted.buyer).
+                                          # the $ re-contracting / merchant-price layer is model-gpr — see blocked_claims.
+  data_maturity: "M"                      # PPA-buyer coverage is PARTIAL — resolved for deal-active plants (corp PPAs,
+                                          # hyperscaler deals), null/absent for most merchant + utility-bilateral plants.
+                                          # the null is itself a finding (merchant tail), but it caps coverage → omit-don't-infer.
+
+taxonomy:
+  domain: commercial                # folder axis — shares the FERC-EQR / ownership / resolved-PPA-fact machinery
+  family: commercial                # the "who buys/sells power, and what does that imply" family
+  drivers:
+    - offtaker_concentration         # the (driver × mechanism) cell: revenue keyed to ONE counterparty
+    - ppa_counterparty               # the named-buyer axis (corp PPA / utility bilateral)
+    - merchant_exposure              # the OTHER tail of the same axis: uncontracted / no-PPA revenue
+  actors:
+    - owner_operator
+    - investor
+    - lender
+
+knowledge_ref: "knowledge.md"
+
+# NOTE: no `peril:` block — this is a FACTUAL commercial resource, not a hazard/peril.
+# The claim type is RESOLVED-FACT QUALITY + PARTIAL COVERAGE, not directional hazard odds.
+
+question_grammar:
+  allowed_questions:
+    - "Who buys the power from this asset / region / owner's book (the named PPA counterparties)?"
+    - "How CONCENTRATED is a scope's contracted revenue in one offtaker (count + capacity of plants resolved to one buyer)?"
+    - "How much of a scope is MERCHANT / uncontracted (no resolved offtaker) — the merchant-tail exposure?"
+    - "Who is the owner/seller behind a contracted book, and who should care about the concentration?"
+  blocked_questions:
+    - "What will the re-contracting or merchant price ($/MWh) be when the PPA expires or for the uncontracted tail?"
+    - "What is the counterparty's default probability / credit rating / forward credit-loss?"
+    - "What offtaker does this null-buyer plant 'probably' have (inferring a counterparty where the field is absent)?"
+    - "What is the total book of a parent if I sum its look-alike owner names together?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - project          # queue PPAs / acquisitions are in scope (the buyer fact resolves on projects too)
+    - company_owner
+    - offtaker
+  fuels_or_technologies:
+    - solar
+    - solar_plus_storage
+    - wind             # the buyer fact is fuel-agnostic; a corporate book spans fuels (note it, don't force a fuel)
+  regions_or_markets:
+    - "one named offtaker's book OR one region per test (test 001 = Amazon US solar/storage book + ERCOT/TX merchant tail)"
+  lifecycle_phases:
+    - operating
+    - queue
+    - planned
+  actors:
+    - owner_operator
+    - investor
+    - lender
+
+inputs:
+  substrate_inputs:
+    - name: "resolved_buyer_fact"
+      required: true
+      use: "THE grounding. find_by_extracted_fact(field='buyer', value=<offtaker>) → entity_ids + source + as_of + confidence (most-cited-wins). The reverse-lookup that sizes a named-offtaker book."
+    - name: "plant_news_extracted_buyer"
+      required: true
+      use: "Per-plant confirmation: get_plant.news_extracted.buyer (+ seller, ppa_type, ppa_term_years) — the resolved counterparty for ONE asset. NOTE: the slim `offtakers` array is null for these corp-PPA plants; the resolved FACT is the grounding."
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality + book sizing; recommended >= 50 MW. Capacity is structured; sum ONLY across verified entities."
+    - name: "owner_company_chain"
+      required: true
+      use: "The SELLER side — get_plant.ownership.canonical_owner. Routes the insight; also exposes the parent-canonicalization gap (look-alike splits)."
+    - name: "merchant_null_signal"
+      required: false
+      use: "A plant with NO resolved buyer (offtakers null AND news_extracted.buyer absent) = merchant/uncontracted tail. The null IS the finding — never infer a buyer into it."
+    - name: "region_grid"
+      required: false
+      use: "get_plant.regions.iso_rto / .grid — bounds a regional merchant-tail test (e.g. ERCOT) and frames merchant-price exposure qualitatively."
+  external_inputs:
+    - name: "deal_source_article"
+      required: false
+      freshness: "dated (the PPA-announcement article the fact was resolved from)"
+      use: "The named source under the resolved buyer fact (e.g. Reuters, ESG Today). Already in-substrate as source_url; cite it."
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frames the entity (Gemini blurb / Wikipedia); NEVER grounds a counterparty claim."
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Routes the insight — concentration is an owner/investor/lender revenue-risk axis."
+
+procedure:                          # specializes the _method reasoning skeleton (../_method/README.md §A)
+  steps:
+    - "Frame the claim TYPE: this is FACTUAL (who buys / how concentrated / how merchant), not directional hazard odds. Confidence = resolved-fact quality + coverage, NOT probability."
+    - "Pick ONE anchor: (a) a named offtaker, OR (b) one region/owner's book. Scope it (one region · one asset class where regional)."
+    - "(a) RESOLVE the book: find_by_extracted_fact(field='buyer', value=<offtaker>) → entity_ids + source + as_of + confidence."
+    - "DRILL + VERIFY each material entity: get_plant(<id>).news_extracted.buyer — confirm the resolved buyer is the one you wanted, note confidence + n_articles_supporting (don't trust the reverse-lookup label alone)."
+    - "Read the SELLER: get_plant.ownership.canonical_owner; flag any parent look-alike split (R9) — do NOT sum look-alikes."
+    - "Size CONSERVATIVELY: count of verified plants + summed capacity ACROSS VERIFIED ENTITIES ONLY; keep mixed statuses (operating/queue/acquisition) distinct."
+    - "(b) For a region: scan search_plants(fuel, state); a plant with NO resolved buyer = merchant tail. Report the merchant finding from the NULLs — never infer a buyer."
+    - "Assemble the claim grammar; cap confidence at resolved-fact quality (multi-source → high; single thin source → medium) AND at coverage (partial → caveat)."
+    - "Block the $ re-contracting / merchant-price forecast, the counterparty-credit forecast, the inferred-offtaker, the look-alike sum, and outreach-before-gate."
+
+allowed_claims:
+  - "Factual named-offtaker concentration: N verified plants / ~X MW resolved to one buyer, each with source + as_of + confidence."
+  - "Factual merchant-tail exposure for a region/owner: M plants / ~Y MW with NO resolved offtaker (the null, reported as-is)."
+  - "Seller/owner routing behind a contracted book (canonical_owner), with the look-alike-split caveat."
+  - "Qualitative re-contracting / merchant-price / counterparty-concentration RISK framing (directional, no number)."
+  - "Monitoring recommendations (PPA-expiry watch, counterparty diversification) for owner/investor/lender."
+
+blocked_claims:                     # carries the most weight
+  - "Forward re-contracting $/MWh or merchant-price forecast for the uncontracted tail (model-gpr)."
+  - "Counterparty default probability / credit rating / forward credit-loss (model-gpr)."
+  - "Inferring an offtaker where the buyer fact is null/absent (omit-don't-infer — partial-coverage gap R5)."
+  - "Summing capacity across look-alike owner-name groups as one parent (parents not canonicalized — gap R9)."
+  - "Using the slim `offtakers: null` as evidence of 'no PPA' WITHOUT also checking news_extracted.buyer (null array ≠ merchant)."
+  - "A $ deal_value as a PPA price or a verified figure (the field carries cross-tagged noise — e.g. a Spain-investment $ on a CA plant)."
+  - "National conclusions from one region / one offtaker's book."
+  - "Outreach copy before the insight is validated."
+
+confidence_rules:
+  high: "FACTUAL — the buyer is resolved from MULTIPLE sources / high n_articles_supporting (e.g. >=2, conf >=0.9), drilled + verified per plant; scope resolved. The book SIZE stays as-counted, not extrapolated."
+  medium: "The buyer is resolved from a SINGLE thin source (conf ~0.7–0.8, n=1) OR coverage of the scope is partial (some plants unresolved) — the fact holds for the verified subset; the book may be larger."
+  low: "Only the qualitative RISK framing (re-contracting / merchant-price / credit exposure) — directional, no number."
+  blocked: "A $ / price / default-probability is requested, a buyer would have to be INFERRED into a null, or look-alike owners would have to be summed."
+
+caveats:
+  required:
+    - "This is a FACTUAL snapshot of resolved counterparties, NOT a price forecast — no re-contracting or merchant $/MWh is claimed."
+    - "PPA-buyer coverage is PARTIAL — resolved where deal news exists; OMIT where the buyer fact is absent, never infer it. A null offtaker is reported as merchant/unknown, not back-filled."
+    - "Owner parents are NOT canonicalized — look-alike owner names (e.g. 'Intersect Power' vs 'Intersect USA, LLC') may be the same parent; flag, do not silently sum."
+    - "The resolved buyer fact is most-cited-wins; cap confidence at its source count + the per-plant VERIFY (confidence + n_articles_supporting)."
+    - "Counterparty credit quality + merchant-price level are out of scope here (model-gpr) — only the concentration STRUCTURE is claimed."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Revenue concentration in one offtaker (or a heavy merchant tail) is a re-contracting + counterparty-credit risk axis on the book; informs PPA-laddering + buyer diversification."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Concentration in one counterparty (or merchant exposure) is a revenue-quality / cash-flow-volatility axis for an equity position in the owner or the asset."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "PPA counterparty + tenor underpin contracted-cashflow coverage; a single-offtaker book or a merchant tail is a DSCR-stability concern (directional — no DSCR number here)."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "A new PPA / offtake announcement for the scope (new resolved buyer fact, new as_of)"
+  - "A PPA expiry / re-contracting event (the merchant tail grows)"
+  - "Ownership refresh (canonical_owner change; a parent-canonicalization fix would re-base the book sizing)"
+  - "A merchant plant signs its first PPA (a null flips to a resolved buyer)"
+  - "A served counterparty-credit / re-contracting-price model becomes available (upgrades factual → quantitative)"
+  - "A shared resources/_* layer version this was validated against changes"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"
