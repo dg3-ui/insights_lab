@@ -170,16 +170,20 @@ source_ref:
 
 ## Confidence Rules
 
-Use conservative confidence. Do not upgrade confidence beyond what the weakest required input supports.
+> **Confidence is three axes, not one** (`confidence_model.md`). The ladder below is the **CALIBRATION CAP** — the only *graded* axis, and the firewall `blocked_claims` enforces. The other two axes — **event likelihood** (the world's sourced probability) and **materiality** (the stake) — are *not* graded here and *never raise the cap*. This section owns the cap; the model owns how all three render.
 
-| Confidence | Use When |
+Use conservative confidence. **The cap is set by the weakest required input, and nothing raises it** — not a high event-likelihood, not a severe stake.
+
+| Calibration cap | Use When |
 |---|---|
 | High | Mechanism is strong, scope is resolved, source refs are current, and the claim is narrow |
 | Medium | Mechanism is credible but one input, crosswalk, or comparison is imperfect |
 | Low | Claim is directional, scenario-based, or depends on external forecasts / incomplete context |
 | Blocked | Required input is missing, source is stale, entity scope is unresolved, or claim exceeds allowed logic |
 
-The ENSO claim above is `low` because its weakest input — an external seasonal forecast plus a noisy regional teleconnection — caps it there, regardless of how clean the asset scope is.
+The ENSO claim above is `low` because its weakest input — an external seasonal forecast plus a noisy regional teleconnection — caps it there, regardless of how clean the asset scope is, **how likely the El Niño (63%), or how large the exposed book**.
+
+**Materiality basis (the second internal axis).** When a resource ranks *how big the stake is*, ground it as **exposed-share × class-severity band** — the exposed-share is a substrate count (the % of the subject's MW/plants in the exposed bucket); the class-severity band is read from the resource's own canon, **never a $** (a $ is a `model-gpr` output, blocked here): for a **hazard/peril** resource it is the `financial_materiality` field above; for a **weather/climate** resource it is the documented (driver × asset-class) sensitivity in `knowledge.md` (e.g. the ENSO CA/SW DJF teleconnection robustness). If the cell has no documented severity band, materiality is `unknown` — a logged gap, not an asserted band. Materiality is a **tie-breaker** (it orders which low-cap reads to surface first), never an **override** (it never lifts the cap). Full model + the render/internal split: `confidence_model.md`.
 
 ## Blocked Claim Examples
 

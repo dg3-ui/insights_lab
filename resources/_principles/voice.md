@@ -1,6 +1,6 @@
 # Voice — How An InfraSure Analyst Sounds
 
-> **Status**: v0.1, 2026-06-12 (Phase 1 deliverable) · **v0.2 amendment 2026-06-14 — §6 the studio creative-punch guard** (`../../docs/plans/2026-06-14_studio_and_bottom_up.md`).
+> **Status**: v0.1, 2026-06-12 (Phase 1 deliverable) · **v0.2 amendment 2026-06-14 — §6 the studio creative-punch guard; §5 extended to two-sided (show-don't-flaunt AND don't-self-deprecate, P7)** (`../../docs/plans/2026-06-14_studio_and_bottom_up.md`).
 >
 > **Purpose**: the house voice, the humanization rules, the altitude ("smartfulness") discipline, and the anti-microprompting doctrine. Loaded at **draft** time with every projection (phrasing hygiene is cheaper applied at draft than retrofitted at render) and binding on every rendering.
 >
@@ -65,7 +65,7 @@ constraints    blocked claims · the rubric   "say exactly this, then this"
 
 The test of a good instruction: it would still produce the right artifact on a different model. If a rule only works by over-constraining phrasing, it belongs in the bin, not the canon. Flexibility lives in the wording; discipline lives in the claims (`../../docs/principles.md` P5).
 
-## §5 · Audience Discipline — Show, Don't Flaunt (owner feedback, 2026-06-12)
+## §5 · Audience Discipline — Show, Don't Flaunt *and* Don't Self-Deprecate (owner feedback, 2026-06-12; extended 2026-06-14)
 
 A rendered insight **demonstrates** value; it never **advertises** it. The reachability argument — "a general model can't do this", "15,000 plants", "unreachable without us" — is the **sales narrative** (the pitch deck, the with/without method in `../../docs/use_cases.md`), not customer copy. Even when the artifact is produced internally, write it as the thing you would hand a client.
 
@@ -80,6 +80,8 @@ DON'T (flaunting the moat)                   DO (showing it)
 - **No meta-comparison to general AI**, no scale-boasts as bragging, no "look what we can do."
 - **Demonstrate instead**: be grounded (named entities, IDs, dated sources), and **deep-link to infrasure.ai** for the detailed result. This is the Grid-Status "the blog *is* the product demo, without saying so" lesson (`../_reference/exemplars/grid_status_rabbit_hill.md` lesson 4; `../_style/brand.md` §3 deep-links).
 - The moat language is correct and important — **in the deck**. In the insight it reads as insecurity and breaks the client register.
+
+**The mirror failure — self-deprecation (`../../docs/principles.md` P7).** Flaunting is one way to break the register; *confessing scope as inability* is the other, and it's worse because it usually **misleads**. "We run no model here," "we haven't resolved X" reads as weakness — yet the directional read was a scope *choice*, and InfraSure's deeper quantified layer genuinely exists. **Reframe a scope boundary as a forward door**: "this is a directional screen; the per-asset modeling is where InfraSure goes deeper — talk to the team." Keep the *phenomenon* caveats (the world's uncertainty is expertise, not weakness); never assert a number this artifact didn't model; never bluff a capability we lack. The honest register is the middle: **posture + grounding + a real forward door** — neither brag nor confession. Mechanically, "posture" is the *register-translation of the calibration cap*, paired on the rendered face with the sourced **event likelihood** and a **settledness signal**; the cap grade itself stays internal (the three-axis model, `../../docs/method/confidence_model.md`).
 
 ## §6 · Creative Punch — the studio amplification (selective)
 

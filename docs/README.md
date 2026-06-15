@@ -17,6 +17,7 @@ docs/
 ├── method/           HOW TO REASON & BUILD (the contract)
 │   ├── analysis_families.md   the 7 families (V0 = Exposure) + the Q&A grammar
 │   ├── resource_standard.md   the methodology_resource + applied_insight contracts (+ maturity/peril fields)
+│   ├── confidence_model.md    the three-axis confidence model (cap · event-likelihood · materiality) — the output foundation
 │   ├── data_map.md            the input taxonomy + the source_ref shape (sole owner)
 │   ├── discovery_spec.md      find_methodology / get_methodology contract
 │   ├── workflow_recipes.md    the recipe layer — composing resources into jobs (docs, not a runtime)
@@ -38,7 +39,7 @@ docs/
 ```text
 STABLE CANON                          VOLATILE                         NAVIGATIONAL
 architecture · principles · use_cases   status/ (3 ledgers)              README (this)
-method/ (6) · process/ (2)              plans/ (working plans)           See-also footers
+method/ (7) · process/ (2)              plans/ (working plans)           See-also footers
                                         learning/logs/ (session records)
 read once, trust                        check for what's live            wayfinding
 ```

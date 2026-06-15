@@ -25,7 +25,8 @@ This project adds the **second surface: methodology** — packaged, discoverable
    commentary  ✗  "El Niño may affect US electricity markets."
    insight     ✓  "El Niño Watch DJF 26-27 → wetter CA winter → downside to winter solar CF across the
                    CA ≥50MW fleet (Topaz 57695, Desert Sunlight 57993); owners Clearway/BHE + offtaker
-                   PG&E should watch; LOW confidence, directional; no $/MWh claim."
+                   PG&E should watch; a forward, directional read (calibration cap LOW, internal — one of
+                   three axes, method/confidence_model.md); no $/MWh claim."
 ```
 
 The moat is **grounding, not fluency** — the discipline that makes that second line possible is owned by `principles.md`; this doc shows where it sits in the system.
@@ -58,7 +59,7 @@ flowchart TD
         direction TB
         DISC["discover → load the method<br/>+ _principles (loaded pre-gate)"]
         GND["ground: external state (NOAA, dated)<br/>+ InfraSure substrate (real assets, as_of)"]
-        ASM["assemble the applied-insight object<br/>claim · scope · refs · confidence · caveats · actor"]
+        ASM["assemble the applied-insight object<br/>claim · scope · refs · confidence (3 axes) · caveats · actor"]
         HUMAN{"HUMAN CHECKPOINT<br/>enrich · re-scope · challenge"}
         GATE{{"THE GATE<br/>confidence_rules + blocked_claims<br/>no $/MWh · cap confidence at the weakest input"}}
         DISC --> GND --> ASM --> HUMAN
@@ -177,13 +178,14 @@ Naming: package/slug is `snake_case` (`el_nino_enso`); the published Skill `name
 Before anything renders, the applied-insight contract + `resource.yml` rules are the quality firewall:
 
 ```text
-confidence_rules    → cap confidence at the weakest input (ENSO default = LOW)
+confidence_rules    → set the CALIBRATION CAP at the weakest input (ENSO default = LOW) — one of three axes,
+                      event-likelihood + materiality the others; the cap grade is internal (method/confidence_model.md)
 blocked_claims      → refuse exact LMP / plant-level forecasts / pre-validation outreach (the heaviest-lifting field)
 input-availability  → empty asset scope or a stale external pull ⇒ BLOCKED
 examples/+test_runs → the EVAL SUITE: a skill must reproduce its golden output before publish
 ```
 
-The applied-insight object (`claim · scope · methodology_reference · source_refs · confidence · caveats · actor_relevance · review_trace`) is defined by `method/resource_standard.md`; the manual gate and its pass/fail criteria are `process/test_protocol.md`; the 5-criterion scoring layer on top of the binary gate is `resources/_principles/rubric.md`.
+The applied-insight object (`claim · scope · methodology_reference · source_refs · confidence · caveats · actor_relevance · review_trace`) is defined by `method/resource_standard.md`; the manual gate and its pass/fail criteria are `process/test_protocol.md`; the 5-criterion scoring layer on top of the binary gate is `resources/_principles/rubric.md`. **`confidence` is not one number** — it is three axes (calibration cap · event likelihood · materiality), and only posture renders while the cap grade stays internal: the model is `method/confidence_model.md`.
 
 **v0 caveat — the gate is self-policing**: in v0 it is a prompt-level convention enforced by the same session that drafts. That is a known weakness; the fix is *independence* (a separate `/gate-check`, `process/commands.md`), not more self-review.
 

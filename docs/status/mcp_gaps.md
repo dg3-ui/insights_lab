@@ -218,7 +218,7 @@ gap:        nearby_plants requires a center plant_id — you cannot ask "what pl
 workaround: find a known in-substrate plant near the target, then nearby_plants from it.
 roadmap:    a nearby_by_coords(lat, lon, radius_km, fuel?) call — turns ANY off-substrate outlier (the outlier
             playbook's class) into a substrate-grounded energy-cluster overlay directly.
-observed:   anten_ports studio brief (2026-06-14)
+observed:   galveston_ship_channel_surge/storm_surge studio brief (2026-06-14; folded 2026-06-15)
 status:     open      kind: new tool / filter
 ```
 
@@ -231,7 +231,7 @@ gap:        get_plant carries lat/lon + boundary geometry but no coastal-elevati
 workaround: external surge/elevation sources, cited + dated; co-location MW from nearby_plants as the substrate anchor.
 roadmap:    a served coastal-elevation / surge / flood-zone field per plant (pairs with R10 served-geometry) — makes the
             COASTAL hazard class substrate-grounded instead of research-grounded.
-observed:   anten_ports studio brief (2026-06-14)
+observed:   galveston_ship_channel_surge/storm_surge studio brief (2026-06-14; folded 2026-06-15)
 status:     open      kind: field/coverage gap
 ```
 

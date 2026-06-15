@@ -1,6 +1,6 @@
 # Output Contracts — blog · report · email
 
-> **Status**: v0.2, 2026-06-13 (revamped to the three-output model; the earlier direction×audience×format matrix was over-built — simplified to the three output *types*) · **§5 studio creative-layer guards added 2026-06-14** (`../../docs/plans/2026-06-14_studio_and_bottom_up.md`).
+> **Status**: v0.2, 2026-06-13 (revamped to the three-output model; the earlier direction×audience×format matrix was over-built — simplified to the three output *types*) · **§5 studio creative-layer guards added 2026-06-14**; **§3 the scope→forward-door reframe (P7) 2026-06-14** (`../../docs/plans/2026-06-14_studio_and_bottom_up.md`).
 >
 > **What a contract is**: a light **envelope** for an output — roughly its length, tone, the shape readers expect, what NOT to include, and the gate guard. It is **not a template to satisfy** and not a cage: it is inspiration the model uses when it helps and sets aside when it doesn't (`../../docs/principles.md` P6). The inside flexes by phenomenon, scope, and the model's judgment; the envelope just keeps the outside coherent and on-brand.
 >
@@ -66,7 +66,9 @@ Structural moves (a guide, not a checklist — P6):
 
 Not-include: price/LMP forecasts · plant-level production forecasts · outreach CTAs · unscoped national claims · exemplar-derived facts · **internal-taxonomy labels** (the artifact is reader-facing; the kicker names a topic, never our categorization) · **moat / meta-pitch language** ("unreachable without a general model", "15,000 plants" as a boast) — that is the sales narrative (`../../docs/use_cases.md`), not reader copy (`../_principles/voice.md` §5: show, don't flaunt; demonstrate by grounding + a product deep-link to infrasure.ai).
 
-**Confidence display, public vs internal.** A public/broad blog conveys calibration as *analytical posture* ("a forward, directional read"), carried by precise grounding and the honest caveat — **not** a self-deprecating "Confidence: LOW" badge or a "we make no forecast" disclaimer. A targeted report for an internal/expert reader may keep the explicit confidence line — the decider wants the label. The gate's LOW/directional verdict underneath is unchanged (`../_principles/rubric.md` criterion 4); only its surfacing differs by audience.
+**Confidence display, public vs internal (`../../docs/method/confidence_model.md`).** Confidence is three axes, and only the surfacing differs by audience — the gate verdict underneath never does. On the rendered face: **posture** (the cap → "a forward, directional read", never a self-deprecating "Confidence: LOW" badge or a "we make no forecast" disclaimer) + the **event likelihood** (the sourced number, e.g. NOAA 63% — a real odds-shift, not our self-grade) + a **settledness bar** (`▰▰▰▱▱`) where a firming forecast exists, reading "firms as the season resolves" — forward, never self-doubt. The **cap grade**, the **materiality band**, and the **triage verdict** (act/watch/noise, `../../studio/_triage.md`) stay **internal** (render-internal regardless of repo visibility). A targeted report for an internal/expert reader may keep the explicit cap line — the decider wants the label; a public/client render carries posture only.
+
+**Scope is a forward door, not a confession (`../../docs/principles.md` P7).** Likewise, never turn a *scope boundary* into self-deprecation: "we run no model here / haven't resolved X" reads as inability and **misleads** — the quantified per-asset layer is a real InfraSure capability, just not run in this screen. Reframe it as a door ("the per-asset modeling is where InfraSure goes deeper — talk to the team"), while keeping the *phenomenon* caveat (the world's uncertainty) and never asserting an unmodeled number. Keep, reframe, drop: **phenomenon caveat** stays · **scope statement** → forward door · **"LOW" badge / "we make no forecast" disclaimer** → posture.
 
 ## §3 · Report — a blog, scoped to a specific portfolio / client / region / purpose
 
@@ -85,7 +87,7 @@ The terse output: a distillation of a validated **blog or report** (§2/§3), no
 
 ## §5 · Studio — the creative & activation layer (selective · the cherry, not a gate)
 
-`studio/` (`../../studio/`) is where an output gets the **home-run treatment**: a captured creative layer — *hero visual · punchline/hook · the comparison framing · channel notes* — on top of a gated insight, in a cloud-attachable brief (`../../studio/_brief_template.md`). It is **opt-in**, for pieces that must land; **most outputs stay on the baseline** (gated insight → render) with no studio pass. It spans all output types and both directions.
+`studio/` (`../../studio/`) is where an output gets the **home-run treatment**: a captured creative layer — *hero visual · punchline/hook · the comparison framing · channel notes* — on top of a gated insight, in a cloud-attachable brief (`../../studio/_brief_template.md`). It is **opt-in**, for pieces that must land; **most outputs stay on the baseline** (gated insight → render) with no studio pass. It spans all output types and both directions. A brief lives at `studio/<subject>/<phenomenon>.md`; its **§1 gate-record is the single source of truth** for the three confidence axes (`../../docs/method/confidence_model.md`), from which the rendered posture and the internal triage board (`../../studio/_triage.md`) both derive (`../../studio/README.md`).
 
 Three guards keep the creative layer from eroding the moat (the moat's blast radius — non-negotiable):
 
@@ -99,4 +101,4 @@ Three guards keep the creative layer from eroding the moat (the moat's blast rad
 
 ---
 
-**See also**: `brand.md` (the anatomy every output renders into), `../_principles/rubric.md` (criterion 1 judges the declared output; criterion-5 voice), `../_principles/voice.md` §4 + `../../docs/principles.md` P6 (these contracts inform, they don't bind), `../_reference/` (external form exemplars + internal golden outputs that *show* the form), `../../docs/use_cases.md` (the buckets these serve).
+**See also**: `brand.md` (the anatomy every output renders into), `../../docs/method/confidence_model.md` (the three-axis model behind the §2/§3 confidence display), `../_principles/rubric.md` (criterion 1 judges the declared output; criterion-5 voice), `../_principles/voice.md` §4 + `../../docs/principles.md` P6 (these contracts inform, they don't bind), `../_reference/` (external form exemplars + internal golden outputs that *show* the form), `../../docs/use_cases.md` (the buckets these serve).

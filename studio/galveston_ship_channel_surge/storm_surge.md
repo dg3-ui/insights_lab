@@ -1,14 +1,16 @@
 # Studio Brief — One Cell, One Channel: Storm Surge on the Energy Coast
 
-> **Output type**: report · **As of**: 2026-06-14 · **Audience**: internal (InfraSure team; client-ready on review) · **Grounding**: HYBRID — research-grounded coastal/port exposure (`outlier_playbook.md`) + MCP-grounded in-substrate energy overlay (the Houston Ship Channel gas cluster)
+> **Subject**: Galveston Bay / Houston Ship Channel surge corridor (region — the unresolvable "Anten" acquisition, keyed honestly to the corridor it would sit in) · **Phenomenon**: storm surge / hurricane (`../../resources/hazard/hurricane_high_wind_wind/`)
 >
-> **A cloud-attachable brief**: attach this + `../resources/_style/brand.md` + `../resources/_principles/voice.md` (+ `_craft` if charts) → render for the target format. **Post-gate only** — this brief dresses a *validated* insight (the three guards, `README.md`).
+> **Output type**: report · **As of**: 2026-06-14 · **Audience**: internal (InfraSure team; client-ready on review) · **Grounding**: HYBRID — research-grounded coastal/port exposure (`../../docs/method/outlier_playbook.md`) + MCP-grounded in-substrate energy overlay (the Houston Ship Channel gas cluster)
 >
-> **Entity honesty (read first)**: the brief was commissioned on **"Anten," a recent PORTS acquisition** to be tied to storm-surge / hurricane-season weather. **"Anten" does not resolve.** No company by that name surfaces in public M&A reporting (the nearest real names — AD Ports, I Squared / Philippines Coastal, *Antin* Infrastructure's Aquavista marinas — are different entities and assuming any of them *is* Anten would be invention), and the InfraSure substrate returns nothing for it (`plants_by_owner="Anten"` → one unrelated solar substring hit; `find_by_extracted_fact buyer/company="anten"` → empty; `search_news="Anten"` → an "antenna" false match). So the *specific* entity is **unresolvable** and is flagged as a gap, not faked. What is **fully resolvable** is the phenomenon the meeting actually cares about: storm-surge and hurricane-season risk on a coastal **energy-and-logistics port** as a single-cell chokepoint. That is built here, grounded, with a real in-substrate energy cluster standing in for "the assets a coastal acquisition would actually own or sit beside."
+> **A cloud-attachable brief**: attach this + `../../resources/_style/brand.md` + `../../resources/_principles/voice.md` (+ `_craft` if charts) → render for the target format. **Post-gate only** — this brief dresses a *validated* insight (the three guards, `../README.md`).
+>
+> **Entity honesty (read first)**: the brief was commissioned on **"Anten," a recent PORTS acquisition** to be tied to storm-surge / hurricane-season weather. **"Anten" does not resolve.** No company by that name surfaces in public M&A reporting (the nearest real names — AD Ports, I Squared / Philippines Coastal, *Antin* Infrastructure's Aquavista marinas — are different entities and assuming any of them *is* Anten would be invention), and the InfraSure substrate returns nothing for it (`plants_by_owner="Anten"` → one unrelated solar substring hit; `find_by_extracted_fact buyer/company="anten"` → empty; `search_news="Anten"` → an "antenna" false match). So the *specific* entity is **unresolvable** and is flagged as a gap, not faked. **This is why the subject is keyed to the corridor, not the account** (`../../docs/method/confidence_model.md`: an unresolvable entity becomes a region subject, honestly). What is **fully resolvable** is the phenomenon the meeting actually cares about: storm-surge and hurricane-season risk on a coastal **energy-and-logistics port** as a single-cell chokepoint. That is built here, grounded, with a real in-substrate energy cluster standing in for "the assets a coastal acquisition would actually own or sit beside."
 
 ## 1 · The validated insight (the gated content — grounds everything)
 
-**Claim** (two parts, at different confidence):
+**Claim** (two statements; the calibration splits into **three facets** at three caps — `../../docs/method/confidence_model.md` §6):
 
 1. **The chokepoint, research-grounded — directional.** A coastal energy-and-logistics port on the upper Texas coast is a **single-cell exposure**: the same Galveston Bay storm-surge corridor that floods the dock floods the fuel tanks, the substations, and the generation sitting on the same low ground. Much of the developed west side of Galveston Bay lies **below 30 ft elevation**, and a major hurricane can drive a **20-plus-ft surge** up the bay into the Houston Ship Channel; the City of Houston's own briefing puts **~2,000 storage tanks** in the flood envelope of a 22-to-24-ft surge. This is the Red Dog geometry transposed to the warm coast: *one* climate-sensitive corridor gates fuel-in, power, and cargo-out at once.
 
@@ -30,11 +32,15 @@
 7. external · NOAA 2026 Atlantic Hurricane Outlook (noaa.gov, May 2026) · BELOW-normal: 8–14 named storms, 3–6 hurricanes, 1–3 major; 55% below / 10% above; El Niño shear; "it only takes one" · accessed 2026-06-14 · frames the season, NOT a site probability
 ```
 
-**Confidence** (per-part, capped at the weakest input):
+**Calibration — the three axes, per part (`../../docs/method/confidence_model.md` §1, §6).** This block is the **single source of truth**; output posture and the triage ranking *derive* from it. Caps are split per part and capped at the weakest input.
 
-- *The surge corridor co-locates fuel, grid and generation on one low-elevation plain* — **medium-high** (elevation, surge range and the tank count are from the City of Houston briefing; the ~3,719 MW co-location is a hard substrate count).
-- *A major-hurricane surge would hit this cluster simultaneously* — **medium** (mechanism is sound and the geography is real; magnitude depends on storm track/intensity, which is not modeled here).
-- *Forward, this-season risk to the named assets* — **low / directional** (no surge model, no return-period, no per-asset loss — geographic exposure only).
+| Axis | Value | Basis |
+|---|---|---|
+| **Calibration cap** (internal, per facet) | corridor co-locates fuel+grid+generation on one plain → **medium-high** · a major-hurricane surge would hit the cluster simultaneously → **medium** · forward, this-season risk to the named assets → **low / directional** (the **binding** cap) | the elevation, surge range and tank count are from the City of Houston briefing; the ~3,719 MW co-location is a hard substrate count; magnitude depends on storm track/intensity, which is not modeled; no return-period, no per-asset loss. |
+| **Event likelihood** (on output) | **NOAA 2026 season: below-normal** — 8–14 named / 3–6 hurricanes / 1–3 major; 55% below, 10% above | a **season frame, NOT a site probability**. A below-normal season has still produced Cat-5 landfalls — "it only takes one." |
+| **Materiality** (internal) | **meaningful–severe** | exposed-share ~3,719 MW (≤3.4 km) / ~4,310 MW named, all in **one** surge cell × surge-on-coastal-gas class-severity (high, correlated single-event). The concentration in a single cell IS the materiality. |
+
+**On output**: render the per-part posture — the co-location stated plainly (medium-high), the simultaneous-hit as "a well-grounded read" (medium), the forward this-season risk as "a forward, directional read" (low). The event likelihood renders as the **season frame** ("NOAA calls 2026 quiet; the corridor doesn't care"). The **settledness bar applies weakly here** — this is *structural geographic* exposure, not a firming seasonal forecast, so the read does not "settle" with a NOAA update; show the season frame, not a fill-bar (`confidence_model.md` §5: the signal tracks a firming forecast; a structural exposure has none). The cap grades + the materiality band stay internal.
 
 **Caveats**:
 
@@ -42,7 +48,7 @@
 - The ~3,719 MW (≤3.4 km) and ~4,310 MW (named-cluster) figures are **co-location capacity counts**, not modeled loss and not a simultaneous-outage estimate. They say "this much generation sits in the corridor," nothing about how much would fail in a given storm.
 - **NOAA's 2026 season is below-normal** (55% below / 10% above). That lowers basin-wide storm *count*, not a single port's surge exposure: a below-normal season has still produced Category-5 landfalls, and "it only takes one" (NOAA). The chokepoint framing deliberately survives a quiet forecast — that is the point, not a hedge.
 - Baytown's spring-2025 capacity-factor dip (monthly CF ~0.25–0.30, Apr–Jun 2025, vs ~0.5–0.6 typical) is **dispatch/economic cycling on a combined-cycle plant, not a storm signal** — no major Gulf landfall in that window; it is named here only to pre-empt mis-reading it as hazard.
-- **No dollar figure**: the City briefing's "$40–50 billion" regional-damage range is a third-party scenario frame, not our modeled EAL for these assets; site-level loss is out of scope.
+- **No dollar figure**: the City briefing's "$40–50 billion" regional-damage range is a third-party scenario frame, not our modeled EAL for these assets; site-level loss is out of scope (the per-asset surge/loss layer is where InfraSure goes deeper — a forward door, not "we don't model that").
 
 **Actor relevance**:
 
@@ -51,7 +57,7 @@
 - **Lender** — a surge-driven multi-asset, multi-month outage on the channel is a correlated-default / DSCR stressor across several financed plants at once, not an idiosyncratic single-asset risk (directional).
 - **Operator** — hurricane-season fuel and crew staging, and the order of restoration (grid interconnection vs generation vs fuel handling) when all three flood together.
 
-**Gate (review trace)**: no $ EAL / PML asserted (✓ — the $40–50B figure kept as a third-party scenario frame); no forward hurricane probability or return-period (✓ — NOAA outlook used as season context only); no plant-level production forecast (✓); no single-cause attribution (✓ — surge mechanism stated as directional; the 2025 CF dip explicitly labeled non-storm); not unscoped national (✓ — one corridor, gas on the channel). Every material number carries a `source_ref` with `as_of`. Confidence split per-part and capped. The unresolvable entity is disclosed, not papered over. **Gate: PASS** (research-grounded + MCP-overlay hybrid).
+**Gate (review trace)**: no $ EAL / PML asserted (✓ — the $40–50B figure kept as a third-party scenario frame); no forward hurricane probability or return-period (✓ — NOAA outlook used as season context only); no plant-level production forecast (✓); no single-cause attribution (✓ — surge mechanism stated as directional; the 2025 CF dip explicitly labeled non-storm); not unscoped national (✓ — one corridor, gas on the channel). Every material number carries a `source_ref` with `as_of`. Cap split per-part and capped. The unresolvable entity is disclosed, not papered over. **Gate: PASS** (research-grounded + MCP-overlay hybrid).
 
 ## 2 · The comparison (the moat + the hook)
 
@@ -79,10 +85,17 @@ HERO VISUAL    A single map: the Galveston Bay / Houston Ship Channel surge corr
                only what §1 gated: co-location, not loss. (_craft: every pin a source_ref; no modeled-damage layer.)
 PUNCHLINE/HOOK "One cell, one channel." The punch lands on the FRAMING — a single surge corridor over a named
                4-plant, ~3.7 GW cluster — never on a bigger number. Subhead carries the calibrated season note:
-               "NOAA calls 2026 quiet. The corridor doesn't care — it only takes one." (Honest: amplifies the
+               "NOAA calls 2026 quiet. The corridor doesn't care. It only takes one." (Honest: amplifies the
                below-normal forecast into the chokepoint point, does not inflate risk.)
 COMPARISON     Framed as concentration, not ranking: "Diversifying across the basin doesn't help when 3.7 GW
                shares one surge cell." Grounded in the nearby_plants result; no manufactured peer comparison.
+CONFIDENCE     On the rendered face: per-part posture (co-location stated plainly; the simultaneous-hit as a
+               well-grounded read; the forward season risk as a directional read) + the NOAA season frame.
+               NO "CONFIDENCE: LOW" badge; no settledness fill-bar (structural exposure, not a firming forecast,
+               §1); the cap grades + the materiality band are internal (confidence_model.md §3, §5).
+FORWARD DOOR   "This is the exposure geography. The per-asset surge modeling — depth, fragility, loss, recovery
+               time — is where InfraSure goes deeper; the team takes the named cluster there." (P7: scope as a
+               door to a real capability, never "we run no surge model.")
 CHANNEL NOTES  report subject-line: "Storm surge on the energy coast — the Houston Ship Channel chokepoint (internal draft)."
                blog title (if generalized later, entity-anonymized): "One Cell, One Channel."
                email one-liner: "~3.7 GW of ERCOT gas sits inside a single Galveston Bay surge corridor — here's the geography."
@@ -97,7 +110,8 @@ COMPOSE     brand.md Part A (Inter/JetBrains-Mono, green+amber accents, the docu
             owned caveats) · _craft (the one grounded map; caption + source + as_of below it) · output_contracts.md
             §3 report envelope (a blog scoped to one corridor: lead with the named entities, narrow the caveat to them).
 GATE        renders ONLY this validated insight; every number traces to §1's source_refs (P2). The unresolvable
-            "Anten" entity is surfaced honestly in the dek/caveat, never silently substituted.
+            "Anten" entity is surfaced honestly in the dek/caveat, never silently substituted. Confidence display
+            (confidence_model.md §3, §6): per-part posture + the NOAA season frame; no "LOW" badge, no fill-bar.
 GUARDS      gate-upstream (insight built first, then dressed) · creative≠overclaim (punch on "one cell, one channel",
             numbers held at co-location counts) · grounded-hook (the ~3,719 MW is a real nearby_plants(55327) result).
 ```
@@ -118,6 +132,6 @@ GUARDS      gate-upstream (insight built first, then dressed) · creative≠over
   the COASTAL energy-and-logistics chokepoint (surge · funnel bay · co-located tank+grid+generation). Two outliers
   now share the "single climate-sensitive corridor" concept → per outlier_playbook §6.5, consider formalizing the
   ad-hoc framework. Realized precedent for the class: Houston Ship Channel near-misses (Ike 2008, Harvey 2017).
-· FORM — if this lands, promote toward _reference/internal/report/ as the first COASTAL bottom-up report exemplar
-  (Red Dog is the cold-region one).
+· FORM — if this lands, promote toward ../../resources/_reference/internal/report/ as the first COASTAL bottom-up
+  report exemplar (Red Dog is the cold-region one).
 ```

@@ -1,6 +1,6 @@
 # Design Principles
 
-> **Status**: v0 governing principles, 2026-06-05 · **amended 2026-06-14** (P1 corollary: authored scaffold vs runtime intelligence + the no-code rail; P6 asymmetry guard — `plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 0).
+> **Status**: v0 governing principles, 2026-06-05 · **amended 2026-06-14** (P1 corollary: authored scaffold vs runtime intelligence + the no-code rail; P6 asymmetry guard — `plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 0; **P7 — calibration is posture + a forward door, honest-not-self-deprecating**).
 >
 > **Audience**: anyone authoring resources, building the engine, or deciding what to freeze vs. leave open.
 >
@@ -123,6 +123,23 @@ What stays binding is the **discipline** — grounding, `blocked_claims`, the ga
 
 **The asymmetry guard.** Borrow *form and packaging* from external references (a competitor's structure, a big-firm repo's layering); **never trade the gate for a reference's thinner guardrails.** A richer-scale repo can be ahead on packaging and still behind on the evidence discipline that is our moat — borrowing its shape must never dilute `blocked_claims`, `confidence_rules`, or the gate.
 
+## Principle 7 — Calibration Is Posture and a Forward Door (honest, not self-deprecating)
+
+Honesty is the moat — but it must never curdle into **self-deprecation**. An artifact that *confesses what we didn't do* ("we run no model," "we haven't resolved X") undersells InfraSure, and is usually **inaccurate**: it implies the company *can't*, when the directional read was a **scope choice** and the deeper, quantified capability genuinely exists. Being honest does not require portraying ourselves as incapable; pretending it does is fooling ourselves.
+
+```text
+KEEP — integrity, reads as EXPERTISE          REFRAME — self-defeating → value-forward
+phenomenon caveats (the WORLD is uncertain:   scope statements ("we run no model HERE / haven't resolved X")
+  ENSO is noisy; one winter can defy it)         → a FORWARD DOOR: "this is a directional screen; the quantified
+never assert a number this artifact didn't        per-asset layer is where InfraSure goes deeper — talk to the team"
+  model (the blocked-claims moat)             confidence as POSTURE ("a forward, directional read"), not a pejorative
+                                                "LOW" badge on client copy (the explicit label stays internal/expert)
+```
+
+Two equal failure modes, both breaking the register: **flaunting** the moat (`../resources/_principles/voice.md` §5 — "15,000 plants," "unreachable without us") and **self-deprecating** the scope (this). The honest middle is **grounding + a confident posture + a forward door to a REAL capability.**
+
+The guard against fooling ourselves the *other* way (overclaim): keep the phenomenon caveats, never assert an unmodeled number, and the forward door must point to a capability InfraSure genuinely has — never a bluff, never a claim that *this* artifact did more than it did. Honesty is not self-deprecation; it is also not overclaim.
+
 ## How To Use These Principles
 
 ```text
@@ -132,6 +149,7 @@ saving a session      -> P3: capture raw, but plan the extraction; serve the res
 reviewing an output   -> P4: is this a draft or did the loop run? evals must see the loop
 facing an open call    -> P5: decide and version it, or name exactly what blocks the decision
 using a reference     -> P6: does it improve THIS output? if not, drop it — never force-fit; trust the model
+calibrating an output -> P7: posture + a forward door to a real capability; never self-deprecate (nor overclaim)
 ```
 
 ---
