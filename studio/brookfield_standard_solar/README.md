@@ -69,12 +69,15 @@ OFFTAKER CONCENTRATION (offtaker_concentration) — BLOCKED, gap confirmed 2026-
 ```text
 1. RE-GROUND FIRST    re-fetch the book against the live MCP (freshness note); reconcile drift before any number ships.
 2. PICK THE LENS       the matrix ranks the phenomena; lead with the highest-verdict one for the question asked.
-3. STAY POST-GATE      the two ✅ briefs are gated drafts (pending owner checkpoint); the scaffolds are NOT claims —
-                       ground + gate them through the test loop before they earn a brief.
-4. RENDER INTERNAL ≠ HOST PRIVATE   the cap grade, materiality band, and triage verdict in this guide are internal;
+3. STAY POST-GATE      the three ✅ briefs are gated drafts (pending owner checkpoint); the offtaker scaffold is NOT a
+                       claim (blocked) — ground + gate through the test loop before anything earns a brief.
+4. STUDIO-FIRST        these are bottom_up (account-targeted) reads, all originated HERE in studio before any render,
+                       gallery promotion, or publication (`../README.md` origination norm). A top_down market blog
+                       (e.g. "ENSO × US solar") would generalize FROM these, not precede them.
+5. RENDER INTERNAL ≠ HOST PRIVATE   the cap grade, materiality band, and triage verdict in this guide are internal;
                        a client render carries posture + the sourced frame only (confidence_model.md §3, §7).
 ```
 
 ---
 
-**See also**: [hail.md](hail.md) · [el_nino_enso.md](el_nino_enso.md) (the gated briefs) · `../_triage.md` (the cross-subject board this feeds) · `../README.md` (the studio architecture + the subject-README rule) · `../../docs/method/confidence_model.md` (the three axes the matrix ranks by) · the four resources linked in the matrix.
+**See also**: [hail.md](hail.md) · [el_nino_enso.md](el_nino_enso.md) · [extreme_heat.md](extreme_heat.md) (the gated briefs) · `../_triage.md` (the cross-subject board this feeds) · `../README.md` (the studio architecture + the subject-README rule) · `../../docs/method/confidence_model.md` (the three axes the matrix ranks by) · the four resources linked in the matrix.

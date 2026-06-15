@@ -35,6 +35,18 @@ studio ISN'T a pipeline gate. MOST outputs stay on the BASELINE path (gated insi
              studio creative pass. You spend the creative budget only where it earns a home run.
 ```
 
+## Origination & build order — studio first, then everywhere else (norm, 2026-06-15)
+
+studio is where an **output** is first created. The brief is the **first output artifact**, and everything downstream flows from it:
+
+```text
+studio brief  →  rendered deliverable (DOCX/HTML)  →  gallery promotion (_reference/internal/)  →  email distillation  →  any published / platform placement
+```
+
+- **studio-first.** A subject-anchored read is authored and iterated **in studio before any other place** — before it is rendered, promoted to the gallery, distilled to an email, or published. Nothing downstream is built first; studio is the origination point for the OUTPUT.
+- **but the INSIGHT is still gated upstream (guard 1, P2).** "Origination" here means the output *artifact*, not the *claim*. The claim is born in the test-loop and passes the gate **before** any studio brief exists; studio never originates an insight. studio-first applies to the rendering/dressing, not the grounding.
+- **bottom_up first, top_down generalizes after.** Account/region-anchored (`bottom_up`) reads come first — they are the richest, most grounded feedback loop (`../resources/_style/output_contracts.md` §1 build order). A `top_down` market blog **generalizes from accumulated bottom_up reads** on the same phenomenon (the phenomenon is the link); it is not built before there is grounded subject work to generalize from.
+
 ## Subject-keying & direction — the scope ladder (NOT a top_down/bottom_up folder split)
 
 A subject folder is keyed by **what the read is about**, on a **scope ladder**:
