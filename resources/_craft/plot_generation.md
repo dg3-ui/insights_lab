@@ -81,8 +81,12 @@ Think in a **chart spec before any drawing** (the vault §10 pipeline, collapsed
 3 SERIES     each with: tool call / external source · as_of · units
 4 ENCODING   x · y · color · label — position/length first (§4)
 5 GATE CHECK §2/§3 — is anything here a blocked plot? does the chart exceed the insight?
-6 DRAW       HTML artifact → inline SVG in the figure slot of artifact_skeleton.html
-             analysis-tool fallback → matplotlib PNG, same palette, embedded
+6 DRAW       the MODEL authors the artifact directly — its own generation is the renderer:
+             hand-written inline SVG in artifact_skeleton.html's figure slot (primary), or a
+             small stdlib generator (Python/JS) it writes + runs. A missing library is not a
+             blocker; max-utilise the model's ability to make a well-crafted figure. Keep a
+             one-off generator transient (/tmp); commit only the artifact (CLAUDE.md no-scripts).
+             matplotlib PNG is a fallback only where matplotlib exists (it does not here, §6).
 7 CAPTION    below the figure: what it shows · source · as_of  (+ alt text)
 ```
 
