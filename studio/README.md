@@ -12,9 +12,10 @@ FOUNDATION   ../docs/method/confidence_model.md   the three axes every brief rec
              on the rendered face: POSTURE + the event number + a SETTLEDNESS bar. the grade never renders.
 
 LAYER 1  RENDER   studio/<subject>/<phenomenon>.md
-         subject = an entity (Brookfield/Standard Solar) OR a region/corridor (Galveston surge corridor — used
-         when the entity is unresolvable). phenomenon = the driver, matching a resource slug (el_nino_enso).
-         each phenomenon file is SELF-CONTAINED + cloud-attachable; its §1 is the SINGLE SOURCE OF TRUTH.
+         subject = a scope-ladder anchor: account (Brookfield) → region/corridor (Galveston) → market/fleet
+         (a future top-down home). direction (top_down/bottom_up) is a META-TAG, not a folder. phenomenon =
+         the driver, matching a resource slug. each phenomenon file is SELF-CONTAINED + cloud-attachable;
+         its §1 is the SINGLE SOURCE OF TRUTH.
 
 LAYER 2  TRIAGE   studio/_triage.md   ONE internal board, never attached
          derives from the §1 gate-records → ranks subject×phenomenon by cap + materiality → ACT / WATCH / NOISE.
@@ -34,9 +35,19 @@ studio ISN'T a pipeline gate. MOST outputs stay on the BASELINE path (gated insi
              studio creative pass. You spend the creative budget only where it earns a home run.
 ```
 
-## Subject-keying — entity OR region
+## Subject-keying & direction — the scope ladder (NOT a top_down/bottom_up folder split)
 
-A subject folder is keyed by **what the read is about**, which is usually an entity (an owner, an account) but is a **region/corridor** when the entity won't resolve. The Galveston corridor is the worked case: the commissioned entity ("Anten") did not resolve to any real company, so the subject is the **Galveston Bay / Ship Channel surge corridor** it would sit in — honest, grounded, and still a real read (`galveston_ship_channel_surge/storm_surge.md`; `../docs/method/confidence_model.md`). One subject folder holds many phenomena over time, and once it carries **≥2 phenomena it earns a subject-guide `README.md`** — an account profile + a ranked phenomenon matrix + the cross-resource map, which makes the folder behave like a per-account *skill*. `brookfield_standard_solar/` is the first (`el_nino_enso.md` + `hail.md`, with extreme-heat and offtaker scaffolded in its guide). That is the scalable grain: a subject becomes a guide as its phenomena accumulate.
+A subject folder is keyed by **what the read is about**, on a **scope ladder**:
+
+```text
+account / owner        →     region / corridor      →      market / fleet
+(narrowest · bottom_up)      (mixed)                       (broadest · top_down)
+brookfield_standard_solar/   galveston_ship_channel_surge/  caiso_solar/  (a future top-down home)
+```
+
+**Direction (top_down / bottom_up) is a META-TAG, not a folder axis** (decided 2026-06-15; consistent with `../resources/_style/output_contracts.md` §1 — "direction is a descriptor, not a format"). The broader a subject's scope, the more `top_down` it reads; an account-scoped read is `bottom_up`. Every brief header carries `direction:`, and the triage board (`_triage.md`) shows it as a column. We deliberately did **not** split studio into `top_down/` and `bottom_up/` folders: that would add a second axis, push subjects a level deeper, and — worst — sever the link that **the same phenomenon at two scopes is one insight** (a market `caiso_solar/el_nino_enso.md` blog and an account `brookfield_standard_solar/el_nino_enso.md` report). The **phenomenon** is that link; a derived phenomenon index (like the triage board) can surface all scopes of one driver.
+
+A subject keyed to a **region/corridor** is the honest fallback when an entity won't resolve — the Galveston corridor is the worked case ("Anten" did not resolve to any company, so the subject is the surge corridor it would sit in; `galveston_ship_channel_surge/storm_surge.md`). One subject folder holds many phenomena over time, and once it carries **≥2 phenomena it earns a subject-guide `README.md`** (account/subject profile + a ranked phenomenon matrix + the cross-resource map), which makes the folder behave like a per-subject *skill*. `brookfield_standard_solar/` is the first (4 phenomena). That is the scalable grain: a subject becomes a guide as its phenomena accumulate.
 
 ## The single source of truth + render-internal
 

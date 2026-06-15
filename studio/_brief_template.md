@@ -2,9 +2,11 @@
 
 > **Location**: a brief lives at `studio/<subject>/<phenomenon>.md` (subject = an entity OR a region/corridor; phenomenon = the driver, matching a resource slug). The paths below assume that depth (`../../`).
 >
-> **Subject**: <entity or region/corridor> · **Phenomenon**: <driver, e.g. el_nino_enso> (`../../resources/<domain>/<slug>/`)
+> **Subject**: <name> — scope: `account` | `region/corridor` | `market/fleet` (the scope ladder) · **Phenomenon**: <driver, e.g. el_nino_enso> (`../../resources/<domain>/<slug>/`)
 >
-> **Output type**: <blog | report | email> · **As of**: <YYYY-MM-DD> · **Audience**: <internal | client | public> · **Grounding**: <MCP-grounded | research-grounded (label it)>
+> **Direction**: <bottom_up (account/targeted) | top_down (market/generic)> · **Output type**: <blog | report | email> · **As of**: <YYYY-MM-DD> · **Audience**: <internal | client | public> · **Grounding**: <MCP-grounded | research-grounded (label it)>
+>
+> *(Direction is a meta-tag, not a folder — the broader the subject's scope, the more top_down. The same phenomenon at two scopes (a market blog + an account report) links via the phenomenon, `../README.md`.)*
 >
 > *(This header blockquote is **internal metadata — strip on render**: the Location/Subject/Grounding lines carry toolchain taxonomy, not reader copy.)*
 >

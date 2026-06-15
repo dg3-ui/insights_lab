@@ -1,6 +1,6 @@
 # Studio Brief — Solar's Most Over-Weighted Peril, Right-Sized for a Fixed-Price Book
 
-> **Subject**: Brookfield / Standard Solar (account) · **Phenomenon**: extreme-heat thermal derate (`../../resources/weather_and_climate/extreme_heat_derate/`)
+> **Subject**: Brookfield / Standard Solar (account) · **Phenomenon**: extreme-heat thermal derate (`../../resources/weather_and_climate/extreme_heat_derate/`) · **Direction**: bottom_up (account-targeted)
 >
 > **Output type**: report · **As of**: 2026-06-15 · **Audience**: internal (Brookfield/Standard Solar account team; render path also client) · **Grounding**: MCP-grounded (InfraSure substrate — monthly CF, construction, PPA price) + research-grounded heat state (NOAA CPC) + cited PV physics
 >

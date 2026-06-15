@@ -1,6 +1,6 @@
 # Studio Brief — A Strong El Niño Meets a Many-Small-Plants Solar Book
 
-> **Subject**: Brookfield / Standard Solar (account) · **Phenomenon**: El Niño / ENSO (`../../resources/weather_and_climate/el_nino_enso/`)
+> **Subject**: Brookfield / Standard Solar (account) · **Phenomenon**: El Niño / ENSO (`../../resources/weather_and_climate/el_nino_enso/`) · **Direction**: bottom_up (account-targeted)
 >
 > **Output type**: report · **As of**: 2026-06-14 · **Audience**: internal (Brookfield/Standard Solar account team; render path also client) · **Grounding**: MCP-grounded (InfraSure substrate) + research-grounded ENSO state (NOAA CPC)
 >

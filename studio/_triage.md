@@ -31,13 +31,15 @@ Materiality is the **tie-breaker among low-cap reads** (a severe-stake LOW outra
 
 ## The board
 
-| Subject | Phenomenon (facet) | Cap | Materiality | Event likelihood | Verdict | §1 source |
-|---|---|---|---|---|---|---|
-| Galveston Bay / Ship Channel corridor | storm surge — co-location *(stand-alone fact)* | medium-high | **meaningful–severe** (~3.7 GW in one surge cell) | NOAA 2026 below-normal | **ACT / WATCH** — a hard count; diligence/harden the concentration | [galveston_ship_channel_surge/storm_surge.md](galveston_ship_channel_surge/storm_surge.md) §1 |
-| Galveston Bay / Ship Channel corridor | storm surge — forward season *(headline)* | **low** (binding) | **meaningful–severe** | NOAA 2026 below-normal — "it only takes one" | **WATCH (high)** — surface first among low-cap reads | [galveston_ship_channel_surge/storm_surge.md](galveston_ship_channel_surge/storm_surge.md) §1 |
-| Brookfield / Standard Solar | severe hail | **low** (directional) | **meaningful** (0 MW in the US hail maximum; ~6% CO + ~41% MN/IL/NM) | climatological — *none in the SPC maximum* | **WATCH (high)** — hail outranks ENSO on severity; confirm hail-stow / deductible on CO + MN/IL | [brookfield_standard_solar/hail.md](brookfield_standard_solar/hail.md) §1 |
-| Brookfield / Standard Solar | el_nino / ENSO | **low** (binding) | **modest** (~23% of MW, diversified) | 63% very-strong El Niño (firming) | **WATCH (low)** — reassuring; weather-normalize the 83.8 MW SW belt only | [brookfield_standard_solar/el_nino_enso.md](brookfield_standard_solar/el_nino_enso.md) §1 |
-| Brookfield / Standard Solar | extreme-heat derate | **low** (directional) | **low** (modest derate, muted by fixed-price PPAs) | NOAA JJA above-normal (West) | **NOISE** — logged; real physics, immaterial to this fixed-price book; no action beyond O&M | [brookfield_standard_solar/extreme_heat.md](brookfield_standard_solar/extreme_heat.md) §1 |
+Direction is a meta-tag (scope: `account` → `region` → `market`); all current rows are `bottom_up` (no top-down market piece grounded yet).
+
+| Subject | Scope · dir | Phenomenon (facet) | Cap | Materiality | Event likelihood | Verdict | §1 source |
+|---|---|---|---|---|---|---|---|
+| Galveston Bay / Ship Channel corridor | region · bottom_up | storm surge — co-location *(stand-alone fact)* | medium-high | **meaningful–severe** (~3.7 GW in one surge cell) | NOAA 2026 below-normal | **ACT / WATCH** — a hard count; diligence/harden the concentration | [galveston_ship_channel_surge/storm_surge.md](galveston_ship_channel_surge/storm_surge.md) §1 |
+| Galveston Bay / Ship Channel corridor | region · bottom_up | storm surge — forward season *(headline)* | **low** (binding) | **meaningful–severe** | NOAA 2026 below-normal — "it only takes one" | **WATCH (high)** — surface first among low-cap reads | [galveston_ship_channel_surge/storm_surge.md](galveston_ship_channel_surge/storm_surge.md) §1 |
+| Brookfield / Standard Solar | account · bottom_up | severe hail | **low** (directional) | **meaningful** (0 MW in the US hail maximum; ~6% CO + ~41% MN/IL/NM) | climatological — *none in the SPC maximum* | **WATCH (high)** — hail outranks ENSO on severity; confirm hail-stow / deductible on CO + MN/IL | [brookfield_standard_solar/hail.md](brookfield_standard_solar/hail.md) §1 |
+| Brookfield / Standard Solar | account · bottom_up | el_nino / ENSO | **low** (binding) | **modest** (~23% of MW, diversified) | 63% very-strong El Niño (firming) | **WATCH (low)** — reassuring; weather-normalize the 83.8 MW SW belt only | [brookfield_standard_solar/el_nino_enso.md](brookfield_standard_solar/el_nino_enso.md) §1 |
+| Brookfield / Standard Solar | account · bottom_up | extreme-heat derate | **low** (directional) | **low** (modest derate, muted by fixed-price PPAs) | NOAA JJA above-normal (West) | **NOISE** — logged; real physics, immaterial to this fixed-price book; no action beyond O&M | [brookfield_standard_solar/extreme_heat.md](brookfield_standard_solar/extreme_heat.md) §1 |
 
 *(Galveston's §1 records three per-part caps — co-location `medium-high` · simultaneous-hit `medium` · forward `low`. The board shows the stand-alone fact and the binding headline; the `medium` simultaneous-hit is the mechanism bridge between them, not a separate verdict.)*
 

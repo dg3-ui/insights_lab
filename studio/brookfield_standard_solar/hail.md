@@ -1,6 +1,6 @@
 # Studio Brief — The Peril That Breaks Panels, and the Bullseye This Book Sits Outside
 
-> **Subject**: Brookfield / Standard Solar (account) · **Phenomenon**: severe hail (`../../resources/hazard/hail_solar/`)
+> **Subject**: Brookfield / Standard Solar (account) · **Phenomenon**: severe hail (`../../resources/hazard/hail_solar/`) · **Direction**: bottom_up (account-targeted)
 >
 > **Output type**: report · **As of**: 2026-06-15 · **Audience**: internal (Brookfield/Standard Solar account team; render path also client) · **Grounding**: MCP-grounded (InfraSure substrate, state-level) + research-grounded hail climatology (NOAA SPC)
 >

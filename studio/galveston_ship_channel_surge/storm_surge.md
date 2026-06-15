@@ -1,6 +1,6 @@
 # Studio Brief — One Cell, One Channel: Storm Surge on the Energy Coast
 
-> **Subject**: Galveston Bay / Houston Ship Channel surge corridor (region — the unresolvable "Anten" acquisition, keyed honestly to the corridor it would sit in) · **Phenomenon**: storm surge / hurricane (`../../resources/hazard/hurricane_high_wind_wind/`)
+> **Subject**: Galveston Bay / Houston Ship Channel surge corridor (region — the unresolvable "Anten" acquisition, keyed honestly to the corridor it would sit in) · **Phenomenon**: storm surge / hurricane (`../../resources/hazard/hurricane_high_wind_wind/`) · **Direction**: bottom_up (region-scoped)
 >
 > **Output type**: report · **As of**: 2026-06-14 · **Audience**: internal (InfraSure team; client-ready on review) · **Grounding**: HYBRID — research-grounded coastal/port exposure (`../../docs/method/outlier_playbook.md`) + MCP-grounded in-substrate energy overlay (the Houston Ship Channel gas cluster)
 >
