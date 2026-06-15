@@ -12,8 +12,8 @@ TIER   COMMAND          STAGE      WHAT IT DOES (thin conductor over →)       
  1     /log-gap         (loop)     one-line append to status/mcp_gaps from anywhere   ☐ cheap   (status/mcp_gaps)
  1     /intake-feedback (loop)     triage out-of-loop feedback → routed homes + log    ☐ cheap   (test_protocol §intake · template)
  2     /gate-check      GATE       INDEPENDENT validate vs contract + blocked_claims  ☐ tier2   (resource_standard · architecture §7 · _principles)
- 2     /render          RENDER     validated insight → email/brief/blog/post per      ☐ tier2   (architecture L3 · P2 · _style
-                                   the _style contract (direction×audience×format)              · _craft · _reference)
+ 2     /render          RENDER     gated studio brief → deliverable (blog/report/     ✅ built  (architecture L3 · P2 · P6
+                                   email) + grounded charts/maps; P6-first                      · _style · _craft · confidence_model)
  3     /eval-resource   EVAL       run examples/test_runs + fail→fix as pass/fail      ☐ later   (paused; eat process data first)
  3     /find-methodology DISCOVER  rank resources by taxonomy for a query             ☐ later   (revisit ~10 skills; discovery_spec)
  3     /sync-docs       MAINTAIN   house-style + cross-ref + registry consistency      ☐ later   (when drift is real)

@@ -90,7 +90,7 @@ Pre-ship checklist (the vault §8 list, compressed): units on axes · zero-basel
 
 ## §6 · Spatial Fallback — A Map Without Geo Libraries (2026-06-12)
 
-A "where" view often wants a US map, but the sandbox has **no Chrome (kaleido) and no geopandas**, and the MCP serves no geometry yet (`../../docs/status/mcp_gaps.md` R10). The self-contained technique that works:
+A "where" view often wants a US map, but the sandbox has **no Chrome (kaleido), no geopandas, and (verified 2026-06-15) no matplotlib** either, and the MCP serves no geometry yet (`../../docs/status/mcp_gaps.md` R10). So the **hand-authored inline-SVG path is the reliable one** here (the §5 matplotlib-PNG fallback needs matplotlib installed) — worked end-to-end on the hail statebin map (`../../studio/brookfield_standard_solar/_renders/hail_us_statebin.html`, via `/render`). The self-contained technique:
 
 ```text
 STATEBIN TILE-GRID   each state = one rounded square on a fixed (row,col) grid (matplotlib

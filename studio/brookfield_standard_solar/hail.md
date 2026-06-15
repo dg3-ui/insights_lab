@@ -118,6 +118,9 @@ GUARDS      gate-upstream · creative≠overclaim · grounded-hook (../README.md
 ## 5 · Gaps / next
 
 ```text
+· RENDERED (2026-06-15, /render) — the hero map is realized at _renders/hail_us_statebin.html (statebin schematic,
+  hand-authored inline SVG; this sandbox has no matplotlib, so the HTML/SVG path is the one that works). Open in a
+  browser to view; re-render on live re-ground. Proves the _craft §6 map fallback end-to-end.
 · FRESHNESS — figures are a 2026-06-15 MCP snapshot; the platform fetch was not re-run. Re-ground on use (header note).
 · MCP GAP — no county/geometry-seeded hail-cell overlay: placement is STATE-level; a "plants within an SPC hail
   footprint / county" query would sharpen CO + MN/IL to the actual hail cells. (Pairs with the geometry-aware
