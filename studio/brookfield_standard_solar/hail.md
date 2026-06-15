@@ -23,7 +23,7 @@
 
 The book is, again, **many small plants** (the hail-state assets are almost all 1–5 MW community-solar gardens), so even the exposed share is spread across dozens of sites in several states, not concentrated.
 
-**Mechanism (cite, do not re-derive — `knowledge.md` §1).** Severe hail → c-Si module front-glass / cell damage → immediate output loss + latent micro-crack degradation → array availability drop until inspection/replacement. The single biggest controllable factor is **module exposure angle: single-axis trackers can "hail-stow"** (rotate to ~60° to deflect hail); fixed-tilt low-angle arrays take hail face-on. **Whether these small community-solar sites are tracked or fixed-tilt is unresolved here** (a `get_plant` drill or developer confirmation, see Gaps) — if fixed-tilt, the hail-stow mitigation is unavailable, which *raises* the per-site vulnerability.
+**Mechanism (cite, do not re-derive — `knowledge.md` §1).** Severe hail → c-Si module front-glass / cell damage → immediate output loss + latent micro-crack degradation → array availability drop until inspection/replacement. The single biggest controllable factor is **module exposure angle: single-axis trackers can "hail-stow"** (rotate to ~60° to deflect hail); fixed-tilt low-angle arrays take hail face-on. **Construction is mixed** — a 2026-06-15 spot check found Gallup (62406) is **single-axis** (can hail-stow) while Nachtigall (67747) is **fixed-tilt** (cannot); the full book is unconfirmed (see Gaps). Where sites are fixed-tilt, the hail-stow mitigation is unavailable, which *raises* the per-site vulnerability.
 
 **Claim.** Standard Solar's book carries **no exposure to the US hail maximum**; its severe-hail exposure is directional, secondary, and spread — a high-secondary slice on the CO Front Range (~6% of MW) plus a moderate convective slice across MN/IL/NM (~41%), with the rest in low-hail geography. Because hail is the **highest-severity** physical peril for solar (a leading insurance loss, often carried under a separate sub-limit / deductible — `hail_solar` `insurance_treatment`), this exposure is **more material than the book's ENSO exposure** (`el_nino_enso.md`) even though, like ENSO, it is geographically diversified rather than concentrated. This is an exposure geography, not a loss forecast.
 
@@ -122,8 +122,9 @@ GUARDS      gate-upstream · creative≠overclaim · grounded-hook (../README.md
 · MCP GAP — no county/geometry-seeded hail-cell overlay: placement is STATE-level; a "plants within an SPC hail
   footprint / county" query would sharpen CO + MN/IL to the actual hail cells. (Pairs with the geometry-aware
   aggregate gap, mcp_gaps R14.) Log if not already covered.
-· DATA DRILL — tracker vs fixed-tilt is unresolved for the community-solar sites; a get_plant pass on the CO + larger
-  MN/IL assets would establish whether the hail-stow mitigation lever exists. Materially changes per-site vulnerability.
+· DATA DRILL — construction is mixed (2026-06-15 spot check: Gallup 62406 single-axis, Nachtigall 67747 fixed-tilt);
+  a fuller get_plant pass on the CO + larger MN/IL assets would map hail-stow availability across the exposed slice.
+  Materially changes per-site vulnerability (fixed-tilt cannot hail-stow).
 · MATURITY — hail $ LOSS / EAL is model-gpr (grounding_maturity: substrate-only). The directional exposure ships now;
   the quantified layer is the forward door (mcp_gaps R12 — a served hazard peril model upgrades directional → quantitative).
 · FORM — if this lands, it is the first HAZARD-on-a-known-book brief (complements the ENSO weather read on the same

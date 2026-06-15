@@ -25,32 +25,26 @@ Ranked by the triage logic (cap × materiality, `../_triage.md`); the cap grade 
 |---|---|---|---|---|---|---|
 | **Severe hail** | [`hail_solar`](../../resources/hazard/hail_solar/) | **0 MW** in the US hail maximum; ~6% CO Front Range + ~41% MN/IL/NM convective | low (directional) | **meaningful** | **WATCH (high)** | [hail.md](hail.md) ✅ |
 | **El Niño / ENSO** | [`el_nino_enso`](../../resources/weather_and_climate/el_nino_enso/) | ~23% of MW in the SW belt (CA/NM/AZ/NV/CO/UT) | low (directional) | **modest** | **WATCH (low)** | [el_nino_enso.md](el_nino_enso.md) ✅ |
-| **Extreme-heat derate** | [`extreme_heat_derate`](../../resources/weather_and_climate/extreme_heat_derate/) | SW belt + summer peak; PV temperature-coefficient derate | *queued* | *queued* | — | scaffold ↓ |
-| **Offtaker concentration** | [`offtaker_concentration`](../../resources/commercial/offtaker_concentration/) | community-solar subscriber base + any merchant tail | *queued* | *queued* | — | scaffold ↓ |
+| **Extreme-heat derate** | [`extreme_heat_derate`](../../resources/weather_and_climate/extreme_heat_derate/) | ~18% hot interior (CA Kern + NM); a modest intra-day peak-hour derate | low (directional) | **low** (muted by fixed-price PPAs) | **NOISE** (logged; no action beyond O&M) | [extreme_heat.md](extreme_heat.md) ✅ |
+| **Offtaker concentration** | [`offtaker_concentration`](../../resources/commercial/offtaker_concentration/) | community-solar subscriber base; `offtakers` field null book-wide | **BLOCKED** | — | — (refused at gate) | scaffold ↓ (mcp_gap R13) |
 
-**Reading the matrix.** **Hail outranks ENSO** for this book — not because more MW are exposed (both are diversified, low-cap, directional) but because hail's **class-severity is high** (it physically breaks panels; it is solar's costliest insurance peril) while ENSO is a mild seasonal CF nudge. That is the materiality axis doing its only job: ordering two low-cap reads. Neither is an ACT — the spread keeps both at WATCH (`../../docs/method/confidence_model.md` §4).
+**Reading the matrix.** All three weather/hazard reads carry a **low directional cap** — so they are ordered purely by **materiality / class-severity**: **hail** (meaningful — it physically breaks panels, solar's costliest peril) → **ENSO** (modest — a mild winter-CF nudge) → **extreme heat** (low → **NOISE** — real physics, but a modest intra-day derate whose peak-hour revenue sting is *muted by the book's fixed-price PPAs*). That ordering is the materiality axis doing its only job; the geographic spread keeps even the top read at WATCH, never ACT (`../../docs/method/confidence_model.md` §4). **Offtaker concentration is BLOCKED, not low** — the `offtakers` field is null book-wide (a fixed PPA *price* surfaces on Gallup, but not the counterparty), so concentration cannot be sized until an owner-level offtake rollup exists. The honest output is a logged gap (mcp_gap R13), never a fabricated "low."
 
-## Scaffolded phenomena (rationale only — NOT yet grounded, do not assert)
+## Blocked / queued phenomena (NOT grounded — do not assert)
 
-These belong on the book but have **not** been run through the test loop. The rationale is groundable from the book profile; **the numbers are not written until each is grounded + gated** (P2 — studio is post-gate; this section is a queue, not a claim).
+What belongs on the book but is not yet a gated brief. Offtaker concentration was run through the loop and came back **blocked** (the data gap below) — the honest outcome is a logged gap, not a brief. **No numbers until grounded + gated** (P2 — studio is post-gate; this is a queue + a gap log, not a claim).
 
 ```text
-EXTREME-HEAT DERATE (extreme_heat_derate)
-  WHY it matters   PV output derates with cell temperature (negative temp-coefficient); the SW belt + summer
-                   peak is where it bites. RELATED to ENSO (both act on solar CF) but opposite season — heat is
-                   a summer-peak derate, ENSO a winter-irradiance shift. A fuller seasonal read pairs the two.
-  TO GROUND        plants_by_owner state split (already have) → SW-belt + high-summer-irradiance subset →
-                   get_plant monthly CF to see the summer derate signature → cap LOW (no production model),
-                   materiality likely MODEST (derate is real but well-understood and modest vs hail).
-  EXPECTED POSTURE reassuring-to-neutral: a known, modest, well-characterized loss — not a catastrophe peril.
-
-OFFTAKER CONCENTRATION (offtaker_concentration)
+OFFTAKER CONCENTRATION (offtaker_concentration) — BLOCKED, gap confirmed 2026-06-15
   WHY it matters   the commercial overlay: who buys the output. A community-solar book is MANY small subscriber
                    contracts → concentration is likely LOW by design (the opposite of a merchant-exposed book).
-  TO GROUND        the substrate offtakers field was NULL on the assets checked (ENSO brief Gaps) → this needs an
-                   owner-level offtake/contract rollup (mcp_gap candidate) OR external contract disclosure.
-                   Until then offtaker concentration is UNRESOLVED, not "low" — record the gap, do not assert.
-  EXPECTED POSTURE likely reassuring (diversified subscriber base), but BLOCKED until the offtake data resolves.
+  WHAT WE FOUND    get_plant.offtakers is NULL book-wide (re-confirmed on 62406 + 67747, 2026-06-15). A fixed PPA
+                   PRICE does surface for some assets (Gallup 62406 = $44.08/MWh) — a fixed-vs-merchant STRUCTURE
+                   signal — but NOT the counterparty identity, so concentration cannot be sized.
+  STATUS           BLOCKED (refused at the gate): the concentration claim has no grounding. Logged as mcp_gap R13
+                   (serve a first-class offtakers array + group_by=buyer on aggregate). DO NOT assert "low" — the
+                   honest output is the gap. The fixed-price structure signal is used (carefully) by hail.md/heat.md.
+  WHEN UNBLOCKED   an owner-level offtake/counterparty rollup (R13) OR external contract disclosure → then ground it.
 ```
 
 ## Cross-resource map (how the phenomena relate)

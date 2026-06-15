@@ -200,11 +200,14 @@ gap:        get_plant.offtakers is null on EVERY plant drilled (Ragsdale, Baldy 
             news_extracted.deal_value_usd carries cross-tagged $ noise (a $16.9B Spain figure on CA's Baldy Mesa).
 workaround: ground on find_by_extracted_fact(buyer) + per-plant news_extracted.buyer (VERIFY); never read a null
             offtakers array as "no PPA"; drill each id for capacity + sum verified-only; never use deal_value_usd
-            as a PPA price.
+            as a PPA price. NUANCE (2026-06-15): the PPA *price* is sometimes recoverable from
+            financial.years[].ppa_price_per_mwh even when offtakers is null (Gallup 62406 = $44.08/MWh) — useful
+            as a fixed-vs-merchant *structure* signal, but it is NOT the counterparty (no identity, no concentration).
 roadmap:    serve a first-class offtakers array from the resolution layer; add group_by=buyer to aggregate;
             a precision pass on the $ fields.
 observed:   offtaker_concentration test_run_001 (2026-06-14); + confirmed in the brookfield_standard_solar studio
-            brief (2026-06-14) — offtakers null per-asset for an owner rollup; compare_entities also returns
+            briefs (2026-06-14; re-confirmed 2026-06-15 on get_plant 62406 + 67747) — offtakers null per-asset for an
+            owner rollup, though a fixed PPA price surfaced on 62406; compare_entities also returns
             canonical_owner=null (owner on a nested path it doesn't surface).
 status:     open      kind: field/coverage gap
 ```

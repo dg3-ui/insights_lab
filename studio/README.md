@@ -75,8 +75,10 @@ studio/
 │   ├── README.md                     the subject GUIDE — account profile + ranked phenomenon matrix + cross-resource map
 │   ├── hail.md                       ✅ severe hail — 0 MW in the US hail maximum; ~6% CO Front Range + MN/IL/NM convective.
 │   │                                    MORE material than ENSO (hail breaks panels) yet spread, not concentrated
-│   └── el_nino_enso.md               ✅ home run — a DG/community-solar book only ~23% El-Niño-exposed; the data
-│                                        OVERTURNED the "concentrated CA fleet" premise and the reversal IS the hook
+│   ├── el_nino_enso.md               ✅ home run — a DG/community-solar book only ~23% El-Niño-exposed; the data
+│   │                                    OVERTURNED the "concentrated CA fleet" premise and the reversal IS the hook
+│   └── extreme_heat.md               ✅ heat derate — solar's most over-weighted peril, right-sized: a modest intra-day
+│                                        shave, NOISE for this fixed-price book (Gallup $44.08/MWh PPA mutes the peak sting)
 └── galveston_ship_channel_surge/     subject = region/corridor (the unresolvable "Anten", keyed honestly)
     └── storm_surge.md                ✅ coastal chokepoint — ~3.7 GW of ERCOT gas inside one surge cell
                                          (nearby_plants(55327)); the 2nd outlier after Red Dog → the COASTAL class
