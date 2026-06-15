@@ -35,6 +35,10 @@ studio ISN'T a pipeline gate. MOST outputs stay on the BASELINE path (gated insi
              studio creative pass. You spend the creative budget only where it earns a home run.
 ```
 
+## Reference, not a cage — the briefs, template, and guide are P6 references
+
+Everything structural in studio — `_brief_template`, a subject-guide's matrix, a brief's section order, the `_style` contract it renders under — is a **reference, not a fixed format** (`../docs/principles.md` P6). Use the shape when it helps; **deviate and improve when you can do better.** The model is trusted to bring its **full capability on top**: a sharper analytical angle, the latest information, a structure the template didn't anticipate — and if it finds something better, it should implement it. We **guide, we don't force** — forcing a strict format *and analysis* is how we'd miss what only the model can see. The one hard floor is the **claim-discipline** (the three guards below + the gate + the confidence model); above it, the scaffold is a starting point. *Say it to the session explicitly: here is the scaffold and the grounding — improve on it.*
+
 ## Origination & build order — studio first, then everywhere else (norm, 2026-06-15)
 
 studio is where an **output** is first created. The brief is the **first output artifact**, and everything downstream flows from it:

@@ -1,6 +1,6 @@
 # Design Principles
 
-> **Status**: v0 governing principles, 2026-06-05 · **amended 2026-06-14** (P1 corollary: authored scaffold vs runtime intelligence + the no-code rail; P6 asymmetry guard — `plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 0; **P7 — calibration is posture + a forward door, honest-not-self-deprecating**).
+> **Status**: v0 governing principles, 2026-06-05 · **amended 2026-06-14** (P1 corollary: authored scaffold vs runtime intelligence + the no-code rail; P6 asymmetry guard — `plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 0; **P7 — calibration is posture + a forward door, honest-not-self-deprecating**) · **P6 sharpened 2026-06-15** (governs the *analysis*, not only form; explicitly covers studio briefs/template/guide + `_style` contracts; framed as the differentiator — *guide, don't force; invite the model to improve on the scaffold*).
 >
 > **Audience**: anyone authoring resources, building the engine, or deciding what to freeze vs. leave open.
 >
@@ -104,7 +104,7 @@ If you cannot say which layer a change touches (P1) or which job an input does (
 
 ## Principle 6 — References Inform, They Don't Bind (preserve the model's creativity)
 
-A reference — an external exemplar in `resources/_reference/`, an internal golden output, a baked-in structural cue — exists for **one job: to improve the output**. It is never ground truth, and it is never a constraint. The model's own creativity, design judgment, adaptability, and current knowledge are a genuine advantage; a reference must *sharpen* that intuition, never *replace* or *cage* it.
+A reference — an external exemplar in `resources/_reference/`, an internal golden output, a baked-in structural cue, **a studio brief / `_brief_template` / subject-guide, an `_style` output contract** — exists for **one job: to improve the output**. It is never ground truth, and it is never a constraint. The model's own creativity, design judgment, adaptability, and current knowledge are a genuine advantage; a reference must *sharpen* that intuition, never *replace* or *cage* it.
 
 ```text
 A reference EARNS its place only by making the output better.
@@ -120,6 +120,8 @@ A reference EARNS its place only by making the output better.
 This is the deliberate counterweight to "bake references in so quality is automatic" (the `_reference` corpus, the `_style` contracts): bake them in as **available inspiration**, never as a rule the model must satisfy. Slavishly following the reference folder produces flatter, worse output than a model trusted to reason — and it throws away the exact thing an LLM is good at (creativity, design, the latest information, adaptability).
 
 What stays binding is the **discipline** — grounding, `blocked_claims`, the gate, the claim grammar — never the *form* a reference happens to show. This is P1's volatile layer seen from the inside (the model is the swappable, *trusted* layer, so we don't shackle it), the anti-microprompting doctrine (`../resources/_principles/voice.md` §4) applied to references, and the floor-not-ceiling rule applied to form. **This one does not get walked back.**
+
+**It governs the *analysis*, not only the *form* — and that is the differentiator (be explicit with the model).** A template's section order, a brief's structure, a subject-guide's matrix, an output contract's envelope — all are **scaffolding the model may improve on**, never a format to satisfy. We hand the model **direction + grounding + guardrails** and let its **full capability operate on top**: it is free to restructure, **choose a different analytical angle, surface the latest information, and bring a point of view the fixed structure would miss** — and if it finds something better, it should implement it. Forcing a strict format *and analysis* is how we would throw away the exact thing the model is best at and **miss what only it can see**. The hard floor stays the claim-discipline above; everything over it is a starting point, not a cage. This is deliberate: **building *on top of* each new model's capability — guiding, not forcing — rather than constraining it down to a template is precisely what makes this flexible, scalable, and differentiated from a rigid content pipeline.** So say it to the model explicitly: *here is the scaffold and the grounding; improve on it.*
 
 **The asymmetry guard.** Borrow *form and packaging* from external references (a competitor's structure, a big-firm repo's layering); **never trade the gate for a reference's thinner guardrails.** A richer-scale repo can be ahead on packaging and still behind on the evidence discipline that is our moat — borrowing its shape must never dilute `blocked_claims`, `confidence_rules`, or the gate.
 
@@ -149,6 +151,8 @@ saving a session      -> P3: capture raw, but plan the extraction; serve the res
 reviewing an output   -> P4: is this a draft or did the loop run? evals must see the loop
 facing an open call    -> P5: decide and version it, or name exactly what blocks the decision
 using a reference     -> P6: does it improve THIS output? if not, drop it — never force-fit; trust the model
+  (refs incl. studio briefs/template/guide + `_style` contracts; guide the ANALYSIS, don't force it;
+   tell the model: here is the scaffold + grounding, improve on it — only the claim-discipline binds)
 calibrating an output -> P7: posture + a forward door to a real capability; never self-deprecate (nor overclaim)
 ```
 

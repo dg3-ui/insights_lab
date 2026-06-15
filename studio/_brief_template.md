@@ -1,5 +1,7 @@
 # Studio Brief — <Title>
 
+> **This template is a REFERENCE, not a form to satisfy (`../docs/principles.md` P6).** Use the section shape when it helps; restructure, add, drop, or re-analyze freely when you can do better — bring your own analytical angle and the latest information. Only the §1 gate-record discipline (grounding · `blocked_claims` · the gate · the confidence model) binds; everything else is a starting point to improve on.
+>
 > **Location**: a brief lives at `studio/<subject>/<phenomenon>.md` (subject = an entity OR a region/corridor; phenomenon = the driver, matching a resource slug). The paths below assume that depth (`../../`).
 >
 > **Subject**: <name> — scope: `account` | `region/corridor` | `market/fleet` (the scope ladder) · **Phenomenon**: <driver, e.g. el_nino_enso> (`../../resources/<domain>/<slug>/`)

@@ -66,6 +66,8 @@ OFFTAKER CONCENTRATION (offtaker_concentration) — BLOCKED, gap confirmed 2026-
 
 ## How to use this guide (the skill note)
 
+**This guide is a reference and an index, not a script (`../../docs/principles.md` P6).** Reorganize it, re-rank the matrix, or take a sharper analytical angle when the question calls for it — bring the latest information and your own view. The steps below are a starting point to improve on; only the claim-discipline binds.
+
 ```text
 1. RE-GROUND FIRST    re-fetch the book against the live MCP (freshness note); reconcile drift before any number ships.
 2. PICK THE LENS       the matrix ranks the phenomena; lead with the highest-verdict one for the question asked.
