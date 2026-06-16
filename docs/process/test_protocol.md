@@ -31,7 +31,7 @@ Before running a test, confirm:
 - `prompt_projection.md` is concise and pasteable
 - `examples/applied_insight_001.md` shows the target output shape
 - `resources/_principles/` (rubric + voice) is loaded alongside the projection — the only shared layer loaded before the gate (`_style`/`_craft`/`_reference` are post-gate, render-side)
-- the output contract is **declared** — the `direction × audience × format` tuple named at test start (`resources/_style/output_contracts.md` §1; *naming* the tuple, not loading `_style`)
+- the output type is **declared** — `blog` / `report` / `email` (`resources/_style/output_contracts.md` §1), optionally tagged with the descriptive meta-tags `direction` (top_down/bottom_up) and `audience` (*naming* it at test start, not loading `_style`)
 - the test question is scoped to one region, asset set, company, or offtaker
 
 ## Manual Test Flow

@@ -31,7 +31,7 @@ Even for *form*, this corpus is **inspiration, not a constraint**. It exists to 
 
 ```text
 exemplar corpus ─┬─► RENDERING layer (Layer 3): the _style output contracts cite specific
-                 │     exemplar lessons per cell; /render composes them (blog/brief/email/post)
+                 │     exemplar lessons per cell; /render composes them (blog/report/email)
                  ├─► the RUBRIC's style criteria (format · presentability) — _principles/rubric.md
                  └─► EVAL suite: a "good output" yardstick for examples/ + test_runs/
                  ✗ NOT the grounding layer — quarantined from any claim's source_ref

@@ -4,7 +4,7 @@
 >
 > **Role**: the shared **rendering layer** — the brand kit and the typed output contracts. Cross-cutting: every phenomenon package renders through this layer; none restates it.
 >
-> **Stage placement**: loads at **RENDER only, post-gate** (`../../docs/method/data_map.md` Activation Boundary). The one pre-gate touch: the session *names* its contract tuple (direction × audience × format) at test start — naming, not loading.
+> **Stage placement**: loads at **RENDER only, post-gate** (`../../docs/method/data_map.md` Activation Boundary). The one pre-gate touch: the session *names* its output type (blog/report/email) at test start — naming, not loading.
 >
 > **Not a package**: no `resource.yml`, no slug, excluded from discovery (`resources/README.md`, the underscore rule).
 
@@ -13,7 +13,7 @@
 | File | What it owns |
 |---|---|
 | [`brand.md`](brand.md) | Type (Inter-primary), palette (OKLCH + hex), logo usage, the document anatomy (header · figure-with-caption-below · caveat box · footer) |
-| [`output_contracts.md`](output_contracts.md) | The direction × audience × format matrix — envelopes, gate guards, the filled top-down cells + Phase-5 stubs |
+| [`output_contracts.md`](output_contracts.md) | The three-output model (blog/report/email) — envelopes, gate guards, the public-vs-internal confidence display; direction/audience are meta-tags |
 | [`brand_assets/`](brand_assets/) | `lockup-on-light/dark.svg` · `icon.svg` (vendored from the web app) · `artifact_skeleton.html` (the canonical HTML shell) |
 | [`examples/`](examples/) | Render exemplars — validated insights rendered through a cell (form demonstrations, not new claims) |
 

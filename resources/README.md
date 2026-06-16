@@ -39,7 +39,7 @@ resources/
 | Layer | Role | Feeds | Stage | Status |
 |---|---|---|---|---|
 | [`_principles/`](_principles/) | judging rubric · voice · altitude · anti-microprompting · show-don't-flaunt | the checkpoint's scoring · every drafting session | draft + render | ✅ v0.2 |
-| [`_style/`](_style/) | brand kit (Inter-primary) · output contracts (direction × audience × format) · artifact skeleton | rendering only | post-gate | ✅ v0.2 |
+| [`_style/`](_style/) | brand kit (Inter-primary) · output contracts (blog/report/email) · artifact skeleton | rendering only | post-gate | ✅ v0.2 |
 | [`_craft/`](_craft/) | analytic plot generation — selection by question · blocked plots · grounded-plot rules · spatial fallback | rendering only | post-gate | ✅ v0.2 |
 | [`_reference/`](_reference/) | exemplar corpus — form, not facts | rendering + eval, **never** grounding | post-gate | README only; populates in plan Phase 4 |
 | [`_method/`](_method/) | reusable analytic primitives (screen·rank·segment·score) + finance/insurance/math method (damage funcs · DSCR · EVT) | recipes **call** them; resources **cite** the reasoning skeleton | draft (pre-gate) | ✅ v0 seed |

@@ -26,7 +26,7 @@ There is **no build system**. The operational loop is the manual MCP/Claude test
 
 Full protocol: `docs/process/test_protocol.md`. Onboarding fundamentals: `docs/learning/`.
 
-This loop is packaged as slash commands (thin conductors over the canon, not restatements — `docs/process/commands.md`): **`/new-resource`** (author), **`/test-resource`** (run the test loop on an existing slug), **`/extract`** (resolve a saved transcript into a `test_run` + ledger/learning), plus **`/recap`** (ASCII structural recap + honest friction). Tier-2 `/gate-check` and `/render` are planned.
+This loop is packaged as slash commands (thin conductors over the canon, not restatements — `docs/process/commands.md`): **`/new-resource`** (author), **`/test-resource`** (run the test loop on an existing slug), **`/extract`** (resolve a saved transcript into a `test_run` + ledger/learning), and Tier-2 **`/render`** (render a gated studio brief → blog/report/email + grounded charts/maps; the model generates the artifact itself, P6). Tier-2 `/gate-check` and `/recap` are planned.
 
 ## The MCP Feedback Loop (standing instruction)
 
@@ -48,7 +48,7 @@ Four layers, repo → served → runtime → output (full diagram: `docs/archite
 LAYER 0  SOURCE      this repo: authored, versioned methodology packages
 LAYER 1  SERVED      InfraSure MCP (data tools, live) + skill catalog (one skill per package)
 LAYER 2  RUNTIME     a Claude session: discover → load → ground → assemble → GATE  (a LOOP, w/ human checkpoint)
-LAYER 3  OUTPUT      the content engine: blog · brief · email · post (the _style output contract) — renderings of a VALIDATED insight only
+LAYER 3  OUTPUT      the studio output layer (studio/): foundation (confidence_model: 3 axes) + render (studio/<subject>/<phenomenon>.md, §1 = single source of truth) + triage (studio/_triage.md, internal) + gallery. Renders a VALIDATED insight into blog · report · email via /render; posture on the face, the cap grade never renders
 ```
 
 The load-bearing seam is `resource.yml` (taxonomy → discovery, prompt sections → the served method, confidence_rules + blocked_claims → the gates). Keep the **methodology layer stable** and the **execution layer (model, orchestration, delivery, phrasing) swappable** — that is how the project absorbs LLM advances without rebuilding (`principles.md` P1).
@@ -59,7 +59,9 @@ The load-bearing seam is `resource.yml` (taxonomy → discovery, prompt sections
 - **Ground or downgrade.** A claim with no tool result / named source is commentary, not an insight. Cross every material number to a structured field.
 - **Label every input's job** before citing it: *grounds* (capacity, CF, PPA) · *frames* (descriptions, Wikipedia — never proof) · *routes* (owner, offtaker) · *external* (NOAA) · *logic* (crosswalks) · *form* (`resources/_*` — shapes the rendering, never grounding). (`learning/02`.)
 - **The claim grammar**: condition + scoped entities + mechanism + evidence + confidence + caveat + actor relevance. A slot you can't fill is a downgrade or a blocked claim.
-- **Content is downstream of validated insight** — always insight → gate → render, never the reverse (`principles.md` P2).
+- **Content is downstream of validated insight** — always insight → gate → render, never the reverse (`principles.md` P2). `studio/` originates the OUTPUT artifact (studio-first; bottom_up before top_down), never the insight — the claim is gated upstream (`studio/README.md`).
+- **Re-ground on use.** Substrate numbers in any rendered/studio artifact are dated MCP snapshots — re-fetch the named entities against the live MCP and reconcile drift before any number ships externally (`studio/README.md`).
+- **Confidence is three axes, not one** (`docs/method/confidence_model.md`): calibration cap (internal grade, weakest input) · event likelihood (sourced, on output) · materiality (band, internal). On a rendered face: posture + event + settledness; the cap grade never renders. References inform, don't bind — they shape the *analysis*, not just the form, and the model improves on top (`principles.md` P6).
 - **Naming.** Package/slug is `snake_case` (`el_nino_enso`); the published Skill `name` is `kebab-case` (`el-nino-enso`). Folder name MUST equal `resource.yml.identity.slug`.
 - **One domain folder + faceted tags.** A resource lives in one driver-grouped `domain/` folder, tagged with family · drivers · actors (`resources/README.md`).
 - **`_`-prefixed `resources/` folders are shared layers, not packages** — no `resource.yml`/slug, composed at session time: `_principles` (rubric · voice) loads at draft; `_style` · `_craft` · `_reference` load post-gate only. Packages carry ONLY the method (`resources/README.md`, the underscore rule).
@@ -81,13 +83,14 @@ Docs are grouped by job (folder = job), with the stable/volatile seam as a folde
 | Doc | Job |
 |-----|-----|
 | `docs/architecture.md` | **The front door** — what it is, the end-to-end flow (Mermaid + ASCII), the 4 layers, terminology, the gate |
-| `docs/principles.md` | The discipline (P1–P5): stable vs volatile · content downstream · process-data laws · iteration · no-mush |
-| `docs/use_cases.md` | The 2 buckets × audience (Pillar 3) + the V0 scope contract + the validation method |
-| `docs/method/` | The "how to reason & build" contract: `analysis_families` · `resource_standard` · `data_map` (source_ref owner) · `discovery_spec` |
+| `docs/principles.md` | The discipline (P1–P7): stable vs volatile · content downstream · process-data laws · iteration · no-mush · references-inform-not-bind/the-model-improves-on-top (P6) · calibration-as-posture (P7) |
+| `docs/use_cases.md` | The 2 buckets × audience (Pillar 3) + the V0 scope contract + the validation method + the activation boundary |
+| `docs/method/` | The "how to reason & build" contract: `analysis_families` · `resource_standard` · `confidence_model` (the 3-axis canon) · `data_map` (source_ref owner) · `discovery_spec` |
 | `docs/process/` | The loop: `test_protocol` (manual test, capture, failure taxonomy, feedback intake) · `commands` (the toolchain design) |
 | `docs/status/` | **Volatile hub**: `capabilities` (build status + open decisions) · `mcp_gaps` (tool-gap ledger) · `commands` (registry) |
 | `docs/plans/` | The active working plans (the real currency of "what's next") |
 | `docs/learning/` | Onboarding fundamentals: MCP basics · substrate · methodology resources · prompt projection |
+| `studio/` | **Layer 3 output layer** — subject/phenomenon render briefs (§1 = single source of truth; subject = scope ladder, direction = meta-tag) · `_triage.md` (internal ACT/WATCH/NOISE board) · subject guides; post-gate, rendered via `/render`. `studio/README.md` is its front door |
 | `resources/README.md` | The package + shared-layer registry (domain · family · actor + the underscore rule) |
 | `resources/_reference/` | Exemplar corpus (form, not facts) |
 | `resources/weather_and_climate/el_nino_enso/` | The first validated skill |

@@ -35,22 +35,22 @@ insights_lab/
 ├── README.md
 ├── CLAUDE.md                   # agent instructions (full) — how to work here, conventions, don'ts
 ├── AGENTS.md                   # agent instructions (lean, vendor-neutral cut of CLAUDE.md)
-├── .claude/commands/           # slash commands: /new-resource · /test-resource · /extract  (.cursor/ symlinks to here)
+├── .claude/commands/           # slash commands: /new-resource · /test-resource · /extract · /render  (.cursor/ symlinks to here)
 ├── docs/                       # grouped by job; folder = job, canon vs volatile = folder boundary (P1)
 │   ├── README.md               # the docs index + per-audience read order
 │   ├── architecture.md         # THE front door — flow (Mermaid+ASCII), 4 layers, terminology, the gate
-│   ├── principles.md           # the discipline (P1–P5): stable/volatile · content downstream · no-mush
+│   ├── principles.md           # the discipline (P1–P7): stable/volatile · content downstream · no-mush · references-inform-not-bind (P6) · posture (P7)
 │   ├── use_cases.md            # the 2 buckets × audience (Pillar 3) + the V0 scope contract + validation
-│   ├── method/                 # the contract: analysis_families · resource_standard · data_map · discovery_spec
+│   ├── method/                 # the contract: analysis_families · resource_standard · confidence_model (3-axis) · data_map · discovery_spec
 │   ├── process/                # the loop: test_protocol · commands (toolchain design)
 │   ├── status/                 # VOLATILE hub: capabilities · mcp_gaps (ledger) · commands (registry)
 │   ├── plans/                  # the active working plans
 │   └── learning/               # onboarding fundamentals (01–04) + session logs
 ├── resources/
 │   ├── README.md               # methodology registry (domain · family · actor)
-│   ├── _reference/             # exemplar corpus (form, not facts) — quarantined from grounding
-│   └── weather_and_climate/    # domain folder (driver-grouped)
-│       └── el_nino_enso/
+│   ├── _principles · _style · _craft · _reference · _method   # shared layers (composed at session time)
+│   └── weather_and_climate · hazard · commercial             # domain folders; e.g. el_nino_enso · hail_solar · offtaker_concentration
+├── studio/                     # LAYER 3 output layer: <subject>/<phenomenon>.md briefs · _triage board · subject guides (post-gate · /render)
 ├── templates/
 └── archive/
 ```

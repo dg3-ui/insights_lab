@@ -22,10 +22,10 @@ The canon each command conducts is `method/` + `process/` + `principles.md`; the
 
 `/test-resource` + `/extract` complete the **iteration-and-process-data loop** — the thing the lab cares most about (`../principles.md` P3/P4) — and pair naturally with `/new-resource` to give `author → test → resolve` as one crank. `/extract` is specifically the *missing half* of "save the chat": without it, transcripts accumulate unresolved (the swamp P3 warns against).
 
-## Why Tier 2 Matters (but later)
+## Tier 2 — `/render` is built; `/gate-check` is next
 
-- **`/gate-check`** patches a known weakness: `../architecture.md` §7 admits the v0 gate is *self-policing* (the same session that drafts also judges). Running validation as a separate command in a fresh context is the cheapest way to get an *independent* check without building production enforcement. It is also where the rubric's **accuracy** criterion is judged independently (`../../resources/_principles/rubric.md` §2 — style self-critique stays in-session; accuracy never).
-- **`/render`** is the **content engine** end goal (`../architecture.md` Layer 3) — and the consumer of the render-side shared layers: `_style` (brand + the output-contract matrix), `_craft` (grounded plots), `_reference` (form, not facts). It must refuse to render where no validated insight exists upstream (`../principles.md` P2).
+- **`/render`** (BUILT — `.claude/commands/render.md`) is the **content engine** (`../architecture.md` Layer 3): a **P6-first thin conductor** that renders a **gated studio brief → blog / report / email + grounded charts/maps**, where the model generates the artifact itself (its own SVG/HTML/generator — `_craft`). It consumes the render-side shared layers — `_style` (brand + the three-output contract), `_craft` (grounded plots/maps), `_reference` (form, not facts) — treats them as **stepping-stones not a checklist** (P6), and refuses to render where no validated insight exists upstream (`../principles.md` P2).
+- **`/gate-check`** (the remaining Tier-2 item) patches a known weakness: `../architecture.md` §7 admits the v0 gate is *self-policing* (the same session that drafts also judges). Running validation as a separate command in a fresh context is the cheapest way to get an *independent* check without building production enforcement. It is also where the rubric's **accuracy** criterion is judged independently (`../../resources/_principles/rubric.md` §2 — style self-critique stays in-session; accuracy never).
 
 ## Design Rule (so the toolchain doesn't become rigidity)
 

@@ -1,6 +1,6 @@
 # Architecture — InfraSure Insights, End to End
 
-> **Status**: the front door, 2026-06-13 · **amended 2026-06-14** with the climate-&-weather-risk product framing (§1, `plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 0). The single intuitive map of the whole system — what it is, how it flows, and where every other doc fits. It **summarizes and points**; the deep docs own the detail.
+> **Status**: the front door, 2026-06-13 · **amended 2026-06-14** (climate-&-weather-risk product framing, §1) · **amended 2026-06-15** (Layer 3 = the **studio output layer**: confidence foundation → render → triage → gallery; confidence as **three axes**; `/render` built — `plans/2026-06-15_output_layer_architecture.md`). The single intuitive map of the whole system — what it is, how it flows, and where every other doc fits. It **summarizes and points**; the deep docs own the detail.
 >
 > **Audience**: anyone new to the project (read this first); seniors vetting the direction; the model itself, for orientation.
 >
@@ -68,18 +68,19 @@ flowchart TD
     end
 
     GATE -.->|"BLOCKED — refuse, render nothing"| STOP(["no rendering"])
-    GATE -->|"validated insight object"| STYLE
+    GATE -->|"validated insight → studio (selective)"| RENDER
 
-    subgraph L3["LAYER 3 · OUTPUT — render a VALIDATED insight only (post-gate)"]
+    subgraph L3["LAYER 3 · OUTPUT — the studio output layer (post-gate)"]
         direction TB
-        STYLE["compose render-side shared layers<br/>_style output (blog · report · email)<br/>+ _craft grounded plots + _reference form"]
-        BLOG["BLOG — top-down, generic (build FIRST)"]
-        REPORT["REPORT — a blog scoped to a portfolio/client/region (build FIRST)"]
-        EMAIL["EMAIL — condensed subset of a blog/report (build LAST)"]
-        STYLE --> BLOG
-        STYLE --> REPORT
-        BLOG -->|"distill, once proven"| EMAIL
-        REPORT -->|"distill"| EMAIL
+        CONF["FOUNDATION · method/confidence_model.md<br/>3 axes, recorded once in the brief §1<br/>cap (internal) · event likelihood · materiality"]
+        RENDER["RENDER · studio/&lt;subject&gt;/&lt;phenomenon&gt;.md<br/>subject = scope ladder (account→region→market)<br/>§1 = single source of truth · direction = meta-tag"]
+        TRIAGE["TRIAGE · studio/_triage.md<br/>derived: cap x materiality → ACT/WATCH/NOISE<br/>internal · never rendered"]
+        GALLERY["GALLERY · resources/_reference/internal/<br/>validated form exemplars"]
+        OUT["deliverable: blog · report · email + grounded charts/maps<br/>posture on the face · the grade internal"]
+        CONF --> RENDER
+        RENDER -->|"/render (built)"| OUT
+        RENDER --> TRIAGE
+        RENDER -.->|"if it lands"| GALLERY
     end
 
     PROC["process data<br/>(prompting moves · fail→fix pairs)"]
@@ -95,7 +96,7 @@ flowchart TD
     class DATA live;
 ```
 
-The three outputs are **blog · report · email**: a **blog** is top-down, generic-but-useful; a **report** is the same format scoped to a specific portfolio/client/region/purpose (blog and report overlap in nature); an **email** is a condensed subset of either. The arrows in Layer 3 are **build order, not delivery order**: the **rich pair (blog / report) is built first** because it creates the richest feedback loop — iterating a blog or report shows whether the insight is deep and well-grounded — and **email is built last**, as the distillation of a proven piece. *Delivery* sequencing (which output goes out when, to whom) is a separate business question, not settled here. The output model is owned by `resources/_style/output_contracts.md`; this doc points, it does not re-enumerate.
+**Layer 3 is the studio output layer** (`../studio/README.md`): a confidence **foundation** (`method/confidence_model.md` — the three axes recorded once in a brief's §1), a subject-keyed **render layer** (`studio/<subject>/<phenomenon>.md`, where subject is a scope ladder account→region→market and `direction` top_down/bottom_up is a meta-tag, not a folder), an internal **triage board** (`studio/_triage.md`, cap x materiality → ACT/WATCH/NOISE, never rendered), and the **gallery** (`resources/_reference/internal/`). It renders to **blog · report · email** via **`/render`** — blog generic, report scoped to a portfolio/client/region, email a subset; the *form envelope* is owned by `resources/_style/output_contracts.md`. Origination is **studio-first for the artifact** (the insight is still gated upstream, P2) and **bottom_up before top_down**; on the rendered face, **posture not the cap grade** (`method/confidence_model.md` §3). This doc points; `studio/README.md` owns the output-layer architecture.
 
 ## 3 · The Four Layers (the stack)
 
@@ -109,9 +110,11 @@ LAYER 1  SERVED     InfraSure MCP DATA tools (live)  +  skill catalog + discover
 LAYER 2  RUNTIME    a Claude session = the agent: discover → ground → assemble → GATE
    │                  ▲___ human checkpoint (enrich · re-scope · challenge) ___│   (a LOOP — §4)
    ▼  validated insight object
-LAYER 3  OUTPUT     the content engine: blog · report · email (blog = generic; report = blog
-                      scoped to a portfolio/client/region; email = subset of either). BUILD order =
-                      blog/report first (anchor the feedback loop), email last; delivery order is separate.
+LAYER 3  OUTPUT     the studio output layer (studio/): FOUNDATION (method/confidence_model.md, 3 axes
+                      in the brief §1) + RENDER (studio/<subject>/<phenomenon>.md, §1 = single source of
+                      truth; subject = scope ladder; direction = meta-tag) + TRIAGE (studio/_triage.md,
+                      internal ACT/WATCH/NOISE) + GALLERY. Rendered to blog · report · email via /render
+                      (built); posture on the face, the cap grade internal.
                       = renderings of a VALIDATED insight, never before the gate (principles.md P2)
 ```
 
@@ -133,12 +136,13 @@ resources/<domain>/<skill>/
 A one-shot draft is a draft. The enrichment that makes an insight useful happens across turns, and the human checkpoint in that loop is the product, not overhead (`principles.md` P4).
 
 ```text
-   discover → ground → assemble → GATE → render
+   discover → ground → assemble → GATE → studio (selective) → /render
                  ▲                  │
                  └─ human checkpoint ┘
                     (enrich · re-scope · challenge · approve)
 
    the loop is "more hands, more dimension"; the eval suite must see the LOOP, not just the final draft
+   post-gate, studio is a SELECTIVE amplification lane (most outputs take the baseline gated→/render path)
 ```
 
 The full procedure is `process/test_protocol.md`; the loop is packaged as commands (`process/commands.md`).
@@ -193,9 +197,11 @@ The applied-insight object (`claim · scope · methodology_reference · source_r
 
 ```text
 WHY / WHAT        architecture.md (this doc)  ·  principles.md  ·  use_cases.md
-HOW TO REASON     method/analysis_families.md · method/resource_standard.md
+HOW TO REASON     method/analysis_families.md · method/resource_standard.md · method/confidence_model.md (3-axis)
   & BUILD         method/data_map.md · method/discovery_spec.md
 THE LOOP          process/test_protocol.md · process/commands.md
+THE OUTPUT        studio/ (Layer 3: confidence foundation → render briefs → _triage board → gallery;
+  LAYER           studio/README.md is its front door) · rendered via /render
 WHAT'S BUILT      status/capabilities.md · status/mcp_gaps.md · status/commands.md
   / NEXT          plans/ (the active working plans)
 FUNDAMENTALS      learning/ (onboarding: MCP basics · substrate · resources · prompt projection)
