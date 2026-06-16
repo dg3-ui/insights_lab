@@ -67,3 +67,11 @@
 **Decision.** Adopt the `.cursor/commands/PROMPT_CREATE_TASK_DOCS.md` 4-file format for session handoff records, in `docs/extra/`, complementary to `test_runs/` (validation) and `learning/logs/` (distilled learnings).
 
 **Rationale.** A model-switch / context-window bridge for a large multi-part session — the handoff is the value.
+
+## 12. Baseline-first: studio is the SELECTIVE lane, not Layer 3 itself (a correction)
+
+**Decision.** Layer 3 = **OUTPUT**. The **baseline** path is the default and needs **no studio**: a gated insight (the methodology package + MCP) renders directly via `/render`. **`studio/` is the selective amplification lane** on top — the owner's opt-in accuracy/home-run pass; **most outputs skip it.** `/render` therefore renders a **gated insight from either path** — a `test_run` applied-insight (baseline) OR a studio brief (selective). (`docs/architecture.md` L3 · `studio/README.md` · `.claude/commands/render.md`; commit `7721b86`)
+
+**Rationale.** Owner clarification: *even with just the MCP + a methodology package, a user should be able to create something useful* — studio is where the owner interferes to make it sharper, not a mandatory stage. This is the moat thesis (grounding + methodology IS the product; studio is gravy). It also **corrected an over-centering I had introduced** in the prior docs-sync (commit `d326654`), which called Layer 3 "the studio output layer" — wrong, because it implied all output flows through studio. `studio/README.md` had it right all along ("the cherry, not a mandatory stage; most outputs take the baseline path"); the fix made the front-door docs agree with it. Decoupling `/render`'s input (and `confidence_model.md` §3's single-source) from "a studio brief" to "a gated insight" is what makes the baseline real in the tooling, not just the prose.
+
+**Note** this refines Decision #4 (subject-keying) and #7 (studio-first origination): studio-first applies *within* the selective lane, not to all output.

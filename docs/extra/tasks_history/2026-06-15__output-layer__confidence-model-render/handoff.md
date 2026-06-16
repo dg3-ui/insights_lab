@@ -1,6 +1,6 @@
 # Handoff — Output-Layer Architecture (2026-06-15)
 
-> **Status**: COMPLETE + pushed (`origin/main` @ `d326654`). The bridge to the next session. Read this first.
+> **Status**: COMPLETE (`origin/main` @ `7721b86`). The bridge to the next session. Read this first. (See the **Addendum** at the bottom — the baseline-first reframe + the discovery clarification landed after this handoff was first drafted.)
 
 ## 60-second summary (10 bullets)
 
@@ -30,7 +30,7 @@ docs/plans/2026-06-15_output_layer_architecture.md   the plan-of-record
 ## Verify current state
 
 ```bash
-git -C insights_lab log --oneline -8        # af394d7 → d326654, all pushed
+git -C insights_lab log --oneline -10       # af394d7 → 7721b86
 git -C insights_lab status -sb              # should be clean, up to date with origin/main
 open studio/brookfield_standard_solar/_renders/hail_us_statebin.html   # the demo map (browser)
 # residual-drift check (should be clean in live canon):
@@ -77,3 +77,10 @@ PHASE E · BUILD /gate-check (the remaining Tier-2 command)
 - **Triage binding-cap rule.** A composite read's headline = its *lowest* cap; a stand-alone higher-cap fact gets its own row (don't promote the headline off the strongest part).
 - **Materiality is grounded + a tie-breaker** — never a $, never lifts the cap; weather resources read class-severity from `knowledge.md` sensitivity, hazard resources from `financial_materiality`.
 - **Archived plan docs** (`docs/plans/done/`, `2026-06-11_layered_reference_v1.md`) carry superseded labels on purpose — don't "fix" them.
+
+## Addendum (2026-06-15, after this handoff was first drafted — commit `7721b86`)
+
+- **Baseline-first reframe (the important one).** Studio is the **SELECTIVE lane, not Layer 3 itself.** The **baseline** path is the default and needs no studio: a gated insight (MCP + a methodology package) renders directly via `/render` — *MCP + a package alone yields something useful*. Studio is the owner's opt-in accuracy/home-run lane; **most outputs skip it.** This corrected an over-centering from the docs-sync (architecture/CLAUDE/AGENTS/use_cases/docs-README had called Layer 3 "the studio output layer" — all reframed; verified clean).
+- **`/render` renders a gated insight from EITHER path** — a `test_run` applied-insight (baseline, no studio) OR a studio brief (selective, adds the §2 hook + §3 creative). That's the tooling change that makes the baseline real. `confidence_model.md` §3 single-source decoupled (the applied-insight object on the baseline, or a brief's §1 in the lane).
+- **Discovery/catalog checked (an open question this session):** the **registry is correct** — `resources/README.md` lists all 5 resources / 3 live domains (tree + Status trued up); every `resource.yml` carries the taxonomy discovery ranks on. The discovery **tool** (`find_methodology` / `get_methodology`) is **designed-not-built by intent** — the registry IS the index until ~10–20 skills (`discovery_spec.md` §1); not a gap. `discovery_spec` worked-example updated (5 skills, not 1).
+- **Net for the next session:** PHASE A–E below are unchanged; just read Layer 3 as "baseline render + a selective studio lane," and remember `/render` accepts a bare gated insight (you don't need to author a studio brief to render).

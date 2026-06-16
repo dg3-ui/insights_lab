@@ -13,6 +13,8 @@ ce628f3  studio: origination norm — studio-first for outputs; bottom_up before
 33735f1  Build /render (P6-first conductor) + demo the maps gap closed with a real artifact
 a7322bd  render/_craft: make explicit that the MODEL generates the artifact (P1/P6 applied)
 d326654  docs sync: front-door architecture/flow docs absorb the 2026-06-15 build
+9320cab  docs/extra/tasks_history: session handoff for the output-layer build + a folder README
+7721b86  Baseline-first reframe: studio is the SELECTIVE lane, not Layer 3 itself (+ discovery cosmetics)
 ```
 
 ## MCP grounding (live InfraSure tools, as_of 2026-06-15)
@@ -82,3 +84,5 @@ new canon: confidence_model.md · /render command · the 2026-06-15 plan
 4. **"Build for scale, not patches" + P6 are the same thread** — the model is the trusted engine; the structure is a stepping-stone; that reaches all the way down to *how the pixels get made* (the model writes its own SVG).
 5. **Freshness is real** — the book drifted between two pulls in one session; "re-ground on use" isn't theoretical.
 6. **The honest move beats the impressive one** — "Anten" → a grounded corridor; offtaker → a logged gap, not a fabricated "low"; heat → NOISE (the least material peril), not an inflated risk.
+7. **A docs-sync can over-correct** (caught via a clarifying question + a re-scan, commit `7721b86`) — making Layer 3 "absorb studio" tipped into calling Layer 3 *the studio output layer*, implying all output flows through studio. The fix: baseline-first (gated insight → `/render`, no studio; studio = the selective lane). Lesson: when syncing docs to a new layer, check you didn't make the new layer sound *mandatory*. `studio/README.md` was the invariant that had it right; the front-door docs are what drifted.
+8. **The baseline is the moat, not studio** — *MCP + a methodology package alone yields something useful*; `/render` accepts a bare gated insight (no studio brief required). Studio is the owner's selective accuracy lane. Keeping that distinction in the tooling (the `/render` input) is what makes it true, not just stated.

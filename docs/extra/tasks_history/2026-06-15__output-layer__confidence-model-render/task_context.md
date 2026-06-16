@@ -73,3 +73,13 @@ DELETED
 ## Next steps
 
 See `handoff.md` → Next action. In short: owner-review the briefs; render the remaining hero visuals via `/render`; resolve the offtaker gap (R13); consider a first top_down market piece; build `/gate-check`.
+
+## Addendum — baseline-first reframe + discovery clarification (commit `7721b86`, after this doc was first written)
+
+Two follow-ups landed after the docs-sync:
+
+1. **Baseline-first reframe.** Owner clarified that **studio is the SELECTIVE lane, not Layer 3 itself** — the baseline (a gated insight → `/render`, no studio) is the default, because *MCP + a methodology package alone should produce something useful*. This **corrected an over-centering I introduced** in the prior docs-sync (architecture.md / CLAUDE.md / AGENTS.md / use_cases.md / docs/README had called Layer 3 "the studio output layer"). All reframed: Layer 3 = OUTPUT; baseline render is the default; studio = the opt-in accuracy/home-run lane; most outputs skip it. (Verified: over-centering scan clean.)
+2. **`/render` accepts a gated insight from either path** — a `test_run` applied-insight (baseline, no studio) OR a studio brief (selective). `.claude/commands/render.md` intro/argument-hint/STEP 0/2/3/4 generalized; `confidence_model.md` §3 single-source decoupled (applied-insight object OR brief §1).
+3. **Discovery/catalog trued up** (an open question raised this session): the **registry is correct** (`resources/README.md` now shows all 5 resources / 3 live domains; Status bumped); `discovery_spec.md` worked-example says 5 skills, not 1. The discovery **tool** stays **designed-not-built by intent** (the registry IS the index until ~10–20 skills) — not a gap.
+
+**Additional files touched (this addendum):** `docs/architecture.md` · `CLAUDE.md` · `AGENTS.md` · `docs/README.md` · `docs/use_cases.md` · `.claude/commands/render.md` · `docs/method/confidence_model.md` · `docs/method/discovery_spec.md` · `resources/README.md`.
