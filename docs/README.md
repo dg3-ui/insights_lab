@@ -29,8 +29,7 @@ docs/
 │
 ├── status/           VOLATILE HUB — what's built / next (kept out of the canon docs on purpose)
 │   ├── capabilities.md        platform-capability build status + the open architectural decisions
-│   ├── mcp_gaps.md            the MCP tool-gap ledger (gap · workaround · roadmap)
-│   ├── mcp_ask.md             the prioritized platform build hand-off (derived from the gap ledger)
+│   ├── mcp_gaps.md            the MCP tool-gap ledger (gap · workaround · roadmap) + its top Build-Priority hand-off
 │   └── commands.md            the per-command build registry
 │
 ├── plans/            the active working plans (the real currency of "what's next")
@@ -41,7 +40,7 @@ docs/
 
 ```text
 STABLE CANON                          VOLATILE                         NAVIGATIONAL
-architecture · principles · use_cases   status/ (4: 3 ledgers + the ask)  README (this)
+architecture · principles · use_cases   status/ (3 ledgers)              README (this)
 method/ (7) · process/ (2)              plans/ (working plans)           See-also footers
                                         learning/logs/ (session records)
 read once, trust                        check for what's live            wayfinding

@@ -87,7 +87,7 @@ Docs are grouped by job (folder = job), with the stable/volatile seam as a folde
 | `docs/use_cases.md` | The 2 buckets × audience (Pillar 3) + the V0 scope contract + the validation method + the activation boundary |
 | `docs/method/` | The "how to reason & build" contract: `analysis_families` · `resource_standard` · `confidence_model` (the 3-axis canon) · `data_map` (source_ref owner) · `discovery_spec` |
 | `docs/process/` | The loop: `test_protocol` (manual test, capture, failure taxonomy, feedback intake) · `commands` (the toolchain design) |
-| `docs/status/` | **Volatile hub**: `capabilities` (build status + open decisions) · `mcp_gaps` (tool-gap ledger) · `mcp_ask` (the prioritized platform build hand-off, derived from the ledger) · `commands` (registry) |
+| `docs/status/` | **Volatile hub**: `capabilities` (build status + open decisions) · `mcp_gaps` (the tool-gap ledger **+ its top Build-Priority hand-off** for the platform repo) · `commands` (registry) |
 | `docs/plans/` | The active working plans (the real currency of "what's next") |
 | `docs/learning/` | Onboarding fundamentals: MCP basics · substrate · methodology resources · prompt projection |
 | `studio/` | **Layer 3 output layer** — subject/phenomenon render briefs (§1 = single source of truth; subject = scope ladder, direction = meta-tag) · `_triage.md` (internal ACT/WATCH/NOISE board) · subject guides; post-gate, rendered via `/render`. `studio/README.md` is its front door |

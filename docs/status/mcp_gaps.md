@@ -6,7 +6,33 @@
 >
 > **This is data, not instruction.** The *instruction* to log here lives in `CLAUDE.md` / `AGENTS.md`; this file is the resolved ledger it feeds (`../principles.md` P3).
 >
-> **The build hand-off lives in [`mcp_ask.md`](mcp_ask.md)** — the prioritized, platform-facing extraction of this ledger (ranked, with a contract sketch per ask) to take to `renewablesinfo_org`. New gaps land **here** first; promote to the ask doc when prioritizing a build.
+> **The prioritized build hand-off is the [Build Priority](#build-priority--the-platform-hand-off) section just below** — the ranked, platform-facing view of this ledger, for `renewablesinfo_org` (the `riorg` package + the MCP server). The body stays the running log: new gaps land in the **Ledger** as you hit them; re-rank the top table when planning a build.
+
+## Build Priority — the platform hand-off
+
+This is the **prioritized, build-ready view** of the ledger below, for the platform team to build from. The per-gap detail (contract, workaround, where observed) lives **once**, in each `Rn` entry; this table is the ranked index into them. Priority = impact (unblocks a resource, or many) × inverse effort; effort is a rough S/M/L. The catalog is 12 tools today — each ask grows the floor toward 13+ (`../learning/01_mcp_basics.md`).
+
+| Pri | Ask | Unblocks | Effort | Entry |
+|---|---|---|---|---|
+| **P0** | Wire `search_plants(iso=…)` — join the existing per-plant `regions.iso_rto` (data exists, filter is dead) | every ISO-scoped test (CAISO, ERCOT…); ends the `state=` workaround | **S** | R1 |
+| **P1** | Served **hazard peril model** (return-period · severity · EAL/PML · $) + classifier precision pass + a finer-than-monthly generation feed | hail · hurricane · heat → **directional → quantitative** | **L** | R12 |
+| **P1** | **Offtaker** grounding — first-class `offtakers` array + `aggregate(group_by=buyer)` | `offtaker_concentration` (currently **BLOCKED**); any concentration read | **M** | R13 |
+| **P1** | `get_external_state(driver)` — served NOAA state + `as_of` + freshness window | the state-freshness gate for every weather/climate resource | **M** | R4 |
+| **P2** | `aggregate` seasonal-CF rollup | fleet exposure baselines (no single-plant "illustrative" caveat) | **M** | R2 |
+| **P2** | `aggregate group_by=county` (+ ba/nerc) | sub-state exposure geography | **S–M** | R8 |
+| **P2** | `aggregate` owner parent-canonicalization | concentration claims (stop splitting one parent's book) | **M** | R9 |
+| **P2** | `coverage(entity, fields, filter)` introspection | the confidence-cap-for-missing-context firing deterministically, up front | **M** | R5 |
+| **P3** | `nearby_by_coords(lat, lon, radius_km, fuel?)` | the **outlier** class — off-substrate pin → its energy cluster | **S–M** | R14 |
+| **P3** | Elevation / surge / flood-zone field per plant | the **coastal hazard** class → substrate-grounded | **M–L** | R15 |
+| **P3** | Served **geometry** (centroids + simplified polygons) | a real choropleth map (data side of the render tool) | **M** | R10 |
+| **P4** | Serve the **brand kit** (logo · palette · skeleton) as MCP resources | on-brand rendering without carrying files | **S** | R6 |
+| **P4** | **Render/export** tool (insight → HTML/DOCX, gate enforced at the tool layer) | the Layer-3 render step (today hand-assembled) | **L** | R7 |
+| **P5** | Queue **resolved facts** (`find_by_extracted_fact` over projects) | Development-Risk / Portfolio actor-routing (`developer` null on queue) | **M** | R3 |
+| **P5** | **Climate/weather** news lane in the classifier | corroborating news for weather-driven Exposure pieces | **L** | R11 |
+
+**Start here (the quick win):** **R1** — the data exists (`get_plant().regions.iso_rto`), the filter just isn't joined to it; it's hit on nearly every scoped test (CAISO + ERCOT, solar + wind). Cheapest high-value fix.
+
+**The biggest lever:** **R12** — a served hazard peril model flips hail/hurricane/heat from directional to quantitative in one stroke (the `model-gpr` wall). **R13** unblocks an entire resource (`offtaker_concentration` is BLOCKED today). **R4** removes the one un-enforced freshness hole. These three are the capability unlocks; the rest sharpen reads or build the render layer.
 
 ## Why This File Exists
 
