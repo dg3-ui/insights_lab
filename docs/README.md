@@ -58,8 +58,8 @@ SENIOR REVIEWER   architecture.md  →  principles.md  →  use_cases.md
 AUTHOR (a new     architecture.md  →  method/resource_standard.md  →  method/data_map.md
  resource)        →  process/test_protocol.md  →  /new-resource  →  resources/_reference/ (form)
 
-OUTPUT (render a  method/confidence_model.md  →  ../studio/README.md  →  ../studio/_triage.md
- gated insight)   →  /render  →  resources/_style/output_contracts.md (the form envelope)
+OUTPUT (render a  BASELINE (no studio): method/confidence_model.md  →  resources/_style/output_contracts.md
+ gated insight)    + brand  →  /render.   SELECTIVE amplification: ../studio/README.md → ../studio/_triage.md
 
 "WHAT'S NEXT?"    plans/  (active work)  →  status/capabilities.md (build state)
                   →  status/mcp_gaps.md (tool roadmap)

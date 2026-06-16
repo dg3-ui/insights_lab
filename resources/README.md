@@ -1,6 +1,6 @@
 # Resources — Methodology Registry
 
-> **Status**: v0 registry, updated 2026-06-12 (shared layers added per `docs/plans/2026-06-11_layered_reference_v1.md`).
+> **Status**: v0 registry, updated 2026-06-15 — **5 resources across 3 live domains** (weather_and_climate · hazard · commercial); the Registry table below is current. (Shared layers added 2026-06-12 per `docs/plans/2026-06-11_layered_reference_v1.md`; the 4 hazard/commercial/weather resources per `docs/plans/2026-06-13_knowledge_base_expansion_v1.md`.)
 >
 > **Purpose**: index every methodology resource by **domain · family · actor**, define how new resources are placed, and define the **shared layers** (underscore folders) every resource composes with. This is the `resources/` analog of the Learning vault's `_tag_taxonomy.md` + Maps of Content.
 
@@ -28,8 +28,14 @@ resources/
 ├── _craft/                    # shared layer: analytic plot generation (loads at render, post-gate)
 ├── _reference/                # shared layer: exemplar corpus (form, not facts) — feeds rendering + eval, NOT grounding
 ├── _method/                   # shared layer: reusable analytic + finance/insurance/math primitives (pre-gate; NEVER grounds)
-└── weather_and_climate/       # domain (driver-grouped)
-    └── el_nino_enso/          # package = METHOD ONLY: resource.md/.yml/prompt_projection.md/examples/test_runs
+├── weather_and_climate/       # domain (driver-grouped)
+│   ├── el_nino_enso/          # package = METHOD ONLY: resource.md/.yml/prompt_projection.md/examples/test_runs
+│   └── extreme_heat_derate/   # heat × solar thermal derate
+├── hazard/                    # domain (driver-grouped)
+│   ├── hail_solar/            # the flagship (hail × solar PV)
+│   └── hurricane_high_wind_wind/
+└── commercial/                # domain (driver-grouped)
+    └── offtaker_concentration/
 ```
 
 **The underscore rule.** A leading-underscore folder is a **shared cross-cutting layer, not a package**: no `resource.yml`, no slug, exempt from `folder == slug`, excluded from any publish scan / discovery index (`../docs/method/discovery_spec.md` §3), and registered in the Shared Layers table below — not in the resource Registry. Shared layers sort above the domain folders and are **composed at session time** (the same doctrine as persona views: a view, not a storage axis). Packages carry ONLY the method — voice, rubric, brand, output contracts, plot craft, and exemplars are never restated inside a package.

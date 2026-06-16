@@ -1,9 +1,11 @@
 ---
 description: Render a VALIDATED studio brief / applied insight into a deliverable (blog · report · email) with grounded charts/maps — the Layer-3 content engine, post-gate
-argument-hint: <path to a gated studio brief, e.g. studio/brookfield_standard_solar/hail.md> [format: html|docx | output: blog|report|email]
+argument-hint: <path to a gated insight — a test_run applied-insight OR a studio brief, e.g. studio/brookfield_standard_solar/hail.md> [format: html|docx | output: blog|report|email]
 ---
 
-You are running **`/render`** — the Layer-3 content engine (`../../docs/architecture.md` Layer 3). It turns a **validated, gated** insight (a `studio/<subject>/<phenomenon>.md` brief) into a deliverable: prose in the house voice + brand, with **grounded charts/maps**. It is a **thin conductor** — it points at the canon, it does not restate it.
+You are running **`/render`** — the Layer-3 content engine (`../../docs/architecture.md` Layer 3). It turns a **validated, gated insight** into a deliverable: prose in the house voice + brand, with **grounded charts/maps**. It is a **thin conductor** — it points at the canon, it does not restate it.
+
+**Two paths in, same conductor.** The insight can come **straight from the gate** — the **baseline**: a `test_run` / applied-insight object produced by a methodology package + the MCP, **no studio needed** (this is the default, and the whole point — MCP + a package alone yields something useful). **Or** from a `studio/<subject>/<phenomenon>.md` **brief** — the **selective** lane, which adds the §2 grounded hook + §3 creative dressing on top. `/render` handles both; most renders are baseline.
 
 ## THE FRAME — the layers are stepping-stones, not a checklist (`../../docs/principles.md` P6)
 
@@ -13,12 +15,12 @@ Read this before anything else. Everything in `resources/` you load here — `_p
 
 ## GATE PRECONDITION (P2 — refuse otherwise)
 
-`/render` renders **only a validated insight** — one whose §1 gate-record passed (`../../docs/process/test_protocol.md`; `../../docs/principles.md` P2). If the target brief has no gated §1 (or is a scaffold/blocked), **stop**: there is nothing to render. A rendering is never the source of truth.
+`/render` renders **only a validated insight** — one that passed the gate (`../../docs/process/test_protocol.md`; `../../docs/principles.md` P2). If the target has no gated insight (a scaffold, a blocked read, an un-gated draft), **stop**: there is nothing to render. A rendering is never the source of truth.
 
 ## STEP 0 — RESOLVE + RE-GROUND
 
-- Parse `$ARGUMENTS`: the brief path; optional `format` (html default · docx) and `output` (blog | report | email — else take the brief's declared type).
-- Open the brief. Confirm §1 is **gated** (not a scaffold). Read its single-source §1 (the three confidence axes), §2 comparison, §3 creative.
+- Parse `$ARGUMENTS`: the source path — a gated **applied-insight** (a `test_run`, the baseline) **or** a **studio brief**; optional `format` (html default · docx) and `output` (blog | report | email — else take the source's declared type).
+- Open the source. Confirm the insight is **gated** (passed the test_protocol gate; not a scaffold/blocked). Read the **single-source confidence record** — the three axes (the applied-insight's `confidence`, or a studio brief's §1). If it's a **studio brief**, also read its §2 comparison + §3 creative (the amplification the lane adds); a **baseline** insight has neither, and that is expected.
 - **Re-ground freshness** (`../../studio/README.md`): substrate numbers are dated snapshots — re-fetch the named entities against the live InfraSure MCP, confirm currency, reconcile drift **before** any number ships externally.
 
 ## STEP 1 — LOAD THE LAYERS (P6-flexibly — points, doesn't script)
@@ -32,12 +34,12 @@ Pull in only what improves the piece, at the depth the topic warrants:
 
 ## STEP 2 — RENDER THE PROSE
 
-- Render the §1 insight into the chosen output, scoped + structured as the topic calls for (the model's judgment, per the FRAME). Posture not grade; the **forward door** replaces any scope-confession (P7). Lead with the grounded hook (§2).
-- Every material number traces to a §1 `source_ref` with `as_of`. Nothing exceeds what the gate passed.
+- Render the gated insight into the chosen output, scoped + structured as the topic calls for (the model's judgment, per the FRAME). Posture not grade; the **forward door** replaces any scope-confession (P7). Lead with its sharpest grounded point — the §2 comparison if it's a studio brief, else the insight's own strongest grounded hook.
+- Every material number traces to a `source_ref` with `as_of`. Nothing exceeds what the gate passed.
 
 ## STEP 3 — PRODUCE THE GROUNDED VISUALS (`_craft`)
 
-If the brief specs a hero visual (or one would help), make it real — spec-first, then draw (`_craft` §5):
+If the insight (or a studio brief's §3) calls for a hero visual (or one would help), make it real — spec-first, then draw (`_craft` §5):
 - **YOU are the renderer — use your full generation capability (P1/P6 applied to the artifact).** Don't wait for a render tool or a library. **Produce the artifact yourself**: hand-author the inline SVG, write the HTML/CSS directly, or write a small **stdlib generator (Python/JS) and run it** — whatever yields the best-crafted result. A missing library (no matplotlib in this sandbox) is **never a blocker**; the model's own ability to write clean SVG/HTML/code IS the renderer. **Max-utilise it**: correct encodings, the brand palette, a figure that reads in seconds — a genuinely well-made visual, not a stub. Keep a one-off generator **transient** (e.g. `/tmp`) and commit only the rendered **artifact** (the deliverable), not the scaffolding (`CLAUDE.md` no-scripts rail) — unless a generator becomes a reused render helper, which then earns its place.
 - **A plot is a set of claims** (`_craft` §0): every series a `source_ref` + `as_of`; bordered figure; caption BELOW names what-it-shows + source + as_of; the chart says nothing the gated insight doesn't (no forecast curve, no unmodeled magnitude — `_craft` §2/§3).
 - **Primary path = HTML + inline SVG** in the brand figure slot (`_craft` §5; `brand.md` B1 `artifact_skeleton.html`). **This sandbox has no matplotlib/geopandas/kaleido** (verified 2026-06-15) — so the **HTML/inline-SVG path is the reliable one**; the matplotlib-PNG fallback is unavailable here (a render-env constraint, `../../docs/status/mcp_gaps.md` R7/R10).
@@ -46,7 +48,7 @@ If the brief specs a hero visual (or one would help), make it real — spec-firs
 ## STEP 4 — GATE + GUARDS BEFORE SHIP
 
 - **Render-internal** (`confidence_model.md` §7): the cap **grade**, the **materiality band**, the **triage verdict** never appear on the rendered face — independent of repo visibility.
-- **Blocked claims/plots** refused (`blocked_claims`; `_craft` §3). **The three studio guards** (`../../studio/README.md`): gate-upstream · creative≠overclaim · grounded-hook.
+- **Blocked claims/plots** refused (`blocked_claims`; `_craft` §3). **The three guards** (`../../studio/README.md` — they govern any render, doubly in the studio lane): gate-upstream · creative≠overclaim · grounded-hook.
 - **No outreach/send automation** — a render is reviewed by a human before any external use (`../../docs/use_cases.md` activation boundary).
 
 ---

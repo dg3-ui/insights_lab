@@ -158,7 +158,8 @@ query: "how does el nino affect our california solar this winter"
   text hits   "solar" (title/desc), "california" (scope hint)
   family      none given → unfiltered ("affect/exposure" weakly implies exposure)
 
-→ find_methodology returns (today, 1 skill in catalog):
+→ find_methodology returns (today the catalog holds 5 skills — el_nino_enso · hail_solar ·
+  hurricane_high_wind_wind · extreme_heat_derate · offtaker_concentration; the ENSO match ranks top here):
    matches: [ {
      slug: "el_nino_enso", name: "el-nino-enso", title: "El Niño / ENSO Exposure For Renewable Assets",
      domain: "weather_and_climate", family: "exposure", drivers: ["enso","irradiance"],

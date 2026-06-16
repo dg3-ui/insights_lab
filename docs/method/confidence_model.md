@@ -46,7 +46,7 @@ ON OUTPUT (render-public)              INTERNAL (render-internal)
   SETTLEDNESS SIGNAL (§5)                the TRIAGE verdict (act/watch/noise)
 ```
 
-**Single source of truth.** The three axes are recorded **once**, in the phenomenon file's §1 gate-record (`../../studio/_brief_template.md`). The output's posture and the triage board's ranking both **derive** from that record — neither re-states a grade. A grade that appears in two places drifts; a grade with one home does not.
+**Single source of truth.** The three axes are recorded **once**, in the **gate-record** — the applied-insight object on the baseline path (`resource_standard.md` Applied-Insight contract), or a studio brief's §1 when a piece goes through the studio lane (`../../studio/_brief_template.md`). The output's posture (and, for a studio read, the triage board's ranking) both **derive** from that record — neither re-states a grade. A grade that appears in two places drifts; a grade with one home does not.
 
 ### §3a · Posture — the register-translation of the cap
 

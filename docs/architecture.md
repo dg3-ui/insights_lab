@@ -1,6 +1,6 @@
 # Architecture — InfraSure Insights, End to End
 
-> **Status**: the front door, 2026-06-13 · **amended 2026-06-14** (climate-&-weather-risk product framing, §1) · **amended 2026-06-15** (Layer 3 = the **studio output layer**: confidence foundation → render → triage → gallery; confidence as **three axes**; `/render` built — `plans/2026-06-15_output_layer_architecture.md`). The single intuitive map of the whole system — what it is, how it flows, and where every other doc fits. It **summarizes and points**; the deep docs own the detail.
+> **Status**: the front door, 2026-06-13 · **amended 2026-06-14** (climate-&-weather-risk product framing, §1) · **amended 2026-06-15** (Layer 3 = **OUTPUT**: the baseline is gated-insight → `/render`, **studio is the selective lane** on top; confidence as **three axes**; `/render` built — `plans/2026-06-15_output_layer_architecture.md`). The single intuitive map of the whole system — what it is, how it flows, and where every other doc fits. It **summarizes and points**; the deep docs own the detail.
 >
 > **Audience**: anyone new to the project (read this first); seniors vetting the direction; the model itself, for orientation.
 >
@@ -68,19 +68,20 @@ flowchart TD
     end
 
     GATE -.->|"BLOCKED — refuse, render nothing"| STOP(["no rendering"])
-    GATE -->|"validated insight → studio (selective)"| RENDER
+    GATE -->|"validated insight — BASELINE (default)"| RENDER
+    GATE -.->|"SELECTIVE — amplify first"| STUDIO
 
-    subgraph L3["LAYER 3 · OUTPUT — the studio output layer (post-gate)"]
+    subgraph L3["LAYER 3 · OUTPUT — render a VALIDATED insight (post-gate)"]
         direction TB
-        CONF["FOUNDATION · method/confidence_model.md<br/>3 axes, recorded once in the brief §1<br/>cap (internal) · event likelihood · materiality"]
-        RENDER["RENDER · studio/&lt;subject&gt;/&lt;phenomenon&gt;.md<br/>subject = scope ladder (account→region→market)<br/>§1 = single source of truth · direction = meta-tag"]
-        TRIAGE["TRIAGE · studio/_triage.md<br/>derived: cap x materiality → ACT/WATCH/NOISE<br/>internal · never rendered"]
-        GALLERY["GALLERY · resources/_reference/internal/<br/>validated form exemplars"]
-        OUT["deliverable: blog · report · email + grounded charts/maps<br/>posture on the face · the grade internal"]
-        CONF --> RENDER
-        RENDER -->|"/render (built)"| OUT
-        RENDER --> TRIAGE
-        RENDER -.->|"if it lands"| GALLERY
+        RENDER["/render (built)<br/>posture on the face · the cap grade internal (confidence_model.md)"]
+        STUDIO["studio/ — SELECTIVE amplification lane (opt-in)<br/>a captured brief studio/&lt;subject&gt;/&lt;phenomenon&gt;.md (creative + the §1 single-source)<br/>subject = scope ladder · direction = meta-tag"]
+        TRIAGE["studio/_triage.md<br/>internal: cap x materiality → ACT/WATCH/NOISE · never rendered"]
+        GALLERY["resources/_reference/internal/<br/>form exemplars"]
+        OUT["deliverable: blog · report · email + grounded charts/maps"]
+        STUDIO -->|"/render"| RENDER
+        RENDER --> OUT
+        STUDIO --> TRIAGE
+        STUDIO -.->|"if it lands"| GALLERY
     end
 
     PROC["process data<br/>(prompting moves · fail→fix pairs)"]
@@ -96,7 +97,7 @@ flowchart TD
     class DATA live;
 ```
 
-**Layer 3 is the studio output layer** (`../studio/README.md`): a confidence **foundation** (`method/confidence_model.md` — the three axes recorded once in a brief's §1), a subject-keyed **render layer** (`studio/<subject>/<phenomenon>.md`, where subject is a scope ladder account→region→market and `direction` top_down/bottom_up is a meta-tag, not a folder), an internal **triage board** (`studio/_triage.md`, cap x materiality → ACT/WATCH/NOISE, never rendered), and the **gallery** (`resources/_reference/internal/`). It renders to **blog · report · email** via **`/render`** — blog generic, report scoped to a portfolio/client/region, email a subset; the *form envelope* is owned by `resources/_style/output_contracts.md`. Origination is **studio-first for the artifact** (the insight is still gated upstream, P2) and **bottom_up before top_down**; on the rendered face, **posture not the cap grade** (`method/confidence_model.md` §3). This doc points; `studio/README.md` owns the output-layer architecture.
+**Layer 3 is OUTPUT — render a validated insight.** The **baseline path is the default and needs no studio**: a gated insight (the methodology package + MCP produced it) renders to **blog · report · email** + grounded charts/maps via **`/render`** — posture on the face, the cap grade internal (`method/confidence_model.md`); the *form envelope* is `resources/_style/output_contracts.md`. That baseline is the whole point — *even with just the MCP + a methodology package, a user can produce something useful.* **`studio/` is the SELECTIVE amplification lane on top** (`../studio/README.md`): a captured brief (`studio/<subject>/<phenomenon>.md`, subject = a scope ladder, `direction` a meta-tag, its §1 the single source of truth), feeding the internal **triage board** (`studio/_triage.md`) and promotable to the **gallery** (`resources/_reference/internal/`). **Most outputs skip studio**; it is the home-run / accuracy pass for pieces that must land. studio-first applies *within* that lane (the artifact originates in studio before render/gallery; the insight is still gated upstream, P2; bottom_up before top_down) — it does **not** make studio mandatory. This doc points; `studio/README.md` owns the studio lane.
 
 ## 3 · The Four Layers (the stack)
 
@@ -110,11 +111,12 @@ LAYER 1  SERVED     InfraSure MCP DATA tools (live)  +  skill catalog + discover
 LAYER 2  RUNTIME    a Claude session = the agent: discover → ground → assemble → GATE
    │                  ▲___ human checkpoint (enrich · re-scope · challenge) ___│   (a LOOP — §4)
    ▼  validated insight object
-LAYER 3  OUTPUT     the studio output layer (studio/): FOUNDATION (method/confidence_model.md, 3 axes
-                      in the brief §1) + RENDER (studio/<subject>/<phenomenon>.md, §1 = single source of
-                      truth; subject = scope ladder; direction = meta-tag) + TRIAGE (studio/_triage.md,
-                      internal ACT/WATCH/NOISE) + GALLERY. Rendered to blog · report · email via /render
-                      (built); posture on the face, the cap grade internal.
+LAYER 3  OUTPUT     render a VALIDATED insight → blog · report · email + grounded charts/maps via /render.
+                      BASELINE (default · no studio): gated insight → /render — even MCP + a methodology
+                      package alone yields something useful. SELECTIVE lane: studio/ — a captured brief
+                      (studio/<subject>/<phenomenon>.md, §1 single-source; subject = scope ladder; direction
+                      = meta-tag) + _triage (internal) + gallery; MOST OUTPUTS SKIP IT (the accuracy/home-run pass).
+                      confidence = posture on the face, the cap grade internal (confidence_model.md).
                       = renderings of a VALIDATED insight, never before the gate (principles.md P2)
 ```
 
