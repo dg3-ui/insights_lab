@@ -35,7 +35,8 @@ insights_lab/
 ├── README.md
 ├── CLAUDE.md                   # agent instructions (full) — how to work here, conventions, don'ts
 ├── AGENTS.md                   # agent instructions (lean, vendor-neutral cut of CLAUDE.md)
-├── .claude/commands/           # slash commands: /new-resource · /test-resource · /extract · /render  (.cursor/ symlinks to here)
+├── .claude/commands/           # slash commands: /new-resource · /test-resource · /extract · /render  (TRACKED — travels on clone)
+├── .cursor/commands/           # the same commands for Cursor (tracked copies — keep in sync with .claude/commands/)
 ├── docs/                       # grouped by job; folder = job, canon vs volatile = folder boundary (P1)
 │   ├── README.md               # the docs index + per-audience read order
 │   ├── architecture.md         # THE front door — flow (Mermaid+ASCII), 4 layers, terminology, the gate
@@ -56,6 +57,8 @@ insights_lab/
 ```
 
 This is a minimal scalable structure. Do not add `code/`, `scripts/`, or `data/` until there is real implementation work that belongs in those folders.
+
+**Running the commands after a clone.** The slash commands are **tracked** (`.claude/commands/` for Claude Code · `.cursor/commands/` for Cursor) — a clone includes them. Open the repo in **Claude Code or Cursor** and invoke them (`/render`, `/new-resource`, `/test-resource`, `/extract`). What each does + how to invoke (args, sequences) is **`docs/process/commands.md`** (the operator's quick-reference); each command file is its own full guide. They're **thin conductors over the canon**, so even without the tool you can follow a command file's steps by hand. `.claude/commands/` is the source of truth; `.cursor/commands/` mirrors it (keep the two in sync when editing).
 
 ## Read Order
 

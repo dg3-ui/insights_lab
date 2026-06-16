@@ -20,7 +20,7 @@ The canon each command conducts is `method/` + `process/` + `principles.md`; the
 
 ## Using the commands (the operator's quick-reference)
 
-Each command's **full guide is its own file** in `.claude/commands/` (`.cursor/` symlinks to the same files) — a command is a thin conductor, so its file points at the canon rather than restating it. This table is the **index**: invoke · when · the full guide.
+Each command's **full guide is its own file** in `.claude/commands/` (the source of truth; `.cursor/commands/` mirrors them — both tracked, keep in sync) — a command is a thin conductor, so its file points at the canon rather than restating it. This table is the **index**: invoke · when · the full guide.
 
 | Command | Invoke | Reach for it when… | Full guide |
 |---|---|---|---|
