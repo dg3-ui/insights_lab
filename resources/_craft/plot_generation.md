@@ -86,7 +86,8 @@ Think in a **chart spec before any drawing** (the vault §10 pipeline, collapsed
              small stdlib generator (Python/JS) it writes + runs. A missing library is not a
              blocker; max-utilise the model's ability to make a well-crafted figure. Keep a
              one-off generator transient (/tmp); commit only the artifact (CLAUDE.md no-scripts).
-             matplotlib PNG is a fallback only where matplotlib exists (it does not here, §6).
+             For a DOCX raster: matplotlib-PNG + cairosvg are the reliable path WHERE present —
+             availability VARIES by environment, so check, don't assume (§6).
 7 CAPTION    below the figure: what it shows · source · as_of  (+ alt text)
 ```
 
@@ -94,7 +95,7 @@ Pre-ship checklist (the vault §8 list, compressed): units on axes · zero-basel
 
 ## §6 · Spatial Fallback — A Map Without Geo Libraries (2026-06-12)
 
-A "where" view often wants a US map, but the sandbox has **no Chrome (kaleido), no geopandas, and (verified 2026-06-15) no matplotlib** either, and the MCP serves no geometry yet (`../../docs/status/mcp_gaps.md` R10). So the **hand-authored inline-SVG path is the reliable one** here (the §5 matplotlib-PNG fallback needs matplotlib installed) — worked end-to-end on the hail statebin map (`../../studio/brookfield_standard_solar/_renders/hail_us_statebin.html`, via `/render`). The self-contained technique:
+A "where" view often wants a US map, but the MCP serves no geometry yet (`../../docs/status/mcp_gaps.md` R10) and **`geopandas`/`kaleido` are absent**. (`matplotlib` + `cairosvg` availability **varies by environment** — absent in one Claude Code sandbox, present — 3.10.9 — in the DOCX-render session; check, don't hard-code.) So the **hand-authored inline-SVG statebin is the reliable, always-available technique** for maps — it worked end-to-end on the hail statebin map (`../../studio/brookfield_standard_solar/_renders/hail_us_statebin.html`, via `/render`); where matplotlib/cairosvg are present they can raster it for DOCX embedding. The self-contained technique:
 
 ```text
 STATEBIN TILE-GRID   each state = one rounded square on a fixed (row,col) grid (matplotlib

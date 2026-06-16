@@ -1,6 +1,6 @@
 # Staged patch — `.claude/commands/render.md` (apply by hand)
 
-> Captured 2026-06-15 from the Red Dog render build (`2026-06-15_reddog_render_build.md`). The command file is a protected path in the cowork session, so these three edits are staged here for an operator to apply. Each is a thin-conductor tweak, not new canon.
+> ✅ **APPLIED 2026-06-16** — all three edits are live in `.claude/commands/render.md`; the matplotlib correction (#3) also propagated to `_craft/plot_generation.md` §5/§6 and the hail render note (the stale "no matplotlib" claim is now environment-agnostic everywhere). Kept as the record. Captured 2026-06-15 from the Red Dog render build (`2026-06-15_reddog_render_build.md`). Each is a thin-conductor tweak, not new canon.
 
 ## 1 · STEP 0 — render the brief, not the bare prose file
 
