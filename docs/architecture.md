@@ -68,8 +68,8 @@ flowchart TD
     end
 
     GATE -.->|"BLOCKED — refuse, render nothing"| STOP(["no rendering"])
-    GATE -->|"validated insight — BASELINE (default)"| RENDER
-    GATE -.->|"SELECTIVE — amplify first"| STUDIO
+    GATE ==>|"validated insight — BASELINE (default · most outputs · SKIPS studio)"| RENDER
+    GATE -.->|"SELECTIVE — amplify first (the few that must land)"| STUDIO
 
     subgraph L3["LAYER 3 · OUTPUT — render a VALIDATED insight (post-gate)"]
         direction TB
