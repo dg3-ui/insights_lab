@@ -1,6 +1,6 @@
 # Outlier Playbook — reverse-engineering an off-substrate asset (the ad-hoc / off-scope lane)
 
-> **Status**: v0 — **NAMED + proven once** (Red Dog), 2026-06-14 (`../plans/2026-06-14_outlier_showcase_red_dog.md` Phase 2). The companion mode to forward-deployment: how an InfraSure analyst reasons about a climate-risk asset that is **NOT in the MCP substrate**. **Lean by design** — it stays a method doc, not a packaged resource, until a **second** outlier uses it (then consider formalizing/generalizing). Worked example: `../extra/reddog_bottom_up_report_2026-06.md`.
+> **Status**: v0 — **NAMED + proven TWICE**: Red Dog (Arctic-industrial) + Galveston (coastal), 2026-06-14/15 (`../plans/2026-06-14_outlier_showcase_red_dog.md`). The companion mode to forward-deployment: how an InfraSure analyst reasons about a climate-risk asset **NOT in the MCP substrate**. Both now have **studio homes** (`../../studio/red_dog_mine/` · `../../studio/galveston_ship_channel_surge/`). **Lean-by-design note (guard 5):** the "formalize only after a 2nd outlier" condition is now **met** — revisit whether to generalize this into a packaged resource. Worked examples: §7.
 
 ## 1 · The mode — forward-deployment vs reverse-engineering
 
@@ -77,9 +77,10 @@ this playbook (the mode)  +  the `_method` primitives (screen/rank/score · non-
    after a SECOND outlier proves the pattern (don't build the meta ahead of evidence).
 ```
 
-## 7 · Worked example — Red Dog Mine
+## 7 · Worked examples
 
-`../extra/reddog_bottom_up_report_2026-06.md` (the report) + `../discussion/2026-06-14_outlier_method_red_dog.md` (the discussion + full sourced evidence). It applied steps 1–8 to the Arctic-industrial class, led with the **energy-logistics chokepoint**, corrected the existing deck's stale points, and named its gaps as findings.
+- **Red Dog Mine — Arctic-industrial (1st).** Studio brief: `../../studio/red_dog_mine/arctic_climate_risk.md` (gated read + the hook + hero-visual specs). Detailed prose + full sourced evidence: `../extra/reddog_bottom_up_report_2026-06.md` (the v1) + `../discussion/2026-06-14_outlier_method_red_dog.md`. Applied steps 1–8, led with the **energy-logistics chokepoint**, corrected the deck's stale points, named its gaps as findings.
+- **Galveston Bay / Ship Channel corridor — coastal (2nd).** Studio brief: `../../studio/galveston_ship_channel_surge/storm_surge.md`. A *hybrid* outlier (research-grounded surge corridor + an MCP-grounded in-substrate gas cluster); the commissioned entity ("Anten") was unresolvable, so the subject was keyed honestly to the corridor.
 
 ---
 

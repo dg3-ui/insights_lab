@@ -1,5 +1,7 @@
 # Red Dog Mine — Bottom-Up Climate-Risk Read
 
+> **⤷ This is the v1 PROSE read (un-amplified — no hero visual, no creative layer).** The studio **workshop home** for Red Dog is now [`studio/red_dog_mine/arctic_climate_risk.md`](../../studio/red_dog_mine/arctic_climate_risk.md) — it carries this same gated read **plus** the hook + the hero-visual specs + render notes. **To build a good deliverable, `/render` the brief** (it produces the visuals), not this file. This file remains the detailed grounded record the brief's §1 distils.
+>
 > **For**: InfraSure team (internal) · **As of**: 2026-06-14 · **Re-grounded**: 2026-06-15 · **Draft v1** (for review before any external use)
 >
 > **Re-ground (2026-06-15)**: the moving facts were re-verified against live public sources. **Updated**: the Anglo–Teck merger (Canada + South Korea now cleared; **only China remains**). **Confirmed**: the ADEC permit (reissuance public-noticed, ~2036 runway) and the forward production decline. **Base check (held the line)**: the company-total 2025 zinc figure is ~565 kt, but that is **Teck-total (Red Dog + Antamina)** — Red Dog's own ~462,700 t below is the right base and is unchanged; the two must not be conflated. **Candidate to verify before external use**: Teck reportedly cites *wetter weather limiting reserve access* among the decline drivers — a direct confirmation of §3 if matched to Teck's exact wording.

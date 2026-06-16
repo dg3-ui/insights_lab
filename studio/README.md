@@ -106,9 +106,12 @@ studio/
 │   │                                    OVERTURNED the "concentrated CA fleet" premise and the reversal IS the hook
 │   └── extreme_heat.md               ✅ heat derate — solar's most over-weighted peril, right-sized: a modest intra-day
 │                                        shave, NOISE for this fixed-price book (Gallup $44.08/MWh PPA mutes the peak sting)
-└── galveston_ship_channel_surge/     subject = region/corridor (the unresolvable "Anten", keyed honestly)
-    └── storm_surge.md                ✅ coastal chokepoint — ~3.7 GW of ERCOT gas inside one surge cell
-                                         (nearby_plants(55327)); the 2nd outlier after Red Dog → the COASTAL class
+├── galveston_ship_channel_surge/     subject = region/corridor (the unresolvable "Anten", keyed honestly)
+│   └── storm_surge.md                ✅ coastal chokepoint — ~3.7 GW of ERCOT gas inside one surge cell
+│                                        (nearby_plants(55327)); the 2nd outlier → the COASTAL class
+└── red_dog_mine/                     subject = OFF-SUBSTRATE asset (research-grounded; the outlier lane)
+    └── arctic_climate_risk.md        ✅ the 1st outlier (Arctic-industrial) — coupled ice-logistics window +
+                                         permafrost; Norilsk geometry. Detailed prose: docs/extra/reddog_…md
 ```
 
 ---
