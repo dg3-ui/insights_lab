@@ -1,12 +1,19 @@
 # InfraSure Insights
 
-> **Status**: v0 staging workspace, 2026-06-08.
+> **Status**: v0, 2026-06-16 — the methodology layer **and its output half** are built: **5 resources** across 3 domains · the **three-axis confidence model** · the **`studio/` render + triage layer** · the **`/render`** content engine · the **off-substrate outlier method**. The publish step, discovery tool, and eval harness remain deliberately paused.
 >
 > **Purpose**: create methodology-backed insight resources that let an MCP-enabled LLM use InfraSure data tools like a focused analyst.
 >
-> **V0 outcome**: one El Nino / ENSO exposure methodology package, one prompt projection, one data-requirements map, one manual MCP/Claude test run (001 PASS), one applied-insight draft, and one learning/gap log.
+> **V0 milestone (the founding proof, 001 PASS)**: one El Nino / ENSO exposure methodology package, one prompt projection, one data-requirements map, one manual MCP/Claude test run, one applied-insight draft, and one learning/gap log. (The lab has since grown well beyond this — see below.)
 >
-> **Since 001 PASS** the methodology layer was hardened (not extended into code): governing principles (`docs/principles.md`), a living MCP feedback ledger (`docs/status/mcp_gaps.md`), agent instructions (`CLAUDE.md` / `AGENTS.md`), and a quarantined exemplar corpus (`resources/_reference/`); the project brief (`docs/architecture.md`) was made the single visual overview of the whole project. The publish step, discovery tool, and eval harness remain deliberately paused.
+> **Since 001 PASS** the methodology layer was hardened — governing principles (`docs/principles.md`, now P1–P7), a living MCP feedback ledger (`docs/status/mcp_gaps.md`), agent instructions (`CLAUDE.md` / `AGENTS.md`), a quarantined exemplar corpus (`resources/_reference/`), and `docs/architecture.md` as the single visual overview — **and then the lab built its second half, the OUTPUT layer**:
+>
+> - **5 resources across 3 domains** — the hazard × asset-class flagship `hail_solar`, plus `extreme_heat_derate` · `hurricane_high_wind_wind` · `offtaker_concentration` · `el_nino_enso` (`resources/README.md`).
+> - **The three-axis confidence model** (`docs/method/confidence_model.md`) — calibration cap · event likelihood · materiality; on the rendered face only *posture* shows, the cap grade stays internal.
+> - **The `studio/` output layer** — subject/phenomenon render briefs (a single-source §1 gate-record) + the internal `studio/_triage.md` board + the creative/activation layer; **`/render`** (the content engine) turns a gated insight into a blog/report/email + grounded visuals.
+> - **The off-substrate outlier method** (`docs/method/outlier_playbook.md`) — for assets *not* in the substrate (Red Dog, Galveston), research-grounded.
+>
+> The publish step, discovery tool, and eval harness remain deliberately paused. **New here? Start at `docs/architecture.md`** (the front door), then `docs/learning/`.
 
 InfraSure Insights is not a news pipeline and not a generic content project. It is an applied intelligence layer:
 
