@@ -25,7 +25,7 @@ docs/
 │
 ├── process/          THE LOOP
 │   ├── test_protocol.md       the manual test, session capture, failure taxonomy, feedback intake
-│   └── commands.md            the command toolchain design (the thin-conductor rule)
+│   └── commands.md            the command toolchain: design (thin-conductor rule) + the how-to-use quick-reference
 │
 ├── status/           VOLATILE HUB — what's built / next (kept out of the canon docs on purpose)
 │   ├── capabilities.md        platform-capability build status + the open architectural decisions

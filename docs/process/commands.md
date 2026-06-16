@@ -18,6 +18,29 @@
 
 The canon each command conducts is `method/` + `process/` + `principles.md`; the current per-command status is `../status/commands.md`.
 
+## Using the commands (the operator's quick-reference)
+
+Each command's **full guide is its own file** in `.claude/commands/` (`.cursor/` symlinks to the same files) — a command is a thin conductor, so its file points at the canon rather than restating it. This table is the **index**: invoke · when · the full guide.
+
+| Command | Invoke | Reach for it when… | Full guide |
+|---|---|---|---|
+| `/new-resource` | `/new-resource <topic or question>` | authoring a new methodology package (a driver × asset-class cell) | `.claude/commands/new-resource.md` |
+| `/test-resource` | `/test-resource <slug> [narrow question]` | running the manual MCP test loop on an existing resource (one region · one asset class) | `.claude/commands/test-resource.md` |
+| `/extract` | `/extract <transcript path> [slug]` | a saved test transcript needs resolving → a `test_run` + the learning / MCP-gap ledgers | `.claude/commands/extract.md` |
+| `/render` | `/render <gated-insight path> [html\|docx] [blog\|report\|email]` | rendering a **gated** insight — a `test_run`/applied-insight (baseline, no studio) **or** a studio brief — into a deliverable + grounded visuals | `.claude/commands/render.md` |
+| `/gate-check` · `/recap` | — | **planned** (`../status/commands.md`) | — |
+
+Typical sequences:
+
+```text
+AUTHOR → VALIDATE     /new-resource "hail exposure for solar"  →  /test-resource hail_solar "ERCOT solar ≥50MW"
+                      →  /extract <transcript>                                  (the author→test→resolve crank)
+RENDER · baseline     /render docs/extra/reddog_bottom_up_report_2026-06.md report docx        (no studio needed)
+RENDER · studio lane  /render studio/brookfield_standard_solar/hail.md report html             (selective amplification)
+```
+
+Not sure which? The lifecycle above maps **stage → command**; `../status/commands.md` says **what's built**; the command file says **exactly how it behaves**.
+
 ## Why Tier 1 First
 
 `/test-resource` + `/extract` complete the **iteration-and-process-data loop** — the thing the lab cares most about (`../principles.md` P3/P4) — and pair naturally with `/new-resource` to give `author → test → resolve` as one crank. `/extract` is specifically the *missing half* of "save the chat": without it, transcripts accumulate unresolved (the swamp P3 warns against).
