@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" role="img"
+  aria-label="A 12-month year bar. Only the Jul-Oct window (about 100 ice-free days) is open; the year's diesel comes IN and the entire concentrate export goes OUT through that one window. Q4-2025 profit fell from about 303M to about 200M on shipping timing.">
+  <rect x="0" y="0" width="760" height="360" fill="#ffffff"/>
+
+  <!-- window title + bracket (top band, above everything) -->
+  <text x="490" y="30" text-anchor="middle" font-family="Inter,Carlito,sans-serif" font-size="13" font-weight="600" fill="#1f9be0">~100-day ICE-FREE WINDOW (&#8776; Jul&#8211;Oct)</text>
+  <path d="M392 46 V40 H588 V46" fill="none" stroke="#1f9be0" stroke-width="1.5"/>
+
+  <!-- DIESEL IN label + single clean arrow into July (window start), centered on the cell -->
+  <text x="417" y="74" text-anchor="middle" font-family="Inter,Carlito,sans-serif" font-size="13" font-weight="700" fill="#0a0a0a">DIESEL IN</text>
+  <text x="417" y="91" text-anchor="middle" font-family="Inter,Carlito,sans-serif" font-size="11.5" fill="#737373">~15.5M gal/yr &#183; the whole year's fuel</text>
+  <line x1="417" y1="100" x2="417" y2="129" stroke="#0a0a0a" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- the year track: 12 months, pitch 52, from x=40 -->
+  <rect x="40" y="132" width="50" height="46" rx="4" fill="#dbe7ef" stroke="#b9ccd9"/>
+  <text x="65" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#737373">J</text>
+  <rect x="92" y="132" width="50" height="46" rx="4" fill="#dbe7ef" stroke="#b9ccd9"/>
+  <text x="117" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#737373">F</text>
+  <rect x="144" y="132" width="50" height="46" rx="4" fill="#dbe7ef" stroke="#b9ccd9"/>
+  <text x="169" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#737373">M</text>
+  <rect x="196" y="132" width="50" height="46" rx="4" fill="#dbe7ef" stroke="#b9ccd9"/>
+  <text x="221" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#737373">A</text>
+  <rect x="248" y="132" width="50" height="46" rx="4" fill="#dbe7ef" stroke="#b9ccd9"/>
+  <text x="273" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#737373">M</text>
+  <rect x="300" y="132" width="50" height="46" rx="4" fill="#dbe7ef" stroke="#b9ccd9"/>
+  <text x="325" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#737373">J</text>
+  <rect x="392" y="132" width="50" height="46" rx="4" fill="#d6eefb" stroke="#1f9be0" stroke-width="1.5"/>
+  <text x="417" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#1f9be0">J</text>
+  <rect x="444" y="132" width="50" height="46" rx="4" fill="#d6eefb" stroke="#1f9be0" stroke-width="1.5"/>
+  <text x="469" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#1f9be0">A</text>
+  <rect x="496" y="132" width="50" height="46" rx="4" fill="#d6eefb" stroke="#1f9be0" stroke-width="1.5"/>
+  <text x="521" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#1f9be0">S</text>
+  <rect x="548" y="132" width="50" height="46" rx="4" fill="#d6eefb" stroke="#1f9be0" stroke-width="1.5"/>
+  <text x="573" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#1f9be0">O</text>
+  <rect x="600" y="132" width="50" height="46" rx="4" fill="#dbe7ef" stroke="#b9ccd9"/>
+  <text x="625" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#737373">N</text>
+  <rect x="652" y="132" width="50" height="46" rx="4" fill="#dbe7ef" stroke="#b9ccd9"/>
+  <text x="677" y="160" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" font-weight="600" fill="#737373">D</text>
+
+  <text x="40" y="200" font-family="Inter,Carlito,sans-serif" font-size="12" fill="#737373">Ice-locked the rest of the year: the mine runs on stored diesel, stockpiling concentrate.</text>
+
+  <!-- CONCENTRATE OUT: up arrow out of the window -->
+  <line x1="573" y1="228" x2="573" y2="180" stroke="#00b86b" stroke-width="2" marker-end="url(#arg)"/>
+  <text x="573" y="248" text-anchor="middle" font-family="Inter,Carlito,sans-serif" font-size="13" font-weight="700" fill="#0a7d52">CONCENTRATE OUT</text>
+  <text x="573" y="264" text-anchor="middle" font-family="Inter,Carlito,sans-serif" font-size="11.5" fill="#737373">the entire annual export &#183; shipped only now</text>
+
+  <!-- proof callout -->
+  <rect x="40" y="288" width="680" height="52" rx="6" fill="#fdebd0" stroke="#efa831"/>
+  <text x="56" y="309" font-family="Inter,Carlito,sans-serif" font-size="12.5" font-weight="700" fill="#7a3b00">Already moving the P&amp;L:</text>
+  <text x="56" y="328" font-family="Inter,Carlito,sans-serif" font-size="12" fill="#5a3000">a late, stormy 2025 window cut Red Dog Q4 gross profit ~$303M to ~$200M on shipping timing (Teck, Feb 2026).</text>
+
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="4.5" refY="7" orient="auto"><path d="M0,0 L4.5,8 L9,0 Z" fill="#0a0a0a"/></marker>
+    <marker id="arg" markerWidth="9" markerHeight="9" refX="4.5" refY="2" orient="auto"><path d="M0,9 L4.5,1 L9,9 Z" fill="#00b86b"/></marker>
+  </defs>
+</svg>

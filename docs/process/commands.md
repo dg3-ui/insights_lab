@@ -27,16 +27,19 @@ Each command's **full guide is its own file** in `.claude/commands/` (`.cursor/`
 | `/new-resource` | `/new-resource <topic or question>` | authoring a new methodology package (a driver × asset-class cell) | `.claude/commands/new-resource.md` |
 | `/test-resource` | `/test-resource <slug> [narrow question]` | running the manual MCP test loop on an existing resource (one region · one asset class) | `.claude/commands/test-resource.md` |
 | `/extract` | `/extract <transcript path> [slug]` | a saved test transcript needs resolving → a `test_run` + the learning / MCP-gap ledgers | `.claude/commands/extract.md` |
-| `/render` | `/render <gated-insight path> [html\|docx] [blog\|report\|email]` | rendering a **gated** insight — a `test_run`/applied-insight (baseline, no studio) **or** a studio brief — into a deliverable + grounded visuals | `.claude/commands/render.md` |
+| `/render` | `/render <gated-insight path> [html\|docx] [blog\|report\|email] [internal\|client\|public]` | rendering a **gated** insight — a `test_run`/applied-insight (baseline, no studio) **or** a studio brief — into a deliverable + grounded visuals | `.claude/commands/render.md` |
 | `/gate-check` · `/recap` | — | **planned** (`../status/commands.md`) | — |
+
+The `audience` arg on `/render` is a **render switch, not new analysis**: one gated insight, two faces — `internal` keeps the provenance/cap-line/meta-tags; `client`/`public` strips them to posture + grounding + the forward door (audience-conditional, never "always strip" — `render.md` STEP 4 · the lesson in `../learning/logs/2026-06-16_audience_strip_internal_vs_external.md`). It **defaults to the client-safe cut**.
 
 Typical sequences:
 
 ```text
 AUTHOR → VALIDATE     /new-resource "hail exposure for solar"  →  /test-resource hail_solar "ERCOT solar ≥50MW"
                       →  /extract <transcript>                                  (the author→test→resolve crank)
-RENDER · baseline     /render docs/extra/reddog_bottom_up_report_2026-06.md report docx        (no studio needed)
+RENDER · baseline     /render <a gated test_run / applied-insight> report docx                 (no studio needed)
 RENDER · studio lane  /render studio/brookfield_standard_solar/hail.md report html             (selective amplification)
+RENDER · client cut   /render studio/red_dog_mine/arctic_climate_risk.md report docx client     (Teck-facing — strips internal tells)
 ```
 
 Not sure which? The lifecycle above maps **stage → command**; `../status/commands.md` says **what's built**; the command file says **exactly how it behaves**.

@@ -19,7 +19,7 @@ Read this before anything else. Everything in `resources/` you load here — `_p
 
 ## STEP 0 — RESOLVE + RE-GROUND
 
-- Parse `$ARGUMENTS`: the source path — a gated **applied-insight** (a `test_run`, the baseline) **or** a **studio brief**; optional `format` (html default · docx) and `output` (blog | report | email — else take the source's declared type).
+- Parse `$ARGUMENTS`: the source path — a gated **applied-insight** (a `test_run`, the baseline) **or** a **studio brief**; optional `format` (html default · docx), `output` (blog | report | email — else take the source's declared type), and `audience` (internal | client | public — else read the source's `audience` meta-tag; **default to the client-safe cut**: strip on unless `internal` is explicit). `audience` does not change the gate verdict — only what surfaces (STEP 4).
 - Open the source. Confirm the insight is **gated** (passed the test_protocol gate; not a scaffold/blocked). Read the **single-source confidence record** — the three axes (the applied-insight's `confidence`, or a studio brief's §1). If it's a **studio brief**, also read its §2 comparison + §3 creative (the amplification the lane adds); a **baseline** insight has neither, and that is expected.
 - **Re-ground freshness** (`../../studio/README.md`): substrate numbers are dated snapshots — re-fetch the named entities against the live InfraSure MCP, confirm currency, reconcile drift **before** any number ships externally.
 
@@ -47,6 +47,7 @@ If the insight (or a studio brief's §3) calls for a hero visual (or one would h
 
 ## STEP 4 — GATE + GUARDS BEFORE SHIP
 
+- **Audience strip** (`../../resources/_principles/voice.md` §5 / P7 · `../../resources/_style/output_contracts.md` §2). One gated insight, two faces — the verdict is identical, the surfacing is not. For a **client/public** render, strip the internal-only tells: direction/substrate **meta-tags** (`bottom_up`, `off-substrate`); **grounding-provenance labels** ("research-grounded · not MCP · not model-gpr" — method-talk, not reader copy); **capability/moat sections** ("What InfraSure adds here"); and **internal-artifact critiques** ("the deck missed X" → reframe to the asset). For an **internal/expert** render these may stay (the provenance label is useful, the cap line is allowed per `confidence_model.md` §3a). The rule is **audience-conditional, never "always strip"** — provenance honesty internally becomes a capability-confession on a client face (P7). Phenomenon caveats + the forward door stay on every face.
 - **Render-internal** (`confidence_model.md` §7): the cap **grade**, the **materiality band**, the **triage verdict** never appear on the rendered face — independent of repo visibility.
 - **Blocked claims/plots** refused (`blocked_claims`; `_craft` §3). **The three guards** (`../../studio/README.md` — they govern any render, doubly in the studio lane): gate-upstream · creative≠overclaim · grounded-hook.
 - **No outreach/send automation** — a render is reviewed by a human before any external use (`../../docs/use_cases.md` activation boundary).
