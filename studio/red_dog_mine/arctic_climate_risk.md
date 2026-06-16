@@ -92,6 +92,9 @@ GUARDS    gate-upstream · creative≠overclaim (punch on the framing; the $/ret
 ```text
 · THE PATH TO A GOOD .docx: /render this brief → a styled DOCX WITH the two hero visuals (the model authors the SVG).
   i.e.  /render studio/red_dog_mine/arctic_climate_risk.md report docx
+· RENDERED (proof, 2026-06-15): the LEAD hero visual is realized at _renders/reddog_chokepoint.html (the coupled-
+  chokepoint year-bar — hand-authored inline SVG; open in a browser). Proves the render path works for this off-substrate
+  read; the full report render (all sections + the permafrost-water panel + DOCX) is the next /render.
 · The detailed prose read stays at ../../docs/extra/reddog_bottom_up_report_2026-06.md (the v1, un-amplified) — this
   brief supersedes it as the workshop artifact; on a good render, promote the result toward _reference/internal/report/.
 · Re-ground the moving facts (merger / production / permit) before external use (header note).
