@@ -1,6 +1,8 @@
 # Red Dog Mine — Bottom-Up Climate-Risk Read
 
-> **For**: InfraSure team (internal) · **As of**: 2026-06-14 · **Draft v1** (for review before any external use)
+> **For**: InfraSure team (internal) · **As of**: 2026-06-14 · **Re-grounded**: 2026-06-15 · **Draft v1** (for review before any external use)
+>
+> **Re-ground (2026-06-15)**: the moving facts were re-verified against live public sources. **Updated**: the Anglo–Teck merger (Canada + South Korea now cleared; **only China remains**). **Confirmed**: the ADEC permit (reissuance public-noticed, ~2036 runway) and the forward production decline. **Base check (held the line)**: the company-total 2025 zinc figure is ~565 kt, but that is **Teck-total (Red Dog + Antamina)** — Red Dog's own ~462,700 t below is the right base and is unchanged; the two must not be conflated. **Candidate to verify before external use**: Teck reportedly cites *wetter weather limiting reserve access* among the decline drivers — a direct confirmation of §3 if matched to Teck's exact wording.
 >
 > **What this is**: a worked, *bottom-up* climate-risk read on a single off-substrate asset — Teck/NANA's **Red Dog Mine**, NW Arctic Alaska — produced by the reverse-engineering method (research + the model + our methodology), **not** the InfraSure platform. It is the proof case for handling outliers that fall outside our energy-infrastructure substrate.
 >
@@ -51,7 +53,7 @@ permafrost thaw → naturally elevated TDS in receiving waters → lost mixing-z
    +  a wetter Arctic → tailings/contact water +60% (3.3B → 5.3B gallons, 2017–2021) → encroaches on dam freeboard
 ```
 
-- Alaska DEC granted a **10-year compliance-schedule extension (effective May 2026, to ~2036)** for the mine's discharge permit (APDES AK0038652), stating in its own Statement of Basis (2026-04-09) that *"there is no reasonably available remedy to the thawing of permafrost and its impact on the receiving waters."* A US regulator formally conceding a Clean-Water-Act limit can't be met because of permafrost is **decision-relevant and unusual**. *(ADEC SOB — fact/high.)* **Note**: this corrects the deck's "permit expiring 2026" — it was *extended*, and the runway now *outlives the ~2032 ore life*, shifting the binding constraint toward closure-phase water treatment.
+- Alaska DEC is **reissuing the discharge permit (APDES AK0038652) with a 10-year compliance-schedule extension** (public-noticed; effective after May 19, 2026, to ~2036), stating in its own Statement of Basis (2026-04-09) that *"there is no reasonably available remedy to the thawing of permafrost and its impact on the receiving waters."* A US regulator formally conceding a Clean-Water-Act limit can't be met because of permafrost is **decision-relevant and unusual**. *(ADEC SOB — fact/high.)* **Note**: this corrects the deck's "permit expiring 2026" — it was *extended*, and the runway now *outlives the ~2032 ore life*, shifting the binding constraint toward closure-phase water treatment.
 - ADEC states stored water *"threatens the safety of the tailings impoundment dams,"* with a tail risk of *"dam failure"* / untreated-drainage release. The **Aug-2012 storm (15.2 in rain) exceeded the tailings dam's design flood** — the infrastructure has already operated outside its design envelope. *(ADEC SOB — fact/high; this is the single strongest data point that the asset is past-envelope.)*
 - The mitigation under evaluation is a **~$279M, ~50-mile pipeline to the Chukchi Sea** — *"more than half of Red Dog's annual gross profit"* — one of four options, **not committed**. ~$19M was already spent on thaw-driven wastewater in 2020 alone. *(Northern Journal Dec 2025; Alaska Public Media 2020; ADEC SOB — fact/high; the pipeline is an estimate under evaluation — projection.)*
 - The regional driver is real and independent of the mine: **"river rusting"** — thaw-exposed sulfide weathering turning 75+ (200+) Brooks Range streams orange — with on-site seeps measured at **pH 3.2 and TDS to 11,300 mg/L**. *(O'Donnell 2024 / NOAA Arctic Report Card 2025; ADEC SOB — fact/high.)*
@@ -63,10 +65,10 @@ Context for the *rate*: the Arctic has warmed **~4× the global average** since 
 What makes this a genuine decision (not just a hazard list) is the collision of climate capex with late-life economics:
 
 ```text
-A FADING asset           ore ~2032; output guided down to ~230–270 kt by 2028; extension (Aktigiruq/Anarraaq) only pre-feasibility
+A FADING asset           ore ~2032; Red Dog zinc guided DOWN 2026 375–415 kt → 2027 330–370 → 2028 230–270 kt; extension (Aktigiruq/Anarraaq) only pre-feasibility
 A rising cost base       NANA royalty ratchets 40% (2022) → 45% (Oct 2027) → 50% max, as grades/tonnage fall
-Ownership in flux        Anglo–Teck merger announced Sept 2025, shareholder-approved Dec 2025, still pending (China/Korea),
-                         close ~Q3-2026–Q1-2027 → Red Dog becomes a non-core zinc slice of a >70%-COPPER major
+Ownership in flux        Anglo–Teck merger announced Sept 2025, shareholder-approved Dec 2025; Canada + S. Korea cleared,
+                         ONLY CHINA remains (as of Jun 2026), close ~Q3-2026–Q1-2027 → Red Dog a non-core zinc slice of a >70%-COPPER major
 A long-tail liability     state closure assurance ~$558M + PERPETUAL post-closure water treatment (outlives the revenue)
 ```
 *Sources: Teck production guidance + MD&A; North of 60 Mining News; Teck/Anglo merger releases; Alaska DNR. Confidence: high (figures), with mine-life ~2032 and the extension as projections.*
@@ -109,5 +111,6 @@ COMPANY             Teck Q4/FY2025 results (Feb 2026) · Teck production guidanc
 PEER-REVIEWED       Rantanen 2022 (Arctic ~4× warming) · Hjort 2018 (pan-Arctic infra exposure) · O'Donnell 2024 (river rusting) · IPCC AR6 WG2 CCP6
 REPORTING           Northern Journal / Alaska Beacon / Anchorage Daily News (permafrost, solar, fuel) · Fastmarkets · North of 60 Mining News · Ground Truth Alaska (critical-stakeholder)
 PRECEDENT           Norilsk 2020 diesel-tank collapse (ERM / press) · Tibbitt–Contwoyto winter ice road (Reuters)
+RE-GROUND 2026-06-15  Teck 2025 Production & Sales Update (teck.com, 2026-02) · merger: Canada + S. Korea cleared, China pending (MLex; mining.com, 2026) · ADEC AK0038652 reissuance public notice + SOB (2026-04-09)
 ```
 *Full per-claim provenance (named source · URL · date · confidence · fact-vs-projection) is in the research record behind `docs/discussion/2026-06-14_outlier_method_red_dog.md`. **Research-grounded; not InfraSure MCP / model-gpr data.***
