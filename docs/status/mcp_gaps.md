@@ -5,6 +5,8 @@
 > **Purpose**: the persistent home for "this MCP call / field / filter would be super useful" — the agent's back-of-mind for the tool surface. Every gap or idea hit while authoring or testing a resource lands here, so the *expandable floor* (`learning/01`) actually accumulates instead of evaporating at the end of a session.
 >
 > **This is data, not instruction.** The *instruction* to log here lives in `CLAUDE.md` / `AGENTS.md`; this file is the resolved ledger it feeds (`../principles.md` P3).
+>
+> **The build hand-off lives in [`mcp_ask.md`](mcp_ask.md)** — the prioritized, platform-facing extraction of this ledger (ranked, with a contract sketch per ask) to take to `renewablesinfo_org`. New gaps land **here** first; promote to the ask doc when prioritizing a build.
 
 ## Why This File Exists
 
