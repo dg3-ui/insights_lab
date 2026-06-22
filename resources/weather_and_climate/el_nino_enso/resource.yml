@@ -1,10 +1,10 @@
 identity:
-  slug: "el_nino_enso_exposure"
-  title: "El Nino / ENSO Exposure For Renewable Assets"
-  version: "0.0.1-draft"
+  slug: "el_nino_enso"
+  title: "El Niño / ENSO Exposure For Renewable Assets"
+  version: "0.0.2-draft"
   status: "draft"
   owner: "InfraSure Insights"
-  last_reviewed: "2026-06-05"
+  last_reviewed: "2026-06-15"   # 0.0.2: confidence_rules annotated as the calibration-cap axis (confidence_model.md)
 
 taxonomy:
   domain: weather_and_climate     # folder axis — shares NOAA/ENSO external inputs + region crosswalks
@@ -17,6 +17,8 @@ taxonomy:
     - investor
     - lender
     - offtaker
+
+knowledge_ref: "knowledge.md"   # domain mechanism library (cited); see also data_requirements.md
 
 question_grammar:
   allowed_questions:
@@ -115,6 +117,10 @@ blocked_claims:
   - "Causal claims where evidence supports only correlation or direction"
 
 confidence_rules:
+  # This ladder is the CALIBRATION CAP — one of three axes (cap · event-likelihood · materiality).
+  # The cap is set by the weakest input and NOTHING raises it; it is INTERNAL (only posture renders).
+  # Event-likelihood (NOAA ENSO probability) and materiality (exposed-share x DJF teleconnection
+  # robustness, knowledge.md §4) are the other two axes. Full model: docs/method/confidence_model.md.
   high: "Narrow mechanism, current source, resolved asset scope, and no downstream forecast claim."
   medium: "Regional tendency and asset scope are credible but one input/crosswalk is imperfect."
   low: "Scenario-based, directional, or dependent on external forecasts and incomplete mapping."

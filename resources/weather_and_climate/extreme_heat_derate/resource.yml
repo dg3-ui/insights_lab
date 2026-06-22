@@ -1,0 +1,197 @@
+identity:
+  slug: "extreme_heat_derate"
+  title: "Extreme-Heat Thermal Derate For Solar Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-14"
+
+maturity:
+  grounding_maturity: "substrate-only"   # the DIRECTIONAL, peak-hour efficiency-derate claim grounds TODAY
+                                          # (fleet + summer-CF baseline + the NOAA temp outlook). The QUANTIFIED
+                                          # per-plant %/MWh de-rate needs a plant-level thermal/cell-temp model =>
+                                          # model-gpr. Ship directional; block the number (see blocked_claims + R12).
+  data_maturity: "H"                      # TX/ERCOT solar: 378 plants, 70.3 GW, monthly CF, single-axis/c-Si flags,
+                                          # owner chain, grid zone all present. The temperature feed is EXTERNAL (NOAA).
+
+taxonomy:
+  domain: weather_and_climate     # folder axis — shares NOAA/CPC external inputs + region crosswalks with el_nino_enso
+  family: exposure                # docs/method/analysis_families.md (facet, not folder)
+  drivers:
+    - extreme_heat
+    - temperature
+    - thermal_derate
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - offtaker
+
+knowledge_ref: "knowledge.md"   # domain mechanism library (cited); see also data_requirements.md
+
+# NOTE: this is a WEATHER × solar resource (directional, weather-led — the ENSO pattern),
+# NOT a hazard/peril resource. There is therefore NO peril block (predictability / key_datasets /
+# climate_attribution_confidence / financial_materiality / insurance_treatment) — that standard is
+# for sudden-onset perils (hail, wind, fire). The standing weather/climate confidence_rule is the
+# NON-STATIONARITY cap (below).
+
+question_grammar:
+  allowed_questions:
+    - "Which solar assets / owners / regions carry directional exposure to a hot summer's thermal de-rate, and how materially?"
+    - "Through what mechanism does extreme heat reduce PV output, and WHEN does the de-rate bite (which hours)?"
+    - "Why does the de-rate matter MORE than its size suggests (it coincides with the ERCOT summer peak)?"
+    - "Who should monitor or design against the exposure, and why?"
+  blocked_questions:
+    - "What is the exact %/MWh output de-rate this plant will see at temperature T?"
+    - "What exact summer generation (MWh) or revenue ($) will the heat cost this asset?"
+    - "What is the forward probability / return-period of a derate-driving heat event at this site?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+    - offtaker_optional
+  fuels_or_technologies:
+    - solar
+  regions_or_markets:
+    - "one selected region or market per test (test 001 = ERCOT / Texas)"
+  lifecycle_phases:
+    - operating
+    - queue          # siting/design-stage exposure is in scope (offtaker/developer-adjacent), directional only
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - offtaker
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_grid_zone"
+      required: true
+      use: "Resolve assets in the scoped market; the ERCOT load zone (LZ_/HB_) routes the peak-coincidence argument"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Filter solar; single-axis-tracker + c-Si flags (generators.solar) confirm the de-rate-prone construction"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "The SUMMER-CF BASELINE the de-rate perturbs — used to PROVE the de-rate is NOT a monthly-CF collapse (high summer CF)"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + portfolio concentration in the heat-exposed market"
+    - name: "offtaker_or_ppa_context"
+      required: false
+      use: "Commercial relevance — the peak-coincidence revenue argument lands hardest on a merchant / shaped-PPA book"
+  external_inputs:
+    - name: "NOAA_CPC_seasonal_temperature_outlook"
+      required: true
+      freshness: "current or explicitly dated (issued ~mid-month)"
+      use: "Establish the hot-summer CONDITION (above-normal lean); cite the issue/access date, like the ENSO NOAA pull"
+    - name: "PV_temperature_coefficient_reference"
+      required: true
+      freshness: "stable physics (cite)"
+      use: "The mechanism magnitude (~ -0.3 to -0.45 %/degC of power, STC 25C); caps the de-rate at MODEST"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; never claim grounding alone (the Gemini blurb is descriptive, not proof)"
+  actor_context:
+    - name: "offtaker_or_ppa_context"
+      required: false
+      use: "Commercial relevance where available; routes the insight"
+
+region_resolution:
+  market: "ERCOT / Texas"
+  how: "search_plants(fuel='solar', state='TX', minMw=50) — the iso='ERCOT' filter returns [] (R1); confirm zone via get_plant.grid (HB_/LZ_) and .regions.iso_rto"
+  note: "TX is the US #1 solar fleet (70,349.3 MW / 378 plants, as_of 2026-06-14) AND a summer-peak, heat-prone market — the de-rate-bites-at-peak argument is sharpest here"
+
+procedure:
+  steps:
+    - "Establish the hot-summer CONDITION from NOAA/CPC (current or forecast above-normal temperature lean); cite the date."
+    - "State the mechanism (high ambient -> cell temp > 25C STC -> efficiency falls at ~ -0.3 to -0.45 %/degC -> MODEST, peak-hour-concentrated de-rate; inverter/BOS thermal derating compounds it) and the claim type (directional, second-order)."
+    - "Select one region/market (ERCOT/TX) and the solar asset class; recommended >= 50 MW."
+    - "Resolve the solar fleet via the MCP (state='TX' proxy; the iso filter is unwired — see data_requirements)."
+    - "Drill get_plant for the SUMMER-CF BASELINE, single-axis/c-Si construction, grid zone, owner; CONFIRM summer CF is HIGH (the de-rate is intra-day efficiency, NOT a monthly-CF drop)."
+    - "Make the peak-coincidence argument: the de-rate concentrates in the hottest afternoon hours, which coincide with the ERCOT summer demand/price peak — so it bites when output is most valuable."
+    - "Retrieve owner / offtaker context for actor relevance and portfolio concentration."
+    - "Assemble: condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade the per-plant %/MWh de-rate, the $, the forward probability, and any read of a heat signal off monthly CF."
+
+allowed_claims:
+  - "Directional thermal-derate EXPOSURE claims for a scoped solar set / heat-prone market"
+  - "Mechanism statements (temperature coefficient, cell-temp-above-ambient, inverter/BOS derating), cited"
+  - "The PEAK-COINCIDENCE framing: the de-rate concentrates in peak afternoon hours when ERCOT price/demand peaks"
+  - "Owner / portfolio / offtaker concentration in a heat-prone summer-peak market"
+  - "Monitoring / design recommendations (thermal-aware design, inverter sizing, O&M) — directional"
+
+blocked_claims:
+  - "Exact %/MWh thermal de-rate per plant (no plant-level cell-temp / thermal model on the MCP — model-gpr)"
+  - "Exact summer generation (MWh) or revenue ($) impact from heat"
+  - "Plant-level generation forecasts without plant-level modeling"
+  - "Forward probability / return-period of a derate-driving heat event from a seasonal outlook alone"
+  - "Reading a heat de-rate off a monthly capacity factor (CF is irradiance-dominated; summer CF is HIGH) — an OVER-MAGNITUDE error"
+  - "Single-cause attribution — asserting an observed CF or generation change was caused ONLY by heat"
+  - "National conclusions from one regional test"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "Not reachable here — the de-rate is a second-order effect with no plant-level thermal model (would need model-gpr)."
+  medium: "Mechanism + scope + summer-CF baseline are all clean AND the temperature condition is a strong, dated above-normal signal — caps at MEDIUM at best (still no plant-level magnitude)."
+  low: "Directional exposure on a credible-but-modest temperature lean; second-order efficiency effect, peak-hour-concentrated — THE DEFAULT for this resource."
+  blocked: "Temperature outlook missing/stale, scope unresolved, OR a per-plant %/MWh, a $, a forward probability, or a plant-level forecast is requested."
+  non_stationarity: "Climate non-stationarity caps any TREND claim: a hot-summer odds-shift sits on a shifting baseline — never assert a stationary frequency/return-period from a historical record alone."
+
+caveats:
+  required:
+    - "This is a SECOND-ORDER efficiency effect, MODEST in magnitude and CONCENTRATED in the hottest afternoon hours — not a capacity-factor collapse."
+    - "Summer monthly CF is HIGH (irradiance-dominated); the heat de-rate does NOT show up as a monthly-CF drop, so monthly CF is NOT a heat signal."
+    - "Directional exposure, NOT a plant-level production forecast; the exact %/MWh de-rate needs a plant-level thermal model (not modeled here)."
+    - "The materiality comes from PEAK COINCIDENCE (de-rate bites at the ERCOT summer price/demand peak), not from a large energy loss."
+    - "Climate non-stationarity: a hot-summer outlook is an odds-shift on a shifting baseline, not a stationary return-period."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Thermal-aware design (inverter sizing, DC/AC ratio, ventilation), O&M during heat waves, and the peak-hour revenue exposure on a summer-peaking asset."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio concentration in a single summer-peaking, heat-prone market (ERCOT); the de-rate-at-peak is a downside on the most valuable hours."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "P50/P90 generation assumptions should reflect thermal derating in the hottest hours; directional DSCR sensitivity on a financed ERCOT solar asset."
+    renderings:
+      - account_note
+  - actor: "offtaker"
+    why: "A shaped / peak-hour PPA or merchant exposure feels the de-rate-at-peak most; relevant where PPA context exists."
+    renderings:
+      - account_note
+      - informative_email_draft
+
+staleness_signals:
+  - "NOAA/CPC seasonal temperature outlook changes materially"
+  - "Generation substrate refresh (a new summer of monthly CF)"
+  - "Plant construction / inverter spec / grid-zone refresh"
+  - "Owner / offtaker data refresh"
+  - "A served plant-level thermal / cell-temperature model becomes available (mcp_gaps R12) — upgrades directional -> quantitative"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"

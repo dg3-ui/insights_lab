@@ -2,7 +2,7 @@
 
 > **Purpose**: explain what a contributor is actually building — a *control surface* for analysis — its required parts, and how it reads end-to-end, traced against the real ENSO resource and live data.
 >
-> **Grounded in**: `resources/weather_and_climate/el_nino_enso/` + live MCP output, 2026-06-05. The canonical field standard is `docs/03_methodology_resource_standard.md`; this doc teaches it.
+> **Grounded in**: `resources/weather_and_climate/el_nino_enso/` + live MCP output, 2026-06-05. The canonical field standard is `../method/resource_standard.md`; this doc teaches it.
 
 ## What A Methodology Resource Does
 

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- RENDER EXEMPLAR — resources/_style/examples/ · contract: top_down × public × blog (§3)
+     Source insight: el_nino_enso/examples/applied_insight_001.md (gated, test 001 PASS).
+     Every number traces to that insight's source_refs. No new claims. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A ~96% Chance of El Niño Meets 36.8 GW of California Solar · InfraSure Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --fg:#0a0a0a; --bg:#ffffff; --muted-fg:#737373; --muted-bg:#f5f5f5;
+    --border:#e5e5e5; --green:#00c470; --amber:#efa831; --radius:0.625rem;
+    --fg:oklch(0.145 0 0); --bg:oklch(1 0 0); --muted-fg:oklch(0.556 0 0);
+    --muted-bg:oklch(0.97 0 0); --border:oklch(0.922 0 0);
+    --green:oklch(0.72 0.18 155); --amber:oklch(0.78 0.15 75);
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --fg:oklch(0.985 0 0); --bg:oklch(0.145 0 0); --muted-fg:oklch(0.708 0 0);
+           --muted-bg:oklch(0.205 0 0); --border:oklch(1 0 0 / 10%);
+           --green:oklch(0.74 0.18 155); --amber:oklch(0.80 0.15 75); }
+  }
+  *{box-sizing:border-box} html{font-size:16px}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
+       font-optical-sizing:auto;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .page{max-width:760px;margin:0 auto;padding:0 24px 48px}
+
+  /* HEADER (mandatory — brand.md §4) */
+  header{display:flex;align-items:center;justify-content:space-between;
+         padding:20px 0 14px;border-bottom:1px solid var(--border)}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand svg{width:30px;height:30px;flex:none}
+  .brand .wordmark{font-weight:600;font-size:15px;letter-spacing:-0.01em}
+  .brand .wordmark span{font-weight:400;color:var(--muted-fg)}
+  .kicker{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--green)}
+
+  /* TITLE BLOCK */
+  h1{font-size:32px;font-weight:600;letter-spacing:-0.02em;line-height:1.2;margin:28px 0 10px}
+  .dek{font-size:18px;color:var(--muted-fg);margin:0 0 14px}
+  .meta{font-family:var(--mono);font-size:12.5px;color:var(--muted-fg);
+        padding-bottom:18px;border-bottom:1px solid var(--border)}
+
+  /* SUMMARY BOX */
+  .summary{background:var(--muted-bg);border-radius:var(--radius);padding:18px 20px;margin:24px 0}
+  .summary .label{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;
+                  color:var(--muted-fg);margin-bottom:8px}
+  .summary ul{margin:0;padding-left:18px} .summary li{margin:4px 0;font-size:15px}
+  .badge{display:inline-block;font-family:var(--mono);font-size:11.5px;font-weight:500;
+         padding:2px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted-fg)}
+  .badge.low{border-color:var(--amber);color:var(--amber)}
+
+  /* BODY */
+  h2{font-size:19px;font-weight:600;letter-spacing:-0.01em;margin:32px 0 10px}
+  p{font-size:15.5px;margin:10px 0}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0}
+  th{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;
+     color:var(--muted-fg);text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+  td{padding:8px 10px;border-bottom:1px solid var(--border)}
+  td.num,td.id{font-family:var(--mono);font-size:13px}
+
+  /* FIGURE — border + caption BELOW, source + as_of mandatory (brand.md §4) */
+  figure{margin:20px 0;border:1px solid var(--border);border-radius:var(--radius);
+         overflow:hidden;box-shadow:0 1px 2px rgb(0 0 0 / 0.04)}
+  figure .viz{display:block;width:100%;padding:16px;background:var(--bg)}
+  figcaption{padding:10px 16px;border-top:1px solid var(--border);background:var(--muted-bg);
+             font-size:12.5px;color:var(--muted-fg)}
+  figcaption .src{font-family:var(--mono);font-size:11.5px}
+
+  /* CAVEAT BOX — what we are NOT claiming */
+  .caveat{border-left:3px solid var(--amber);background:var(--muted-bg);
+          border-radius:0 var(--radius) var(--radius) 0;padding:14px 18px;margin:24px 0}
+  .caveat .label{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;
+                 color:var(--amber);margin-bottom:6px}
+  .caveat p,.caveat li{font-size:14px;margin:4px 0}
+
+  /* FOOTER (mandatory) */
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);
+         font-size:12.5px;color:var(--muted-fg)}
+  footer .sources{font-family:var(--mono);font-size:11.5px;line-height:1.8}
+  footer .brandline{display:flex;justify-content:space-between;margin-top:14px}
+  a{color:var(--green);text-decoration:none} a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 1000 1000" role="img" aria-label="InfraSure"><g transform="matrix(5.950019664814993,0,0,5.950019664814993,150,168.90124896862784)"><g transform="translate(-38.048137,-50.106399)"><path d="m 0,0 c 5.391,-7.161 8.61,-16.155 8.61,-25.933 0,-23.343 -18.301,-42.267 -40.877,-42.267 -22.576,0 -40.878,18.924 -40.878,42.267 0,15.436 8.006,28.933 19.954,36.31 -14.344,-7.282 -24.18,-22.163 -24.18,-39.352 0,-24.365 19.752,-44.118 44.117,-44.118 24.366,0 44.118,19.753 44.118,44.118 C 10.864,-17.881 6.76,-7.752 0,0" fill="#fcb949" transform="matrix(1.3333333,0,0,-1.3333333,141.20947,63.9424)"/><path d="m 0,0 -5.914,-22.67 h 11.47 l -24.821,-32.706 10.394,24.731 h -10.394 z" fill="#00b176" transform="matrix(1.3333333,0,0,-1.3333333,133.64187,57.164267)"/><path d="M 0,0 V 4.723 L 11.649,0 Z m 11.774,-2.355 c 0.271,0 0.49,-0.219 0.49,-0.49 0,-0.271 -0.219,-0.491 -0.49,-0.491 H 7.849 c -0.271,0 -0.491,0.22 -0.491,0.491 0,0.271 0.22,0.49 0.491,0.49 z m 0,-1.962 c 0.271,0 0.49,-0.22 0.49,-0.491 0,-0.271 -0.219,-0.49 -0.49,-0.49 H 7.849 c -0.271,0 -0.491,0.219 -0.491,0.49 0,0.271 0.22,0.491 0.491,0.491 z m -11.408,-15.176 -4.343,3.916 3.187,2.873 z m 1.562,-9.18 -5.878,4.77 4.452,3.612 z m -10.377,8.42 h 8.067 l -4.033,-3.273 z m 4.034,4.281 4.097,-3.694 h -8.195 z m -3.626,3.268 3.187,-2.873 -4.342,-3.916 z M -20.479,0 -8.831,4.623 V 0 Z m 3.799,-2.355 c 0.271,0 0.49,-0.219 0.49,-0.49 0,-0.271 -0.219,-0.491 -0.49,-0.491 h -3.925 c -0.271,0 -0.49,0.22 -0.49,0.491 0,0.271 0.219,0.49 0.49,0.49 z m 0,-1.962 c 0.271,0 0.49,-0.22 0.49,-0.491 0,-0.271 -0.219,-0.49 -0.49,-0.49 h -3.925 c -0.271,0 -0.49,0.219 -0.49,0.49 0,0.271 0.219,0.491 0.49,0.491 z m -3.799,17.072 11.648,4.704 V 12.755 Z M -16.68,10.4 c 0.271,0 0.49,-0.219 0.49,-0.49 0,-0.271 -0.219,-0.491 -0.49,-0.491 h -3.925 c -0.271,0 -0.49,0.22 -0.49,0.491 0,0.271 0.219,0.49 0.49,0.49 z m 0,-1.962 c 0.271,0 0.49,-0.22 0.49,-0.49 0,-0.271 -0.219,-0.491 -0.49,-0.491 h -3.925 c -0.271,0 -0.49,0.22 -0.49,0.491 0,0.27 0.219,0.49 0.49,0.49 z m 9.558,-15.743 2.259,-1.96 -3.042,-2.641 z m 0.058,5.693 2.251,-2.46 -2.251,-2.46 z m 0,6.734 2.243,-2.349 -2.243,-2.348 z m 0,6.011 2.258,-2.571 -2.258,-2.571 z m 0,6.506 2.234,-2.235 -2.234,-2.234 z m 2.649,5.811 2.505,-5.103 h -5.01 z m 2.649,-10.28 v 0 L -4,15.404 l 2.234,2.234 z m 0.154,-25.825 -2.803,-2.527 -2.804,2.527 z m -0.022,0.587 h -5.563 l 2.782,2.414 z m -0.918,4.808 -1.863,-1.617 -1.864,1.617 z m 0.12,0.587 h -3.967 l 1.984,2.167 z m 0.666,5.061 v -4.92 l -2.252,2.46 z m -0.398,0.435 -2.251,-2.46 -2.252,2.46 z M -2.172,0 h -4.487 l 2.244,2.349 z M -2.452,5.253 -4.415,3.198 -6.378,5.253 Z M -1.766,5.122 V 0.425 L -4.01,2.773 Z M -2.415,5.84 h -4.001 l 2.001,2.277 z m 0.649,5.293 V 5.991 l -2.259,2.571 z m -0.391,0.445 -2.258,-2.571 -2.259,2.571 z m -4.199,6.182 h 3.882 l -1.941,-1.941 z m 3.882,-4.712 h -3.882 l 1.941,1.941 z m 1.549,-24.954 -3.043,2.641 2.259,1.96 z M 0,17.36 11.649,12.755 H 0 Z M 11.774,10.4 c 0.271,0 0.49,-0.219 0.49,-0.49 0,-0.271 -0.219,-0.491 -0.49,-0.491 H 7.849 c -0.271,0 -0.491,0.22 -0.491,0.491 0,0.271 0.22,0.49 0.491,0.49 z m 0,-1.962 c 0.271,0 0.49,-0.22 0.49,-0.49 0,-0.271 -0.219,-0.491 -0.49,-0.491 H 7.849 c -0.271,0 -0.491,0.22 -0.491,0.491 0,0.27 0.22,0.49 0.491,0.49 z M 13.521,0.518 0,5.994 v 5.584 H 8.34 V 10.694 H 7.849 c -0.432,0 -0.784,-0.352 -0.784,-0.784 0,-0.432 0.351,-0.784 0.784,-0.784 H 8.34 V 8.731 H 7.849 C 7.417,8.731 7.065,8.38 7.065,7.947 7.065,7.515 7.416,7.163 7.849,7.163 H 8.34 V 6.77 c 0,-0.434 0.351,-0.785 0.784,-0.785 h 1.374 c 0.433,0 0.785,0.351 0.785,0.785 v 0.393 h 0.49 c 0.433,0 0.784,0.352 0.784,0.784 0,0.433 -0.351,0.784 -0.784,0.784 h -0.49 v 0.395 h 0.49 c 0.433,0 0.784,0.351 0.784,0.784 0,0.432 -0.351,0.784 -0.784,0.784 h -0.49 v 0.884 h 1.892 c 0.425,0 0.781,0.29 0.866,0.706 0.084,0.416 -0.129,0.823 -0.52,0.989 l -13.878,5.493 -4.058,8.118 -3.992,-7.984 -13.934,-5.622 -0.011,-0.005 c -0.391,-0.166 -0.604,-0.573 -0.52,-0.989 0.085,-0.416 0.441,-0.706 0.865,-0.706 h 1.893 v -0.884 h -0.491 c -0.432,0 -0.784,-0.352 -0.784,-0.784 0,-0.432 0.352,-0.784 0.784,-0.784 h 0.491 V 8.731 h -0.491 c -0.432,0 -0.784,-0.351 -0.784,-0.784 0,-0.432 0.352,-0.784 0.784,-0.784 h 0.491 V 6.77 c 0,-0.434 0.351,-0.785 0.785,-0.785 h 1.373 c 0.434,0 0.785,0.351 0.785,0.785 v 0.393 h 0.491 c 0.432,0 0.784,0.352 0.784,0.784 0,0.433 -0.352,0.784 -0.784,0.784 h -0.491 v 0.395 h 0.491 c 0.432,0 0.784,0.351 0.784,0.784 0,0.432 -0.352,0.784 -0.784,0.784 h -0.491 v 0.884 h 8.34 V 5.89 l -13.51,-5.367 -0.011,-0.005 c -0.391,-0.166 -0.605,-0.573 -0.52,-0.989 0.085,-0.416 0.441,-0.707 0.865,-0.707 h 1.893 v -0.884 h -0.491 c -0.432,0 -0.784,-0.351 -0.784,-0.784 0,-0.432 0.352,-0.783 0.784,-0.783 h 0.491 v -0.395 h -0.491 c -0.432,0 -0.784,-0.351 -0.784,-0.784 0,-0.432 0.352,-0.784 0.784,-0.784 h 0.491 v -0.393 c 0,-0.434 0.351,-0.785 0.785,-0.785 h 1.373 c 0.434,0 0.785,0.351 0.785,0.785 v 0.393 h 0.491 c 0.432,0 0.784,0.352 0.784,0.784 0,0.432 -0.352,0.784 -0.784,0.784 h -0.491 v 0.395 h 0.491 c 0.432,0 0.784,0.351 0.784,0.783 0,0.433 -0.352,0.784 -0.784,0.784 h -0.491 v 0.884 h 8.34 v -5.789 l -3.24,-19.03 c 0.506,-0.443 1.021,-0.873 1.548,-1.291 l 1.191,6.997 4.451,-3.612 -4.895,-3.972 c 0.161,-0.122 0.322,-0.243 0.484,-0.363 l 4.877,3.957 6.233,-5.058 c 0.055,-0.044 0.12,-0.066 0.185,-0.066 0.017,0 0.032,0.008 0.048,0.011 l 0.757,-5.053 c 0.583,-0.189 1.172,-0.362 1.765,-0.526 L 0,-6.966 v 5.789 H 8.34 V -2.061 H 7.849 c -0.432,0 -0.784,-0.352 -0.784,-0.784 0,-0.433 0.351,-0.784 0.784,-0.784 H 8.34 V -4.024 H 7.849 c -0.432,0 -0.784,-0.351 -0.784,-0.784 0,-0.432 0.351,-0.784 0.784,-0.784 H 8.34 v -0.393 c 0,-0.434 0.351,-0.785 0.784,-0.785 h 1.374 c 0.433,0 0.785,0.352 0.785,0.785 v 0.393 h 0.49 c 0.433,0 0.784,0.352 0.784,0.784 0,0.433 -0.351,0.784 -0.784,0.784 h -0.49 v 0.395 h 0.49 c 0.433,0 0.784,0.351 0.784,0.784 0,0.432 -0.351,0.784 -0.784,0.784 h -0.49 v 0.884 h 1.892 c 0.425,0 0.781,0.29 0.866,0.706 0.085,0.416 -0.129,0.823 -0.52,0.989" fill="#3e4e59" transform="matrix(1.3333333,0,0,-1.3333333,81.114933,106.09053)"/></g></g></svg>
+      <div class="wordmark">InfraSure <span>Insights</span></div>
+    </div>
+    <div class="kicker">Market Insight · Weather &amp; Climate</div>
+  </header>
+
+  <h1>A ~96% Chance of El Niño Meets 36.8 GW of California Solar</h1>
+  <p class="dek">NOAA now puts El Niño at roughly 96% for this winter. For California's utility-scale solar fleet, that tilts an already weak season lower.</p>
+  <div class="meta">2026-06-05 · CA utility-scale solar ≥ 50 MW · data as of 2026-06-05</div>
+
+  <div class="summary">
+    <div class="label">The takeaway</div>
+    <ul>
+      <li>NOAA CPC carries an El Niño Watch with a ~96% chance of El Niño for winter 2026-27 (DJF). Event strength is still unknown.</li>
+      <li>El Niño winters tend wetter and cloudier across California, which works against solar output in its weakest season.</li>
+      <li>The exposed set is large: ~36.8 GW of California solar, including Topaz, Desert Sunlight, and the Darden complex.</li>
+      <li>This is a directional read. No dollar, price, or production-loss figure survives the evidence we have today.</li>
+    </ul>
+    <p style="margin:10px 0 0"><span class="badge low">CONFIDENCE: LOW</span></p>
+  </div>
+
+  <h2>What changed</h2>
+  <p>As of June 5, NOAA's Climate Prediction Center holds an El Niño Watch: a ~96% chance that El Niño conditions are present during December through February, with Niño-3.4 already at +0.4 °C. One thing the forecast does not yet say is how strong the event gets. No strength category clears 37%, and strength is what sets the size of any winter effect.</p>
+
+  <h2>Who is exposed</h2>
+  <p>California's operating utility-scale fleet (≥ 50 MW) totals about 36,843 MW of solar. The largest names sit exactly where a wet, cloudy winter lands:</p>
+  <table>
+    <thead><tr><th>Plant</th><th>ID</th><th>Capacity</th><th>Owner / offtaker hook</th></tr></thead>
+    <tbody>
+      <tr><td>Topaz Solar Farm</td><td class="id">57695</td><td class="num">585.9 MW</td><td>BHE</td></tr>
+      <tr><td>Desert Sunlight 300</td><td class="id">57993</td><td class="num">313.7 MW</td><td>Clearway · PG&amp;E (28 contracts)</td></tr>
+      <tr><td>Darden I–IV</td><td class="id">69661–4</td><td class="num">646.4 MW each</td><td>Intersect</td></tr>
+      <tr><td>Pelicans Jaw</td><td class="id">68607</td><td class="num">678.5 MW</td><td>Terra-Gen</td></tr>
+    </tbody>
+  </table>
+
+  <h2>The mechanism, in one breath</h2>
+  <p>El Niño strengthens the subtropical jet. That steers wetter, cloudier winters into California and the Southwest. Less winter sun means a lower winter capacity factor, and winter is already the fleet's low season. Desert Sunlight 300 runs near 0.38 in summer and near 0.13 in winter; an El Niño winter pushes on the low number, not the high one.</p>
+
+  <figure>
+    <div class="viz"><svg viewBox="0 0 640 230" style="width:100%;height:auto" role="img" aria-label="Desert Sunlight 300 seasonal capacity factor">
+  <style>text{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}</style>
+  <text x="20" y="24" font-size="13" font-weight="600" fill="currentColor">Seasonal capacity factor, Desert Sunlight 300 (plant 57993)</text>
+  <g>
+    <rect x="120" y="58" width="380" height="34" rx="4" fill="#efa30f"/>
+    <text x="60" y="80" font-size="12.5" fill="#737373">Summer</text>
+    <text x="510" y="80" font-size="13" font-family="JetBrains Mono,ui-monospace,Menlo,monospace" fill="currentColor">~0.38</text>
+    <rect x="120" y="112" width="130" height="34" rx="4" fill="#3e4e59"/>
+    <text x="60" y="134" font-size="12.5" fill="#737373">Winter</text>
+    <text x="260" y="134" font-size="13" font-family="JetBrains Mono,ui-monospace,Menlo,monospace" fill="currentColor">~0.13</text>
+  </g>
+  <text x="120" y="186" font-size="12" fill="#737373">The winter low is the baseline an El Niño winter would push lower.</text>
+  <text x="120" y="206" font-size="12" fill="#efa831">Directional exposure only: no plant-level forecast is made here.</text>
+</svg></div>
+    <figcaption>Summer vs winter capacity factor at Desert Sunlight 300. · <span class="src">source: InfraSure get_plant(57993) · as of 2026-06-05</span></figcaption>
+  </figure>
+
+  <div class="caveat">
+    <div class="label">What we are not claiming</div>
+    <p>No $/MWh or LMP effect. No plant-level production forecast. The CA winter teleconnection is moderate but probabilistic, and a single winter can defy it: 2022-23 was a wet La Niña winter, the opposite of the textbook expectation. Effect size scales with event strength, which is not yet known. Revenue outcomes depend on demand, hydro, congestion, and contract structure besides weather.</p>
+  </div>
+
+  <h2>What to watch</h2>
+  <p>Strength. The forecast sharpens over summer and fall, and the exposure read sharpens with it. Owners with concentrated California solar books (Clearway, BHE, Intersect, Terra-Gen, Avantus) should watch winter generation variance. PG&amp;E, holding 28 contracts on Desert Sunlight 300 alone, has volume and settlement sensitivity on linked supply. Lenders can treat this as a caveated downside scenario for a weak-generation winter, nothing more.</p>
+
+  <footer>
+    <div class="sources">
+      NOAA CPC ENSO Diagnostic Discussion · El Niño Watch, ~96% DJF 2026-27 · accessed 2026-06-05<br>
+      IRI ENSO Forecast · corroborating outlook · accessed 2026-06-05<br>
+      InfraSure aggregate (plants) · CA solar total 36,843 MW · as of 2026-06-05<br>
+      InfraSure search_plants(fuel=solar, state=CA, minMw=50) · fleet roster · as of 2026-06-05<br>
+      InfraSure get_plant(57993) · seasonal CF, owner, offtaker · as of 2026-06-05
+    </div>
+    <div class="brandline">
+      <span>InfraSure Insights · <a href="https://www.infrasure.ai">infrasure.ai</a></span>
+      <span>generated 2026-06-12 · confidence LOW · directional, not a forecast</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -4,7 +4,7 @@
 >
 > **Purpose**: create the first InfraSure Insights methodology resource and validate it manually with Claude + existing MCP/data tools.
 >
-> **Domain**: `weather_and_climate` (driver-grouped). Family: Exposure (`docs/02`). Registry: `resources/README.md`.
+> **Domain**: `weather_and_climate` (driver-grouped). Family: Exposure (`../../../docs/method/analysis_families.md`). Registry: `resources/README.md`.
 
 ## Resource Scope
 
@@ -29,12 +29,14 @@ If CAISO data/tool access is insufficient, use another region/market that the MC
 
 | File | Purpose |
 |---|---|
-| `resource.md` | Human-readable methodology |
-| `resource.yml` | Structured operational fields |
-| `data_requirements.md` | Data/tool/source inventory |
+| `SKILL.md` | **Published skill** — the loadable Claude Agent Skill (frontmatter `name`+`description` + method body + bundled refs) |
+| `resource.md` | Human-readable methodology (the method) |
+| `resource.yml` | Structured operational fields + taxonomy |
+| `knowledge.md` | **Domain reference** — ENSO mechanism, measurement, teleconnections by region (cited) |
+| `data_requirements.md` | Data/tool/source inventory + known gaps |
 | `prompt_projection.md` | Pasteable Claude/MCP instruction surface |
-| `examples/applied_insight_001.md` | Target applied-insight shape |
-| `test_runs/test_run_001.md` | Manual test record |
+| `examples/applied_insight_001.md` | **Validated** applied insight (winter 2026-27, from test 001) |
+| `test_runs/test_run_001.md` | Manual test record — **PASS** (2026-06-05) |
 
 ## V0 Rule
 

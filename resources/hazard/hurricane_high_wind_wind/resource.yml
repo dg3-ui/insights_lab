@@ -1,0 +1,200 @@
+identity:
+  slug: "hurricane_high_wind_wind"
+  title: "Hurricane / High-Wind Exposure For Wind Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-14"
+
+maturity:
+  grounding_maturity: "model-not-wired"  # EXPOSURE (coastal/Gulf wind in the hurricane corridor) + the realized EVENT
+                                          # (Beryl in the hazards news) ground TODAY → directional. But the wind-specific
+                                          # operational impact is NOT in the substrate (monthly CF cannot resolve a
+                                          # multi-day cut-out under the summer wind lull), and the $ / damage / forward
+                                          # hurricane probability layer is model-gpr — see blocked_claims + mcp_gaps R12.
+  data_maturity: "M"                      # TX wind: 252 plants, geometry + turbine model/hub-height + monthly CF + owner
+                                          # all present; BUT no wind plant carries a hazards-news classification (the event
+                                          # links to nuclear/hydro, not wind) and monthly CF is too coarse for the cut-out.
+
+taxonomy:
+  domain: hazard                  # folder axis — shares SPC/NHC/FEMA + hazards-news + footprint machinery with hail_solar
+  family: exposure                # primary family; the resource ALSO serves event_translation (a realized storm → asset)
+  drivers:
+    - hurricane
+    - high_wind
+    - severe_convective_storm
+    - natcat                       # maps the hazards-news risk_factor R12_NATCAT_FM
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:                            # the peril-field standard (resource_standard.md)
+  predictability: "forecastable-track / sudden-onset-locally"  # NHC track has days of lead; the exact wind field + the
+                                                               # damage-vs-cut-out outcome at a site is short-fuse
+  key_datasets: ["NOAA NHC best-track / advisories + HURDAT2", "NOAA SPC high-wind / convective-wind reports", "InfraSure hazards news (subcategory=hurricane|high_wind)"]
+  climate_attribution_confidence: "low-to-medium"   # rapid-intensification + a poleward/inland-decay shift are emerging
+                                                     # signals, but landfall-frequency trends are contested — caps trend claims
+  financial_materiality: "high"   # blade/nacelle/tower loss + extended outage is a leading wind-asset natcat loss — TIE-BREAKER, never grounding
+  insurance_treatment: "named-windstorm sub-limit / separate wind deductible; coastal accumulation a reinsurance driver"  # the bridge to the commercial $ layer
+
+question_grammar:
+  allowed_questions:
+    - "Which wind assets / owners / regions sit in a hurricane / high-wind-exposed geography (coastal/Gulf), and how materially?"
+    - "Through what mechanism is the turbine fleet exposed — temporary cut-out vs lasting structural damage — and what mitigation applies?"
+    - "What did a realized storm (e.g. Hurricane Beryl) mean for a specific coastal wind asset, to the extent the substrate can show it?"
+    - "Who should monitor or harden against the exposure, and why?"
+  blocked_questions:
+    - "What is the exact dollar loss / EAL / PML / insurance payout from this hurricane?"
+    - "What is the forward annual probability or return-period of a damaging hurricane at this site?"
+    - "What exact plant-level generation will the next hurricane season cost this wind farm?"
+    - "Did Hurricane Beryl cause the observed July-2024 capacity-factor dip at this plant?"   # NOT separable from the summer wind lull
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - wind                         # onshore wind turbines (the cut-out + structural-damage mechanism)
+  regions_or_markets:
+    - "one selected region or market per test (test 001 = coastal/Gulf ERCOT / Texas)"
+  lifecycle_phases:
+    - operating
+    - queue          # siting-stage coastal exposure is in scope (developer actor)
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place the asset in / out of the hurricane corridor (lat/lon, coastal county, turbine-location set, boundary)"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Filter wind; turbine model / hub height frame (do not over-claim) the structural-design point"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "CONTEXT ONLY — monthly CF cannot isolate a multi-day storm cut-out from the summer wind lull (see caveats); never the damage proof"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + coastal-portfolio accumulation"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event grounding — search_news(category=hazards, query=hurricane/storm name); VERIFY each (and note it rarely links to a WIND plant)"
+    - name: "nearby_plants"
+      required: false
+      use: "Same-corridor fan-out — other coastal wind in the storm track"
+  external_inputs:
+    - name: "NHC_track_and_HURDAT2"
+      required: true
+      freshness: "best-track (stable, historical) + live advisories (dated)"
+      use: "Establish the storm track / landfall + the hurricane-exposed coastal geography; cite the source"
+    - name: "SPC_high_wind_climatology"
+      required: false
+      freshness: "climatology (stable) + recent wind reports (dated)"
+      use: "Non-tropical high-wind / derecho exposure where relevant; cite"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; never claim grounding alone (the Gemini blurb is descriptive_context)"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Route the insight; insurance/financing relevance where available"
+
+procedure:
+  steps:
+    - "Establish the hurricane / high-wind geography (NHC track / HURDAT2 + SPC) and/or a realized storm (hazards news)."
+    - "State the mechanism + the TWO claim types: temporary CUT-OUT (>=~25 m/s feather/shutdown -> zero output during the storm, recovers) vs LASTING damage (Cat 3+ design-exceeding winds -> blade/nacelle/tower; coastal sites add storm surge)."
+    - "Select one region/market (coastal/Gulf) and the wind asset class."
+    - "Resolve the coastal wind fleet via the MCP (state= proxy; the iso filter is unwired — see data_requirements)."
+    - "Identify assets in the corridor (coastal county + lat/lon + turbine_locations); VERIFY any hazards-news classification (it rarely links to a WIND plant)."
+    - "Where a realized event exists, drill get_plant.generation ONLY as context — and explicitly note monthly CF cannot isolate the cut-out from the summer wind lull."
+    - "Retrieve owner/company context for actor relevance and coastal-portfolio accumulation."
+    - "Assemble: condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade the $ loss, the forward probability/return-period, the plant-level forecast, and any single-cause CF attribution."
+
+allowed_claims:
+  - "Directional hurricane / high-wind exposure for a scoped coastal wind asset set / geography"
+  - "Mechanism statements distinguishing the TEMPORARY cut-out from LASTING structural damage, cited"
+  - "Realized event framing: a named storm (e.g. Beryl) made landfall in the corridor near a named coastal wind asset (regional fact, not a wind-plant damage claim)"
+  - "Owner / portfolio coastal-accumulation in the hurricane corridor"
+  - "Mitigation statements (feather/shutdown protocol, design wind class IEC, surge siting), cited"
+  - "Monitoring / hardening recommendations for owners, lenders, developers"
+
+blocked_claims:
+  - "Exact $ damage, EAL, PML, or insurance payout from a hurricane (model-gpr / not on the MCP)"
+  - "Forward annual hurricane probability or return-period from track history alone (needs a TC hazard model)"
+  - "Plant-level generation forecasts without plant-level modeling"
+  - "Single-cause attribution — asserting an observed CF change was caused by a hurricane (the July-2024 dip is NOT separable from the summer wind lull)"
+  - "Asserting lasting turbine DAMAGE from a sub-design storm (Beryl made landfall as Cat 1 — below most modern turbines' design wind class)"
+  - "National conclusions from one regional test"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "NOT reachable here on the substrate alone — would require a verified wind-plant damage record (which the substrate does not carry) or a served TC hazard model."
+  medium: "Mechanism + coastal-corridor exposure framing on a clear geography (NHC landfall + resolved coastal wind scope), with the cut-out/damage distinction stated."
+  low: "Forward / probabilistic exposure without a TC model; OR an event-context claim leaning on monthly CF (which cannot isolate the cut-out)."
+  blocked: "No verified hazard classification, scope unresolved, or a $ / return-period / plant-level-forecast / single-cause-CF claim is requested."
+
+caveats:
+  required:
+    - "TEMPORARY cut-out (turbines feather/shut down above ~25 m/s -> zero output during the storm, then recover) is a DIFFERENT claim type from LASTING structural damage (Cat 3+ design-exceeding winds). State which one."
+    - "Monthly capacity factor CANNOT isolate a multi-day storm cut-out from the normal summer wind lull — the July-2024 dip at coastal TX wind is consistent with the seasonal minimum, NOT proof of a Beryl impact (curtailment/maintenance also move CF)."
+    - "Hazard-news classification is VERIFIED, not taken on the label (the classifier has false positives, and TX hurricane articles link to nuclear/hydro/gas, NOT to wind turbines)."
+    - "Beryl made landfall as a Category 1 hurricane — below most modern onshore turbines' design wind class — so a coastal TX wind fleet most plausibly saw a temporary cut-out, not widespread structural damage."
+    - "Hurricane exposure is sudden-onset locally and climatologically concentrated on the coast; this is geographic exposure, not a dated forecast."
+    - "Dollar severity, EAL, and insurance outcome are NOT modeled here (directional only) — that layer is model-gpr."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Cut-out availability planning + structural design-class review (IEC wind class), surge/foundation hardening on coastal sites, outage-recovery protocols."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Coastal-portfolio accumulation in the Gulf hurricane corridor; downside to availability/revenue in a landfall year."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "DSCR stress from a hurricane-driven outage (cut-out + any damage repair) on a financed coastal wind asset (directional)."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Siting + turbine wind-class + surge-aware foundation choices for queue-stage coastal/Gulf wind."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "New hazards news for the scoped region/assets (a new storm in the corridor)"
+  - "Generation substrate refresh (a new month — used only as context here)"
+  - "NHC track / HURDAT2 update; a new Atlantic hurricane season"
+  - "Plant geometry / turbine-model / ownership refresh"
+  - "A served TC / high-wind peril-risk model becomes available (mcp_gaps R12) — upgrades directional -> quantitative AND could surface a real wind-plant damage signal"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"

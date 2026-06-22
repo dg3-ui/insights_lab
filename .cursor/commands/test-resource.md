@@ -1,0 +1,1 @@
+../../.claude/commands/test-resource.md

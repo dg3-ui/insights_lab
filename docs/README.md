@@ -1,0 +1,75 @@
+# docs/ — Index & Read Order
+
+> **Status**: the docs map, 2026-06-13 · **2026-06-15**: + `method/confidence_model.md` (the 3-axis canon) and the **`../studio/` output layer** (Layer 3) — the P1 seam extended to the output half. Docs are grouped by **job** (folder = job), and the **stable/volatile seam is a folder boundary** — the project's own P1 principle applied to its own documentation. Reorganized from the flat `00–11` sequence per `plans/done/2026-06-13_docs_reorg.md`.
+
+## The Map
+
+```text
+docs/
+├── README.md         this index
+├── architecture.md   THE FRONT DOOR — start here. End-to-end flow (Mermaid + ASCII), the 4 layers,
+│                     terminology, the gate. Absorbs the old project-brief + architecture docs.
+├── principles.md     THE DISCIPLINE (P1–P7) — what must not move: stable vs volatile · content
+│                     downstream · process-data laws · iteration · no-mush · references-inform-not-bind (P6) · posture (P7).
+├── use_cases.md      WHO IT'S FOR — the 2 buckets × audience (Pillar 3) + the V0 scope contract
+│                     + the proof-of-value validation method.
+│
+├── method/           HOW TO REASON & BUILD (the contract)
+│   ├── analysis_families.md   the 7 families (V0 = Exposure) + the Q&A grammar
+│   ├── resource_standard.md   the methodology_resource + applied_insight contracts (+ maturity/peril fields)
+│   ├── confidence_model.md    the three-axis confidence model (cap · event-likelihood · materiality) — the output foundation
+│   ├── data_map.md            the input taxonomy + the source_ref shape (sole owner)
+│   ├── discovery_spec.md      find_methodology / get_methodology contract
+│   ├── workflow_recipes.md    the recipe layer — composing resources into jobs (docs, not a runtime)
+│   └── outlier_playbook.md    reverse-engineering an off-substrate outlier (the ad-hoc / research-grounded lane)
+│
+├── process/          THE LOOP
+│   ├── test_protocol.md       the manual test, session capture, failure taxonomy, feedback intake
+│   └── commands.md            the command toolchain: design (thin-conductor rule) + the how-to-use quick-reference
+│
+├── status/           VOLATILE HUB — what's built / next (kept out of the canon docs on purpose)
+│   ├── capabilities.md        platform-capability build status + the open architectural decisions
+│   ├── mcp_gaps.md            the MCP tool-gap ledger (gap · workaround · roadmap) + its top Build-Priority hand-off
+│   └── commands.md            the per-command build registry
+│
+├── plans/            the active working plans (the real currency of "what's next")
+└── learning/         onboarding fundamentals (01–04) + session logs (logs/ — session records, not the track)
+```
+
+**The output layer is a sibling: [`../studio/`](../studio/README.md)** — Layer 3 (subject/phenomenon render briefs · the `_triage` board · subject guides), founded on `method/confidence_model.md` and rendered via `/render`. Its front door is `../studio/README.md`; the architecture is `plans/2026-06-15_output_layer_architecture.md`.
+
+```text
+STABLE CANON                          VOLATILE                         NAVIGATIONAL
+architecture · principles · use_cases   status/ (3 ledgers)              README (this)
+method/ (7) · process/ (2)              plans/ (working plans)           See-also footers
+                                        learning/logs/ (session records)
+read once, trust                        check for what's live            wayfinding
+```
+
+## Read Order (by audience)
+
+```text
+NEW CONTRIBUTOR   architecture.md  →  learning/ (README → 01 → 02 → 03 → 04)
+                  →  resources/weather_and_climate/el_nino_enso/  (the worked example)
+
+SENIOR REVIEWER   architecture.md  →  principles.md  →  use_cases.md
+                  →  method/  →  status/capabilities.md
+
+AUTHOR (a new     architecture.md  →  method/resource_standard.md  →  method/data_map.md
+ resource)        →  process/test_protocol.md  →  /new-resource  →  resources/_reference/ (form)
+
+OUTPUT (render a  BASELINE (no studio): method/confidence_model.md  →  resources/_style/output_contracts.md
+ gated insight)    + brand  →  /render.   SELECTIVE amplification: ../studio/README.md → ../studio/_triage.md
+
+"WHAT'S NEXT?"    plans/  (active work)  →  status/capabilities.md (build state)
+                  →  status/mcp_gaps.md (tool roadmap)
+```
+
+## Conventions
+
+- **House doc style**: every doc opens with a `> **Status**` blockquote, reasons in ASCII diagrams + tight tables, and ends with a `See also` footer. Cross-references are by **path/name** (the `00–11` numbers are retired — a name survives a future reorg, a number doesn't).
+- **Single-owner**: each topic is owned by one doc; everyone else points. The big owners: the 4-layer diagram → `architecture.md`; the principles → `principles.md`; the `source_ref` shape → `method/data_map.md`; the 3-axis confidence model → `method/confidence_model.md`; the output model (blog/report/email) → `resources/_style/output_contracts.md`; the studio render layer → `../studio/README.md`; the prioritization board → `../studio/_triage.md`; the underscore-folder rule → `resources/README.md`.
+
+---
+
+**See also**: `architecture.md` (the front door), `../README.md` (repo map + working rules), `../CLAUDE.md` (the full agent instructions), `plans/done/2026-06-13_docs_reorg.md` (why this structure).

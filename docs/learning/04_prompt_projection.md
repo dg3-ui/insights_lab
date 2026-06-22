@@ -64,7 +64,7 @@ a rigid output format            anything that needs the full repo to interpret
 
 ## Failure Modes A Projection Must Prevent
 
-The test pass/fail criteria (`docs/05_mcp_test_protocol.md`) are really a list of failures the projection exists to stop. For each, the line that prevents it:
+The test pass/fail criteria (`../process/test_protocol.md`) are really a list of failures the projection exists to stop. For each, the line that prevents it:
 
 | Failure | What it looks like | Projection guardrail |
 |---|---|---|

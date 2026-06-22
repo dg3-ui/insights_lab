@@ -122,7 +122,7 @@ A model can *narrate* tool use without doing it. During review, separate grounde
 
 ## Logging Tool Gaps
 
-Every gap goes into the test record (`resources/<topic>/test_runs/`) under the **MCP/tool gap** row of the failure taxonomy (see `docs/05_mcp_test_protocol.md`). A good gap log has three parts:
+Every gap goes into the test record (`resources/<topic>/test_runs/`) under the **MCP/tool gap** row of the failure taxonomy (see `../process/test_protocol.md`). A good gap log has three parts:
 
 ```text
 gap:        search_plants(iso="CAISO") returns [] — ISO filter not wired

@@ -33,7 +33,7 @@ FERC EQR (offtakers)       ┘     pricing, regions, news…
 EXTERNAL (not in substrate): NOAA CPC ENSO state, ONI, seasonal outlooks  ← the methodology supplies these
 ```
 
-Implication for insights: the substrate grounds *who/where/how-much/owned-by-whom*. It does **not** contain the ENSO state itself — that is an **external input** the methodology brings in (see `docs/04_context_and_data_map.md`).
+Implication for insights: the substrate grounds *who/where/how-much/owned-by-whom*. It does **not** contain the ENSO state itself — that is an **external input** the methodology brings in (see `../method/data_map.md`).
 
 ## Substrate Areas And Scale
 
@@ -98,7 +98,7 @@ PPA $160.95/MWh         external links               operator: NextEra
 lat/lon, ISO, node      "ranks 6th largest…"         investor: BlackRock / Vanguard
 ```
 
-**The trap**: `context.description` reads like fact but is **Gemini-generated prose** (`model: "google/gemini-2.0-flash-001"`). It is framing, never proof. A claim grounded only in a generated description is a **blocked claim** (see `docs/03_methodology_resource_standard.md`). Cross every material number back to a structured field.
+**The trap**: `context.description` reads like fact but is **Gemini-generated prose** (`model: "google/gemini-2.0-flash-001"`). It is framing, never proof. A claim grounded only in a generated description is a **blocked claim** (see `../method/resource_standard.md`). Cross every material number back to a structured field.
 
 ## The Resolution Layer (The Differentiator)
 
@@ -152,6 +152,8 @@ external input    -> supplies causal state    (NOAA ENSO)
 descriptive       -> frames only              (LLM description, Wikipedia)
 actor context     -> routes / activates       (offtaker, owner, investor)
 logic / crosswalk -> converts inputs to claims (thresholds, region map, confidence rules)
+form              -> shapes the rendering     (resources/_* — exemplars, brand, contracts, plot
+                                               rules; never grounds; post-gate except _principles)
 ```
 
 If you cannot say which job a field does, you cannot yet cite it.

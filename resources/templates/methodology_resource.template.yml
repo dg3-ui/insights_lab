@@ -1,0 +1,107 @@
+# resource.yml — the load-bearing seam (taxonomy→discovery · confidence_rules+blocked_claims→gates · prompt sections).
+# Fill every <placeholder>. Contract: ../../docs/method/resource_standard.md. Worked example: ../weather_and_climate/el_nino_enso/resource.yml.
+
+identity:
+  slug: "<snake_case_slug>"          # MUST equal the folder name (folder == slug)
+  title: "<Human Title>"
+  version: "0.0.1-draft"
+  status: "draft"                    # draft → active only after the test/eval gate passes
+  owner: "InfraSure Insights"
+  last_reviewed: "<YYYY-MM-DD>"
+
+maturity:                            # sets the confidence ceiling + build order (NOT discovery tags)
+  grounding_maturity: "<substrate-only | model-not-wired | needs-data>"
+  data_maturity: "<H | M | L>"
+
+taxonomy:
+  domain: "<weather_and_climate | hazard | market | policy | commercial>"   # folder axis (driver-grouped)
+  family: "<exposure | performance | commercial | development_risk | portfolio_strategy | market_context | event_translation>"
+  drivers: ["<driver>", "<sub_driver>"]      # free-form leaf tags — the mechanism this resource is keyed on
+  actors: ["<owner_operator | investor | lender | offtaker | developer>"]
+
+knowledge_ref: "knowledge.md"
+
+# --- PERIL FIELDS — hazard/peril resources only; delete this block for non-peril resources ---
+# peril:
+#   predictability: "<forecastable | sudden-onset>"
+#   key_datasets: ["<NOAA-SPC hail | NHC track | NIFC fire perimeter | FEMA NFHL | ...>"]
+#   climate_attribution_confidence: "<high | medium | low>"
+#   financial_materiality: "<high | medium | low>"     # tie-breaker, NEVER grounding
+#   insurance_treatment: "<covered | sub-limited | excluded | parametric>"
+
+question_grammar:
+  allowed_questions:
+    - "<the exact questions this resource may answer>"
+  blocked_questions:
+    - "<the questions it must refuse — exact $/forecast, pre-validation outreach>"
+
+scope:
+  entity_types: ["<plant | generator | project | company_owner | offtaker_optional>"]
+  fuels_or_technologies: ["<solar | wind | battery | gas | hydro | ...>"]
+  regions_or_markets: ["one selected region or market per test"]
+  lifecycle_phases: ["<operating | queue | ...>"]
+  actors: ["<owner_operator | investor | lender | offtaker | developer>"]
+
+inputs:
+  substrate_inputs:
+    - name: "<field>"
+      required: true
+      use: "<why it grounds the claim>"
+  external_inputs:
+    - name: "<named feed>"
+      required: true
+      freshness: "current or explicitly dated"
+      use: "<establish the driver/event state>"
+  descriptive_context:
+    - name: "<blurb / wikipedia>"
+      required: false
+      use: "frames only — never grounds"
+  actor_context:
+    - name: "<owner / offtaker context>"
+      required: false
+      use: "routes the insight"
+
+procedure:                           # specialize the _method reasoning skeleton (../_method/README.md §A)
+  steps:
+    - "<resolve external state from the named feed; cite the access date>"
+    - "<state the mechanism + robustness; name the claim type (directional vs factual)>"
+    - "<scope: one region, one asset class>"
+    - "<retrieve substrate; VERIFY the entity/label is the one you wanted>"
+    - "<filter/rank material assets; drill the top cases for grounding fields>"
+    - "<assemble the claim grammar; cap confidence at the weakest input>"
+    - "<block or downgrade unsupported downstream claims>"
+
+allowed_claims:
+  - "<the claim types this resource may produce>"
+
+blocked_claims:                      # carries the most weight — be sharp
+  - "<exact $/LMP from the driver alone>"
+  - "<plant-level forecast without a model>"
+  - "<outreach copy before the insight is validated>"
+  - "<causal language where evidence supports only direction>"
+
+confidence_rules:
+  high: "<rarely reachable — narrow mechanism, current source, resolved scope, no forecast claim>"
+  medium: "<credible mechanism + scope, one input/crosswalk imperfect>"
+  low: "<directional / scenario-based / forecast-dependent — often the default>"
+  blocked: "<source missing or stale, scope unresolved, or a precise forecast requested>"
+
+caveats:
+  required:
+    - "<directional exposure is not a plant-level production forecast>"
+    - "<climate non-stationarity caps trend claims>"                 # standard for weather/climate resources
+    - "<peril/event classification verified, not taken on the label>" # standard for hazard resources
+
+actor_relevance:
+  - actor: "<owner_operator>"
+    why: "<why they care>"
+    renderings: ["platform_card", "account_note"]
+
+staleness_signals:
+  - "<external state changes>"
+  - "<substrate refresh (plant/owner/offtaker/region)>"
+  - "<a shared resources/_* layer version this was validated against changes>"
+
+prompt_projection:
+  include_in_prompt: ["question grammar", "scope", "procedure", "allowed claims", "blocked claims", "confidence rules", "output format"]
+  exclude_from_prompt: ["long background prose", "full repo context", "email drafting instructions"]

@@ -1,10 +1,19 @@
 # InfraSure Insights
 
-> **Status**: v0 staging workspace, 2026-06-05.
+> **Status**: v0, 2026-06-16 — the methodology layer **and its output half** are built: **5 resources** across 3 domains · the **three-axis confidence model** · the **`studio/` render + triage layer** · the **`/render`** content engine · the **off-substrate outlier method**. The publish step, discovery tool, and eval harness remain deliberately paused.
 >
 > **Purpose**: create methodology-backed insight resources that let an MCP-enabled LLM use InfraSure data tools like a focused analyst.
 >
-> **V0 outcome**: one El Nino / ENSO exposure methodology package, one prompt projection, one data-requirements map, one manual MCP/Claude test run, one applied-insight draft, and one learning/gap log.
+> **V0 milestone (the founding proof, 001 PASS)**: one El Nino / ENSO exposure methodology package, one prompt projection, one data-requirements map, one manual MCP/Claude test run, one applied-insight draft, and one learning/gap log. (The lab has since grown well beyond this — see below.)
+>
+> **Since 001 PASS** the methodology layer was hardened — governing principles (`docs/principles.md`, now P1–P7), a living MCP feedback ledger (`docs/status/mcp_gaps.md`), agent instructions (`CLAUDE.md` / `AGENTS.md`), a quarantined exemplar corpus (`resources/_reference/`), and `docs/architecture.md` as the single visual overview — **and then the lab built its second half, the OUTPUT layer**:
+>
+> - **5 resources across 3 domains** — the hazard × asset-class flagship `hail_solar`, plus `extreme_heat_derate` · `hurricane_high_wind_wind` · `offtaker_concentration` · `el_nino_enso` (`resources/README.md`).
+> - **The three-axis confidence model** (`docs/method/confidence_model.md`) — calibration cap · event likelihood · materiality; on the rendered face only *posture* shows, the cap grade stays internal.
+> - **The `studio/` output layer** — subject/phenomenon render briefs (a single-source §1 gate-record) + the internal `studio/_triage.md` board + the creative/activation layer; **`/render`** (the content engine) turns a gated insight into a blog/report/email + grounded visuals.
+> - **The off-substrate outlier method** (`docs/method/outlier_playbook.md`) — for assets *not* in the substrate (Red Dog, Galveston), research-grounded.
+>
+> The publish step, discovery tool, and eval harness remain deliberately paused. **New here? Start at `docs/architecture.md`** (the front door), then `docs/learning/`.
 
 InfraSure Insights is not a news pipeline and not a generic content project. It is an applied intelligence layer:
 
@@ -31,55 +40,42 @@ V0 does not build the production insight agent. V0 proves that a structured meth
 ```text
 insights_lab/
 ├── README.md
-├── docs/
-│   ├── 00_project_brief.md
-│   ├── 01_scope_v0.md
-│   ├── 02_analysis_catalog.md
-│   ├── 03_methodology_resource_standard.md
-│   ├── 04_context_and_data_map.md
-│   ├── 05_mcp_test_protocol.md
-│   └── learning/
+├── CLAUDE.md                   # agent instructions (full) — how to work here, conventions, don'ts
+├── AGENTS.md                   # agent instructions (lean, vendor-neutral cut of CLAUDE.md)
+├── .claude/commands/           # slash commands: /new-resource · /test-resource · /extract · /render  (TRACKED — travels on clone)
+├── .cursor/commands/           # the same commands for Cursor (tracked copies — keep in sync with .claude/commands/)
+├── docs/                       # grouped by job; folder = job, canon vs volatile = folder boundary (P1)
+│   ├── README.md               # the docs index + per-audience read order
+│   ├── architecture.md         # THE front door — flow (Mermaid+ASCII), 4 layers, terminology, the gate
+│   ├── principles.md           # the discipline (P1–P7): stable/volatile · content downstream · no-mush · references-inform-not-bind (P6) · posture (P7)
+│   ├── use_cases.md            # the 2 buckets × audience (Pillar 3) + the V0 scope contract + validation
+│   ├── method/                 # the contract: analysis_families · resource_standard · confidence_model (3-axis) · data_map · discovery_spec
+│   ├── process/                # the loop: test_protocol · commands (toolchain design)
+│   ├── status/                 # VOLATILE hub: capabilities · mcp_gaps (ledger) · commands (registry)
+│   ├── plans/                  # the active working plans
+│   └── learning/               # onboarding fundamentals (01–04) + session logs
 ├── resources/
 │   ├── README.md               # methodology registry (domain · family · actor)
-│   └── weather_and_climate/    # domain folder (driver-grouped)
-│       └── el_nino_enso/
+│   ├── _principles · _style · _craft · _reference · _method   # shared layers (composed at session time)
+│   └── weather_and_climate · hazard · commercial             # domain folders; e.g. el_nino_enso · hail_solar · offtaker_concentration
+├── studio/                     # LAYER 3 output layer: <subject>/<phenomenon>.md briefs · _triage board · subject guides (post-gate · /render)
 ├── templates/
 └── archive/
 ```
 
 This is a minimal scalable structure. Do not add `code/`, `scripts/`, or `data/` until there is real implementation work that belongs in those folders.
 
+**Running the commands after a clone.** The slash commands are **tracked** (`.claude/commands/` for Claude Code · `.cursor/commands/` for Cursor) — a clone includes them. Open the repo in **Claude Code or Cursor** and invoke them (`/render`, `/new-resource`, `/test-resource`, `/extract`). What each does + how to invoke (args, sequences) is **`docs/process/commands.md`** (the operator's quick-reference); each command file is its own full guide. They're **thin conductors over the canon**, so even without the tool you can follow a command file's steps by hand. `.claude/commands/` is the source of truth; `.cursor/commands/` mirrors it (keep the two in sync when editing).
+
 ## Read Order
 
-For a senior reviewer:
+(The canonical per-audience read order lives in `docs/README.md`; the short version:)
 
 ```text
-README.md
-  -> docs/00_project_brief.md
-  -> docs/01_scope_v0.md
-  -> docs/02_analysis_catalog.md
-```
-
-For a junior contributor:
-
-```text
-README.md
-  -> docs/01_scope_v0.md
-  -> docs/03_methodology_resource_standard.md
-  -> docs/04_context_and_data_map.md
-  -> docs/05_mcp_test_protocol.md
-  -> resources/weather_and_climate/el_nino_enso/README.md
-  -> templates/
-```
-
-For onboarding:
-
-```text
-docs/learning/README.md
-  -> docs/learning/01_mcp_basics.md
-  -> docs/learning/02_infrasure_data_substrate.md
-  -> docs/learning/03_methodology_resources.md
-  -> docs/learning/04_prompt_projection.md
+senior reviewer:   docs/architecture.md -> docs/principles.md -> docs/use_cases.md -> docs/method/ -> docs/status/
+junior contributor: docs/architecture.md -> docs/method/resource_standard.md -> docs/method/data_map.md
+                    -> docs/process/test_protocol.md -> resources/weather_and_climate/el_nino_enso/ -> templates/
+onboarding:        docs/architecture.md (start here) -> docs/learning/ (README -> 01 -> 02 -> 03 -> 04)
 ```
 
 ## V0 Deliverable
@@ -114,12 +110,16 @@ Success means the resource can be pasted or loaded into a Claude/MCP session and
 
 - Start from methodology, not topic enthusiasm.
 - Treat data access as grounding, not decoration.
-- Keep the method analytical; outreach is a rendering after the claim is valid.
-- Use manual MCP/Claude testing before building code.
-- Log failures as method gaps, tool/data gaps, external-source gaps, or orchestration gaps.
-- Keep learning material under `docs/learning/`.
+- Keep the method analytical; **content/outreach is a rendering of a validated insight, never the source of truth** (`docs/principles.md` P2).
+- Use manual MCP/Claude testing before building code — and treat it as a **loop**: a one-shot draft is a draft, iteration is expected (`docs/principles.md` P4).
+- **Save the full transcript** of each test (raw source), then resolve it into a `test_run` (`docs/process/test_protocol.md`).
+- Log failures as method gaps, tool/data gaps, external-source gaps, or orchestration gaps; **log every MCP tool gap/idea in `docs/status/mcp_gaps.md`** (the surface is a floor, not a ceiling).
+- Keep the **methodology layer stable** and the **execution layer swappable** — absorb LLM advances by swapping the engine, not the discipline (`docs/principles.md` P1).
+- Keep learning material under `docs/learning/`; keep outside exemplars in `resources/_reference/` (form, not facts).
 - Move old exploratory material to `archive/` instead of mixing it with execution docs.
 
 ## Current Task
 
-Complete the V0 El Nino / ENSO package and run the first manual MCP/Claude test. The first test should answer whether the current methodology-resource shape is strong enough to guide a grounded InfraSure Insight without a custom in-house agent.
+V0 is validated (Test Run 001 PASS); the methodology layer is hardened (principles in `docs/principles.md`, the MCP ledger in `docs/status/mcp_gaps.md`, the command toolchain in `docs/process/commands.md`), and the shared resource layers (`_principles` · `_style` · `_craft` · `_reference`) are built.
+
+The latest work is the **outlier / reverse-engineering lane** (`docs/plans/2026-06-14_outlier_showcase_red_dog.md`, **complete**) — a research-grounded bottom-up **Red Dog Mine** report (`docs/extra/reddog_bottom_up_report_2026-06.md`, pending owner review) + the reusable **outlier playbook** (`docs/method/outlier_playbook.md`) for off-substrate ad-hoc requests. Before it, the **knowledge-base expansion** completed (`docs/plans/2026-06-13_knowledge_base_expansion_v1.md`, Phases 0–4 ✅: the authored-intelligence scaffold + 5 validated resources across hazard/weather/commercial + one proven recipe). Likely next: **Wave-2** (wire model-gpr for the $/EAL layer) · the **near-queue** resources (wildfire×transmission · drought · flood) · or a 2nd outlier. Done: the **docs reorganization** (`docs/plans/done/2026-06-13_docs_reorg.md`). Paused: the **layered-reference restructure** at Phase 5 (`docs/plans/2026-06-11_layered_reference_v1.md` — crack bottom-up). The publish step, discovery tool, and eval harness stay paused. The current build status lives in `docs/status/capabilities.md`.
