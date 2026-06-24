@@ -1,0 +1,207 @@
+identity:
+  slug: "extreme_cold_winter_storm"
+  title: "Extreme Cold / Winter Storm Exposure For Thermal, Wind, and Solar Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-24"
+
+maturity:
+  grounding_maturity: "model-not-wired"  # EXPOSURE (Southern plains / ERCOT geographic vulnerability + winterization gap) +
+                                          # the realized EVENT (Uri in hazards news + FERC/NERC reports) ground TODAY → directional.
+                                          # But the per-plant outage attribution is NOT in the substrate (monthly CF cannot
+                                          # resolve a multi-day forced outage from seasonal low-output patterns), and the
+                                          # $ / EAL / forward-probability layer is model-gpr — see blocked_claims.
+  data_maturity: "M"                      # TX gas / thermal: plants, geometry, fuel, owner all present; BUT monthly CF is
+                                          # too coarse to isolate a freeze-driven forced outage, and per-plant winterization
+                                          # status is not in the substrate.
+
+taxonomy:
+  domain: hazard                  # folder axis — shares hazards-news + footprint machinery with hail_solar / hurricane_high_wind_wind
+  family: exposure                # primary family; the resource ALSO serves event_translation (Uri → specific asset)
+  drivers:
+    - extreme_cold
+    - winter_storm
+    - freeze
+    - polar_vortex
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:
+  predictability: "forecastable-3-to-7-days / sudden-onset-operationally"  # NWS winter storm watches have days of lead;
+                                                                             # the exact per-plant outage cascade (which wellheads
+                                                                             # freeze first, which gas contracts curtail) is short-fuse
+  key_datasets: ["NOAA NWS winter storm watches/warnings + historical storm records", "FERC/NERC Feb-2021 Uri report", "InfraSure hazards news (subcategory=winter_storm|extreme_cold|freeze)", "EIA-923 / plant-level generation (monthly, context only)"]
+  climate_attribution_confidence: "low-to-medium"   # polar vortex disruption / sudden stratospheric warming events may
+                                                     # be increasing extreme cold intrusions into southern latitudes — an
+                                                     # emerging but contested signal; average winter temps are rising
+  financial_materiality: "high"   # Uri caused ~$195B in Texas economic damage; thermal outage cascades are a leading
+                                  # winter-loss driver for gas and wind — TIE-BREAKER, never grounding
+  insurance_treatment: "physical-damage vs business-interruption coverage; winterization-failure may trigger exclusions; ERCOT scarcity pricing during a freeze event creates correlated revenue and fuel-cost exposure"
+
+question_grammar:
+  allowed_questions:
+    - "Which thermal / wind / solar assets sit in a freeze-exposed geography (Southern plains, Gulf Coast), and how materially?"
+    - "Through what mechanism is the plant fleet exposed — wellhead/pipeline freeze → gas curtailment → forced thermal outage; blade icing → wind shutdown; snow cover → solar reduction?"
+    - "What did Winter Storm Uri (Feb 2021) mean for specific ERCOT thermal assets, to the extent the substrate can show it?"
+    - "Which owners carry winterization risk across a portfolio, and who should harden?"
+  blocked_questions:
+    - "What is the exact $ loss / EAL / insurance payout from a winter storm at this plant?"
+    - "What is the forward annual probability or return-period of a Uri-class event?"
+    - "Did the Feb-2021 cold snap cause the observed Q1-2021 capacity-factor dip at this plant?"
+    - "Which gas wells specifically froze and caused this plant's outage?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - gas                          # primary: wellhead/pipeline freeze → gas curtailment → forced outage
+    - wind                         # blade icing → protective shutdown (a secondary mechanism)
+    - solar                        # snow cover + short daylight → output reduction (a tertiary mechanism)
+  regions_or_markets:
+    - "one selected region or market per test (test 001 = ERCOT / Texas — the Uri epicenter)"
+  lifecycle_phases:
+    - operating
+    - queue          # siting-stage winterization requirements are in scope (developer actor)
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place the asset in / out of the freeze-exposed geography (lat/lon, state, county)"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Filter gas/wind/solar; the mechanism differs by fuel — do not conflate"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "CONTEXT ONLY — monthly CF cannot isolate a multi-day forced outage from the winter seasonal minimum; never the outage proof"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + portfolio winterization-risk accumulation"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event grounding — search_news(category=hazards, query='winter storm'/'Uri'/'freeze'); VERIFY each classification"
+    - name: "nearby_plants"
+      required: false
+      use: "Same-geography fan-out — other exposed assets in the freeze corridor"
+  external_inputs:
+    - name: "NOAA_NWS_winter_storm_records"
+      required: true
+      freshness: "historical records (stable) + live watches/warnings (dated)"
+      use: "Establish the freeze geography and event window; cite the source"
+    - name: "FERC_NERC_Uri_report"
+      required: false
+      freshness: "published 2021-11 (stable)"
+      use: "The authoritative post-event record of Uri mechanisms and outage scale; cite for mechanism grounding"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Route the insight; DSCR / insurance relevance where available"
+
+procedure:
+  steps:
+    - "Establish the freeze geography (NOAA NWS + FERC/NERC Uri report) and/or a realized event (hazards news)."
+    - "State the mechanism + the THREE claim types by fuel: GAS (wellhead/pipeline freeze → gas curtailment → forced thermal outage); WIND (blade icing → rotor-imbalance → protective shutdown); SOLAR (snow cover → output reduction + short daylight → reduced production window)."
+    - "Select one region/market (test 001 = ERCOT/Texas) and one or more fuel classes."
+    - "Resolve the exposed fleet via the MCP (state='TX', fuel filter)."
+    - "Identify assets in the freeze-exposed geography (Southern plains / Gulf Coast); VERIFY any hazards-news classification."
+    - "Where a realized event exists, use get_plant.generation ONLY as context — and explicitly note monthly CF cannot isolate a forced outage from the winter seasonal minimum."
+    - "Retrieve owner/company context for actor relevance and portfolio-level winterization-risk accumulation."
+    - "Assemble: condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade the $ loss, the forward probability/return-period, the plant-level outage attribution, and any single-cause CF attribution."
+
+allowed_claims:
+  - "Directional freeze / winter-storm exposure for a scoped thermal, wind, or solar asset set / geography"
+  - "Mechanism statements by fuel: wellhead/pipeline freeze → gas curtailment → thermal outage; blade icing → wind protective shutdown; snow cover → solar reduction (each cited)"
+  - "Realized event framing: Uri caused ~32 GW ERCOT thermal outage (FERC/NERC, well-documented) — a regional fact, not a per-plant damage claim"
+  - "Winterization gap as a structural vulnerability (Southern-latitude gas plants built without cold-weather packages)"
+  - "Owner / portfolio winterization-risk accumulation in freeze-exposed geographies"
+  - "Mitigation statements (cold-weather package installation, wellhead heat tracing, fuel supply diversification), cited"
+  - "Monitoring / hardening recommendations for owners, lenders, developers"
+
+blocked_claims:
+  - "Exact $ damage, EAL, or insurance payout from a winter storm (model-gpr / not on the MCP)"
+  - "Forward annual probability or return-period of a Uri-class event (needs a climate/hazard model)"
+  - "Per-plant outage attribution — asserting a specific plant was offline during Uri from the substrate alone"
+  - "Single-cause attribution — asserting an observed CF change was caused by a freeze (the winter seasonal minimum confounds)"
+  - "Which specific gas wells or pipelines froze and caused a given plant's outage (not in the substrate)"
+  - "National conclusions from one regional test"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "NOT reachable here on the substrate alone — would need a verified per-plant outage record during the event (which the substrate does not carry) or a served cold-weather peril model."
+  medium: "Mechanism + freeze-geography exposure framing on a clear geography (NOAA records + resolved scoped fleet), with the fuel-specific mechanism stated."
+  low: "Forward / probabilistic exposure without a climate model; OR any event-context claim leaning on monthly CF (which cannot isolate a forced outage)."
+  blocked: "No verified hazard classification, scope unresolved, or a $ / return-period / plant-level-outage-attribution / single-cause-CF claim is requested."
+
+caveats:
+  required:
+    - "The THREE mechanisms are DISTINCT by fuel and must not be conflated: GAS (wellhead/pipeline freeze → supply curtailment → forced thermal outage); WIND (blade icing → protective shutdown); SOLAR (snow cover + short daylight → output reduction). State which one applies."
+    - "Monthly capacity factor CANNOT isolate a multi-day forced outage from the normal winter seasonal minimum — a February CF dip is consistent with seasonal low output and does NOT prove a freeze-driven outage."
+    - "Per-plant outage attribution during Uri requires an outage record (EIA-930 or ISO data), not the substrate CF series."
+    - "Winterization failure is a structural vulnerability concentrated in Southern-latitude plants that were built without cold-weather packages — not a universal fleet risk."
+    - "Uri was a tail event (a displaced polar vortex delivering sustained Arctic air to Texas over ~5 days); forward return-period estimates require a climate model, not event history alone."
+    - "Dollar severity, EAL, and insurance outcome are NOT modeled here (directional only) — that layer is model-gpr."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Forced-outage availability planning + cold-weather package investment decision (winterization ROI); fuel-supply contract review (firm vs interruptible gas); plant instrumentation hardening."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio freeze-geography accumulation; downside to availability/revenue in a severe winter event; ERCOT scarcity pricing creates correlated fuel-cost + revenue exposure."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "DSCR stress from a freeze-driven forced outage on a financed thermal plant (directional); winterization status as an underwriting input."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Siting + cold-weather-package specification for queue-stage thermal and wind assets in freeze-exposed geographies."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "New hazards news for the scoped region/assets (a new winter storm in the corridor)"
+  - "Generation substrate refresh (a new month — used only as context here)"
+  - "NOAA NWS winter storm records update; a new heating season"
+  - "FERC / NERC winterization rule update (post-Uri regulations are still being finalized)"
+  - "Plant fuel / winterization-status / ownership refresh"
+  - "A served cold-weather peril model becomes available — upgrades directional → quantitative"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"
