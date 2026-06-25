@@ -1,0 +1,216 @@
+identity:
+  slug: "wildfire"
+  title: "Wildfire Exposure For Solar, Transmission, and Grid-Connected Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-25"
+
+maturity:
+  grounding_maturity: "model-not-wired"  # EXPOSURE (fire-weather geography + WUI / transmission ROW) + the realized EVENT
+                                          # (PSPS events + Camp Fire / Dixie Fire in hazards news) ground TODAY → directional.
+                                          # But per-plant generation loss from smoke is NOT in the substrate (monthly CF cannot
+                                          # resolve a multi-day smoke event from seasonal/maintenance variation), and the
+                                          # $ / ignition-liability / EAL layer is model-gpr — see blocked_claims.
+  data_maturity: "M"                      # CA solar + transmission context present; BUT no plant carries a wildfire/PSPS
+                                          # classification in the hazards news that links to a solar plant directly, and
+                                          # monthly CF is too coarse to isolate a smoke-driven output reduction.
+
+taxonomy:
+  domain: hazard                  # folder axis — shares USFS/NIFC/hazards-news + footprint machinery with sibling hazard resources
+  family: exposure                # primary family; the resource ALSO serves event_translation (a realized fire/PSPS → asset)
+  drivers:
+    - wildfire
+    - fire_weather
+    - public_safety_power_shutoff  # PSPS — the grid-operator-driven curtailment mechanism
+    - smoke
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:
+  predictability: "forecastable-fire-weather / sudden-onset-ignition"  # NWS red-flag warnings give 1-3 days lead on fire-weather
+                                                                         # conditions; actual ignition location and perimeter growth
+                                                                         # are sudden-onset and hard to forecast at the asset level;
+                                                                         # PSPS decisions are announced 1-2 days ahead
+  key_datasets: ["NIFC / USFS fire perimeter data (IRWIN)", "NOAA NWS red-flag / fire-weather watches", "CAISO PSPS event records", "InfraSure hazards news (subcategory=wildfire|fire|psps)", "Cal Fire incident records"]
+  climate_attribution_confidence: "medium"   # fire-weather intensification (hotter/drier conditions, longer fire season) is
+                                             # one of the better-attributed climate signals — more confident than hail or TC
+                                             # frequency; BUT individual ignition probability and perimeter spread remain
+                                             # highly variable → cap trend claims at directional
+  financial_materiality: "high"   # Camp Fire: ~$16B PG&E liability; PSPS curtailment is a direct revenue loss for healthy
+                                  # generators; transmission rebuild is capital-intensive — TIE-BREAKER, never grounding
+  insurance_treatment: "physical-damage (structure loss) vs business-interruption (PSPS curtailment); ignition liability is a separate tail risk for transmission owners; wildfire exclusions are tightening in CA"
+
+question_grammar:
+  allowed_questions:
+    - "Which solar assets / transmission corridors / grid-connected generators sit in a fire-weather-exposed geography (Western WUI, CA), and how materially?"
+    - "Through what mechanism is the asset exposed — smoke/ash → solar output reduction; heat/flame → transmission damage; PSPS → curtailment of healthy generation?"
+    - "What did a realized wildfire event or PSPS (e.g. Camp Fire, 2020 CA season) mean for assets in the affected corridor?"
+    - "Who should monitor or harden against the exposure, and why?"
+  blocked_questions:
+    - "What is the exact $ ignition liability or structure-loss from this wildfire?"
+    - "What is the forward annual probability or return-period of a fire reaching this asset?"
+    - "What exact generation loss did smoke cause at this specific solar plant?"
+    - "Will this transmission line cause a wildfire ignition?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - solar                        # smoke/ash → irradiance reduction + panel soiling (mechanism A)
+    - transmission                 # heat/flame → corridor damage + ignition risk (mechanism B)
+    - wind                         # PSPS curtailment where on a de-energized circuit (mechanism C)
+    - gas                          # PSPS curtailment where on a de-energized circuit (mechanism C)
+    - battery                      # PSPS curtailment + thermal runaway from structure fire (mechanisms B/C)
+  regions_or_markets:
+    - "one selected region or market per test (test 001 = CAISO / California — the primary PSPS jurisdiction)"
+  lifecycle_phases:
+    - operating
+    - queue          # siting-stage WUI / fire-weather exposure is in scope (developer actor)
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place the asset in / out of the fire-weather-exposed geography (lat/lon, county, WUI zone)"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Determines which mechanism applies: solar (A), transmission (B), any generation on a PSPS circuit (C)"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "CONTEXT ONLY — monthly CF cannot isolate a smoke-driven output reduction from seasonal/maintenance variation; never the smoke-impact proof"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + portfolio fire-geography accumulation"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event grounding — search_news(category=hazards, query='wildfire'/'PSPS'/'Camp Fire'); VERIFY each classification"
+    - name: "nearby_plants"
+      required: false
+      use: "Same-corridor fan-out — other assets in the fire perimeter or PSPS zone"
+  external_inputs:
+    - name: "NIFC_fire_perimeter_data"
+      required: true
+      freshness: "historical perimeters (stable) + active incident (dated)"
+      use: "Establish the fire geography; place assets inside / outside the perimeter; cite IRWIN/NIFC"
+    - name: "NOAA_NWS_red_flag_warnings"
+      required: false
+      freshness: "climatology (stable) + current warnings (dated)"
+      use: "Fire-weather exposure geography; seasonal red-flag frequency; cite"
+    - name: "CAISO_PSPS_records"
+      required: false
+      freshness: "event-by-event (dated)"
+      use: "Verify PSPS events; identify which circuits were de-energized and when; cite CAISO / utility PSPS filings"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Route the insight; insurance/financing relevance where available"
+
+procedure:
+  steps:
+    - "Establish the fire-weather geography (NIFC / NOAA NWS red-flag) and/or a realized event (fire perimeter, PSPS record, hazards news)."
+    - "State the mechanism + the THREE claim types by asset: SOLAR (smoke/ash → irradiance reduction + soiling); TRANSMISSION (heat/flame → corridor damage + ignition liability); GRID-CONNECTED (PSPS → curtailment of healthy generation)."
+    - "Select one region/market (test 001 = CAISO/California) and the relevant asset class(es)."
+    - "Resolve the exposed fleet via the MCP (state='CA', fuel filter)."
+    - "Identify assets in the fire-weather-exposed geography or PSPS zone; VERIFY any hazards-news classification."
+    - "Where a realized event exists, use get_plant.generation ONLY as context — and explicitly note monthly CF cannot isolate a smoke event from seasonal/maintenance variation."
+    - "Retrieve owner/company context for actor relevance and portfolio fire-geography accumulation."
+    - "Assemble: condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade the $ ignition liability, the forward probability/return-period, the per-plant smoke-loss attribution, and any single-cause CF attribution."
+
+allowed_claims:
+  - "Directional fire-weather / wildfire exposure for a scoped solar, transmission, or grid-connected asset set / geography"
+  - "Mechanism statements by asset: smoke/ash → solar irradiance reduction + soiling; heat/flame → transmission corridor damage; PSPS → curtailment of otherwise-healthy generation (each cited)"
+  - "Realized event framing: a named fire (e.g. Camp Fire, Dixie Fire) or a PSPS event affected a named geography / circuit near a scoped asset (a regional fact, not a per-plant damage claim)"
+  - "PSPS exposure as an operability and revenue risk for any generation asset on a de-energizable circuit"
+  - "Owner / portfolio fire-geography accumulation in the Western WUI / California"
+  - "Mitigation statements (panel cleaning schedules, vegetation management ROW, PSPS notification protocols, site-hardening for ember exposure), cited"
+  - "Monitoring / hardening recommendations for owners, lenders, developers"
+
+blocked_claims:
+  - "Exact $ ignition liability, structure loss, EAL, or insurance payout from a wildfire (model-gpr)"
+  - "Forward annual ignition probability or return-period at a specific site (needs a fire-risk model)"
+  - "Per-plant generation loss attributable to smoke from the CF series alone"
+  - "Single-cause attribution — asserting an observed CF change was caused by smoke (seasonal variation and maintenance also move CF)"
+  - "Whether a specific transmission line has caused or will cause a wildfire ignition (liability claim — blocked)"
+  - "National conclusions from one regional test"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "NOT reachable here on the substrate alone — would need a verified per-plant smoke-impact or PSPS-curtailment record (which the substrate does not carry) or a served fire-risk peril model."
+  medium: "Mechanism + fire-weather-geography exposure framing on a clear geography (NIFC perimeter or CAISO PSPS record + resolved scoped fleet), with the asset-specific mechanism stated."
+  low: "Forward / probabilistic fire exposure without a fire-risk model; OR any smoke-impact claim leaning on monthly CF."
+  blocked: "No verified hazard classification, scope unresolved, or a $ / ignition-liability / return-period / per-plant-loss / single-cause-CF claim is requested."
+
+caveats:
+  required:
+    - "The THREE mechanisms are DISTINCT by asset and must not be conflated: SOLAR (smoke/ash → irradiance reduction + soiling — temporary, not structural damage in most cases); TRANSMISSION (heat/flame → physical corridor damage + ignition liability — lasting); PSPS (grid-operator curtailment of healthy generation — temporary, revenue loss without physical damage). State which one applies."
+    - "Monthly capacity factor CANNOT isolate a smoke-driven output reduction from seasonal irradiance variation, maintenance, or curtailment — a summer/fall CF dip in CA is consistent with multiple causes and does NOT prove a smoke impact."
+    - "PSPS curtailment is a revenue loss for a physically undamaged generator — it is a DIFFERENT claim type from physical fire damage to the asset."
+    - "Ignition liability (the risk that a utility's transmission line starts a fire) is a DISTINCT, high-severity tail risk — blocked here; that layer is model-gpr and legal/regulatory."
+    - "Fire-weather intensification is one of the better-attributed climate signals (hotter/drier, longer season) but individual ignition probability and perimeter spread are not forecastable at the asset level — cap trend claims at directional."
+    - "Dollar severity, EAL, and insurance outcome are NOT modeled here (directional only) — that layer is model-gpr."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "PSPS notification protocols + backup generation planning; panel cleaning schedules (smoke/ash soiling); vegetation management in transmission ROW; site ember-hardening."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio fire-geography accumulation in the Western WUI / CA; PSPS curtailment as a recurring revenue-reduction risk; wildfire exclusions tightening in CA insurance market."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "DSCR stress from PSPS-driven curtailment on a financed asset (directional); transmission-owner ignition liability is a tail risk to collateral value."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Siting in / out of WUI zones; fire-resistant panel spec; PSPS-aware interconnection circuit selection for queue-stage CA solar and storage."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "New hazards news for the scoped region/assets (a new fire in the corridor or a new PSPS event)"
+  - "Generation substrate refresh (a new month — used only as context here)"
+  - "NIFC fire perimeter update; a new Western fire season"
+  - "CAISO / utility PSPS filing update"
+  - "Cal Fire / CPUC wildfire mitigation plan update (post-Camp Fire regulatory evolution)"
+  - "Plant geometry / ownership refresh"
+  - "A served fire-risk peril model becomes available — upgrades directional → quantitative"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"
