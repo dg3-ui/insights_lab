@@ -10,8 +10,9 @@ ANSWERS   which thermal/wind/solar assets sit in a freeze-exposed geography (Sou
           blade icing → wind shutdown; snow cover → solar reduction) · what Winter Storm Uri (Feb 2021)
           meant regionally for the ERCOT fleet · who should care + what to harden
 REFUSES   exact $ loss / EAL / insurance payout · forward return-period of a Uri-class event · per-plant
-          outage attribution from the CF series · single-cause attribution of a CF change (the Feb dip IS the
-          seasonal minimum) · which specific wells/pipes froze · outreach before the gate
+          outage attribution from the CF series · plant winterization status without a named source · single-cause
+          attribution of a CF change (the Feb dip IS the seasonal minimum) · which specific wells/pipes froze ·
+          wind icing / solar snow-loss magnitude without sub-monthly data · outreach before the gate
 ```
 
 ## Scope
@@ -43,14 +44,16 @@ The **correlated, systemic** nature of a polar-vortex event is what distinguishe
 ## Procedure (the real tool sequence)
 
 ```text
-1. hazard state:  NOAA NWS winter storm record + FERC/NERC Uri report (geography) AND/OR
+1. hazard state:  NOAA/NCEI storm record + GHCN-Daily station context + FERC/NERC Uri report (geography/mechanism) AND/OR
                   search_news(category=hazards, query="winter storm"/"Uri"/"freeze") → VERIFY each classification
-2. scope:         search_plants(fuel="gas"/"wind"/"solar", state="TX", minMw=50); filter to freeze-exposed geography
-3. mechanism:     state WHICH claim type (A/B/C) applies for each fuel in scope — do not conflate
-4. footprint:     get_plant geometry/county + nearby_plants → build the fleet picture in the freeze corridor
-5. context:       get_plant.generation → CONTEXT ONLY; state monthly CF cannot isolate a forced outage from the seasonal minimum
-6. actor:         get_plant.ownership → owner chain + portfolio winterization-risk accumulation
-7. draft:         assemble; split confidence; block the $ / return-period / per-plant attribution / single-cause claims
+2. system:        ERCOT post-event / operating reports for system timeline only; do not infer plant outages unless unit data exists
+3. scope:         search_plants(fuel="gas"/"wind"/"solar", state="TX", minMw=50); filter to freeze-exposed geography
+                  ⚠ NOT iso="ERCOT" → [] (R1); scope by state, then confirm grid/regions where available
+4. mechanism:     state WHICH claim type (A/B/C) applies for each fuel in scope — do not conflate
+5. footprint:     get_plant geometry/county + nearby_plants → build the fleet picture in the freeze corridor
+6. context:       get_plant.generation → CONTEXT ONLY; state monthly CF cannot isolate a forced outage from the seasonal minimum
+7. actor:         get_plant.ownership → owner chain + portfolio winterization-risk accumulation
+8. draft:         assemble; split confidence; block the $ / return-period / per-plant attribution / single-cause claims
 ```
 
 ## Allowed vs blocked claims
@@ -61,8 +64,9 @@ ALLOWED  directional freeze / winter-storm exposure for a scoped fleet and geogr
          winterization gap as a structural vulnerability · owner/portfolio accumulation · mitigation recs
          (cold-weather packages, heat tracing, firm gas contracts, blade de-icing)
 BLOCKED  exact $ / EAL / payout · forward probability / return-period · per-plant outage attribution from CF series ·
-         single-cause CF attribution (the Feb dip ≠ Uri) · which specific wells/pipes froze · national-from-regional ·
-         outreach
+         plant winterization status without a named source · wind icing / solar snow-loss magnitude without sub-monthly
+         generation + weather/snow/icing data · single-cause CF attribution (the Feb dip ≠ Uri) · which specific
+         wells/pipes froze · national-from-regional · outreach
 ```
 
 ## Confidence + caveats
@@ -73,7 +77,7 @@ Confidence is **per-claim-part**:
 - *Any read of Uri into the CF series* — **Low / blocked** (monthly CF cannot isolate a forced outage from the seasonal minimum).
 - **High is not reachable** on the substrate alone (would need a verified per-plant outage record or a served cold-weather peril model).
 
-Required caveats: the THREE mechanisms stated and distinguished by fuel; monthly CF cannot isolate a forced outage from the seasonal minimum; per-plant attribution blocked without an outage record; Uri was a tail event (polar vortex displacement) and forward return-period requires a climate model; winterization gap is concentrated in Southern-latitude plants, not universal; $ severity is not modeled (model-gpr).
+Required caveats: the THREE mechanisms stated and distinguished by fuel; monthly CF cannot isolate a forced outage from the seasonal minimum; per-plant attribution blocked without an outage record; winterization status and fuel-supply provenance are unknown unless a named source reports them; Uri was a tail event (polar vortex displacement) and forward return-period requires a climate model; winterization gap is concentrated in Southern-latitude plants, not universal; $ severity is not modeled (model-gpr).
 
 ## Actor relevance
 

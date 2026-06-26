@@ -93,6 +93,13 @@ When a piece goes through `studio/` for the home-run treatment (`../_style/outpu
 
 A catchy title is voice; a bigger number is a broken claim. **The creative budget buys reach, never accuracy.**
 
+## §7 · The Close — Curious and Value-Forward (a guide, not a CTA template — P8)
+
+The ending is where we have been weakest. Aim to *land* it, not just stop: turn the grounded finding into curiosity and a concrete next step toward the deeper InfraSure layer (per-asset risk, **mitigation cost**, revenue translation). The **residual real exposure is the natural hook** — "a quarter of the book carries a directional winter exposure; what that costs per site is the next question." Two rules of taste:
+
+- **Don't flatten reassurance into "safe" (the firm half, `../../docs/principles.md` P8).** "0 MW in the maximum", "diversified", "most won't feel it" describe *concentration*, not absence of risk. Name the residual honestly (the CO Front Range is itself a hail maximum; ~47% of a book can sit in real hail country even with none in the maximum). A concentration finding read as "low risk" misstates the world and throws away the hook.
+- **Convert with a light touch, not a bolted-on CTA (the judgment half, P6).** Usually one genuine, curious, value-forward close does it. Do not staple "contact InfraSure" onto every section, do not force a sales close where a quiet forward door reads better. A repeated or heavy CTA is flaunting (§5) and an AI-tell. Reach for the hook when it improves the piece; trust your judgment on how to land it.
+
 ---
 
 **See also**: `rubric.md` (criterion 5 cites §1–§2; criterion 4 cites §3), `../../docs/principles.md` (P1 stable-vs-volatile — §4 is its prompting corollary), `../../docs/method/resource_standard.md` (the claim grammar §1 puts into prose), `../_reference/` (the exemplar corpus that *shows* what §1 tells).

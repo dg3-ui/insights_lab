@@ -71,5 +71,6 @@ Every material claim carries a source reference (substrate result with `as_of` +
 | File | Read it when you need… |
 |---|---|
 | `knowledge.md` | the mechanism, the resolution-layer fact basis, the two data hazards, the Amazon / ERCOT-merchant anchors, citations |
+| `historical_context.md` | PPA/counterparty distress history; use as context only, never as proof a current buyer is risky |
 | `examples/applied_insight_001.md` | the target output shape (the validated Amazon-book + ERCOT-merchant insight) |
 | `data_requirements.md` | the full retrieval plan + known gaps (offtakers-null · partial coverage R5 · parent canonicalization R9) |

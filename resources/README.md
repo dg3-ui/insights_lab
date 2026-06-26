@@ -1,6 +1,6 @@
 # Resources — Methodology Registry
 
-> **Status**: v0 registry, updated 2026-06-15 — **5 resources across 3 live domains** (weather_and_climate · hazard · commercial); the Registry table below is current. (Shared layers added 2026-06-12 per `docs/plans/2026-06-11_layered_reference_v1.md`; the 4 hazard/commercial/weather resources per `docs/plans/2026-06-13_knowledge_base_expansion_v1.md`.)
+> **Status**: v0 registry, updated 2026-06-25 — **9 resources across 3 live domains** (weather_and_climate · hazard · commercial); the Registry table below is current. Wave-2 drafts added: `wildfire`, `extreme_cold_winter_storm`, `drought_low_hydro`, and `hurricane_coastal_flood` (test 001 PENDING). Historical-context layer (`historical_context.md`) now exists across all 9 packages as cited frames/external evidence, never substrate grounding.
 >
 > **Purpose**: index every methodology resource by **domain · family · actor**, define how new resources are placed, and define the **shared layers** (underscore folders) every resource composes with. This is the `resources/` analog of the Learning vault's `_tag_taxonomy.md` + Maps of Content.
 
@@ -30,10 +30,14 @@ resources/
 ├── _method/                   # shared layer: reusable analytic + finance/insurance/math primitives (pre-gate; NEVER grounds)
 ├── weather_and_climate/       # domain (driver-grouped)
 │   ├── el_nino_enso/          # package = METHOD ONLY: resource.md/.yml/prompt_projection.md/examples/test_runs
-│   └── extreme_heat_derate/   # heat × solar thermal derate
+│   ├── extreme_heat_derate/   # heat × solar thermal derate
+│   └── drought_low_hydro/     # drought / low-water × hydropower
 ├── hazard/                    # domain (driver-grouped)
 │   ├── hail_solar/            # the flagship (hail × solar PV)
-│   └── hurricane_high_wind_wind/
+│   ├── hurricane_high_wind_wind/
+│   ├── wildfire/              # wildfire × solar/transmission/grid-connected mechanisms
+│   ├── extreme_cold_winter_storm/
+│   └── hurricane_coastal_flood/
 └── commercial/                # domain (driver-grouped)
     └── offtaker_concentration/
 ```
@@ -62,8 +66,8 @@ Materialize a **domain** folder when its **first** resource lands — not before
 
 | Domain | External driver | Shared machinery | Example resources |
 |---|---|---|---|
-| `weather_and_climate` ✅ | climate regimes + weather | NOAA CPC / ONI, irradiance, region crosswalk | el_nino_enso ✅ · **extreme_heat_derate** ✅ · (drought · wind_drought) |
-| `hazard` ✅ | physical peril | SPC / NHC / FEMA / USGS, hazards news, footprint | **hail_solar** ✅ · **hurricane_high_wind_wind** ✅ · (wildfire×transmission · flood) |
+| `weather_and_climate` ✅ | climate regimes + weather | NOAA CPC / ONI, irradiance, drought/snowpack/streamflow, region crosswalk | el_nino_enso ✅ · **extreme_heat_derate** ✅ · **drought_low_hydro** draft · (wind_drought) |
+| `hazard` ✅ | physical peril | SPC / NHC / FEMA / USGS / NIFC / NOAA, hazards news, footprint | **hail_solar** ✅ · **hurricane_high_wind_wind** ✅ · **wildfire** draft · **extreme_cold_winter_storm** draft · **hurricane_coastal_flood** draft |
 | `market` | grid / market structure | LMP nodes, curtailment, congestion | curtailment_exposure · congestion |
 | `policy` | regulatory / policy change | dockets, permitting, IRA | permitting_delay · interconnection_rule |
 | `commercial` ✅ | counterparty / contract | FERC EQR, ownership, resolved-buyer facts | **offtaker_concentration** ✅ |
@@ -77,7 +81,11 @@ Persona views (e.g. a "climate scientist" agent) are **composed at runtime** by 
 | [el_nino_enso](weather_and_climate/el_nino_enso/) | `weather_and_climate` | Exposure | owner · investor · lender · offtaker | manual test 001 PASS · status `draft` (not default-indexed until eval-gated → `active`, see `../docs/method/discovery_spec.md`) |
 | [hail_solar](hazard/hail_solar/) | `hazard` | Exposure (+ Event-Translation) | owner · investor · lender · developer | manual test 001 PASS · status `draft` · grounding `substrate-only` (the $ / EAL layer is model-gpr — `../docs/status/mcp_gaps.md` R12) |
 | [hurricane_high_wind_wind](hazard/hurricane_high_wind_wind/) | `hazard` | Exposure (+ Event-Translation) | owner · investor · lender · developer | manual test 001 PASS (directional) · status `draft` · grounding `model-not-wired` (no separable wind-damage signal in substrate; the $ / TC-model layer is model-gpr — `../docs/status/mcp_gaps.md` R12) |
+| [wildfire](hazard/wildfire/) | `hazard` | Exposure (+ Event-Translation) | owner · investor · lender · developer | test 001 PENDING · status `draft` · grounding `model-not-wired` (fire-weather/PSPS exposure directional; plant-to-circuit, smoke-loss, fire-risk/EAL layers unwired — `../docs/status/mcp_gaps.md` R12, R16–R18) |
+| [extreme_cold_winter_storm](hazard/extreme_cold_winter_storm/) | `hazard` | Exposure (+ Event-Translation) | owner · investor · lender · developer | test 001 PENDING · status `draft` · grounding `model-not-wired` (Uri mechanism regional/factual; plant outage, winterization status, sub-monthly attribution, $ layer unwired — `../docs/status/mcp_gaps.md` R12, R19–R20) |
+| [hurricane_coastal_flood](hazard/hurricane_coastal_flood/) | `hazard` | Exposure (+ Event-Translation) | owner · investor · lender · developer | test 001 PENDING · status `draft` · grounding `model-not-wired` (storm-surge/coastal-flood exposure directional; plant elevation, component location, surge overlay, outage/damage, and $ layers unwired — `../docs/status/mcp_gaps.md` R15, R20, R24–R25) |
 | [extreme_heat_derate](weather_and_climate/extreme_heat_derate/) | `weather_and_climate` | Exposure | owner · investor · lender · offtaker | manual test 001 PASS · status `draft` · grounding `substrate-only` (the quantified %/MWh de-rate + $ layer is model-gpr — `../docs/status/mcp_gaps.md` R12) |
+| [drought_low_hydro](weather_and_climate/drought_low_hydro/) | `weather_and_climate` | Exposure | owner · investor · lender · offtaker | test 001 PENDING · status `draft` · grounding `model-not-wired` (drought/snowpack/streamflow exposure directional; plant-to-basin/reservoir, inflow/storage, hydro operations, and exact MWh/$ unwired — `../docs/status/mcp_gaps.md` R21–R23) |
 | [offtaker_concentration](commercial/offtaker_concentration/) | `commercial` | Commercial | owner · investor · lender | manual test 001 PASS · status `draft` · grounding `substrate-only` (the re-contracting/merchant $ + counterparty-credit layer is model-gpr) · first FACTUAL (non-directional) resource |
 
 ## Tag Vocabulary

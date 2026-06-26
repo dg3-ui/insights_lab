@@ -1,0 +1,208 @@
+identity:
+  slug: "drought_low_hydro"
+  title: "Drought / Low-Hydro Exposure For Hydropower Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-25"
+
+maturity:
+  grounding_maturity: "model-not-wired"   # HYDROCLIMATE EXPOSURE grounds directionally today via hydro fleet scope +
+                                          # external drought/snowpack/streamflow state. Plant-level generation,
+                                          # reservoir-inflow, dispatch, and $ impacts need hydro model / operations data.
+  data_maturity: "M"                      # Hydro plants, capacity, owner, location, and monthly generation exist; basin /
+                                          # reservoir / water-rights / inflow / dispatch context is not first-class.
+
+taxonomy:
+  domain: weather_and_climate
+  family: exposure
+  drivers:
+    - drought
+    - low_hydro
+    - streamflow
+    - snowpack
+    - reservoir_storage
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - offtaker
+
+knowledge_ref: "knowledge.md"
+
+# NOTE: this is a WEATHER / HYDROCLIMATE resource, not a sudden-onset hazard/peril resource.
+# No `peril:` block. The standard weather/climate non-stationarity cap applies.
+
+question_grammar:
+  allowed_questions:
+    - "Which hydropower assets / owners / regions are directionally exposed to drought, low snowpack, or low streamflow?"
+    - "Through what mechanism does drought reduce hydropower output or flexibility?"
+    - "What can be inferred from external drought / snowpack / streamflow state plus InfraSure hydro asset data?"
+    - "Who should monitor the exposure, and why?"
+  blocked_questions:
+    - "What exact MWh generation loss will this hydro plant see from drought?"
+    - "What exact revenue, LMP, or PPA impact will drought cause?"
+    - "What is the forward annual probability or return-period of low inflow at this reservoir?"
+    - "What reservoir rule curve, water-rights obligation, or dispatch decision applies at this plant?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+    - offtaker_optional
+  fuels_or_technologies:
+    - hydro
+  regions_or_markets:
+    - "one selected basin / state / market per test (recommended test 001 = CAISO / California hydro or Pacific Northwest hydro)"
+  lifecycle_phases:
+    - operating
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - offtaker
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_region"
+      required: true
+      use: "Resolve hydropower plants in one scoped state/market/basin; confirm grid/regions where available"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Filter hydropower; distinguish conventional hydro from pumped storage if the substrate exposes it"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality and fleet sizing; recommended threshold >= 50 MW for first test"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "Context for hydro seasonality only; do not attribute a monthly dip to drought without hydrology + operations context"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + owner portfolio concentration in drought-exposed hydro"
+    - name: "offtaker_or_ppa_context"
+      required: false
+      use: "Commercial relevance where available; never infer contract exposure from ownership alone"
+  external_inputs:
+    - name: "US_Drought_Monitor"
+      required: true
+      freshness: "weekly; cite map date / access date"
+      use: "Establish drought condition and intensity over the scoped geography"
+    - name: "NOAA_NIDIS_or_CPC_drought_outlook"
+      required: false
+      freshness: "current or explicitly dated"
+      use: "Near-term drought persistence / development state; external condition only"
+    - name: "USGS_streamflow_gages"
+      required: false
+      freshness: "daily / current; cite gage and date"
+      use: "Ground low-flow condition for a basin; do not map to a plant without basin/reservoir linkage"
+    - name: "NRCS_SNOTEL_SNOWTEL_or_NOHRSC_snowpack"
+      required: false
+      freshness: "current water year or historical percentile; cite station/basin/date"
+      use: "Snowpack runoff proxy for Western hydro; supports seasonal inflow direction"
+    - name: "Bureau_of_Reclamation_or_state_reservoir_storage"
+      required: false
+      freshness: "current or explicitly dated"
+      use: "Reservoir storage context where relevant; not equivalent to dispatchable generation without rule curve"
+  descriptive_context:
+    - name: "plant_or_basin_summary"
+      required: false
+      use: "Frame the entity / basin; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_offtaker_context"
+      required: false
+      use: "Routes the insight and commercial relevance"
+
+region_resolution:
+  recommended_first_tests:
+    - "CAISO / California hydro >= 50 MW: use state='CA' as an ISO proxy, then confirm grid/regions per plant (R1)."
+    - "Pacific Northwest / Northwest hydro >= 50 MW: use state filters (WA/OR/ID) and caveat that market/BA boundaries are not a single ISO."
+  note: "Hydro exposure is basin-linked, not just state-linked. Without watershed/reservoir linkage, state/market scope is a first-pass screen."
+
+procedure:
+  steps:
+    - "Establish the drought / low-hydro CONDITION from US Drought Monitor and, where relevant, NOAA/NIDIS/CPC drought outlook, USGS streamflow, NRCS SNOTEL/NOHRSC snowpack, or reservoir storage. Cite dates."
+    - "State the mechanism: drought / low snowpack / low streamflow -> lower inflow and reservoir storage -> reduced hydro energy and flexibility; dispatch / water-rights rules mediate the plant-level result."
+    - "Select one region/basin/market and one asset class (hydro)."
+    - "Resolve the hydro fleet via the MCP (state/region proxy; ISO filters may be unwired — see data_requirements)."
+    - "Drill get_plant for capacity, location, monthly generation/CF seasonality, owner, grid/region context."
+    - "Use monthly generation only as context for normal hydro seasonality; do not attribute a specific dip to drought without basin/reservoir/dispatch evidence."
+    - "Retrieve owner / offtaker context for actor relevance and portfolio concentration."
+    - "Assemble: condition + scoped hydro assets + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade exact MWh, $, forward probability, reservoir operations, and single-cause generation attribution."
+
+allowed_claims:
+  - "Directional drought / low-hydro exposure for a scoped hydropower asset set / geography"
+  - "Mechanism statements: low precipitation / snowpack / streamflow -> lower inflow/storage -> reduced hydro energy or flexibility"
+  - "Regional drought / snowpack / streamflow state, with dated external sources"
+  - "Owner / portfolio concentration in drought-exposed hydro geographies"
+  - "Monitoring / hedging / planning recommendations for owners, lenders, investors, and offtakers"
+
+blocked_claims:
+  - "Exact plant-level MWh generation loss from drought"
+  - "Exact revenue ($), LMP, PPA, or hedge impact from drought"
+  - "Forward probability / return-period of low inflow from drought state alone"
+  - "Reservoir rule-curve, water-rights, environmental-flow, or dispatch claims without a named source"
+  - "Single-cause attribution: asserting a monthly hydro generation dip was caused only by drought"
+  - "National conclusions from one basin/state/market test"
+  - "Outreach copy before applied insight validation"
+
+confidence_rules:
+  high: "Not reachable on the substrate alone — would need plant/reservoir linkage, inflow/storage, operations/dispatch data, and a validated hydro model."
+  medium: "Drought/snowpack/streamflow condition is current and basin-relevant, hydro scope is resolved, and the claim stays regional/directional."
+  low: "Default: drought state plus state/market hydro fleet screen, with imperfect basin/reservoir linkage or missing owner/offtaker context."
+  blocked: "External condition missing/stale, hydro scope unresolved, or the user asks for exact MWh/$/probability/reservoir operations."
+  non_stationarity: "Climate non-stationarity caps trend claims: drought odds and snowpack-runoff relationships sit on a shifting baseline; never state a stationary return-period from historical drought alone."
+
+caveats:
+  required:
+    - "Directional exposure is not a plant-level hydro generation forecast."
+    - "Hydro output depends on reservoir storage, inflow timing, water rights, environmental-flow obligations, flood-control rules, maintenance, and market dispatch; this resource does not model those."
+    - "Monthly generation/CF is context, not proof that drought caused a specific plant's dip."
+    - "A state or market filter is a screen; hydro exposure is basin/reservoir-linked."
+    - "Climate non-stationarity: drought and snowpack baselines are shifting, so historical drought does not imply a stationary return-period."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Hydro scheduling, reservoir management, maintenance timing, and hedging around low-water years."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio concentration in drought-exposed hydro and correlated low-water revenue risk."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "DSCR sensitivity where low-water years reduce generation or ancillary-service flexibility."
+    renderings:
+      - account_note
+  - actor: "offtaker"
+    why: "Contracted hydro supply may face volume / shape risk in low-water periods, depending on contract structure."
+    renderings:
+      - account_note
+      - informative_email_draft
+
+staleness_signals:
+  - "US Drought Monitor category changes over the scoped geography"
+  - "NOAA/NIDIS/CPC drought outlook changes materially"
+  - "USGS streamflow percentile / NRCS SNOTEL / reservoir storage updates"
+  - "Hydro generation substrate refresh"
+  - "Plant ownership / offtaker / region crosswalk refresh"
+  - "A served plant-to-basin / reservoir / inflow / hydro operations model becomes available"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"

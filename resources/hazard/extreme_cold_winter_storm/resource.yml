@@ -36,7 +36,7 @@ peril:
   predictability: "forecastable-3-to-7-days / sudden-onset-operationally"  # NWS winter storm watches have days of lead;
                                                                              # the exact per-plant outage cascade (which wellheads
                                                                              # freeze first, which gas contracts curtail) is short-fuse
-  key_datasets: ["NOAA NWS winter storm watches/warnings + historical storm records", "FERC/NERC Feb-2021 Uri report", "InfraSure hazards news (subcategory=winter_storm|extreme_cold|freeze)", "EIA-923 / plant-level generation (monthly, context only)"]
+  key_datasets: ["NOAA NWS winter storm watches/warnings + NCEI Storm Events", "NOAA GHCN-Daily station temperature records", "FERC/NERC Feb-2021 Uri report", "ERCOT post-event / operating reports", "NOHRSC / SNODAS / IMS snow-cover products", "IEA Wind TCP Task 19 cold-climate wind guidance", "NREL / PV snow-loss literature", "InfraSure hazards news (subcategory=winter_storm|extreme_cold|freeze)", "EIA-923 / plant-level generation (monthly, context only)"]
   climate_attribution_confidence: "low-to-medium"   # polar vortex disruption / sudden stratospheric warming events may
                                                      # be increasing extreme cold intrusions into southern latitudes — an
                                                      # emerging but contested signal; average winter temps are rising
@@ -100,15 +100,30 @@ inputs:
     - name: "nearby_plants"
       required: false
       use: "Same-geography fan-out — other exposed assets in the freeze corridor"
+    - name: "grid_or_region_membership"
+      required: false
+      use: "Confirm ERCOT / Southern-plains context after state=TX workaround; do not assume every TX plant behaves as an ERCOT plant"
   external_inputs:
     - name: "NOAA_NWS_winter_storm_records"
       required: true
       freshness: "historical records (stable) + live watches/warnings (dated)"
       use: "Establish the freeze geography and event window; cite the source"
+    - name: "NOAA_NCEI_GHCN_daily_temperature"
+      required: false
+      freshness: "station observations; cite station/date"
+      use: "Ground local temperature anomaly / duration where a named station is relevant"
     - name: "FERC_NERC_Uri_report"
       required: false
       freshness: "published 2021-11 (stable)"
       use: "The authoritative post-event record of Uri mechanisms and outage scale; cite for mechanism grounding"
+    - name: "ERCOT_operating_reports"
+      required: false
+      freshness: "event-specific; cite report/date"
+      use: "System-level fuel/output timeline; not plant-level outage unless unit data is available"
+    - name: "NOHRSC_SNODAS_IMS_snow_cover"
+      required: false
+      freshness: "event-specific; cite product/date"
+      use: "Snow-cover context for solar/wind; not thermal forced-outage proof"
   descriptive_context:
     - name: "plant_or_company_summary"
       required: false
@@ -123,7 +138,7 @@ procedure:
     - "Establish the freeze geography (NOAA NWS + FERC/NERC Uri report) and/or a realized event (hazards news)."
     - "State the mechanism + the THREE claim types by fuel: GAS (wellhead/pipeline freeze → gas curtailment → forced thermal outage); WIND (blade icing → rotor-imbalance → protective shutdown); SOLAR (snow cover → output reduction + short daylight → reduced production window)."
     - "Select one region/market (test 001 = ERCOT/Texas) and one or more fuel classes."
-    - "Resolve the exposed fleet via the MCP (state='TX', fuel filter)."
+    - "Resolve the exposed fleet via the MCP (state='TX', fuel filter), then confirm grid/region where available because state is an ISO-filter workaround."
     - "Identify assets in the freeze-exposed geography (Southern plains / Gulf Coast); VERIFY any hazards-news classification."
     - "Where a realized event exists, use get_plant.generation ONLY as context — and explicitly note monthly CF cannot isolate a forced outage from the winter seasonal minimum."
     - "Retrieve owner/company context for actor relevance and portfolio-level winterization-risk accumulation."
@@ -145,6 +160,8 @@ blocked_claims:
   - "Per-plant outage attribution — asserting a specific plant was offline during Uri from the substrate alone"
   - "Single-cause attribution — asserting an observed CF change was caused by a freeze (the winter seasonal minimum confounds)"
   - "Which specific gas wells or pipelines froze and caused a given plant's outage (not in the substrate)"
+  - "Specific plant winterization status unless a named source reports the equipment package / deficiency"
+  - "Wind blade-icing or solar snow-loss magnitude without sub-monthly generation plus weather/snow/icing data"
   - "National conclusions from one regional test"
   - "Outreach copy before the insight is validated"
 
@@ -159,6 +176,7 @@ caveats:
     - "The THREE mechanisms are DISTINCT by fuel and must not be conflated: GAS (wellhead/pipeline freeze → supply curtailment → forced thermal outage); WIND (blade icing → protective shutdown); SOLAR (snow cover + short daylight → output reduction). State which one applies."
     - "Monthly capacity factor CANNOT isolate a multi-day forced outage from the normal winter seasonal minimum — a February CF dip is consistent with seasonal low output and does NOT prove a freeze-driven outage."
     - "Per-plant outage attribution during Uri requires an outage record (EIA-930 or ISO data), not the substrate CF series."
+    - "Winterization status, fuel-supply firmness, blade de-icing, and panel snow-loss controls are usually not in the substrate; infer only directionally unless a named source reports them."
     - "Winterization failure is a structural vulnerability concentrated in Southern-latitude plants that were built without cold-weather packages — not a universal fleet risk."
     - "Uri was a tail event (a displaced polar vortex delivering sustained Arctic air to Texas over ~5 days); forward return-period estimates require a climate model, not event history alone."
     - "Dollar severity, EAL, and insurance outcome are NOT modeled here (directional only) — that layer is model-gpr."

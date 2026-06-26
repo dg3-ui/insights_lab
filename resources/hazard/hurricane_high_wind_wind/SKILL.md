@@ -77,5 +77,6 @@ Every material claim carries a source reference (substrate result with `as_of`, 
 | File | Read it when you need… |
 |---|---|
 | `knowledge.md` | the mechanism (cut-out vs damage), the design-class basis, the NHC geography, the why-CF-can't-show-it section, the Beryl/Peyton Creek anchor, citations |
+| `historical_context.md` | storm history and cross-event mechanism caveats; use as context only, never as wind-plant damage proof |
 | `examples/applied_insight_001.md` | the target output shape (the validated coastal/Gulf TX wind insight) |
 | `data_requirements.md` | the full retrieval plan + known tool gaps + missing-data handling |

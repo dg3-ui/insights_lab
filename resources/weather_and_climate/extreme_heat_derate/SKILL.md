@@ -79,5 +79,6 @@ Every material claim carries a source reference (substrate result with `as_of`, 
 | File | Read it when you need… |
 |---|---|
 | `knowledge.md` | the mechanism, the honesty section, the NOAA temperature pull, the Aktina summer-CF baseline, citations |
+| `historical_context.md` | heat-wave history and peak-coincidence context; use as context only, never as plant derate proof |
 | `examples/applied_insight_001.md` | the target output shape (the validated ERCOT/TX directional insight) |
 | `data_requirements.md` | the full retrieval plan + known tool gaps (R1 iso filter · R11 climate news · R12 thermal model) + missing-data handling |

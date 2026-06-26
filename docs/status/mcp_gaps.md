@@ -24,6 +24,16 @@ This is the **prioritized, build-ready view** of the ledger below, for the platf
 | **P2** | `coverage(entity, fields, filter)` introspection | the confidence-cap-for-missing-context firing deterministically, up front | **M** | R5 |
 | **P3** | `nearby_by_coords(lat, lon, radius_km, fuel?)` | the **outlier** class — off-substrate pin → its energy cluster | **S–M** | R14 |
 | **P3** | Elevation / surge / flood-zone field per plant | the **coastal hazard** class → substrate-grounded | **M–L** | R15 |
+| **P3** | Plant wildfire / WUI / fire-hazard-zone field | `wildfire` exposure can move beyond county heuristics | **M** | R16 |
+| **P3** | PSPS circuit / de-energization linkage per plant | `wildfire` PSPS curtailment can become plant-specific | **M–L** | R17 |
+| **P3** | Smoke/AOD + irradiance-adjusted generation feed | `wildfire` smoke-output claims become measurable | **L** | R18 |
+| **P3** | Plant winterization / cold-weather-package field | `extreme_cold_winter_storm` can route asset-specific hardening | **M** | R19 |
+| **P3** | Sub-monthly generation / availability feed | smoke, freeze, heat, hurricane cut-out events can be resolved below monthly CF | **L** | R20 |
+| **P3** | Plant-to-basin / reservoir linkage for hydro | `drought_low_hydro` can move beyond state screens | **M** | R21 |
+| **P3** | Hydro inflow / reservoir storage / rule-curve surface | low-hydro exposure can become plant/reservoir-specific | **L** | R22 |
+| **P3** | Coastal component elevation / critical-equipment layer | `hurricane_coastal_flood` can move beyond plant-centroid screens | **M–L** | R24 |
+| **P3** | Served storm-surge / inundation overlay by event/scenario | coastal-flood resources can test event footprints against plant geometry | **L** | R25 |
+| **P4** | Fuel taxonomy alias / resolver | hydro and other resources avoid fuel-code guessing | **S** | R23 |
 | **P3** | Served **geometry** (centroids + simplified polygons) | a real choropleth map (data side of the render tool) | **M** | R10 |
 | **P4** | Serve the **brand kit** (logo · palette · skeleton) as MCP resources | on-brand rendering without carrying files | **S** | R6 |
 | **P4** | **Render/export** tool (insight → HTML/DOCX, gate enforced at the tool layer) | the Layer-3 render step (today hand-assembled) | **L** | R7 |
@@ -264,6 +274,149 @@ roadmap:    a served coastal-elevation / surge / flood-zone field per plant (pai
             COASTAL hazard class substrate-grounded instead of research-grounded.
 observed:   galveston_ship_channel_surge/storm_surge studio brief (2026-06-14; folded 2026-06-15)
 status:     open      kind: field/coverage gap
+```
+
+### R16 — No wildfire / WUI / fire-hazard-zone field per plant
+
+```text
+gap:        The substrate has plant lat/lon + county, but no Wildland-Urban Interface, CAL FIRE Fire Hazard
+            Severity Zone, USFS Wildfire Hazard Potential, FSim burn-probability, or LANDFIRE fuel-context field
+            attached to each plant. `wildfire` can screen by county / external maps, but cannot make a clean
+            plant-level fire-zone claim from the substrate alone.
+workaround: use external NIFC / Cal Fire / USFS / LANDFIRE layers as dated sources; state geography directionally;
+            avoid precise plant-zone claims unless manually checked against a named external map.
+roadmap:    add a served fire-hazard-zone / WUI / fuel-context field per plant, or a geometry overlay tool that
+            joins plant coordinates to NIFC/Cal Fire/USFS/LANDFIRE layers.
+observed:   resources/hazard/wildfire (authored draft, 2026-06-25)
+status:     open      kind: field/coverage gap
+```
+
+### R17 — No PSPS circuit / de-energization linkage per plant
+
+```text
+gap:        PSPS exposure depends on the interconnection / utility circuit, not just plant county or fuel.
+            The substrate does not expose a plant-to-circuit / utility-territory / PSPS-eligibility field, so
+            `wildfire` cannot assert that a specific generator was curtailed by a PSPS event unless an external
+            CPUC / utility / CAISO filing names the asset or circuit.
+workaround: treat PSPS as directional geography / utility-territory exposure; require external PSPS filings for
+            any plant-specific curtailment claim.
+roadmap:    add circuit / utility-territory / PSPS-event linkage to plant records, or a PSPS event overlay keyed
+            by circuit / substation / interconnection.
+observed:   resources/hazard/wildfire (authored draft, 2026-06-25)
+status:     open      kind: field/coverage gap
+```
+
+### R18 — No served smoke/AOD + irradiance-adjusted generation join
+
+```text
+gap:        Smoke can reduce PV output over days-to-weeks, but monthly capacity factor cannot isolate smoke from
+            seasonal irradiance, curtailment, clouds, or maintenance. The MCP does not serve smoke optical depth,
+            HRRR-Smoke, irradiance, or hourly/daily generation in one joinable surface.
+workaround: cite FIRMS / HRRR-Smoke / external smoke sources as regional context; block plant-level smoke-loss
+            magnitude and any single-cause CF attribution.
+roadmap:    serve smoke/AOD + irradiance-adjusted hourly/daily generation (or an availability / performance index)
+            so smoke-output event translation can be tested like hail's monthly-CF signal.
+observed:   resources/hazard/wildfire (authored draft, 2026-06-25); extends R12's finer-than-monthly note.
+status:     open      kind: external-state · field/coverage gap
+```
+
+### R19 — No plant winterization / cold-weather-package field
+
+```text
+gap:        `extreme_cold_winter_storm` needs to know whether a plant has cold-weather packages, heat tracing,
+            firm gas supply, instrument-air protection, blade de-icing, or other winterization controls. The
+            substrate has fuel/geometry/owner, but not plant winterization status.
+workaround: use FERC/NERC Uri findings at the regional mechanism level; infer only directionally from geography
+            and fuel; never assert plant-specific winterization status without a named source.
+roadmap:    add winterization / cold-weather package / fuel-supply-firmness fields where public or resolved facts
+            exist; expose coverage flags so missing equipment context caps confidence explicitly.
+observed:   resources/hazard/extreme_cold_winter_storm (authored draft, 2026-06-25)
+status:     open      kind: field/coverage gap
+```
+
+### R20 — No sub-monthly generation / availability feed for short-duration events
+
+```text
+gap:        Monthly CF is too coarse for short-duration hazards: smoke plumes, PSPS events, Uri forced outages,
+            hurricane cut-outs, and intra-day heat de-rates happen over hours-to-days inside a month. The current
+            substrate can show broad context, but not separable event attribution.
+workaround: use monthly generation only as context; keep event-specific output claims regional/directional unless
+            an external outage / hourly-generation source is available.
+roadmap:    serve hourly/daily generation, availability, outage, or event-window performance metrics with `as_of`
+            metadata and plant IDs.
+observed:   resources/hazard/wildfire + resources/hazard/extreme_cold_winter_storm (authored drafts, 2026-06-25);
+            repeats R12's finer-than-monthly limitation across new hazards.
+status:     open      kind: field/coverage gap · new tool
+```
+
+### R21 — No plant-to-basin / reservoir linkage for hydro
+
+```text
+gap:        `drought_low_hydro` needs to know which river basin, watershed, reservoir, or upstream gage serves a
+            hydropower plant. The substrate has plant location and monthly generation, but not a first-class basin /
+            reservoir / gage linkage, so a state-level hydro fleet is only a screen.
+workaround: use state/market scope as a first-pass filter; manually cite USGS gages, SNOTEL basins, NOHRSC/SNODAS,
+            or reservoir dashboards where a named linkage is clear; caveat unresolved basin linkage.
+roadmap:    add watershed / basin / reservoir / upstream-gage identifiers to hydro plants, or expose a hydro
+            basin-resolution tool keyed by plant_id.
+observed:   resources/weather_and_climate/drought_low_hydro (authored draft, 2026-06-25)
+status:     open      kind: field/coverage gap
+```
+
+### R22 — No hydro inflow / reservoir storage / operating-rule surface
+
+```text
+gap:        Exact low-hydro generation and flexibility depend on reservoir storage, inflow timing, rule curves,
+            water rights, environmental-flow obligations, flood-control constraints, maintenance, and dispatch.
+            None of these are served as structured MCP fields, so `drought_low_hydro` must block exact MWh/$ and
+            operations claims.
+workaround: cite external reservoir / water-agency dashboards for context; keep claims directional unless a named
+            source provides the specific operating constraint.
+roadmap:    serve reservoir storage / inflow / rule-curve / water-obligation fields or a hydro-operations module
+            for named hydro plants.
+observed:   resources/weather_and_climate/drought_low_hydro (authored draft, 2026-06-25)
+status:     open      kind: field/coverage gap · new tool
+```
+
+### R23 — Fuel taxonomy alias / resolver is not explicit
+
+```text
+gap:        New resources sometimes need to guess the MCP fuel convention (`hydro` vs `WAT` / `HYD`, `gas` vs
+            `NG` / `GAS`, etc.). Existing packages carry local workarounds, but there is no lightweight way to ask
+            the MCP for valid fuel tokens and aliases before a test.
+workaround: inspect prior resources / search results and record the exact filter used in each test_run; switch
+            filters if the first call returns empty unexpectedly.
+roadmap:    expose a fuel taxonomy / alias resolver, or document valid `search_plants(fuel=...)` tokens in the MCP
+            discovery surface.
+observed:   resources/weather_and_climate/drought_low_hydro (authored draft, 2026-06-25)
+status:     open      kind: filter · docs gap
+```
+
+### R24 — No coastal component elevation / critical-equipment layer
+
+```text
+gap:        `hurricane_coastal_flood` is component-specific: substations, transformers, inverter pads,
+            switchgear, access roads, fuel/cooling systems, and interconnection equipment can drive the outage.
+            The substrate has plant location, but not component location/elevation or critical-equipment height.
+workaround: make only directional plant / cluster exposure claims; use external FEMA/NOAA/local flood sources for
+            context; block exact inundation, equipment damage, and outage-duration claims.
+roadmap:    add component-level elevation / equipment-location fields for substations, pads, transformers,
+            switchgear, access roads, and interconnection assets where public or model-derived.
+observed:   resources/hazard/hurricane_coastal_flood (authored draft, 2026-06-25)
+status:     open      kind: field/coverage gap
+```
+
+### R25 — No served storm-surge / coastal-inundation overlay
+
+```text
+gap:        Coastal-flood exposure needs a joined event/scenario footprint: NHC/P-Surge/SLOSH, FEMA NFHL/FIS,
+            tide-gage observations, local surge studies, and elevation all live externally. The MCP cannot ask
+            whether a plant geometry intersects a named surge / coastal flood footprint.
+workaround: cite external storm-surge / flood products manually; keep claims directional and geography-scoped.
+roadmap:    serve storm-surge / coastal-inundation overlays by event/scenario, with plant geometry intersection
+            and `as_of` / source metadata.
+observed:   resources/hazard/hurricane_coastal_flood (authored draft, 2026-06-25); extends R15.
+status:     open      kind: external-state · field/coverage gap · new tool
 ```
 
 ---

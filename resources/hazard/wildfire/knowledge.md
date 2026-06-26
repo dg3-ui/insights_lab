@@ -57,28 +57,39 @@ the forward ignition probability or return-period at a given asset              
 
 **Non-stationarity (standard climate caveat):** fire-weather intensification is one of the better-attributed climate signals — hotter temperatures, lower humidity, longer fire seasons, and more extreme wind events (particularly in California) are well-documented trends. However, individual ignition probability and perimeter spread are driven by fine-scale vegetation, topography, and ignition-source factors that are not forecastable from trend data alone. Cap trend claims at directional; never state a return-period from fire-history alone.
 
-## 3 · Fire-weather geography and PSPS context
+## 3 · Fire-weather geography, public data stack, and PSPS context
 
-- **Western WUI (Wildland-Urban Interface)**: the primary fire-risk zone — California (Coast Ranges, Sierra Nevada foothills, North Bay), Pacific Northwest (eastern Washington / Oregon), Mountain West (Colorado, Arizona, New Mexico), and expanding into the Southern plains (Texas Hill Country, West Texas). NIFC tracks fire perimeters nationally.
-- **California / CAISO**: the primary PSPS jurisdiction. PG&E, SCE, and SDG&E have established PSPS programs post-Camp Fire (2018). CAISO PSPS events are documented in utility filings and CAISO market notices.
-- **Red-flag conditions**: NOAA NWS red-flag warnings signal fire-weather conditions (sustained wind ≥ 25 mph or gusts ≥ 35 mph + relative humidity ≤ 15% + temperature threshold). Red-flag frequency maps to PSPS risk geography.
+The public wildfire stack is stronger than a single perimeter feed. Use each input for its actual job:
+
+| Input | Job | What it can support | What it cannot support alone |
+|---|---|---|---|
+| NIFC / IRWIN incident + perimeter data | **external · grounds** realized fire geography | a named fire, perimeter, incident date, and whether a scoped asset is near / inside the mapped area | forward annual burn probability or asset loss |
+| USFS FSim / Wildfire Hazard Potential | **external · frames / screens** probabilistic fire geography | directional ranking of high-fire-potential geographies | precise site return-period, EAL, or legal ignition risk |
+| LANDFIRE fuels + vegetation | **external · logic** fuel / vegetation context | why a corridor is combustible and why ROW management matters | whether a specific line will ignite a fire |
+| NOAA NWS red-flag warnings / fire-weather outlooks | **external · state** current or historical fire-weather condition | fire-weather condition and PSPS trigger context, with date | fire spread or asset damage |
+| NASA FIRMS / NOAA HRRR-Smoke | **external · state / frames** active-fire detection and smoke transport | smoke-plume context for a region and date | plant-level generation-loss attribution without hourly irradiance/generation |
+| CPUC / utility PSPS filings | **external · grounds** de-energization decision | a dated PSPS event, utility territory, circuit / county scope where disclosed, and duration | whether a generator was curtailed unless the plant-circuit link is known |
+
+- **Western WUI (Wildland-Urban Interface)**: the primary fire-risk zone — California (Coast Ranges, Sierra Nevada foothills, North Bay), Pacific Northwest (eastern Washington / Oregon), Mountain West (Colorado, Arizona, New Mexico), and expanding into the Southern plains (Texas Hill Country, West Texas). NIFC tracks fire perimeters nationally; USFS FSim / WHP and LANDFIRE are the screening layers.
+- **California / CAISO**: the primary PSPS jurisdiction. PG&E, SCE, and SDG&E have established PSPS programs post-Camp Fire (2018). PSPS events are documented in utility filings, CPUC reports, and sometimes CAISO market notices.
+- **Red-flag conditions**: NOAA NWS red-flag warnings signal fire-weather conditions (high wind + low humidity + dry fuels). Thresholds vary by local weather forecast office, so cite the local NWS product rather than using one national threshold as a universal rule.
 
 ## 4 · The PSPS mechanism in detail — why it matters for generation assets
 
 PSPS is the **most operationally novel** mechanism in this resource — it is a grid-operator / utility decision that creates a revenue loss for a physically healthy generator. Key facts:
 
 ```text
-Trigger:        extreme fire-weather conditions (NWS red-flag) → utility determines de-energization is necessary
+Trigger:        extreme fire-weather conditions (NWS red-flag / utility fire-potential models) → utility determines de-energization is necessary
 Notice:         typically 24-48 hours ahead (NWS forecast → utility assessment → customer/asset notification)
 Scope:          de-energizes specific distribution and transmission circuits; not all of CAISO at once
-Duration:       1–5 days typically; until conditions normalize + lines are inspected and re-energized
-Revenue impact: the generator cannot export during the PSPS window → zero or near-zero revenue
-Fuel type:      does NOT matter — solar, wind, gas, battery on the affected circuit are all curtailed equally
-Frequency:      PG&E has conducted dozens of PSPS events since 2019; SCE and SDG&E also have active programs
+Duration:       hours-to-days; until conditions normalize + lines are inspected and re-energized
+Revenue impact: the generator cannot export during the PSPS window → zero or near-zero revenue if it is on the affected circuit
+Fuel type:      does NOT matter once the interconnection is de-energized — solar, wind, gas, battery are curtailed equally
+Frequency:      PG&E, SCE, and SDG&E all have active PSPS programs; event frequency is utility- and territory-specific
 Regulatory:     CPUC oversees PSPS programs; utilities file post-event reports; program rules are evolving
 ```
 
-A generator's PSPS exposure is determined by **which circuit it is interconnected to** — not by its proximity to fire. A solar plant in a non-fire-risk location can be curtailed if its interconnection circuit passes through a high fire-weather zone. This is the discipline: physical fire risk ≠ PSPS curtailment risk.
+A generator's PSPS exposure is determined by **which circuit it is interconnected to** — not just by its proximity to fire. A solar plant in a lower-burn-probability location can be curtailed if its interconnection circuit passes through a high fire-weather zone. This is the discipline: physical fire risk ≠ PSPS curtailment risk. Without a plant-to-circuit field, the resource can only infer PSPS exposure directionally from geography / utility territory and must caveat it.
 
 ## 5 · Why the summer/fall CF dip is NOT the smoke (same discipline as sibling resources)
 
@@ -96,7 +107,7 @@ Conclusion: **the substrate CF series cannot ground a smoke→output claim for a
 PG&E's Caribou-Palermo 230kV transmission line in Butte County ignited the fire during high-wind / red-flag conditions. The Camp Fire destroyed Paradise, CA; killed 85 people; and caused ~$16.5B in losses. PG&E filed for bankruptcy in 2019. This is the case that drove the California PSPS program — the utility decided proactive de-energization was preferable to ignition risk. **This is a TRANSMISSION MECHANISM (B) / ignition-liability case — NOT a solar-output case.**
 
 **2020 California wildfire season — the smoke/solar mechanism anchor:**
-The 2020 CA fire season was the largest on record at the time. CAISO documented measurable reductions in solar output during the August–September 2020 smoke events. This is the best-documented **SMOKE MECHANISM (A)** case — but even here, isolating the smoke effect from seasonal variation at the plant level requires hourly/daily data, not monthly CF.
+The 2020 CA fire season was the largest on record at the time. CAISO and grid operators reported smoke-driven reductions in aggregate solar output during August–September 2020 smoke events. This is the best-documented **SMOKE MECHANISM (A)** case — but even here, isolating the smoke effect from seasonal variation at the plant level requires hourly/daily generation plus irradiance/smoke data, not monthly CF.
 
 **PG&E PSPS events (2019–present) — the curtailment mechanism anchor:**
 PG&E has conducted dozens of PSPS events since October 2019. These events de-energized circuits serving both load and generation, curtailing solar and other generation assets for 1–5 days per event. **This is the PSPS MECHANISM (C) — the most operationally tractable claim type in this resource.**
@@ -105,6 +116,8 @@ PG&E has conducted dozens of PSPS events since October 2019. These events de-ene
 
 ```text
 NIFC / IRWIN fire perimeter data                              https://www.nifc.gov/
+USFS FSim / Wildfire Hazard Potential + LANDFIRE              https://data-usfs.hub.arcgis.com/ · https://www.landfire.gov/
+NASA FIRMS active fire + NOAA HRRR-Smoke                      https://firms.modaps.eosdis.nasa.gov/ · https://rapidrefresh.noaa.gov/hrrr/
 NOAA NWS red-flag / fire-weather watches + climatology        https://www.weather.gov/
 CAISO PSPS event records / market notices                     https://www.caiso.com/
 Cal Fire incident records                                     https://www.fire.ca.gov/
@@ -112,6 +125,7 @@ CPUC wildfire mitigation plan filings (post-AB 1054)         https://www.cpuc.ca
 PG&E Camp Fire ignition / bankruptcy record                  CPUC, PG&E PSPS filings, Cal Fire (2018-11)
 2020 CA fire season / CAISO solar output documentation       CAISO, EIA, LBNL
 IEC / industry literature on smoke optical depth + solar PV  NREL, IEA-PVPS, Sandia
+Learning vault source map                                     `~/Desktop/Learning/Reference/modeling-and-research/data-sources/hazard-datasets/natural-hazard-datasets-catalog.md`
 ```
 
 ---

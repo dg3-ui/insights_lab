@@ -33,6 +33,7 @@ If CAISO data/tool access is insufficient, use another region/market that the MC
 | `resource.md` | Human-readable methodology (the method) |
 | `resource.yml` | Structured operational fields + taxonomy |
 | `knowledge.md` | **Domain reference** — ENSO mechanism, measurement, teleconnections by region (cited) |
+| `historical_context.md` | historical ENSO event context and teleconnection caveats; context only, never grounding |
 | `data_requirements.md` | Data/tool/source inventory + known gaps |
 | `prompt_projection.md` | Pasteable Claude/MCP instruction surface |
 | `examples/applied_insight_001.md` | **Validated** applied insight (winter 2026-27, from test 001) |

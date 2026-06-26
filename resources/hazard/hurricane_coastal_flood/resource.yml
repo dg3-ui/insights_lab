@@ -1,0 +1,215 @@
+identity:
+  slug: "hurricane_coastal_flood"
+  title: "Hurricane Coastal Flood / Storm-Surge Exposure For Energy Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-25"
+
+maturity:
+  grounding_maturity: "model-not-wired"   # coastal/surge EXPOSURE grounds directionally today from plant location +
+                                          # FEMA/NOAA/NHC/SLOSH/coastal flood references. Plant-level inundation depth,
+                                          # equipment elevation, damage, outage, EAL, and $ impacts are not served.
+  data_maturity: "M"                      # coastal plants, capacity, owner, location, generation exist; elevation,
+                                          # flood zone, substation/pad elevation, and event inundation linkage do not.
+
+taxonomy:
+  domain: hazard
+  family: exposure
+  drivers:
+    - hurricane
+    - storm_surge
+    - coastal_flood
+    - inundation
+    - natcat
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:
+  predictability: "forecastable-track / short-fuse-inundation"  # NHC track/surge products give days of lead; exact
+                                                                 # site water depth depends on local elevation, bathymetry,
+                                                                 # levees, drainage, and tide timing.
+  key_datasets: ["NOAA NHC track/advisories + storm surge products", "NOAA SLOSH / P-Surge", "FEMA NFHL flood zones + FIS", "NOAA coastal flood / tide gauges", "USGS 3DEP elevation", "InfraSure hazards news (subcategory=hurricane|flood|storm_surge)"]
+  climate_attribution_confidence: "medium"  # sea-level rise makes coastal flood heights more likely for a given surge;
+                                            # TC landfall frequency remains contested, so trend claims stay directional.
+  financial_materiality: "high"             # flood/surge can damage electrical equipment and cause long outages; tie-breaker only.
+  insurance_treatment: "flood / named-storm / wind-vs-water attribution may sit under separate deductibles or exclusions; BI depends on physical damage and access/interconnection loss"
+
+question_grammar:
+  allowed_questions:
+    - "Which coastal energy assets / owners / regions sit in a hurricane storm-surge or coastal-flood-exposed geography, and how materially?"
+    - "Through what mechanism does coastal flooding affect a plant — inundated substation, inverters, pads, access roads, fuel handling, or grid interconnection?"
+    - "What did a realized storm or flood event mean regionally for assets near the surge/flood footprint, to the extent data can show it?"
+    - "Who should monitor, harden, or diligence the exposure, and why?"
+  blocked_questions:
+    - "What exact flood depth will occur at this asset?"
+    - "What exact dollar loss, EAL, PML, or insurance payout will storm surge cause?"
+    - "Did this plant's monthly generation dip because of coastal flooding?"
+    - "What exact outage duration or restoration curve will follow a storm surge event?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - solar
+    - wind
+    - gas
+    - battery
+    - transmission
+  regions_or_markets:
+    - "one selected coastal geography per test (recommended test 001 = Texas Gulf Coast / Houston-Galveston energy cluster)"
+  lifecycle_phases:
+    - operating
+    - queue
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place asset near coast / bay / floodplain using lat/lon, county, boundary where available"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Determines vulnerable components: PV inverters/pads, wind substations/access, gas fuel/electrical systems, battery enclosures"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "Context only; monthly CF cannot isolate storm-surge outage from weather, maintenance, curtailment, or seasonality"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance and coastal-portfolio accumulation"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event corroboration; VERIFY flood/surge/hurricane classification and linked asset/fuel"
+    - name: "nearby_plants"
+      required: false
+      use: "Cluster / same-floodplain fan-out around a coastal anchor"
+  external_inputs:
+    - name: "NHC_track_and_storm_surge_products"
+      required: true
+      freshness: "best-track/historical stable; live advisories and surge products dated"
+      use: "Establish storm track, landfall, and regional surge/inundation threat"
+    - name: "FEMA_NFHL_FIS"
+      required: false
+      freshness: "map vintage / effective date"
+      use: "Regulatory flood-zone / base-flood-elevation context; not event-specific depth"
+    - name: "NOAA_SLOSH_or_PSurge"
+      required: false
+      freshness: "scenario or forecast-windowed; cite basin/scenario/date"
+      use: "Storm-surge footprint / exceedance context; not plant damage by itself"
+    - name: "NOAA_tide_gages_or_coastal_flood_observations"
+      required: false
+      freshness: "event-specific; cite station/date"
+      use: "Observed water level context for realized events"
+    - name: "USGS_3DEP_or_local_elevation"
+      required: false
+      freshness: "dataset vintage"
+      use: "Elevation context where manually resolved; not served per plant today"
+  descriptive_context:
+    - name: "plant_or_port_or_county_summary"
+      required: false
+      use: "Frame the entity / region; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Routes the insight and financing/insurance relevance"
+
+procedure:
+  steps:
+    - "Establish coastal flood / surge condition from NHC track/surge, FEMA flood maps, NOAA SLOSH/P-Surge, tide gages, or local surge studies; cite dates/vintages."
+    - "State the mechanism by asset component: water reaches electrical equipment / pads / substations / access roads / fuel systems / interconnection, causing outage or damage."
+    - "Select one coastal geography and one primary asset class for the test."
+    - "Resolve assets via MCP using state/county/nearby anchor; ISO filters may be unwired."
+    - "Drill get_plant for location, capacity, owner, generation context; use nearby_plants for co-located energy cluster."
+    - "Use monthly generation only as context; do not attribute a dip to surge without event-window outage data."
+    - "Retrieve owner/company context for actor relevance and accumulation."
+    - "Assemble: condition + scoped assets + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade exact flood depth, $/EAL/PML, outage duration, plant-level attribution, and national claims."
+
+allowed_claims:
+  - "Directional hurricane coastal-flood / storm-surge exposure for a scoped coastal asset set"
+  - "Mechanism statements for inundation of electrical equipment, substations, pads, access roads, fuel handling, or interconnection"
+  - "Regional realized-event framing: a named storm / surge affected a geography near scoped assets"
+  - "Owner / portfolio coastal-flood accumulation in a named geography"
+  - "Monitoring / hardening recommendations: elevation, flood barriers, drainage, access, substation hardening, emergency response"
+
+blocked_claims:
+  - "Exact site flood depth, inundation probability, EAL, PML, dollar loss, or insurance payout"
+  - "Exact outage duration / restoration curve after a coastal flood"
+  - "Plant-level generation attribution from monthly CF"
+  - "Asserting equipment damage without a verified damage / outage record"
+  - "Wind-vs-water insurance attribution or coverage outcome without policy / adjuster evidence"
+  - "National conclusions from one coastal geography"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "Not reachable on the substrate alone — would need plant/component elevation, event inundation depth, and verified outage/damage record."
+  medium: "Coastal geography + asset scope are resolved, and external FEMA/NOAA/NHC/SLOSH evidence supports directional exposure without exact depth/damage."
+  low: "Default: coastal county / nearby-cluster screen with no plant elevation or flood-zone join."
+  blocked: "No flood/surge condition, unresolved scope, or user asks for exact depth/$/outage/damage attribution."
+
+caveats:
+  required:
+    - "Coastal flood exposure is elevation- and component-specific; plant lat/lon/county alone is a screen, not an inundation model."
+    - "FEMA flood zones and SLOSH/P-Surge products frame exposure; they do not prove site damage or outage."
+    - "Monthly generation cannot isolate storm-surge outage or damage."
+    - "Wind and water are different insurance/engineering claim types; do not conflate wind damage with flood/surge damage."
+    - "Sea-level rise raises baseline flood exposure, but storm landfall and site water depth require event/hydraulic modeling."
+    - "Dollar severity and insurance outcomes are not modeled here."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Flood hardening, equipment elevation, drainage, access, emergency-response planning, and recovery logistics."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Coastal accumulation risk and correlated outage exposure across a port / Gulf / Atlantic asset cluster."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "Collateral and DSCR sensitivity to flood-driven outage, repair, access loss, and insurance uncertainty."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Siting, pad/substation elevation, drainage design, flood barriers, and interconnection resilience for coastal projects."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "New NHC advisory / best-track / surge product for the scoped coast"
+  - "FEMA NFHL / FIS map update"
+  - "NOAA tide-gage / observed water-level update for a realized event"
+  - "Plant geometry / ownership refresh"
+  - "A served elevation / flood-zone / surge field becomes available (R15 / R24)"
+  - "A served surge/inundation or component-elevation model becomes available"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"

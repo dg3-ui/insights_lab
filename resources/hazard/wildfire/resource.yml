@@ -37,7 +37,7 @@ peril:
                                                                          # conditions; actual ignition location and perimeter growth
                                                                          # are sudden-onset and hard to forecast at the asset level;
                                                                          # PSPS decisions are announced 1-2 days ahead
-  key_datasets: ["NIFC / USFS fire perimeter data (IRWIN)", "NOAA NWS red-flag / fire-weather watches", "CAISO PSPS event records", "InfraSure hazards news (subcategory=wildfire|fire|psps)", "Cal Fire incident records"]
+  key_datasets: ["NIFC / IRWIN fire perimeter data", "USFS FSim / Wildfire Hazard Potential", "LANDFIRE fuel and vegetation layers", "NOAA NWS red-flag / fire-weather watches", "NASA FIRMS active-fire detections", "NOAA HRRR-Smoke", "CPUC / utility PSPS filings", "CAISO PSPS / market notices where available", "InfraSure hazards news (subcategory=wildfire|fire|psps)", "Cal Fire incident records"]
   climate_attribution_confidence: "medium"   # fire-weather intensification (hotter/drier conditions, longer fire season) is
                                              # one of the better-attributed climate signals — more confident than hail or TC
                                              # frequency; BUT individual ignition probability and perimeter spread remain
@@ -104,11 +104,22 @@ inputs:
     - name: "nearby_plants"
       required: false
       use: "Same-corridor fan-out — other assets in the fire perimeter or PSPS zone"
+    - name: "grid_or_region_membership"
+      required: false
+      use: "Confirm CAISO / utility-region context after state=CA workaround; do not assume every CA plant is CAISO"
   external_inputs:
     - name: "NIFC_fire_perimeter_data"
       required: true
       freshness: "historical perimeters (stable) + active incident (dated)"
       use: "Establish the fire geography; place assets inside / outside the perimeter; cite IRWIN/NIFC"
+    - name: "USFS_FSim_WHP_LANDFIRE"
+      required: false
+      freshness: "periodic public raster/model releases; cite release vintage"
+      use: "Screen fire-potential / fuel geography; frames relative exposure but does not ground return-period or loss"
+    - name: "NASA_FIRMS_or_HRRR_Smoke"
+      required: false
+      freshness: "active-fire and smoke products are dated / forecast-windowed"
+      use: "Corroborate smoke-plume context for a region and date; not plant-level loss without hourly irradiance/generation"
     - name: "NOAA_NWS_red_flag_warnings"
       required: false
       freshness: "climatology (stable) + current warnings (dated)"
@@ -132,6 +143,7 @@ procedure:
     - "State the mechanism + the THREE claim types by asset: SOLAR (smoke/ash → irradiance reduction + soiling); TRANSMISSION (heat/flame → corridor damage + ignition liability); GRID-CONNECTED (PSPS → curtailment of healthy generation)."
     - "Select one region/market (test 001 = CAISO/California) and the relevant asset class(es)."
     - "Resolve the exposed fleet via the MCP (state='CA', fuel filter)."
+    - "Confirm grid/utility-region context where available; state='CA' is a workaround for the unwired ISO filter, not proof that every result is CAISO."
     - "Identify assets in the fire-weather-exposed geography or PSPS zone; VERIFY any hazards-news classification."
     - "Where a realized event exists, use get_plant.generation ONLY as context — and explicitly note monthly CF cannot isolate a smoke event from seasonal/maintenance variation."
     - "Retrieve owner/company context for actor relevance and portfolio fire-geography accumulation."
@@ -153,6 +165,8 @@ blocked_claims:
   - "Per-plant generation loss attributable to smoke from the CF series alone"
   - "Single-cause attribution — asserting an observed CF change was caused by smoke (seasonal variation and maintenance also move CF)"
   - "Whether a specific transmission line has caused or will cause a wildfire ignition (liability claim — blocked)"
+  - "A plant-specific PSPS curtailment assertion unless a PSPS filing / circuit record links that plant or interconnection to the de-energized circuit"
+  - "Smoke-driven generation loss magnitude without hourly/daily generation plus irradiance/smoke data"
   - "National conclusions from one regional test"
   - "Outreach copy before the insight is validated"
 
@@ -167,6 +181,7 @@ caveats:
     - "The THREE mechanisms are DISTINCT by asset and must not be conflated: SOLAR (smoke/ash → irradiance reduction + soiling — temporary, not structural damage in most cases); TRANSMISSION (heat/flame → physical corridor damage + ignition liability — lasting); PSPS (grid-operator curtailment of healthy generation — temporary, revenue loss without physical damage). State which one applies."
     - "Monthly capacity factor CANNOT isolate a smoke-driven output reduction from seasonal irradiance variation, maintenance, or curtailment — a summer/fall CF dip in CA is consistent with multiple causes and does NOT prove a smoke impact."
     - "PSPS curtailment is a revenue loss for a physically undamaged generator — it is a DIFFERENT claim type from physical fire damage to the asset."
+    - "Plant-to-circuit mapping is not in the substrate; PSPS exposure is directional unless an external PSPS filing links the asset or interconnection to the de-energized circuit."
     - "Ignition liability (the risk that a utility's transmission line starts a fire) is a DISTINCT, high-severity tail risk — blocked here; that layer is model-gpr and legal/regulatory."
     - "Fire-weather intensification is one of the better-attributed climate signals (hotter/drier, longer season) but individual ignition probability and perimeter spread are not forecastable at the asset level — cap trend claims at directional."
     - "Dollar severity, EAL, and insurance outcome are NOT modeled here (directional only) — that layer is model-gpr."

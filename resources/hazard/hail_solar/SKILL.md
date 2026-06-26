@@ -69,5 +69,6 @@ Every material claim carries a source reference (substrate result with `as_of`, 
 | File | Read it when you need… |
 |---|---|
 | `knowledge.md` | the mechanism, hail-stow mitigation, the SPC geography, the Fighting Jays anchor, citations |
+| `historical_context.md` | event history and mitigation context; use as context only, never as substrate grounding |
 | `examples/applied_insight_001.md` | the target output shape (the validated TX/Fighting Jays insight) |
 | `data_requirements.md` | the full retrieval plan + known tool gaps + missing-data handling |

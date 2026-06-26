@@ -60,8 +60,11 @@ Structural moves (a guide, not a checklist — P6):
 5a HISTORY   dated past episodes as evidence where they exist (each cites its own source ref)
 6 CHART(s)   grounded series, fleet/region scope for top-down; caption + source + as_of below (_craft rules)
 7 CAVEAT     the honest caveat (what is still resolving), confident — not a "we are not saying X" negation list
-8 WATCH      forward hook — what resolves when
-9 CONCLUDE   zoom out: why it matters; no triumphant summary + FOOTER (sources + as_of register + brand line)
+8 WATCH/HOOK forward hook — what resolves when; and (P8, a guide not a CTA) the value-forward close: turn the
+             RESIDUAL real exposure into curiosity + a concrete next step toward the deeper InfraSure layer
+             (per-asset risk · mitigation cost · revenue/DSCR) — once, with a light touch, never bolted on
+9 CONCLUDE   zoom out: why it matters; no triumphant summary; a reassurance ("diversified", "0 in the maximum")
+             never reads as "safe" — name the residual (P8) + FOOTER (sources + as_of register + brand line)
 ```
 
 Not-include: price/LMP forecasts · plant-level production forecasts · outreach CTAs · unscoped national claims · exemplar-derived facts · **internal-taxonomy labels** (the artifact is reader-facing; the kicker names a topic, never our categorization) · **moat / meta-pitch language** ("unreachable without a general model", "15,000 plants" as a boast) — that is the sales narrative (`../../docs/use_cases.md`), not reader copy (`../_principles/voice.md` §5: show, don't flaunt; demonstrate by grounding + a product deep-link to infrasure.ai).
