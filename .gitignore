@@ -8,3 +8,6 @@ Thumbs.db
 .research_lab
 docs/client_delivery/_inputs/*
 !docs/client_delivery/_inputs/README.md
+docs/extra/*.xlsx
+docs/extra/*.pptx
+docs/extra/*.docx
