@@ -26,6 +26,7 @@ House doc style applies (`Status` blockquote · ASCII + tight tables · `See als
 | [2026-06-13_architecture_lessons_anthropic_fs.md](2026-06-13_architecture_lessons_anthropic_fs.md) — what to adopt/adapt/defer/reject from the `anthropics/financial-services` repo + the **intelligence-layer reframe** (authored scaffold L0 vs runtime L2; the recipe layer) | 2026-06-13 | **RESOLVED-INTO-PLAN** (kb-expansion) |
 | [2026-06-14_outlier_method_red_dog.md](2026-06-14_outlier_method_red_dog.md) — reverse-engineering an **off-substrate outlier** (research + model + resources, not MCP); the reusable outlier method with **Red Dog Mine** as the worked example | 2026-06-14 | **RESOLVED-INTO-PLAN** (outlier-showcase) |
 | [2026-06-14_bottom_up_output_workshop.md](2026-06-14_bottom_up_output_workshop.md) — the **output half**: bottom-up reports + the **`studio/`** output workshop + a first-class **creative & activation layer** (with the moat guards) | 2026-06-14 | **OPEN** — iterating |
+| [2026-06-23_repo_use_case_practical_workflow.md](2026-06-23_repo_use_case_practical_workflow.md) — recovered recap of the repo use case, bottom-up workflow, and where `/render` + `_reference/` fit | 2026-06-23 | **RECOVERED** — reference note |
 
 ---
 

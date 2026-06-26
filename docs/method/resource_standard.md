@@ -15,11 +15,12 @@ resource.md          human-readable method
 resource.yml         structured operational fields
 data_requirements.md input map (see data_map.md)
 prompt_projection.md pasteable session surface (see docs/learning/04)
+historical_context.md cited event ledger (frames/external; informs method, never grounds scoped assets)
 examples/            target + validated applied-insight shapes
 test_runs/           manual validation records
 ```
 
-The Markdown file is for humans. The YAML file is for structured operation. The prompt projection is the minimal instruction surface for Claude/MCP testing.
+The Markdown file is for humans. The YAML file is for structured operation. The prompt projection is the minimal instruction surface for Claude/MCP testing. `historical_context.md` is the deep event-history layer: it sharpens the mechanism, materiality band, confidence cap, and blocked-claim discipline, but it is **never** a substitute for live substrate grounding in an applied insight.
 
 ## Resource Contract
 
@@ -97,6 +98,35 @@ The hazard **EXPOSURE + EVENT-TRANSLATION** claim is groundable today (substrate
 ### Non-stationarity (climate / weather resources)
 
 Every weather/climate resource carries a standard `confidence_rule`: **climate non-stationarity caps trend claims.** A historical teleconnection or baseline (an ENSO composite, a hail climatology) is an odds-shift on a *shifting* baseline, not a stationary law — never assert a stationary return-period from a historical record alone.
+
+## Historical Context Layer
+
+> Added 2026-06-25 — the event-history layer for resources where past events materially teach the method.
+
+`historical_context.md` is recommended for any package whose mechanism is clarified by real events (hazards, weather/climate drivers, commercial failures, market disruptions). It is **in-package methodology**, not a shared reference layer: the file belongs with the resource because it explains that resource's event grammar, mechanism traps, and claim boundaries.
+
+Role discipline:
+
+```text
+historical_context.md = frames + external evidence
+  -> informs mechanism, materiality, confidence caps, caveats, blocked claims
+  -> supplies cited historical analogs and recurrence patterns
+  -> NEVER grounds scoped assets in a new applied insight
+  -> every number must be named-source + dated, and re-grounded before use
+```
+
+Each event entry should state:
+
+```text
+name + dates + geography / market / ISO
+what happened (cited)
+mechanism illustrated (links back to knowledge.md)
+magnitude / impact (energy, reliability, $ only where authoritatively reported)
+asset / actor relevance
+what this event DOES and DOES NOT license as a claim
+```
+
+If a historical-context event lacks a source for a number, omit the number. If an event only loosely resembles the scoped asset class, label it as analogy, not grounding.
 
 ## Applied-Insight Thin Contract
 
