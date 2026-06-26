@@ -1,0 +1,235 @@
+identity:
+  slug: "riverine_flood"
+  title: "Riverine Flood / Inland Inundation Exposure For Energy Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-25"
+
+maturity:
+  grounding_maturity: "model-not-wired"   # inland flood EXPOSURE grounds directionally today from plant location +
+                                          # FEMA/USGS/NWS riverine references. Plant-level inundation depth,
+                                          # component elevation, damage, outage duration, EAL, and $ impacts are
+                                          # not served. The quantified loss layer is model-gpr.
+  data_maturity: "M"                      # plant location, capacity, owner, generation exist; HUC/river-reach
+                                          # linkage, FEMA riverine flood zone join, and component elevation do not.
+
+taxonomy:
+  domain: hazard
+  family: exposure
+  drivers:
+    - riverine_flood
+    - inland_inundation
+    - fluvial_flooding
+    - heavy_precipitation
+    - snowmelt_runoff
+    - dam_levee_failure
+    - natcat
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:
+  predictability: "forecastable-river-stage / sudden-onset-flash-flood"   # NWS AHPS river forecasts give days of
+                                                                            # lead for major rivers; flash floods and
+                                                                            # dam/levee failures can onset in hours.
+  key_datasets:
+    - "USGS NWIS streamflow + flood-stage gages"
+    - "NOAA NWS AHPS river stage forecasts + flood categories"
+    - "FEMA NFHL riverine flood zones (AE / AO / AH) + FIS"
+    - "USACE National Inventory of Dams (NID) + levee databases"
+    - "NOAA Atlas 14 precipitation frequency"
+    - "InfraSure hazards news (subcategory=flood|riverine_flood|dam_failure)"
+  climate_attribution_confidence: "low-to-medium"   # heavier precipitation extremes are directionally linked to
+                                                      # warming; riverine flood frequency/magnitude trends are basin-
+                                                      # specific and contested; stationary return-period claims blocked.
+  financial_materiality: "high"             # flood/inundation can physically damage electrical equipment and cause
+                                            # prolonged outages; tie-breaker only.
+  insurance_treatment: "flood is commonly excluded from standard property policies or sub-limited; NFIP / surplus-lines
+    flood coverage varies; dam/levee failure may trigger separate inland-marine or specialty covers; business interruption
+    depends on physical damage trigger and policy form"
+
+question_grammar:
+  allowed_questions:
+    - "Which energy assets / owners / regions sit in a riverine-flood-exposed geography (FEMA AE/AO/AH zone or near a flood-stage river reach), and how materially?"
+    - "Through what mechanism does riverine flooding affect a plant — inundated substation, switchyard, cooling intake, fuel handling, access road, or transmission corridor?"
+    - "What did a realized river flood event mean regionally for assets near the inundated reach, to the extent data can show it?"
+    - "Who should monitor, harden, diligence, or plan for riverine flood exposure, and why?"
+    - "Which hydro dams or gas plants near major river basins face elevated stage / inflow risk in a high-precipitation or snowmelt season?"
+  blocked_questions:
+    - "What exact flood depth will occur at this asset during a flood event?"
+    - "What exact dollar loss, EAL, PML, or insurance payout will riverine flooding cause?"
+    - "What is the return-period probability of inundation at this plant?"
+    - "Did this plant's monthly generation decline because of riverine flooding?"
+    - "What exact outage duration or restoration curve will follow a flood event?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - gas
+    - hydro
+    - coal
+    - solar
+    - battery
+    - transmission
+  regions_or_markets:
+    - "one inland river basin / reach per test (recommended test 001 = Midwest / MISO: Missouri or Mississippi River corridor)"
+  lifecycle_phases:
+    - operating
+    - queue
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place asset near a river reach / floodplain using lat/lon, county, state; confirm proximity to named river or flood zone"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Determines vulnerable components: gas cooling/fuel intakes, hydro inflow/spillway, solar substation/switchyard, battery enclosures, transmission lines"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "Context only; monthly CF cannot isolate flood outage from weather, maintenance, dispatch, or seasonality"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance and riverine-portfolio accumulation"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event corroboration; VERIFY flood/riverine/dam classification and linked asset/fuel before citing"
+    - name: "nearby_plants"
+      required: false
+      use: "Cluster / same-floodplain fan-out around a river-corridor anchor"
+  external_inputs:
+    - name: "USGS_NWIS_streamflow_and_flood_stage"
+      required: true
+      freshness: "real-time / historic; cite gage ID + date range or event window"
+      use: "Establish river stage condition: current / historical flood stage, exceedance, event window"
+    - name: "NOAA_NWS_AHPS_river_forecasts"
+      required: false
+      freshness: "forecast window; cite issue date and valid time"
+      use: "Forward flood-stage outlook for current or upcoming events; cite forecast point and issue date"
+    - name: "FEMA_NFHL_riverine_flood_zones"
+      required: false
+      freshness: "map effective date / FIRM panel date"
+      use: "Regulatory floodplain context (AE = 1% annual, AO = shallow sheet, AH = ponding); long-run exposure, not event-specific depth"
+    - name: "USACE_NID_dam_levee_data"
+      required: false
+      freshness: "NID vintage / levee database date"
+      use: "Dam/levee context for assets downstream of or protected by a named structure"
+    - name: "NOAA_Atlas_14"
+      required: false
+      freshness: "dataset vintage"
+      use: "Precipitation frequency context; do not use to make stationary return-period claims"
+  descriptive_context:
+    - name: "plant_or_county_or_river_basin_summary"
+      required: false
+      use: "Frame the entity / basin; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Routes the insight and financing/insurance relevance"
+
+procedure:
+  steps:
+    - "Establish flood / river-stage condition from USGS NWIS gage data, NOAA NWS AHPS stage forecasts, or post-event flood maps; cite gage ID, date, and flood category."
+    - "State the mechanism by asset component: water reaches electrical equipment / switchyards / cooling intakes / fuel systems / access roads / transmission corridors, causing outage, damage, or access loss."
+    - "Select one inland river basin / reach and one primary asset class for the test."
+    - "Resolve assets via MCP using state/county proxy; ISO filters may be unwired (R1)."
+    - "Drill get_plant for location, capacity, owner, generation context; use nearby_plants for co-located floodplain cluster."
+    - "Use monthly generation only as context; do not attribute a generation dip to flooding without event-window outage data."
+    - "Retrieve owner/company context for actor relevance and accumulation."
+    - "Check hazards news for realized flood/riverine events affecting the scoped geography; VERIFY classification and asset linkage."
+    - "Assemble: flood condition + scoped assets + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade exact flood depth, $/EAL/PML, outage duration, return-period probability, and plant-level attribution from monthly CF."
+
+allowed_claims:
+  - "Directional riverine flood / inland inundation exposure for a scoped asset set in a named river basin or flood-prone geography"
+  - "Mechanism statements for inundation of electrical equipment, substations, switchyards, cooling intakes, fuel systems, access roads, or transmission corridors"
+  - "Regional realized-event framing: a named flood event / high river stage affected a geography near scoped assets"
+  - "FEMA riverine flood zone context for a plant location (AE/AO/AH designation, map vintage)"
+  - "Owner / portfolio riverine-flood accumulation in a named basin or corridor"
+  - "Monitoring / hardening recommendations: elevation, flood barriers, drainage, access, substation hardening, emergency response"
+
+blocked_claims:
+  - "Exact site flood depth, inundation probability, EAL, PML, dollar loss, or insurance payout"
+  - "Exact outage duration / restoration curve after a riverine flood event"
+  - "Plant-level generation attribution from monthly CF"
+  - "Asserting equipment damage without a verified damage / outage record"
+  - "Stationary return-period claims from historical flood frequency alone (non-stationarity blocks this)"
+  - "Dam/levee failure probability or consequence without a named engineering/regulatory source"
+  - "National conclusions from one river basin or corridor"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "Not reachable on the substrate alone — would need plant/component elevation, event inundation depth, verified outage/damage record, and flood-zone join."
+  medium: "Inland flood condition established from USGS/AHPS with current stage data, FEMA flood zone context available, and asset scope is resolved with proximity to a named river reach confirmed."
+  low: "Default: county/state proximity screen to a flood-prone basin with no plant-to-river-reach linkage or FEMA zone join."
+  blocked: "No flood/stage condition established, unresolved scope, or user asks for exact depth/$/outage/damage/return-period attribution."
+
+caveats:
+  required:
+    - "Riverine flood exposure is elevation- and component-specific; plant lat/lon/county is a screen, not an inundation model."
+    - "FEMA AE/AO/AH flood zones reflect long-run regulatory floodplain designations; they do not predict site depth or damage in a specific event."
+    - "Monthly generation cannot isolate flood outage or damage from other causes."
+    - "Dam/levee protection is not the same as no exposure — levee overtopping, seepage, and dam operations during high inflow are distinct failure modes."
+    - "Climate non-stationarity: precipitation extremes are shifting; stationary return-period claims are blocked."
+    - "Dollar severity and insurance outcomes are not modeled here."
+    - "Flash flood and major-river flood are different hazard sub-types with different lead times and footprints — label clearly."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Flood hardening, equipment elevation, drainage, access, emergency-response planning, and recovery logistics for riverine-exposed plants."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio accumulation risk in a river basin or floodplain corridor; correlated outage exposure across a multi-asset cluster."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "Collateral and DSCR sensitivity to flood-driven outage, repair, access loss, and insurance uncertainty (flood often excluded or sub-limited)."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Siting, pad/substation elevation, drainage design, flood barriers, and interconnection resilience for riverine-adjacent projects."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "USGS gage / NOAA AHPS stage update for the scoped river reach"
+  - "FEMA NFHL / FIRM map update for the scoped county / basin"
+  - "Post-event FEMA flood maps (Letters of Map Revision / Amendments)"
+  - "Plant geometry / ownership refresh"
+  - "A served plant-to-HUC/river-reach linkage or FEMA zone join becomes available (R26, R27)"
+  - "A served component-elevation or inundation overlay becomes available (R15, R24)"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"

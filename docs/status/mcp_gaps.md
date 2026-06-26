@@ -33,6 +33,8 @@ This is the **prioritized, build-ready view** of the ledger below, for the platf
 | **P3** | Hydro inflow / reservoir storage / rule-curve surface | low-hydro exposure can become plant/reservoir-specific | **L** | R22 |
 | **P3** | Coastal component elevation / critical-equipment layer | `hurricane_coastal_flood` can move beyond plant-centroid screens | **M–L** | R24 |
 | **P3** | Served storm-surge / inundation overlay by event/scenario | coastal-flood resources can test event footprints against plant geometry | **L** | R25 |
+| **P3** | Plant-to-river-reach / HUC / watershed linkage | `riverine_flood` can move beyond county/state proximity screens | **M** | R26 |
+| **P3** | FEMA riverine flood zone join per plant | `riverine_flood` can make regulatory-floodplain claims without external lookup | **M** | R27 |
 | **P4** | Fuel taxonomy alias / resolver | hydro and other resources avoid fuel-code guessing | **S** | R23 |
 | **P3** | Served **geometry** (centroids + simplified polygons) | a real choropleth map (data side of the render tool) | **M** | R10 |
 | **P4** | Serve the **brand kit** (logo · palette · skeleton) as MCP resources | on-brand rendering without carrying files | **S** | R6 |
@@ -417,6 +419,34 @@ roadmap:    serve storm-surge / coastal-inundation overlays by event/scenario, w
             and `as_of` / source metadata.
 observed:   resources/hazard/hurricane_coastal_flood (authored draft, 2026-06-25); extends R15.
 status:     open      kind: external-state · field/coverage gap · new tool
+```
+
+### R26 — No plant-to-river-reach / HUC / watershed linkage
+
+```text
+gap:        `riverine_flood` needs to know which river reach, HUC watershed, or upstream drainage basin a
+            plant sits in or near. The substrate has lat/lon and county, but not a first-class river-reach
+            or HUC linkage, so riverine exposure claims stay at a county/state proximity screen.
+workaround: use state/county scope as a first-pass filter; manually cite USGS NWIS gages and NOAA AHPS
+            forecast points whose geography overlaps the scoped county; caveat as a proximity screen.
+roadmap:    add HUC-8 / HUC-12 watershed or nearest-named-river-reach identifiers to plants, or expose
+            a spatial river-proximity tool keyed by plant_id and radius.
+observed:   resources/hazard/riverine_flood (authored draft, 2026-06-25)
+status:     open      kind: field/coverage gap
+```
+
+### R27 — No FEMA riverine flood zone join per plant
+
+```text
+gap:        `riverine_flood` uses FEMA NFHL AE/AO/AH zone designations to establish regulatory floodplain
+            exposure, but the substrate does not serve a per-plant FEMA zone flag. Analysts must look up
+            zone designations externally by county, and no plant-level join exists.
+workaround: pull FEMA NFHL by county externally; caveat that no site-specific join was performed; label
+            the FIRM map's effective date.
+roadmap:    serve FEMA AE/AO/AH zone flag and FIRM map vintage as structured fields per plant, derived
+            from a spatial join against the NFHL layer.
+observed:   resources/hazard/riverine_flood (authored draft, 2026-06-25)
+status:     open      kind: field/coverage gap
 ```
 
 ---
