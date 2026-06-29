@@ -37,18 +37,21 @@ Optionally include wind or gas for the PSPS curtailment picture (mechanism C).
 ## Required reasoning steps
 
 ```text
-1. Establish the fire geography (NIFC perimeter or NOAA NWS red-flag) AND/OR a realized event:
+1. Establish the fire geography (NIFC / Cal Fire perimeter; USFS FSim/WHP or LANDFIRE for screening;
+   NOAA NWS red-flag for fire-weather) AND/OR a realized event:
    search_news(category=hazards, query="wildfire"/"fire"/"PSPS") → VERIFY each (check fuel class;
    articles may cover utility liability or grid outages, not a specific generation plant).
-2. State WHICH mechanism (A/B/C) applies for each asset class in scope. Do not conflate.
-3. Resolve assets:  search_plants(fuel="solar", state="CA", minMw=50)  [+ wind/gas for PSPS picture]
-   ⚠ NOT iso="CAISO" (likely returns []). Scope by state.
-4. Place assets in the fire corridor or PSPS zone: get_plant geometry/county + nearby_plants.
-5. CONTEXT ONLY: get_plant.generation monthly CF. ⚠ DO NOT read fire/smoke into it — a summer/fall
+2. For a smoke claim, cite FIRMS / HRRR-Smoke or another dated smoke source as regional context;
+   do NOT quantify plant loss without hourly/daily generation plus irradiance/smoke data.
+3. State WHICH mechanism (A/B/C) applies for each asset class in scope. Do not conflate.
+4. Resolve assets:  search_plants(fuel="solar", state="CA", minMw=50)  [+ wind/gas for PSPS picture]
+   ⚠ NOT iso="CAISO" (likely returns []). Scope by state, then confirm grid/regions per plant where available.
+5. Place assets in the fire corridor or PSPS zone: get_plant geometry/county + nearby_plants.
+6. CONTEXT ONLY: get_plant.generation monthly CF. ⚠ DO NOT read fire/smoke into it — a summer/fall
    CA solar CF dip is consistent with seasonal variation and does not prove a smoke impact. State this explicitly.
-6. Retrieve owner chain for actor relevance + portfolio fire-geography accumulation.
-7. Assemble: condition + scoped entity set + mechanism + evidence + confidence + caveat + actor relevance.
-8. Cap confidence at the weakest link; block the $ loss, ignition liability, forward probability,
+7. Retrieve owner chain for actor relevance + portfolio fire-geography accumulation.
+8. Assemble: condition + scoped entity set + mechanism + evidence + confidence + caveat + actor relevance.
+9. Cap confidence at the weakest link; block the $ loss, ignition liability, forward probability,
    per-plant smoke attribution, and single-cause CF.
 ```
 
@@ -68,6 +71,8 @@ Optionally include wind or gas for the PSPS curtailment picture (mechanism C).
 - Per-plant generation loss attributable to smoke from the CF series alone.
 - Single-cause attribution (a fire/smoke caused an observed CF change — the summer/fall CA dip ≠ smoke).
 - Whether a specific transmission line caused or will cause a wildfire ignition (liability claim — blocked).
+- Plant-specific PSPS curtailment unless a PSPS filing / circuit record links the asset or interconnection to the de-energized circuit.
+- Smoke-loss magnitude without hourly/daily generation plus irradiance/smoke data.
 - National conclusions from one regional test. Outreach copy before validation.
 
 ## Confidence rules
@@ -99,5 +104,6 @@ Every material claim must carry a source reference (substrate result with `as_of
 | File | Read it when you need… |
 |---|---|
 | `knowledge.md` | the THREE mechanisms, the PSPS detail, the Camp Fire / 2020 season / PSPS anchors, why CF can't show smoke, citations |
+| `historical_context.md` | historical event ledger and cross-event patterns; use as context only, never as substrate grounding |
 | `examples/applied_insight_001.md` | the target output shape (the validated CAISO/CA solar + PSPS insight) |
 | `data_requirements.md` | the full retrieval plan + known tool gaps + missing-data handling |

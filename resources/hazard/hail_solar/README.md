@@ -12,6 +12,7 @@ A methodology package teaching a model to reason like an InfraSure analyst about
 resource.yml          the structured seam (taxonomy · maturity · peril fields · confidence_rules + blocked_claims)
 resource.md           the human-readable method
 knowledge.md          the cited mechanism (hail → c-Si damage; hail-stow) + the Fighting Jays anchor
+historical_context.md the deeply researched event ledger (Fighting Jays · Fort Bend stow comparison · Midway)
 prompt_projection.md  the pasteable session surface
 data_requirements.md  the retrieval plan + known gaps (R1 iso filter · R12 peril model · classifier noise)
 SKILL.md              the published, loadable skill

@@ -44,12 +44,13 @@ Everything structural in studio — `_brief_template`, a subject-guide's matrix,
 studio is where an **output** is first created. The brief is the **first output artifact**, and everything downstream flows from it:
 
 ```text
-studio brief  →  rendered deliverable (DOCX/HTML)  →  gallery promotion (_reference/internal/)  →  email distillation  →  any published / platform placement
+studio brief  →  rendered deliverable (DOCX/HTML)  →  gallery promotion (_reference/internal/)  →  email distillation  →  business-development handoff
 ```
 
 - **studio-first.** A subject-anchored read is authored and iterated **in studio before any other place** — before it is rendered, promoted to the gallery, distilled to an email, or published. Nothing downstream is built first; studio is the origination point for the OUTPUT.
 - **but the INSIGHT is still gated upstream (guard 1, P2).** "Origination" here means the output *artifact*, not the *claim*. The claim is born in the test-loop and passes the gate **before** any studio brief exists; studio never originates an insight. studio-first applies to the rendering/dressing, not the grounding.
 - **bottom_up first, top_down generalizes after.** Account/region-anchored (`bottom_up`) reads come first — they are the richest, most grounded feedback loop (`../resources/_style/output_contracts.md` §1 build order). A `top_down` market blog **generalizes from accumulated bottom_up reads** on the same phenomenon (the phenomenon is the link); it is not built before there is grounded subject work to generalize from.
+- **handoff after render.** Approved, client-ready artifacts move through `../docs/client_delivery_flow.md` into Google Drive: `client-centric/` for account/client folders and `climate-centric/` for top-down phenomenon folders. Drive is a senior-ready handoff surface, not a scratchpad and not a claim source.
 
 ## Subject-keying & direction — the scope ladder (NOT a top_down/bottom_up folder split)
 
@@ -116,4 +117,4 @@ studio/
 
 ---
 
-**See also**: `../docs/method/confidence_model.md` (the foundation — the three axes, posture, materiality, render-internal) · `_triage.md` (Layer 2) · `../docs/plans/2026-06-15_output_layer_architecture.md` (the architecture) · `../docs/discussion/2026-06-14_bottom_up_output_workshop.md` (the thinking) · `../resources/_style/output_contracts.md` §5 (the studio guards in the form contract) · `../resources/_style/brand.md` (the format-agnostic look) · `../resources/_principles/voice.md` §6 (the creative-punch guard) · `../resources/_reference/internal/` (the gallery studio promotes into) · `../docs/architecture.md` (Layer 3) · `../docs/use_cases.md` (the activation boundary — send stays human-in-the-loop).
+**See also**: `../docs/method/confidence_model.md` (the foundation — the three axes, posture, materiality, render-internal) · `_triage.md` (Layer 2) · `../docs/client_delivery_flow.md` (business-development handoff after render) · `../docs/plans/2026-06-15_output_layer_architecture.md` (the architecture) · `../docs/discussion/2026-06-14_bottom_up_output_workshop.md` (the thinking) · `../resources/_style/output_contracts.md` §5 (the studio guards in the form contract) · `../resources/_style/brand.md` (the format-agnostic look) · `../resources/_principles/voice.md` §6 (the creative-punch guard) · `../resources/_reference/internal/` (the gallery studio promotes into) · `../docs/architecture.md` (Layer 3) · `../docs/use_cases.md` (the activation boundary — send stays human-in-the-loop).

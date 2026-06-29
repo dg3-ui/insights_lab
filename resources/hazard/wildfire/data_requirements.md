@@ -6,8 +6,10 @@
 
 ```text
 EXTERNAL    fire geography / perimeter       -> NIFC / IRWIN fire perimeter data                              knowledge.md §3
-EXTERNAL    fire-weather geography           -> NOAA NWS red-flag watches + SPC fire-weather climatology      knowledge.md §3
-EXTERNAL    PSPS event record               -> CAISO market notices + utility PSPS filings (PG&E, SCE, SDG&E) knowledge.md §4
+EXTERNAL    fire-potential / fuel screen     -> USFS FSim / WHP + LANDFIRE                                    knowledge.md §3
+EXTERNAL    smoke context                    -> NASA FIRMS active fire + NOAA HRRR-Smoke                       knowledge.md §3
+EXTERNAL    fire-weather geography           -> NOAA NWS red-flag watches + fire-weather outlooks             knowledge.md §3
+EXTERNAL    PSPS event record                -> CPUC / utility PSPS filings + CAISO notices where available    knowledge.md §4
 SUBSTRATE   realized event                  -> search_news(category=hazards, query="wildfire"/"PSPS"/"fire") + details_json (VERIFY)
 KNOWLEDGE   mechanism (A/B/C by asset)      -> knowledge.md §1                                (cite, don't re-derive)
 SUBSTRATE   assets, capacity, geometry      -> search_plants → get_plant (lat/lon/county)     (places in fire corridor or PSPS zone)
@@ -23,6 +25,8 @@ LOGIC       materiality, geography test     -> ≥50 MW, Western WUI / CA geogra
 | Input | Type | Needed for | Minimum standard |
 |---|---|---|---|
 | Fire geography / perimeter | external | establish the condition (mechanisms A/B) | NIFC IRWIN perimeter cite (fire name + date + geography) |
+| Fire-potential / fuel screen | external | exposure screening | USFS FSim/WHP or LANDFIRE vintage; frames relative exposure only |
+| Smoke plume / active fire | external | smoke context for mechanism A | NASA FIRMS / HRRR-Smoke date and geography; not a plant-loss proof |
 | PSPS event record | external | establish the condition (mechanism C) | CAISO / utility PSPS filing (circuit + date + duration) |
 | Fire-weather geography | external | exposure framing | NOAA NWS red-flag climatology cite |
 | Realized event (optional) | substrate | in-substrate corroboration | a VERIFIED hazards-news fire/PSPS article |
@@ -38,6 +42,9 @@ LOGIC       materiality, geography test     -> ≥50 MW, Western WUI / CA geogra
 | Source | Use | URL |
 |---|---|---|
 | NIFC / IRWIN fire perimeter data | fire geography + active/historical perimeters | https://www.nifc.gov/ |
+| USFS FSim / Wildfire Hazard Potential | probabilistic / relative fire-potential screen | https://data-usfs.hub.arcgis.com/ |
+| LANDFIRE | fuel / vegetation context for ROW and WUI exposure | https://www.landfire.gov/ |
+| NASA FIRMS / NOAA HRRR-Smoke | active-fire detections + smoke transport context | https://firms.modaps.eosdis.nasa.gov/ · https://rapidrefresh.noaa.gov/hrrr/ |
 | NOAA NWS red-flag / fire-weather | fire-weather exposure geography + watches | https://www.weather.gov/ |
 | CAISO PSPS market notices | PSPS event record: which circuits, when, duration | https://www.caiso.com/ |
 | Cal Fire incident records | California-specific fire ignition + perimeter | https://www.fire.ca.gov/ |
@@ -49,22 +56,24 @@ NIFC perimeters and Cal Fire records are stable for historical events (cite by f
 ## Retrieval plan (the real call sequence — test 001)
 
 ```text
-1. EVENT:   search_news(query="wildfire" OR "PSPS" OR "Camp Fire")  → VERIFY each; check whether the article links
+1. EVENT:   search_news(category=hazards, query="wildfire" OR "PSPS" OR "Camp Fire")  → VERIFY each; check whether the article links
             to a generation plant or to a transmission/grid event; note that hazards articles may cover utility
             liability or grid outages rather than a specific solar/wind plant
-2. SCOPE:   search_plants(fuel="solar", state="CA", minMw=50)   → the CAISO solar fleet
-            search_plants(fuel="wind", state="CA", minMw=50)    → the CAISO wind fleet (PSPS exposure)
-            ⚠ DO NOT use iso="CAISO" — likely returns [] (same R1 gap as other resources)
-3. SIZE:    aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity", filter={state:"CA"})
-4. ANCHOR:  get_plant(<anchor_id>)  → geometry/county, fuel/technology, owner chain, monthly CF series
+2. STATE:   cite NIFC/Cal Fire for the named fire perimeter; cite USFS FSim/WHP or LANDFIRE for fire-potential/fuel
+            screening; cite NASA FIRMS / HRRR-Smoke only when making a smoke-context claim.
+3. SCOPE:   search_plants(fuel="solar", state="CA", minMw=50)   → the CA solar fleet (CAISO proxy)
+            search_plants(fuel="wind", state="CA", minMw=50)    → the CA wind fleet (PSPS exposure)
+            ⚠ DO NOT use iso="CAISO" — likely returns [] (same R1 gap as other resources). Confirm grid/regions per plant.
+4. SIZE:    aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity", filter={state:"CA"})
+5. ANCHOR:  get_plant(<anchor_id>)  → geometry/county, fuel/technology, owner chain, monthly CF series
             Select a large CA solar plant in a fire-weather-exposed county (e.g. San Bernardino, Riverside,
             Kern, or a North Bay / NorCal county) as the anchor
-5. CONTEXT: read get_plant(<anchor_id>).generation  → SHOW the summer/fall CF; note it is consistent with
+6. CONTEXT: read get_plant(<anchor_id>).generation  → SHOW the summer/fall CF; note it is consistent with
             seasonal irradiance and CANNOT isolate a smoke-driven reduction at monthly resolution
-6. CORRIDOR: nearby_plants(<anchor_id>, fuel="solar"/"wind") → other exposed assets in the same fire-weather geography
-7. HAZARDS: search_news(category=hazards, query="wildfire"/"fire"/"PSPS") + details_json → in-substrate corroboration;
+7. CORRIDOR: nearby_plants(<anchor_id>, fuel="solar"/"wind") → other exposed assets in the same fire-weather geography
+8. HAZARDS: search_news(category=hazards, query="wildfire"/"fire"/"PSPS") + details_json → in-substrate corroboration;
             VERIFY classification (check whether it links to the right fuel class)
-8. DRAFT:   assemble; split confidence (exposure + mechanism vs realized event vs CF context); block $ / ignition
+9. DRAFT:   assemble; split confidence (exposure + mechanism vs realized event vs CF context); block $ / ignition
             liability / forward probability / per-plant smoke attribution / single-cause CF
 ```
 
@@ -76,6 +85,7 @@ NIFC perimeters and Cal Fire records are stable for historical events (cite by f
 | No PSPS circuit-level field in the substrate | which interconnection circuit a plant is on, and whether that circuit is PSPS-eligible, is not in the substrate | reason from geography (county + NWS red-flag zone); caveat as inferred | a PSPS-eligibility or circuit field in the plant substrate |
 | No served fire-risk peril model | ignition probability / return-period / EAL / $ live in model-gpr | ship **directional**; block the $ + forward probability | a served fire-risk model — upgrades directional → quantitative |
 | Monthly CF cannot resolve a smoke event | a days-to-weeks smoke reduction is invisible inside the monthly seasonal-irradiance baseline | use CF as CONTEXT to PROVE the point; never as smoke-impact proof | daily/hourly generation or irradiance-adjusted CF |
+| No smoke / irradiance join | the resource can cite FIRMS/HRRR-Smoke, but it cannot join smoke optical depth to plant generation | state smoke mechanism directionally; do not quantify plant loss | served smoke/AOD + irradiance-adjusted generation feed |
 | Hazards-news may not link to generation plants | fire/PSPS articles often cover utility liability, grid outages, or residential customers — not the solar/wind plant | VERIFY every article; check fuel/technology field and affected_area | hazards-news → generation-plant linking + classifier precision |
 | No WUI / fire-zone geometry field | whether a plant sits inside a WUI or high fire-hazard severity zone (HFHSZ) is not in the substrate | reason from county + state fire-risk maps (Cal Fire HFHSZ); caveat as inferred | a fire-hazard-zone field in the plant substrate |
 

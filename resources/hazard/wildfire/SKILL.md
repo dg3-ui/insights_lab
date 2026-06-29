@@ -6,12 +6,15 @@ description: >-
   output, what a PSPS event means for a generation portfolio, or how transmission corridors are threatened by fire —
   e.g. "wildfire exposure for our California solar portfolio," "how does PSPS curtailment affect our CAISO wind
   farms," "which assets sit in high fire-weather zones," "what did the 2020 CA fire season mean for solar output."
-  Establishes the fire geography (NIFC / NOAA NWS red-flag) and/or a PSPS event (CAISO filings), resolves the
+  Establishes the fire geography (NIFC / Cal Fire perimeters, USFS FSim/WHP, LANDFIRE, NOAA NWS red-flag)
+  and/or a PSPS event (CPUC / utility / CAISO filings), resolves the
   exposed fleet via the MCP, and distinguishes the THREE mechanisms by asset: SOLAR (smoke/ash → irradiance
   reduction + panel soiling); TRANSMISSION (heat/flame → corridor damage + ignition liability); GRID-CONNECTED
   (PSPS → curtailment of otherwise-healthy generation). Routes to owner/lender/developer. Never produces an exact
-  dollar ignition liability, EAL, insurance payout, forward ignition probability, per-plant smoke-output attribution
-  from the CF series, or a single-cause attribution of a capacity-factor change.
+  dollar ignition liability, EAL, insurance payout, forward ignition probability, plant-specific PSPS curtailment
+  without circuit/interconnection evidence, per-plant smoke-output attribution from the CF series, smoke-loss
+  magnitude without hourly/daily generation plus irradiance/smoke data, or single-cause attribution of a
+  capacity-factor change.
 ---
 
 # Wildfire Exposure For Solar, Transmission, and Grid-Connected Assets
@@ -28,18 +31,21 @@ You are acting as an **InfraSure Insights analyst**. Connect a fire event / fire
 ## How to run it
 
 ```text
-1. STATE   Establish the fire geography (NIFC / NOAA NWS) AND/OR a realized event / PSPS:
+1. STATE   Establish the fire geography (NIFC / Cal Fire perimeter; USFS FSim/WHP or LANDFIRE; NOAA NWS)
+           AND/OR a realized event / PSPS:
               search_news(category=hazards, query="wildfire"/"fire"/"PSPS") → VERIFY each
               (check fuel class; articles may cover utility liability or grid outages, not a generation plant).
-2. ASSET   Determine which mechanism applies: SOLAR (A), TRANSMISSION (B), PSPS-affected generation (C) — do not conflate.
-3. SCOPE   search_plants(fuel="solar"/"wind"/"gas", state="CA", minMw=50)
-           ⚠ NOT iso="CAISO" (likely returns []); scope by state.
-4. SIZE    aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity", filter={state:"CA"}).
-5. CORRIDOR  get_plant(<id>) geometry/county + nearby_plants(<id>, fuel filter) → assets in the fire corridor or PSPS zone.
-6. CONTEXT  get_plant.generation monthly CF — CONTEXT ONLY. State that it cannot isolate a smoke event from
+2. SMOKE   If claiming smoke context, cite FIRMS / HRRR-Smoke or equivalent; do not quantify plant loss without
+           hourly/daily generation plus irradiance/smoke data.
+3. ASSET   Determine which mechanism applies: SOLAR (A), TRANSMISSION (B), PSPS-affected generation (C) — do not conflate.
+4. SCOPE   search_plants(fuel="solar"/"wind"/"gas", state="CA", minMw=50)
+           ⚠ NOT iso="CAISO" (likely returns []); scope by state, then confirm grid/regions where available.
+5. SIZE    aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity", filter={state:"CA"}).
+6. CORRIDOR  get_plant(<id>) geometry/county + nearby_plants(<id>, fuel filter) → assets in the fire corridor or PSPS zone.
+7. CONTEXT  get_plant.generation monthly CF — CONTEXT ONLY. State that it cannot isolate a smoke event from
             seasonal irradiance variation (the summer/fall CA dip is NOT proof of a smoke impact).
-7. ASSEMBLE  condition + scoped entity set + mechanism by asset + evidence + confidence + caveat + actor relevance.
-8. GATE    Split confidence; BLOCK the $ / ignition liability / forward probability / per-plant smoke attribution /
+8. ASSEMBLE  condition + scoped entity set + mechanism by asset + evidence + confidence + caveat + actor relevance.
+9. GATE    Split confidence; BLOCK the $ / ignition liability / forward probability / plant-specific PSPS without evidence / per-plant smoke attribution /
            single-cause CF.
 ```
 
@@ -65,6 +71,8 @@ Key anchors: **Camp Fire (2018)** — transmission/ignition mechanism; **2020 CA
 ## Blocked claims
 
 - Exact $ ignition liability / structure loss / EAL / payout · forward ignition probability / return-period.
+- Plant-specific PSPS curtailment without circuit/interconnection evidence.
+- Smoke-loss magnitude without hourly/daily generation plus irradiance/smoke data.
 - Per-plant smoke-output attribution from the CF series · single-cause CF attribution (summer/fall CA dip ≠ smoke).
 - Whether a specific line caused / will cause ignition · national conclusions from one regional test · outreach before validation.
 
@@ -86,5 +94,6 @@ Every material claim carries a source reference (substrate result with `as_of`, 
 | File | Read it when you need… |
 |---|---|
 | `knowledge.md` | the THREE mechanisms, PSPS detail, Camp Fire / 2020 season / PSPS anchors, why CF can't show smoke, citations |
+| `historical_context.md` | Camp Fire and smoke/solar event history; use as context only, never as plant-specific proof |
 | `examples/applied_insight_001.md` | the target output shape |
 | `data_requirements.md` | the full retrieval plan + known tool gaps + missing-data handling |

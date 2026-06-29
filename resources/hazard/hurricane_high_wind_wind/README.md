@@ -12,6 +12,7 @@ A methodology package teaching a model to reason like an InfraSure analyst about
 resource.yml          the structured seam (taxonomy · maturity · peril fields · confidence_rules + blocked_claims)
 resource.md           the human-readable method (the TWO claim types)
 knowledge.md          the cited mechanism (cut-out vs damage; design wind class) + the Beryl/Peyton Creek anchor + why CF can't show it
+historical_context.md the deeply researched event ledger (Beryl · Harvey)
 prompt_projection.md  the pasteable session surface
 data_requirements.md  the retrieval plan + known gaps (R1 iso filter · R12 TC model · no hazards→wind link · CF too coarse)
 SKILL.md              the published, loadable skill

@@ -24,7 +24,8 @@ Question:   Which ERCOT gas generators sit in the freeze-exposed geography, and 
 
 ### Mechanism
 [GAS mechanism (A): wellhead/pipeline freeze → gas curtailment; instrument freeze → forced trip
- → DISTINCT from equipment damage; Uri: ~87% of ~32 GW ERCOT peak outage (FERC/NERC 2021-11)]
+ → DISTINCT from equipment damage; Uri regional mechanism and outage scale from FERC/NERC 2021-11.
+ Plant-level outage attribution requires unit outage data; the substrate monthly CF is context only.]
 
 ### Source References
 [each: type · source · entity/scope · field/fact · vintage/as_of · role]
@@ -33,6 +34,7 @@ Question:   Which ERCOT gas generators sit in the freeze-exposed geography, and 
 [per-claim-part:
  - exposure + mechanism: Medium (clear geography, robust physics, FERC/NERC documented)
  - Uri as regional event: factual (FERC/NERC) — NOT a per-plant outage claim
+ - plant winterization status: directional / unknown unless a named source reports the equipment package or deficiency
  - any CF read: Low/blocked (February dip IS the seasonal minimum)
  - High: NOT reachable on the substrate alone]
 
@@ -40,6 +42,7 @@ Question:   Which ERCOT gas generators sit in the freeze-exposed geography, and 
 [THREE mechanisms stated and distinguished by fuel;
  monthly CF cannot isolate a forced outage from the seasonal minimum;
  per-plant attribution blocked without an outage record;
+plant winterization status, gas-supply provenance, blade de-icing, and PV snow controls are not assumed;
  Uri was a tail event — return-period requires a climate model;
  winterization gap is concentrated in Southern-latitude plants, not universal;
  $ severity is not modeled (model-gpr)]

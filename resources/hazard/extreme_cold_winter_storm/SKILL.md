@@ -5,11 +5,13 @@ description: >-
   Use when a user asks which plants or owners are exposed to freeze risk, what a realized winter storm (e.g. Uri) meant
   for a specific fleet, or how cold weather drives thermal outages — e.g. "freeze exposure for our ERCOT gas portfolio,"
   "how did Winter Storm Uri affect Texas generators," "which wind farms risk blade icing in the Southern plains."
-  Establishes the freeze geography (NOAA NWS + FERC/NERC Uri record), resolves the exposed fleet via the MCP, and
+  Establishes the freeze geography (NOAA NWS / NCEI Storm Events / GHCN-Daily station data + FERC/NERC Uri record),
+  resolves the exposed fleet via the MCP, and
   distinguishes the THREE mechanisms by fuel: GAS (wellhead/pipeline freeze → gas curtailment → forced thermal outage);
   WIND (blade icing → protective shutdown); SOLAR (snow cover → output reduction + short daylight). Routes to
   owner/lender/developer. Never produces an exact dollar loss, EAL, insurance payout, return-period, per-plant outage
-  attribution from the CF series, or a single-cause attribution of a capacity-factor change.
+  attribution from the CF series, plant winterization status without a named source, wind icing / solar snow-loss
+  magnitude without sub-monthly data, or a single-cause attribution of a capacity-factor change.
 ---
 
 # Extreme Cold / Winter Storm Exposure For Thermal, Wind, and Solar Assets
@@ -26,18 +28,19 @@ You are acting as an **InfraSure Insights analyst**. Connect a freeze event / ex
 ## How to run it
 
 ```text
-1. STATE   Establish the freeze geography (NOAA NWS) AND/OR a realized event:
+1. STATE   Establish the freeze geography (NOAA NWS / NCEI / GHCN-Daily) AND/OR a realized event:
               search_news(category=hazards, query="Uri"/"winter storm"/"freeze") → VERIFY each
               (check fuel class; articles may link to grid-customer outages or wrong fuel).
-2. FUEL    Determine which mechanisms apply: GAS (A), WIND (B), SOLAR (C) — do not conflate.
-3. SCOPE   search_plants(fuel="gas"/"wind"/"solar", state="TX", minMw=50)
-           ⚠ NOT iso="ERCOT" (returns []); scope by state.
-4. SIZE    aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity").
-5. CORRIDOR  get_plant(<id>) geometry/county + nearby_plants(<id>, fuel filter) → exposed assets in the freeze geography.
-6. CONTEXT  get_plant.generation monthly CF — CONTEXT ONLY. State that it cannot isolate a forced outage from the
+2. EVENT   Cite FERC/NERC for Uri's regional mechanism + outage scale; cite ERCOT for system timeline only unless unit data exists.
+3. FUEL    Determine which mechanisms apply: GAS (A), WIND (B), SOLAR (C) — do not conflate.
+4. SCOPE   search_plants(fuel="gas"/"wind"/"solar", state="TX", minMw=50)
+           ⚠ NOT iso="ERCOT" (returns []); scope by state, then confirm grid/regions where available.
+5. SIZE    aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity").
+6. CORRIDOR  get_plant(<id>) geometry/county + nearby_plants(<id>, fuel filter) → exposed assets in the freeze geography.
+7. CONTEXT  get_plant.generation monthly CF — CONTEXT ONLY. State that it cannot isolate a forced outage from the
             seasonal minimum (the February dip IS the seasonal minimum, not proof of Uri-driven shutdown).
-7. ASSEMBLE  condition + scoped entity set + mechanism by fuel + evidence + confidence + caveat + actor relevance.
-8. GATE    Split confidence (exposure vs realized event vs CF context); BLOCK the $, the return-period, the
+8. ASSEMBLE  condition + scoped entity set + mechanism by fuel + evidence + confidence + caveat + actor relevance.
+9. GATE    Split confidence (exposure vs realized event vs CF context); BLOCK the $, the return-period, the
            per-plant-outage attribution, and the single-cause CF.
 ```
 
@@ -63,6 +66,8 @@ You are acting as an **InfraSure Insights analyst**. Connect a freeze event / ex
 
 - Exact $ damage / EAL / payout · forward probability / return-period.
 - Per-plant outage attribution during Uri from CF series alone.
+- Plant winterization status without a named source.
+- Wind icing / solar snow-loss magnitude without sub-monthly generation plus weather/snow/icing data.
 - Single-cause attribution of a CF change (the Feb dip ≠ Uri — it IS the seasonal minimum).
 - Which specific wells, pipes, or instruments froze · national conclusions from one regional test · outreach before validation.
 
@@ -84,5 +89,6 @@ Every material claim carries a source reference (substrate result with `as_of`, 
 | File | Read it when you need… |
 |---|---|
 | `knowledge.md` | the THREE mechanisms, the winterization-gap explanation, the Uri anchor, why CF can't show it, citations |
+| `historical_context.md` | deep event context (2011 Southwest · Uri · Elliott · Jan-2025), cross-event patterns, what history does and does not license |
 | `examples/applied_insight_001.md` | the target output shape |
 | `data_requirements.md` | the full retrieval plan + known tool gaps + missing-data handling |

@@ -12,6 +12,7 @@ A methodology package teaching a model to reason like an InfraSure analyst about
 resource.yml          the structured seam (taxonomy · maturity · peril fields · confidence_rules + blocked_claims)
 resource.md           the human-readable method (the THREE claim types; the PSPS detail)
 knowledge.md          the cited mechanism (A/B/C by asset; PSPS in detail; Camp Fire / 2020 / PSPS anchors; why CF can't show smoke)
+historical_context.md the deeply researched event ledger (Camp Fire · 2020 CA wildfire smoke)
 prompt_projection.md  the pasteable session surface
 data_requirements.md  the retrieval plan + known gaps (iso filter · no fire-risk peril model · no PSPS circuit field · CF too coarse)
 SKILL.md              the published, loadable skill
@@ -23,15 +24,18 @@ test_runs/test_run_001.md         the live MCP test record (PENDING)
 
 ```text
 GROUNDS    get_plant (geometry/fuel/owner) · search_plants/aggregate (CA solar/wind fleet) ·
-           NIFC fire perimeters (fire geography) · NOAA NWS red-flag climatology (fire-weather exposure) ·
-           CAISO PSPS records (curtailment events) · hazards news (in-substrate corroboration, VERIFIED)
+           NIFC / Cal Fire perimeters (fire geography) · USFS FSim/WHP + LANDFIRE (screening/fuel context) ·
+           NOAA NWS red-flag products (fire-weather exposure) · FIRMS / HRRR-Smoke (regional smoke context) ·
+           CPUC / utility / CAISO PSPS records (curtailment events) · hazards news (in-substrate corroboration, VERIFIED)
 BLOCKED    $ ignition liability / structure loss / EAL / payout · forward ignition probability / return-period ·
-           per-plant smoke-output attribution from CF · single-cause CF attribution (summer/fall CA dip ≠ smoke) ·
+           per-plant smoke-output attribution from CF · smoke-loss magnitude without hourly/daily generation + smoke/irradiance ·
+           plant-specific PSPS curtailment without circuit/interconnection evidence · single-cause CF attribution (summer/fall CA dip ≠ smoke) ·
            whether a specific line caused / will cause ignition · national conclusions from one regional test
 KEY FIND   like hurricane_high_wind_wind and extreme_cold_winter_storm — the substrate carries NO separable
            per-plant fire/smoke signal at monthly CF resolution. The most tractable mechanism is PSPS (C) —
-           a CAISO / utility filing can corroborate which circuits were de-energized and when, making the
-           curtailment claim more factually grounded than the smoke/output claim.
+           a CPUC / utility / CAISO filing can corroborate which circuits were de-energized and when, making the
+           event claim more factually grounded than the smoke/output claim. Plant-specific curtailment still needs
+           a plant-to-circuit or interconnection link.
 ```
 
 ## The PSPS distinction — what makes this resource novel
@@ -46,6 +50,14 @@ wildfire                 smoke reduction invisible at monthly CF + confounded by
                          BUT: PSPS curtailment is FACTUALLY VERIFIABLE via CAISO/utility filings → most grounded mechanism here
                          AND: ignition liability (Camp Fire) is a high-severity tail risk that is BLOCKED (model-gpr/legal)
 ```
+
+## Next MCP test
+
+```text
+/test-resource wildfire "CAISO/California solar >=50 MW — fire-weather + PSPS exposure"
+```
+
+Run one region and one asset class first. Keep smoke-output magnitude blocked unless the run has hourly/daily generation plus irradiance/smoke context; keep plant-specific PSPS curtailment blocked unless a CPUC / utility / CAISO filing links the asset or interconnection to the de-energized circuit. Resolve the transcript into `test_runs/test_run_001.md` + `examples/applied_insight_001.md`.
 
 ---
 

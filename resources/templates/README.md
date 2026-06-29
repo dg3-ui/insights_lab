@@ -9,6 +9,7 @@
 | `methodology_resource.template.yml` | `resource.yml` | the structured seam (taxonomy→discovery · confidence_rules+blocked_claims→gates · maturity · prompt sections) |
 | `methodology_resource.template.md` | `resource.md` | the human-readable method |
 | `knowledge.template.md` | `knowledge.md` | the cited mechanism library (the stable "why") |
+| `historical_context.template.md` | `historical_context.md` | deeply researched event ledger (frames/external; informs method, never grounds scoped assets) |
 | `prompt_projection.template.md` | `prompt_projection.md` | the pasteable session surface |
 | `data_requirements.template.md` | `data_requirements.md` | the retrieval plan + known gaps + missing-data handling |
 | `skill.template.md` | `SKILL.md` | the published, loadable skill (frontmatter `name`+`description` + body) |

@@ -12,6 +12,7 @@ A methodology package teaching a model to reason like an InfraSure analyst about
 resource.yml          the structured seam (taxonomy · maturity · confidence_rules + blocked_claims) — NO peril block (factual)
 resource.md           the human-readable method
 knowledge.md          the cited mechanism (revenue = contracted + merchant) + the resolution-layer fact basis + the anchors
+historical_context.md the PPA / counterparty distress event ledger (PG&E · SunEdison · FirstEnergy)
 prompt_projection.md  the pasteable session surface
 data_requirements.md  the retrieval plan + known gaps (offtakers-null · partial coverage R5 · parent canonicalization R9)
 SKILL.md              the published, loadable skill

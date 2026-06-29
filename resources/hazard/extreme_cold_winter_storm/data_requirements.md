@@ -5,8 +5,10 @@
 ## Input layers (by job — `../../docs/method/data_map.md`)
 
 ```text
-EXTERNAL    freeze geography / event window  -> NOAA NWS winter storm historical records + watches/warnings       knowledge.md §3
-EXTERNAL    authoritative event record        -> FERC/NERC "February 2021 Cold Weather Outages" report (2021-11)  knowledge.md §3
+EXTERNAL    freeze geography / event window  -> NOAA NWS + NCEI Storm Events + GHCN-Daily stations               knowledge.md §3
+EXTERNAL    authoritative event record        -> FERC/NERC "February 2021 Cold Weather Outages" report (2021-11)  knowledge.md §4
+EXTERNAL    system operations                 -> ERCOT post-event / operating reports                            knowledge.md §3
+EXTERNAL    snow / ice context                -> NOHRSC / SNODAS / IMS snow products                             knowledge.md §3
 SUBSTRATE   realized event                    -> search_news(category=hazards, query="Uri"/"winter storm"/"freeze") + details_json (VERIFY)
 KNOWLEDGE   mechanism (A/B/C by fuel)         -> knowledge.md §1                                  (cite, don't re-derive)
 SUBSTRATE   assets, capacity, geometry        -> search_plants → get_plant (lat/lon/county)        (places in freeze corridor)
@@ -22,7 +24,10 @@ LOGIC       materiality, geography test       -> ≥50 MW, Southern-plains / Gul
 | Input | Type | Needed for | Minimum standard |
 |---|---|---|---|
 | Freeze geography / event window | external | establish the condition | NOAA NWS cite (storm dates + temperature extremes) |
+| Local temperature / duration | external | severity context | NCEI / GHCN-Daily station observation where available |
 | Authoritative event record (Uri) | external | regional event grounding | FERC/NERC 2021-11 report (outage scale + mechanism) |
+| ERCOT system operations | external | regional grid timeline | ERCOT post-event / operating report; system-level only unless unit data exists |
+| Snow / ice context | external | wind/solar mechanism context | NOHRSC/SNODAS/IMS product/date; not a plant outage proof |
 | Realized event (optional) | substrate | in-substrate corroboration | a VERIFIED hazards-news freeze/winter-storm article |
 | Mechanism by fuel (A/B/C) | knowledge | the "why" + confidence ceiling | cite `knowledge.md` §1 (state which claim type) |
 | Region / market scope | substrate / logic | bound the test | one resolvable geography (`state="TX"` + freeze corridor) |
@@ -35,9 +40,11 @@ LOGIC       materiality, geography test       -> ≥50 MW, Southern-plains / Gul
 
 | Source | Use | URL |
 |---|---|---|
-| NOAA NWS winter storm records | storm geography + event window | https://www.weather.gov/ |
+| NOAA NWS winter storm records + NCEI Storm Events / GHCN-Daily | storm geography + event window + station temperature | https://www.weather.gov/ · https://www.ncei.noaa.gov/ |
 | FERC/NERC Feb-2021 report | authoritative Uri mechanism + outage scale | https://www.ferc.gov/media/february-2021-cold-weather-outages-texas-and-south-central-united-states |
 | ERCOT post-event analysis | generation-by-fuel timeline during Uri | https://www.ercot.com/ |
+| NOHRSC / SNODAS / IMS snow products | snow/ice context for wind/solar claims | https://www.nohrsc.noaa.gov/ · https://nsidc.org/data/g02158 · https://www.natice.noaa.gov/ims/ |
+| IEA Wind TCP Task 19 / NREL PV snow literature | mechanism support for cold-climate wind + PV snow loss | public technical references |
 | EIA-923 / EIA-930 (where available) | plant-level generation during the event window (if accessible) | https://www.eia.gov/ |
 
 The FERC/NERC report is stable (cite by publication date: 2021-11). NOAA NWS records are stable for historical events; watches/warnings are dated for live events.
@@ -45,22 +52,25 @@ The FERC/NERC report is stable (cite by publication date: 2021-11). NOAA NWS rec
 ## Retrieval plan (the real call sequence — test 001)
 
 ```text
-1. EVENT:   search_news(query="Uri" OR "winter storm" OR "freeze")  → VERIFY each; check fuel/technology classification;
+1. EVENT:   search_news(category=hazards, query="Uri" OR "winter storm" OR "freeze")  → VERIFY each; check fuel/technology classification;
             note that hazards articles may link to gas/thermal or to grid-customer outages; VERIFY the substrate matches
             the plant fuel class you are analyzing
-2. SCOPE:   search_plants(fuel="gas", state="TX", minMw=50)  → the ERCOT gas/thermal fleet
+2. STATE:   cite NOAA/NCEI station + storm records for the freeze window; cite FERC/NERC for regional mechanism and
+            outage scale; cite ERCOT only for system-level operating timeline unless unit data is available
+3. SCOPE:   search_plants(fuel="gas", state="TX", minMw=50)  → the TX gas/thermal fleet (ERCOT proxy)
             search_plants(fuel="wind", state="TX", minMw=50) → the ERCOT wind fleet
             search_plants(fuel="solar", state="TX", minMw=50) → the ERCOT solar fleet
-            ⚠ DO NOT use iso="ERCOT" — it returns [] (see Known gaps, same as R1 for hail_solar / hurricane)
-3. SIZE:    aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity")  → TX gas/wind/solar totals
-4. ANCHOR:  get_plant(<anchor_id>)  → geometry/county, fuel/technology, owner chain, monthly CF series
+            ⚠ DO NOT use iso="ERCOT" — it returns [] (see Known gaps, same as R1 for hail_solar / hurricane).
+            Confirm grid/regions per plant where available.
+4. SIZE:    aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity")  → TX gas/wind/solar totals
+5. ANCHOR:  get_plant(<anchor_id>)  → geometry/county, fuel/technology, owner chain, monthly CF series
             Select a large gas plant in TX as the thermal anchor (e.g. a major ERCOT gas generator in the freeze corridor)
-5. CONTEXT: read get_plant(<anchor_id>).generation  → SHOW the February CF; note it is consistent with the seasonal
+6. CONTEXT: read get_plant(<anchor_id>).generation  → SHOW the February CF; note it is consistent with the seasonal
             minimum and CANNOT isolate a Uri-driven forced outage at monthly resolution
-6. CORRIDOR: nearby_plants(<anchor_id>, fuel="gas"/"wind") → other exposed assets in the same geography
-7. HAZARDS: search_news(category=hazards, query="winter storm"/"freeze") + details_json → in-substrate event corroboration;
+7. CORRIDOR: nearby_plants(<anchor_id>, fuel="gas"/"wind") → other exposed assets in the same geography
+8. HAZARDS: search_news(category=hazards, query="winter storm"/"freeze") + details_json → in-substrate event corroboration;
             VERIFY each classification
-8. DRAFT:   assemble; split confidence (exposure + mechanism vs realized event vs CF context); block $ / probability /
+9. DRAFT:   assemble; split confidence (exposure + mechanism vs realized event vs CF context); block $ / probability /
             per-plant-attribution / single-cause-CF
 ```
 
@@ -72,6 +82,7 @@ The FERC/NERC report is stable (cite by publication date: 2021-11). NOAA NWS rec
 | No served cold-weather peril model | return-period / EAL / $ live in model-gpr, not the MCP | ship **directional**; block the $ + forward probability | a served cold-weather hazard model — upgrades directional → quantitative |
 | Monthly CF cannot resolve a forced outage | a multi-day Uri outage is invisible inside the monthly seasonal minimum | use CF as CONTEXT to PROVE the point; never as outage proof | daily/hourly generation or an availability feed |
 | No plant-level winterization status | whether a specific plant has cold-weather packages is not in the substrate | reason from geography + Southern-latitude heuristic + FERC/NERC findings; caveat as inferred | a winterization-status field in the plant substrate |
+| No sub-monthly weather/generation join | NCEI/NOAA can show the cold window, but the substrate cannot join daily/hourly output to plant operations | keep event regional; block plant outage attribution | hourly/daily generation + weather/availability feed |
 | No wellhead / pipeline provenance | which gas supply source a plant uses and whether that source froze is not in the substrate | reason from the FERC/NERC mechanism; caveat as regional inference | fuel supply chain data |
 | Hazards-news classification may link to wrong fuel | substrate articles may cover grid-customer outages or nuclear/hydro, not the thermal plant you are analyzing | VERIFY every article; check the fuel/technology field | hazards-news → fuel-specific plant linking + classifier precision |
 

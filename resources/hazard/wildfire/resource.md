@@ -10,9 +10,10 @@ ANSWERS   which solar / transmission / grid-connected assets sit in a fire-weath
           reduction; heat/flame → transmission corridor damage; PSPS → curtailment of healthy generation) ·
           what a realized fire event or PSPS meant regionally for exposed assets · who should care + what to harden
 REFUSES   exact $ ignition liability or structure loss · forward ignition probability / return-period ·
-          per-plant smoke-output attribution from the CF series · single-cause CF attribution (the
-          summer/fall dip is NOT separable from seasonal variation) · whether a specific line caused / will
-          cause ignition · outreach before the gate
+          per-plant smoke-output attribution from the CF series · plant-specific PSPS curtailment without
+          a circuit/interconnection record · single-cause CF attribution (the summer/fall dip is NOT
+          separable from seasonal variation) · whether a specific line caused / will cause ignition · outreach
+          before the gate
 ```
 
 ## Scope
@@ -45,16 +46,17 @@ Solar + transmission + any grid-connected generation on a PSPS-eligible circuit 
 ## Procedure (the real tool sequence)
 
 ```text
-1. hazard state:  NIFC fire perimeter (geography) AND/OR CAISO PSPS event AND/OR
+1. hazard state:  NIFC / Cal Fire perimeter + USFS FSim/WHP or LANDFIRE screen AND/OR dated PSPS filing AND/OR
                   search_news(category=hazards, query="wildfire"/"fire"/"PSPS") → VERIFY each classification
-2. mechanism:     state WHICH claim type (A/B/C) applies for each asset class in scope — do not conflate
-3. scope:         search_plants(fuel="solar"/"wind"/"gas", state="CA", minMw=50)
-                  ⚠ NOT iso="CAISO" → likely [] (same R1 gap as other resources); scope by state
-4. footprint:     get_plant geometry/county + nearby_plants → place assets in the fire corridor or PSPS zone
-5. context:       get_plant.generation → CONTEXT ONLY; state monthly CF cannot isolate a smoke event from
+2. smoke state:   FIRMS / HRRR-Smoke or equivalent if making a smoke-context claim; regional context only
+3. mechanism:     state WHICH claim type (A/B/C) applies for each asset class in scope — do not conflate
+4. scope:         search_plants(fuel="solar"/"wind"/"gas", state="CA", minMw=50)
+                  ⚠ NOT iso="CAISO" → likely [] (same R1 gap as other resources); scope by state, then confirm grid/regions
+5. footprint:     get_plant geometry/county + nearby_plants → place assets in the fire corridor or PSPS zone
+6. context:       get_plant.generation → CONTEXT ONLY; state monthly CF cannot isolate a smoke event from
                   seasonal irradiance variation or maintenance
-6. actor:         get_plant.ownership → owner chain + portfolio fire-geography accumulation
-7. draft:         assemble; split confidence (exposure vs realized event vs CF context); block $ / ignition
+7. actor:         get_plant.ownership → owner chain + portfolio fire-geography accumulation
+8. draft:         assemble; split confidence (exposure vs realized event vs CF context); block $ / ignition
                   liability / forward probability / per-plant smoke attribution / single-cause CF
 ```
 
@@ -67,9 +69,10 @@ ALLOWED  directional fire-weather / wildfire exposure for a scoped asset set / g
          fire-geography accumulation · mitigation recs (cleaning schedules, ROW vegetation mgmt, PSPS
          notification protocols, site ember-hardening)
 BLOCKED  exact $ ignition liability / structure loss / EAL / payout · forward ignition probability /
-         return-period · per-plant smoke-output attribution from CF · single-cause CF attribution (the
-         summer/fall dip ≠ smoke) · whether a specific line caused / will cause ignition · national-from-
-         regional · outreach
+         return-period · per-plant smoke-output attribution from CF · smoke-loss magnitude without hourly/daily
+         generation + irradiance/smoke data · plant-specific PSPS curtailment without circuit/interconnection
+         evidence · single-cause CF attribution (the summer/fall dip ≠ smoke) · whether a specific line caused /
+         will cause ignition · national-from-regional · outreach
 ```
 
 ## Confidence + caveats
@@ -80,7 +83,7 @@ Confidence is **per-claim-part**:
 - *Any read of the fire/smoke into the CF series* — **Low / blocked** (monthly CF cannot isolate a smoke event from seasonal variation).
 - **High is not reachable** on the substrate alone (would need a verified per-plant smoke-impact or PSPS-curtailment record, or a served fire-risk peril model).
 
-Required caveats: THREE mechanisms stated and distinguished by asset; monthly CF cannot isolate smoke from seasonal variation; PSPS curtailment ≠ physical fire damage; ignition liability is blocked (model-gpr/legal); fire-weather intensification is directional, not a return-period; $ severity is not modeled (model-gpr).
+Required caveats: THREE mechanisms stated and distinguished by asset; monthly CF cannot isolate smoke from seasonal variation; PSPS curtailment ≠ physical fire damage; plant-to-circuit mapping is absent unless an external filing supplies it; ignition liability is blocked (model-gpr/legal); fire-weather intensification is directional, not a return-period; $ severity is not modeled (model-gpr).
 
 ## Actor relevance
 

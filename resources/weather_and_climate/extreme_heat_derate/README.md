@@ -20,6 +20,7 @@ Summer monthly CF is HIGH (irradiance-dominated): real data ≈ 0.30 summer vs �
 resource.yml          the structured seam (taxonomy · maturity · confidence_rules + blocked_claims · non-stationarity)
 resource.md           the human-readable method
 knowledge.md          the cited mechanism (temperature coefficient) + the honesty section + the Aktina baseline
+historical_context.md the event ledger (ERCOT 2023 · CAISO 2022 heat waves)
 prompt_projection.md  the pasteable session surface
 data_requirements.md  the retrieval plan + known gaps (R1 iso filter · R11 climate news · R12 thermal model)
 SKILL.md              the published, loadable skill

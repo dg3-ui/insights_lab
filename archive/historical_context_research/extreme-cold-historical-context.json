@@ -1,0 +1,96 @@
+{
+  "run_id": "trun_c064572c08914c4dac4f3c43de203e6b",
+  "result_url": "https://platform.parallel.ai/play/deep-research/trun_c064572c08914c4dac4f3c43de203e6b",
+  "status": "completed",
+  "output": {
+    "basis": [
+      {
+        "field": "executive_summary",
+        "reasoning": "",
+        "citations": [],
+        "confidence": ""
+      },
+      {
+        "field": "1_winter_storm_uri_february_2021_ercot_texas_and_south_central_us",
+        "reasoning": "",
+        "citations": [],
+        "confidence": ""
+      },
+      {
+        "field": "2_winter_storm_elliott_december_2022_pjm_eastern_interconnection",
+        "reasoning": "",
+        "citations": [],
+        "confidence": ""
+      },
+      {
+        "field": "3_february_2011_southwest_cold_weather_event",
+        "reasoning": "",
+        "citations": [],
+        "confidence": ""
+      },
+      {
+        "field": "4_january_2024_gulf_eastern_us_cold_snap",
+        "reasoning": "",
+        "citations": [],
+        "confidence": ""
+      },
+      {
+        "field": "5_january_2025_arctic_blast_gulf_eastern_us",
+        "reasoning": "",
+        "citations": [],
+        "confidence": ""
+      },
+      {
+        "field": "synthesis_cross_event_comparative_analysis",
+        "reasoning": "",
+        "citations": [],
+        "confidence": ""
+      }
+    ],
+    "type": "json",
+    "beta_fields": null,
+    "output_schema": {
+      "type": "object",
+      "properties": {
+        "executive_summary": {
+          "type": "string",
+          "title": "Executive Summary"
+        },
+        "1_winter_storm_uri_february_2021_ercot_texas_and_south_central_us": {
+          "type": "string",
+          "title": "1. Winter Storm Uri - February 2021: ERCOT/Texas and South Central US"
+        },
+        "2_winter_storm_elliott_december_2022_pjm_eastern_interconnection": {
+          "type": "string",
+          "title": "2. Winter Storm Elliott - December 2022: PJM/Eastern Interconnection"
+        },
+        "3_february_2011_southwest_cold_weather_event": {
+          "type": "string",
+          "title": "3. February 2011 Southwest Cold Weather Event"
+        },
+        "4_january_2024_gulf_eastern_us_cold_snap": {
+          "type": "string",
+          "title": "4. January 2024 Gulf/Eastern US Cold Snap"
+        },
+        "5_january_2025_arctic_blast_gulf_eastern_us": {
+          "type": "string",
+          "title": "5. January 2025 Arctic Blast: Gulf/Eastern US"
+        },
+        "synthesis_cross_event_comparative_analysis": {
+          "type": "string",
+          "title": "Synthesis: Cross-Event Comparative Analysis"
+        }
+      },
+      "required": [
+        "executive_summary",
+        "1_winter_storm_uri_february_2021_ercot_texas_and_south_central_us",
+        "2_winter_storm_elliott_december_2022_pjm_eastern_interconnection",
+        "3_february_2011_southwest_cold_weather_event",
+        "4_january_2024_gulf_eastern_us_cold_snap",
+        "5_january_2025_arctic_blast_gulf_eastern_us",
+        "synthesis_cross_event_comparative_analysis"
+      ]
+    },
+    "content_file": "extreme-cold-historical-context.md"
+  }
+}

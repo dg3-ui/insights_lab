@@ -96,5 +96,6 @@ source + access date) — or an explicit note that the missing input blocks/down
 | File | Read it when you need… |
 |---|---|
 | `knowledge.md` | the mechanism, teleconnection robustness, ONI basis, region crosswalk, or citations |
+| `historical_context.md` | historical ENSO analogs and teleconnection caveats; use as context only, never as asset grounding |
 | `examples/applied_insight_001.md` | the target output shape (a validated winter 2026-27 example) |
 | `data_requirements.md` | the full retrieval plan + known tool gaps + missing-data handling |

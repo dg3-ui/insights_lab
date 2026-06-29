@@ -50,7 +50,23 @@ forward return-period of a Uri-class event                                      
 
 **Non-stationarity (standard climate caveat)**: polar vortex disruption / sudden stratospheric warming (SSW) events may be increasing the frequency of extreme cold intrusions into southern latitudes — an emerging but contested signal. Simultaneously, average winter temperatures are rising in most regions. Never state a return-period from event history alone; cap trend claims at directional.
 
-## 3 · Winter Storm Uri — the canonical realized case
+## 3 · Public data stack — what grounds which part
+
+Use each winter input for its job; most are **event / geography** sources, not plant-outage proof:
+
+| Input | Job | What it can support | What it cannot support alone |
+|---|---|---|---|
+| NOAA NWS / NCEI Storm Events + GHCN-Daily stations | **external · grounds** event window and temperature anomaly | dated freeze event, station temperature, snowfall / ice context | plant outage attribution |
+| FERC / NERC 2021 Uri report | **external · grounds** regional mechanism | regional outage scale, fuel-supply freeze, equipment-freeze categories, recommendations | which specific plant failed unless named in the report |
+| ERCOT / ISO operating reports | **external · frames / may ground** system conditions | fuel-mix output / scarcity / operating timeline | plant-specific loss unless unit data is available |
+| NOHRSC / SNODAS / IMS snow cover | **external · state** snow / ice context | snow-cover geography for solar/wind context | thermal forced outage mechanism |
+| IEA Wind TCP Task 19 / cold-climate wind literature | **knowledge · mechanism** blade icing and cold-climate packages | why icing causes shutdown and why heated blades matter | whether a specific turbine has de-icing |
+| NREL / PV snow-loss literature | **knowledge · mechanism** snow-cover PV loss | why snow blocks irradiance and why tilt / clearing matters | plant-specific MWh loss |
+| EIA-860 / equipment disclosures, where available | **descriptive / coverage** technology and equipment context | possible hints about plant configuration | winterization status unless explicitly reported |
+
+This is why the resource stays `model-not-wired`: the public sources ground the **regional event + mechanism**, while the missing inputs are plant-level outage records, winterization status, gas-supply provenance, and sub-monthly generation/availability.
+
+## 4 · Winter Storm Uri — the canonical realized case
 
 **Winter Storm Uri, February 10–20, 2021** — a displaced polar vortex delivered sustained Arctic air across the Southern plains. The canonical record:
 
@@ -68,11 +84,11 @@ Economic damage: ~$195B total TX economic loss (Busby et al. 2021, UT Energy Ins
 
 Uri is the **authoritative grounding anchor** for this resource — it is in the InfraSure hazards news substrate AND in the public FERC/NERC record. Use it as a regional fact; do NOT use the substrate CF series to attribute a specific plant's outage.
 
-## 4 · Why the winter CF dip is NOT the outage (the same discipline as `hail_solar` and `hurricane_high_wind_wind`)
+## 5 · Why the winter CF dip is NOT the outage (the same discipline as `hail_solar` and `hurricane_high_wind_wind`)
 
 Gas plants in ERCOT follow **heat-rate economics** — they often back down in mild winter months when demand is lower. Solar has short daylight in December–February regardless of weather. A February CF dip for either fuel is consistent with seasonal patterns, independent of any freeze event. A multi-day Uri forced outage (Feb 10–20) would be ~10 days inside an already seasonally-low February — **not separable at monthly resolution, and confounded by the seasonal minimum**. Conclusion: **the substrate CF series cannot ground a Uri→outage claim for a specific plant.** Monthly CF is *context only* here. Be honest: per-plant outage attribution stays blocked unless an outage record (EIA-930 / ISO real-time data) is available.
 
-## 5 · The winterization gap — the structural vulnerability
+## 6 · The winterization gap — the structural vulnerability
 
 The Uri mechanism was not primarily "it got cold" — it was **"Southern-latitude plants were built without cold-weather packages because it almost never got this cold."** This is the structural vulnerability this resource captures:
 
@@ -86,7 +102,7 @@ Blade de-icing                   active (heated blade systems) or passive (speci
 
 **The key insight**: a plant's freeze vulnerability is a function of its winterization specification, not just its geography — a TX panhandle wind farm WITH heated blades continued operating during Uri while a comparable farm without did not. This is what an analyst should probe, to the extent it is knowable from the substrate.
 
-## 6 · Region / asset-class crosswalk
+## 7 · Region / asset-class crosswalk
 
 ```text
 extreme_cold × GAS / thermal (this resource — mechanism A)   wellhead/pipeline freeze → gas curtailment → forced outage
@@ -98,15 +114,18 @@ extreme_cold × hydro                                          ice on intakes / 
 
 This crosswalk is why the catalog forks by mechanism (`resources/README.md` grain rule): extreme_cold×gas ≠ extreme_cold×wind ≠ extreme_cold×solar — each drives different `allowed_claims` and `blocked_claims`, but they are authored together here because Uri produced all three simultaneously and the correlated systemic exposure is the analytical point.
 
-## 7 · Citations
+## 8 · Citations
 
 ```text
 FERC / NERC Report on Uri (2021-11)                           "The February 2021 Cold Weather Outages in Texas and the South Central United States" — the authoritative record
-NOAA NWS winter storm historical records / watches/warnings   https://www.weather.gov/
+NOAA NWS / NCEI Storm Events / GHCN-Daily                     https://www.weather.gov/ · https://www.ncei.noaa.gov/
+NOHRSC / SNODAS / IMS snow products                           https://www.nohrsc.noaa.gov/ · https://nsidc.org/data/g02158 · https://www.natice.noaa.gov/ims/
 Busby et al. 2021 (UT Energy Institute)                       "Cascading risks: Understanding the 2021 Texas blackout" — $195B estimate
-IEC 61400 wind turbine design cold-climate specs              IEC 61400-1 + TR 61400-24 (lightning/ice) — industry standard for blade icing
+IEA Wind TCP Task 19 + IEC cold-climate design references     wind in cold climates / anti-icing and de-icing guidance
+NREL / PV snow-loss literature                                snow cover, tilt, clearing, and PV production loss
 ERCOT post-event analysis (2021)                              https://www.ercot.com/ (outage timeline, generation-by-fuel data)
 InfraSure hazards news (subcategory=winter_storm|freeze)      search_news(category=hazards, query="Uri"/"winter storm"/"freeze")
+Learning vault source map                                     `~/Desktop/Learning/Reference/modeling-and-research/data-sources/hazard-datasets/natural-hazard-datasets-catalog.md`
 ```
 
 ---

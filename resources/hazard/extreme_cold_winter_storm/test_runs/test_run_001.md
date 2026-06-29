@@ -15,14 +15,17 @@ Model:      TBD
 ## Planned tool call sequence
 
 ```text
-1. search_news(category=hazards, query="Uri")                              → verify in-substrate event corroboration
-2. search_news(category=hazards, query="winter storm")                     → broader freeze news check
-3. search_plants(fuel="gas", state="TX", minMw=50)                         → ERCOT gas/thermal fleet
-4. aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity", filter={fuel:"GAS", state:"TX"})
-5. get_plant(<anchor_id>)                                                   → geometry/county/fuel/owner
-6. get_plant(<anchor_id>).generation                                        → monthly CF series (Feb window)
-7. nearby_plants(<anchor_id>, fuel="gas")                                   → same-geography fan-out
-8. [optional] search_plants(fuel="wind", state="TX", minMw=50)             → wind fleet for correlated picture
+1. external: NOAA/NCEI Storm Events + GHCN-Daily station data               → event window + temperature anomaly
+2. external: FERC/NERC Uri report                                           → regional mechanism + outage scale
+3. external: ERCOT post-event / operating reports                           → system-level operating timeline
+4. search_news(category=hazards, query="Uri")                               → verify in-substrate event corroboration
+5. search_news(category=hazards, query="winter storm")                      → broader freeze news check
+6. search_plants(fuel="gas", state="TX", minMw=50)                          → TX gas/thermal fleet (ERCOT proxy)
+7. aggregate(entity="plants", group_by=["state","fuel"], metric="total_capacity", filter={fuel:"GAS", state:"TX"})
+8. get_plant(<anchor_id>)                                                    → geometry/county/fuel/owner/grid where available
+9. get_plant(<anchor_id>).generation                                         → monthly CF series (context only)
+10. nearby_plants(<anchor_id>, fuel="gas")                                   → same-geography fan-out
+11. [optional] search_plants(fuel="wind", state="TX", minMw=50)              → wind fleet for correlated picture
 ```
 
 ## Pass criteria
@@ -33,6 +36,8 @@ Model:      TBD
 ✓ Mechanism (A) stated: wellhead/pipeline freeze → gas curtailment → forced outage; Uri ~32 GW ERCOT (FERC/NERC)
 ✓ Monthly CF used as context only, with explicit note that Feb dip cannot isolate a Uri outage from the seasonal minimum
 ✓ Winterization gap named as the structural vulnerability
+✓ Specific plant winterization status asserted only if a named source reports it; otherwise kept directional/unknown
+✓ Wind icing / solar snow-loss magnitude blocked unless sub-monthly generation + weather/snow/icing data exist
 ✓ Confidence split per-part: exposure + mechanism = Medium; Uri = regional factual; CF read = Low/blocked; High = not reachable
 ✓ $ loss, return-period, per-plant attribution, and single-cause CF blocked in the output
 ✓ Actor relevance stated for ≥2 actor types

@@ -1,6 +1,6 @@
 # Design Principles
 
-> **Status**: v0 governing principles, 2026-06-05 · **amended 2026-06-14** (P1 corollary: authored scaffold vs runtime intelligence + the no-code rail; P6 asymmetry guard — `plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 0; **P7 — calibration is posture + a forward door, honest-not-self-deprecating**) · **P6 sharpened 2026-06-15** (governs the *analysis*, not only form; explicitly covers studio briefs/template/guide + `_style` contracts; framed as the differentiator — *guide, don't force; invite the model to improve on the scaffold*).
+> **Status**: v0 governing principles, 2026-06-05 · **amended 2026-06-14** (P1 corollary: authored scaffold vs runtime intelligence + the no-code rail; P6 asymmetry guard — `plans/2026-06-13_knowledge_base_expansion_v1.md` Phase 0; **P7 — calibration is posture + a forward door, honest-not-self-deprecating**) · **P6 sharpened 2026-06-15** (governs the *analysis*, not only form; explicitly covers studio briefs/template/guide + `_style` contracts; framed as the differentiator — *guide, don't force; invite the model to improve on the scaffold*) · **2026-06-17** (P7: displayed numbers/CF are a directional screen → route detail to InfraSure; **P8 — a curiosity-and-value-forward close that never flattens residual risk to "safe", added as a P6-style smart guide, not a constraint**).
 >
 > **Audience**: anyone authoring resources, building the engine, or deciding what to freeze vs. leave open.
 >
@@ -142,6 +142,36 @@ Two equal failure modes, both breaking the register: **flaunting** the moat (`..
 
 The guard against fooling ourselves the *other* way (overclaim): keep the phenomenon caveats, never assert an unmodeled number, and the forward door must point to a capability InfraSure genuinely has — never a bluff, never a claim that *this* artifact did more than it did. Honesty is not self-deprecation; it is also not overclaim.
 
+**Applied to displayed numbers (the practical form).** Any figure, capacity factor, share, or exact value shown to a reader is a **directional screen**: approximate, and *not* a site-level or portfolio model. Pair it with a standing note that says so and routes asset- and portfolio-level detail to the InfraSure team. This is the forward door rendered onto the numbers themselves: it keeps us honest about precision (an exact-looking number invites a precision question it cannot survive, `../resources/_principles/voice.md` §3), and it deflects point queries into the real deeper capability instead of letting an exact-looking chart imply a rigor it never claimed. It is doubly load-bearing wherever a piece leans on capacity/CF plots.
+
+## Principle 8 — Curiosity and a Value-Forward Close (a smart default, not a bolted-on CTA)
+
+The end of an output is where most of the commercial value is won or lost, and it is the part we have been weakest on. This principle is a **smart guide in the spirit of P6, not a constraint**: it is the instinct to reach for, applied with judgment and scaled to the piece, never a mandatory section or a checklist box. The current outputs are already good; P8 sharpens the ending, it does not formularize it.
+
+It has two halves, and they sit at *different* levels of firmness:
+
+```text
+THE ACCURACY HALF  (firm — it is a discipline matter)
+   reassurance must never read as SAFETY. "0 MW in the hail maximum", "diversified",
+   "most won't feel it" describe CONCENTRATION, not absence of risk. A quarter of a book
+   is not a rounding error; the CO Front Range is ITSELF a hail maximum; a state outside
+   the SPC maximum does not make its counties zero (state placement is coarser than the
+   cell where hail lands). Implying "low risk" from a concentration finding MISSTATES the
+   world. Name the residual honestly. This part is close to the claim-floor, not optional.
+
+THE CONVERSION HALF  (a smart guide — judgment, P6)
+   the residual real exposure is a natural HOOK: turn the finding into curiosity + a concrete
+   next step toward InfraSure's deeper layer (per-asset risk, MITIGATION COST, revenue/DSCR).
+   Reach for it WHEN IT IMPROVES the piece; land it the way the piece wants. Do NOT bolt a
+   "contact InfraSure" CTA onto every section, do not force a sales close where a quiet
+   forward door fits better — a heavy-handed or repeated CTA reads as flaunting (voice §5)
+   and is its own anti-pattern. Usually one genuine, curious, value-forward close does it.
+```
+
+The hook is grounded: it rides a *real* residual and a real open question, **never an inflated magnitude** (guard 2 · `../resources/_principles/voice.md` §3 · P7's overclaim guard). Make the reader curious with a true number, not a scare number.
+
+**Relationship to P6 and P7.** Like every reference and guide, P8 **informs, it does not bind** (P6): use it where it makes the output better, trust the model to find the close that fits, drop the formula when a lighter touch is stronger. The only firm part is the accuracy half (don't misstate concentration as safety) and the moat (don't inflate). **P7** stops us underselling by *confessing scope*; **P8** stops us underselling by *over-reassuring*, and nudges the ending to pull the reader toward the real capability. The throughline of both: honest, never self-deprecating, never falsely comforting, never flaunting.
+
 ## How To Use These Principles
 
 ```text
@@ -154,6 +184,10 @@ using a reference     -> P6: does it improve THIS output? if not, drop it — ne
   (refs incl. studio briefs/template/guide + `_style` contracts; guide the ANALYSIS, don't force it;
    tell the model: here is the scaffold + grounding, improve on it — only the claim-discipline binds)
 calibrating an output -> P7: posture + a forward door to a real capability; never self-deprecate (nor overclaim)
+  (displayed numbers/CF = a directional screen → note "approximate; contact InfraSure for asset+portfolio detail")
+rendering a paginated file -> no orphan near-empty last page; numbers carry the screen-note (brand.md B2 · _craft §4)
+ending an output     -> P8: a smart, value-forward close — turn the RESIDUAL real exposure into curiosity + a real
+  next step (mitigation cost, per-asset detail); never flatten "concentration" into "safe". A guide, never a forced CTA.
 ```
 
 ---

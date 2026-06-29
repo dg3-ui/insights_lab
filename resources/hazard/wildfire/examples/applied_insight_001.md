@@ -7,7 +7,7 @@
 ```text
 Geography:  CAISO / California — the primary PSPS jurisdiction and Western fire-weather epicenter
 Fuel:       Solar (primary — mechanism A: smoke/ash); optionally wind/gas (mechanism C: PSPS curtailment)
-Events:     2020 CA wildfire season (smoke/solar) + PG&E PSPS events (2019–present) (curtailment)
+Events:     2020 CA wildfire season (smoke/solar context) + a dated utility PSPS event (curtailment)
 Question:   Which CAISO solar assets sit in fire-weather-exposed geographies, and what do the smoke and PSPS
             mechanisms mean for their output and revenue exposure?
 ```
@@ -25,9 +25,10 @@ Question:   Which CAISO solar assets sit in fire-weather-exposed geographies, an
 [resolved plant list: state="CA", fuel="solar", minMw=50, as_of=<date>]
 
 ### Mechanism
-[SOLAR mechanism (A): smoke/ash → irradiance reduction + soiling — temporary, not structural damage in most cases
+[SOLAR mechanism (A): smoke/ash → irradiance reduction + soiling — temporary, not structural damage in most cases.
+ Smoke source must be dated regional context (FIRMS/HRRR-Smoke or equivalent), not a plant-loss proof.
  PSPS mechanism (C): utility de-energizes circuits during red-flag conditions → healthy generators curtailed
- → temporary revenue loss. Fuel irrelevant; circuit location determines PSPS exposure.
+ → temporary revenue loss IF the plant is on the de-energized circuit. Fuel irrelevant; circuit location determines PSPS exposure.
  TRANSMISSION mechanism (B): noted as out of scope for this solar-focused test;
  ignition liability BLOCKED — model-gpr / legal]
 
@@ -39,13 +40,15 @@ Question:   Which CAISO solar assets sit in fire-weather-exposed geographies, an
  - fire-weather geography + mechanism: Medium (NIFC/NOAA/CAISO documented, robust physics)
  - a named fire / PSPS event affected the geography near a scoped asset: factual as a regional event (NIFC/CAISO) — NOT a per-plant claim
  - any CF read: Low/blocked (summer/fall CA dip is NOT separable from seasonal irradiance variation)
- - PSPS curtailment corroborated by CAISO filing: factual for the event window — most grounded claim type here
+ - PSPS event corroborated by utility/CPUC/CAISO filing: factual for the event window; plant-specific curtailment only if circuit/interconnection linkage is documented
  - High: NOT reachable on the substrate alone]
 
 ### Caveats
 [THREE mechanisms stated and distinguished by asset;
  monthly CF cannot isolate smoke from seasonal irradiance variation;
+smoke-loss magnitude blocked without hourly/daily generation plus irradiance/smoke data;
  PSPS curtailment ≠ physical fire damage;
+plant-to-circuit mapping absent from substrate, so PSPS exposure is directional unless externally linked;
  ignition liability blocked (model-gpr / legal);
  fire-weather intensification is directional, not a return-period;
  $ severity is not modeled (model-gpr)]

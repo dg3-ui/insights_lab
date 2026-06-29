@@ -35,18 +35,20 @@ The correlated systemic nature of a polar-vortex event — mechanisms A, B, and 
 ## Required reasoning steps
 
 ```text
-1. Establish the freeze geography (NOAA NWS) AND/OR a realized event:
+1. Establish the freeze geography (NOAA NWS / NCEI Storm Events / GHCN-Daily station data) AND/OR a realized event:
    search_news(category=hazards, query="Uri"/"winter storm"/"freeze") → VERIFY each (check fuel classification;
    articles may link to grid-customer outages or the wrong fuel class).
-2. State WHICH mechanism (A/B/C) applies for each fuel in scope. Do not conflate.
-3. Resolve assets:  search_plants(fuel="gas", state="TX", minMw=50)  [+ wind/solar if in scope]
-   ⚠ NOT iso="ERCOT" (returns []). Scope by state; filter to freeze-exposed geography.
-4. Place assets in the corridor: get_plant geometry/county + nearby_plants.
-5. CONTEXT ONLY: get_plant.generation monthly CF. ⚠ DO NOT read the freeze into it — a February CF dip IS the
+2. Cite FERC/NERC for Uri's regional mechanism + outage scale; cite ERCOT only for system-level operations unless
+   unit-level data is available. Use NOHRSC/SNODAS/IMS only for snow/ice context.
+3. State WHICH mechanism (A/B/C) applies for each fuel in scope. Do not conflate.
+4. Resolve assets:  search_plants(fuel="gas", state="TX", minMw=50)  [+ wind/solar if in scope]
+   ⚠ NOT iso="ERCOT" (returns []). Scope by state; confirm grid/regions where available.
+5. Place assets in the corridor: get_plant geometry/county + nearby_plants.
+6. CONTEXT ONLY: get_plant.generation monthly CF. ⚠ DO NOT read the freeze into it — a February CF dip IS the
    seasonal minimum and cannot isolate a Uri-driven outage. State this explicitly.
-6. Retrieve owner chain for actor relevance + portfolio winterization-risk accumulation.
-7. Assemble: condition + scoped entity set + mechanism + evidence + confidence + caveat + actor relevance.
-8. Cap confidence at the weakest link; block the $ loss, the forward probability, the per-plant outage
+7. Retrieve owner chain for actor relevance + portfolio winterization-risk accumulation.
+8. Assemble: condition + scoped entity set + mechanism + evidence + confidence + caveat + actor relevance.
+9. Cap confidence at the weakest link; block the $ loss, the forward probability, the per-plant outage
    attribution, and the single-cause CF claim.
 ```
 
@@ -66,6 +68,8 @@ The correlated systemic nature of a polar-vortex event — mechanisms A, B, and 
 - Per-plant outage attribution during Uri from the CF series alone.
 - Single-cause attribution (a freeze caused an observed CF change — the Feb dip IS the seasonal minimum).
 - Which specific wells, pipes, or instruments froze at a given plant.
+- Specific plant winterization status unless a named source reports the equipment package / deficiency.
+- Wind blade-icing or solar snow-loss magnitude without sub-monthly generation plus weather/snow/icing data.
 - National conclusions from one regional test. Outreach copy before validation.
 
 ## Confidence rules
@@ -97,5 +101,6 @@ Every material claim must carry a source reference (substrate result with `as_of
 | File | Read it when you need… |
 |---|---|
 | `knowledge.md` | the THREE mechanisms by fuel, the winterization-gap explanation, the Uri anchor + why CF can't show it, citations |
+| `historical_context.md` | historical event ledger and cross-event patterns; use as context only, never as substrate grounding |
 | `examples/applied_insight_001.md` | the target output shape (the validated ERCOT/TX thermal insight) |
 | `data_requirements.md` | the full retrieval plan + known tool gaps + missing-data handling |
