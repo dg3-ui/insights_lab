@@ -1,0 +1,202 @@
+identity:
+  slug: "tornado_solar_wind"
+  title: "Tornado Exposure For Solar, Wind, and Substation Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-29"
+
+maturity:
+  grounding_maturity: "model-not-wired"  # EXPOSURE (Tornado-Alley / Dixie-Alley geographic vulnerability) + the realized
+                                          # EVENT (a named tornado in hazards news) ground TODAY → directional. But the
+                                          # damage outcome is binary-and-narrow (a tornado either misses or destroys a small
+                                          # footprint), so per-plant damage attribution needs an event survey, and the
+                                          # $ / strike-probability layer is model-gpr — see blocked_claims.
+  data_maturity: "M"                      # TX/OK/KS solar + wind: plants, geometry, owner present and let us place an asset
+                                          # in the tornado-climatology corridor; BUT array/turbine sub-geometry (which rows,
+                                          # which turbines) is not resolvable, and monthly CF cannot show a narrow strike.
+
+taxonomy:
+  domain: hazard                  # folder axis — shares SPC + hazards-news + footprint machinery with the sibling hazard resources
+  family: exposure                # primary family; the resource ALSO serves event_translation (a realized tornado → asset)
+  drivers:
+    - tornado
+    - severe_convective_storm
+    - extreme_wind
+    - debris_loading
+    - natcat                       # maps the hazards-news risk_factor R12_NATCAT_FM
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:
+  predictability: "sudden-onset"  # SPC convective outlooks give 1-3 days on a RISK AREA, but the path is minutes-to-hours
+                                  # and a few hundred meters wide — not forecastable at the asset level
+  key_datasets: ["NOAA SPC tornado climatology / storm reports + EF-scale survey data", "NOAA SPC convective outlooks + NWS tornado warnings", "InfraSure hazards news (subcategory=tornado|severe_storm)"]
+  climate_attribution_confidence: "low"   # tornado-frequency/intensity trends are among the LEAST attributable severe-weather
+                                          # signals; an eastward shift of activity toward Dixie Alley is debated — caps trend claims hard
+  financial_materiality: "high"   # a direct strike is a TOTAL LOSS of the assets in the path (arrays/turbines flattened) — but
+                                  # the footprint is narrow; materiality is catastrophic-but-localized — TIE-BREAKER, never grounding
+  insurance_treatment: "covered under wind/property; narrow-footprint total loss drives deductible + named-peril structure; convective-storm accumulation is a reinsurance topic"
+
+question_grammar:
+  allowed_questions:
+    - "Which solar / wind / substation assets sit in a tornado-climatology-exposed geography (Tornado Alley / Dixie Alley), and how materially?"
+    - "Through what mechanism is the asset exposed — concentrated extreme winds + debris loading → outright structural destruction of arrays / turbines / substation equipment in the narrow path?"
+    - "What did a realized tornado mean for assets in the affected corridor (a regional event, not a per-plant survey)?"
+    - "Who should monitor or harden against the exposure, and why?"
+  blocked_questions:
+    - "What is the exact $ loss / EAL / insurance payout from this tornado at this plant?"
+    - "What is the forward annual strike probability or return-period of a tornado hitting this specific asset?"
+    - "What exact plant-level generation loss did the tornado cause, read from the CF series?"
+    - "Which specific array rows or turbines were destroyed (sub-plant geometry not in the substrate)?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - solar                        # arrays + trackers flattened by extreme wind + debris (mechanism A)
+    - wind                         # turbines destroyed outright in the path; debris loading (mechanism A)
+    - transmission                 # substation / switchyard equipment flattened (mechanism B)
+    - battery                      # enclosure + inverter destruction in the path (mechanism A)
+  regions_or_markets:
+    - "one selected region or market per test (test 001 = Southern Plains / Oklahoma–Texas — the Tornado-Alley corridor)"
+  lifecycle_phases:
+    - operating
+    - queue          # siting-stage tornado-corridor exposure is in scope (developer actor)
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place the asset in / out of the tornado-climatology corridor (lat/lon, county)"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Determines the destruction mechanism: solar arrays / wind turbines / substation equipment"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW. NOTE: a narrow strike destroys only the assets in the path, not the full nameplate"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "CONTEXT ONLY — monthly CF cannot resolve a narrow strike on part of a plant; never the damage proof"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + portfolio tornado-corridor accumulation"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event grounding — search_news(category=hazards, query='tornado'/'severe storm'); VERIFY each classification"
+    - name: "nearby_plants"
+      required: false
+      use: "Same-corridor fan-out — other assets in the tornado-climatology band"
+  external_inputs:
+    - name: "SPC_tornado_climatology"
+      required: true
+      freshness: "climatology (stable) + recent storm reports / EF surveys (dated)"
+      use: "Establish the tornado-exposed geography (annual touchdown density); cite SPC"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Route the insight; insurance/financing relevance where available"
+
+procedure:
+  steps:
+    - "Establish the tornado-exposed geography (SPC tornado climatology / touchdown density) and/or a realized event (hazards news)."
+    - "State the mechanism: concentrated extreme winds + debris loading → outright structural destruction of arrays / turbines / substation equipment. Stress the NARROW, binary footprint — catastrophic-but-localized, not a fleet-wide derate."
+    - "Select one region/market (test 001 = Southern Plains / OK–TX) and the relevant asset class(es)."
+    - "Resolve the fleet via the MCP (state= proxy; the iso filter is unwired — see data_requirements)."
+    - "Place assets in the climatology corridor (geometry + nearby_plants); VERIFY any hazards-news classification."
+    - "Where a realized event exists, use get_plant.generation ONLY as context — and explicitly note monthly CF cannot resolve a narrow partial-plant strike."
+    - "Retrieve owner/company context for actor relevance and portfolio tornado-corridor accumulation."
+    - "Assemble: condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade the $ loss, the forward strike probability/return-period, the per-plant damage attribution, and any single-cause CF attribution."
+
+allowed_claims:
+  - "Directional tornado-climatology exposure for a scoped solar, wind, or substation asset set / geography"
+  - "Mechanism statements: extreme wind + debris loading → outright structural destruction in the narrow path (cited)"
+  - "The catastrophic-but-localized framing: a strike is a TOTAL LOSS of assets in the path but a LOW per-asset annual intersection — distinct from a fleet-wide derate"
+  - "Realized event framing: a named tornado affected a named corridor near a scoped asset (a regional fact, not a per-plant survey)"
+  - "Owner / portfolio tornado-corridor accumulation"
+  - "Mitigation statements (wind-class design margins, debris-resistant racking, rapid-rebuild spares strategy, geographic diversification), cited"
+  - "Monitoring / hardening recommendations for owners, lenders, developers"
+
+blocked_claims:
+  - "Exact $ damage, EAL, or insurance payout from a tornado (model-gpr / not on the MCP)"
+  - "Forward annual strike probability or return-period at a specific site (needs a tornado-hazard model; touchdown density is areal, not per-asset)"
+  - "Per-plant generation loss attributable to a tornado from the CF series alone"
+  - "Single-cause attribution — asserting an observed CF change was caused by a tornado"
+  - "Which specific array rows or turbines were destroyed (sub-plant geometry not in the substrate)"
+  - "National conclusions from one regional test"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "NOT reachable here on the substrate alone — would need a verified post-event EF survey of the asset (which the substrate does not carry) or a served tornado-hazard model."
+  medium: "Mechanism + tornado-climatology exposure framing on a clear geography (SPC touchdown density + resolved scoped fleet), with the narrow-footprint / total-loss framing stated."
+  low: "Forward / probabilistic strike exposure without a tornado-hazard model; OR any event-context claim leaning on monthly CF."
+  blocked: "No verified hazard classification, scope unresolved, or a $ / strike-probability / per-plant-damage-attribution / single-cause-CF claim is requested."
+
+caveats:
+  required:
+    - "Tornado damage is BINARY and NARROW: a strike destroys the assets in a path a few hundred meters wide and misses everything else. The relevant claim is geographic intersection risk, NOT a fleet-wide derate — do not annualize a total loss across the whole nameplate."
+    - "Tornado touchdown density is an AREAL climatology, not a per-asset strike probability — a forward return-period at a specific site requires a hazard model, not the climatology alone."
+    - "Sub-plant geometry (which rows / which turbines) is NOT in the substrate, so per-asset destruction extent cannot be claimed."
+    - "Monthly capacity factor CANNOT resolve a narrow partial-plant strike — a CF change is consistent with many causes and does NOT prove tornado damage."
+    - "Tornado-frequency/intensity trends are among the least attributable severe-weather signals — cap any trend claim at directional, and treat a Dixie-Alley eastward shift as debated."
+    - "Dollar severity, EAL, and insurance outcome are NOT modeled here (directional only) — that layer is model-gpr."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Rapid-rebuild spares + restoration planning for a low-probability total loss; debris-resistant racking + wind-class design margins; insurance deductible exposure."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio tornado-corridor accumulation; a single-site total-loss tail risk vs geographic diversification; convective-storm reinsurance cost as a value driver."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "Single-asset total-loss tail risk on a financed project (directional); property/wind-insurance adequacy + deductible as underwriting inputs."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Siting + wind-class / debris-resistant design choices and geographic spread for queue-stage projects in the tornado corridor."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "New hazards news for the scoped region/assets (a new tornado in the corridor)"
+  - "Generation substrate refresh (a new month — used only as context here)"
+  - "SPC tornado climatology / a new severe-convective season"
+  - "Plant geometry / ownership refresh"
+  - "A served tornado-hazard model becomes available — upgrades directional → quantitative AND could surface a real per-asset strike probability"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"

@@ -1,0 +1,206 @@
+identity:
+  slug: "lightning_multi_asset"
+  title: "Lightning Exposure For Wind, Solar, and Electrical-Plant Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-29"
+
+maturity:
+  grounding_maturity: "model-not-wired"  # EXPOSURE (high-flash-density geography + tall-structure wind exposure) grounds
+                                          # TODAY → directional. But this is a HIGH-FREQUENCY / LOWER-PER-EVENT-SEVERITY
+                                          # hazard managed by DESIGN (air termination / SPDs / grounding), so per-plant strike
+                                          # damage needs maintenance records, and the $ / strike-rate layer is model-gpr.
+  data_maturity: "M"                      # wind/solar: geometry (lat/lon, county) + turbine hub height + owner present and let us
+                                          # place an asset in the flash-density climatology; BUT lightning-protection-system
+                                          # status is NOT in the substrate, and monthly CF cannot resolve a component-level strike.
+
+taxonomy:
+  domain: hazard                  # folder axis — shares NOAA + hazards-news + footprint machinery with the sibling hazard resources
+  family: exposure                # primary family; the resource ALSO serves event_translation (a realized strike → asset)
+  drivers:
+    - lightning
+    - induced_surge
+    - convective_storm
+    - natcat                       # maps the hazards-news risk_factor R12_NATCAT_FM
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:
+  predictability: "sudden-onset / design-managed"  # individual strikes are not forecastable; the hazard is managed by
+                                                    # design (air termination, surge protection, grounding) and quantified
+                                                    # via flash-density climatology, not event forecasts
+  key_datasets: ["NOAA / Vaisala NLDN cloud-to-ground flash-density climatology", "NOAA NWS thunderstorm / convective outlooks", "InfraSure hazards news (subcategory=lightning|convective_storm)"]
+  climate_attribution_confidence: "low"   # lightning-frequency trends are weakly attributed and methodologically contested
+                                          # — caps any trend claim hard
+  financial_materiality: "medium-to-high"   # mostly component replacement (inverters / transformers / control electronics) —
+                                            # high frequency, lower per-event severity; wind blade strikes can be material —
+                                            # TIE-BREAKER, never grounding
+  insurance_treatment: "typically covered (property / equipment-breakdown); high-frequency low-severity profile makes it more a maintenance + deductible topic than a catastrophe peril"
+
+question_grammar:
+  allowed_questions:
+    - "Which wind / solar / electrical-plant assets sit in a high-lightning-flash-density geography, and how materially?"
+    - "Through what mechanism is the asset exposed — direct strike (blade / nacelle / structure, with tall wind turbines most exposed) vs induced surge (inverters / transformers / control electronics)?"
+    - "What did a realized lightning event mean for assets in the affected area (a regional event)?"
+    - "Who should monitor or harden (lightning protection systems, surge protection) against the exposure, and why?"
+  blocked_questions:
+    - "What is the exact $ loss / EAL / insurance payout from this lightning strike at this plant?"
+    - "What is the forward annual strike rate or component-failure probability at this specific asset?"
+    - "What exact plant-level generation loss did a strike cause, read from the CF series?"
+    - "Does this specific turbine have an adequate lightning protection system (LPS status not in the substrate)?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - wind                         # tallest structures in open terrain — direct-strike exposure on blades/nacelle (mechanism A)
+    - solar                        # induced surge → inverter / combiner / SCADA electronics (mechanism B)
+    - gas                          # plant control electronics + transformers → induced surge (mechanism B)
+    - transmission                 # transformers + substation electronics → direct strike + induced surge (mechanisms A/B)
+    - battery                      # inverters + BMS electronics → induced surge (mechanism B)
+  regions_or_markets:
+    - "one selected region or market per test (test 001 = Gulf Coast / Florida–Texas — the US flash-density maximum)"
+  lifecycle_phases:
+    - operating
+    - queue          # siting + lightning-protection-design choices are in scope (developer actor)
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place the asset in / out of the high-flash-density geography (lat/lon, county)"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Determines the mechanism: wind direct-strike (tall) vs solar/electrical induced-surge"
+    - name: "turbine_hub_height"
+      required: false
+      use: "Frames (does not over-claim) direct-strike exposure for wind — taller structures attract more strikes"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "CONTEXT ONLY — monthly CF cannot resolve a component-level strike outage; never the damage proof"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + portfolio flash-density accumulation"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event grounding — search_news(category=hazards, query='lightning'/'storm'); VERIFY each classification"
+    - name: "nearby_plants"
+      required: false
+      use: "Same-area fan-out — other assets in the flash-density band"
+  external_inputs:
+    - name: "NLDN_flash_density_climatology"
+      required: true
+      freshness: "climatology (stable) + recent strike data (dated)"
+      use: "Establish the cloud-to-ground flash-density geography; cite NOAA / NLDN"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Route the insight; insurance/financing relevance where available"
+
+procedure:
+  steps:
+    - "Establish the high-flash-density geography (NLDN cloud-to-ground climatology) and/or a realized event (hazards news)."
+    - "State the mechanism + the TWO claim types: DIRECT STRIKE (blade / nacelle / structure — tall wind turbines most exposed) vs INDUCED SURGE (inverters / transformers / control electronics across all generation). Note LPS / surge-protection status is not in the substrate."
+    - "Select one region/market (test 001 = Gulf Coast / FL–TX) and the relevant asset class(es)."
+    - "Resolve the fleet via the MCP (state= proxy; the iso filter is unwired — see data_requirements)."
+    - "Place assets in the flash-density band (geometry + nearby_plants; hub height frames wind exposure); VERIFY any hazards-news classification."
+    - "Where a realized event exists, use get_plant.generation ONLY as context — and explicitly note monthly CF cannot resolve a component-level strike."
+    - "Retrieve owner/company context for actor relevance and portfolio flash-density accumulation."
+    - "Assemble: condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade the $ loss, the forward strike rate / failure probability, the per-plant damage attribution, and any single-cause CF attribution. Frame as cumulative component risk, not a single catastrophe."
+
+allowed_claims:
+  - "Directional lightning exposure for a scoped wind, solar, or electrical-plant asset set / geography"
+  - "Mechanism statements distinguishing DIRECT STRIKE (blade / nacelle / structure — tall wind turbines most exposed) from INDUCED SURGE (inverters / transformers / control electronics), cited"
+  - "The high-frequency / lower-per-event-severity framing: cumulative component risk + design adequacy, not a single catastrophic event"
+  - "Realized event framing: a named lightning event affected a named area near a scoped asset (a regional fact, not a per-component damage claim)"
+  - "Owner / portfolio flash-density accumulation"
+  - "Mitigation statements (lightning protection systems / receptors, surge protective devices, grounding, blade LPS inspection), cited"
+  - "Monitoring / hardening recommendations for owners, lenders, developers"
+
+blocked_claims:
+  - "Exact $ damage, EAL, or insurance payout from lightning (model-gpr / not on the MCP)"
+  - "Forward annual strike rate or component-failure probability at a specific asset (needs a strike model + LPS status)"
+  - "Per-plant generation loss attributable to a strike from the CF series alone"
+  - "Single-cause attribution — asserting an observed CF change was caused by lightning"
+  - "Whether a specific turbine / inverter has an adequate lightning protection or surge-protection system (LPS status not in the substrate)"
+  - "National conclusions from one regional test"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "NOT reachable here on the substrate alone — would need a verified per-asset strike-damage / maintenance record (which the substrate does not carry) or a served strike-rate model with LPS status."
+  medium: "Mechanism + flash-density exposure framing on a clear geography (NLDN climatology + resolved scoped fleet), with the direct-strike / induced-surge distinction stated."
+  low: "Forward / probabilistic strike exposure without a strike model; OR any event-context claim leaning on monthly CF."
+  blocked: "No verified hazard classification, scope unresolved, or a $ / strike-rate / per-plant-damage-attribution / single-cause-CF claim is requested."
+
+caveats:
+  required:
+    - "The TWO mechanisms are DISTINCT and must not be conflated: DIRECT STRIKE (a strike to the structure — blade / nacelle / tower; tall wind turbines in open terrain are most exposed) vs INDUCED SURGE (a nearby strike couples a transient into inverters / transformers / control electronics across all generation). State which one applies."
+    - "Lightning is a HIGH-FREQUENCY, LOWER-PER-EVENT-SEVERITY hazard managed by DESIGN (air termination, surge protective devices, grounding, blade LPS) — frame it as cumulative component risk + design adequacy, NOT a single catastrophic event."
+    - "Lightning-protection-system (LPS) and surge-protection status is NOT in the substrate, so per-asset vulnerability cannot be claimed — only geographic flash-density exposure."
+    - "Monthly capacity factor CANNOT resolve a component-level strike outage — a CF change is consistent with many causes and does NOT prove lightning damage."
+    - "Lightning-frequency trends are weakly attributable — cap any trend claim at directional."
+    - "Dollar severity and insurance outcome are NOT modeled here (directional only) — that layer is model-gpr."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Lightning-protection-system + surge-protective-device inspection / upgrade decisions; blade LPS-receptor maintenance for wind; component-replacement + spares planning for inverters / transformers."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio flash-density accumulation; cumulative O&M / component-replacement drag on availability; deductible exposure as a value driver."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "Cumulative availability / O&M drag from lightning on a financed asset (directional); equipment-breakdown insurance adequacy as an underwriting input."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Siting + lightning-protection / surge-protection design specification for queue-stage wind and solar in high-flash-density geographies."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "New hazards news for the scoped region/assets (a notable lightning event)"
+  - "Generation substrate refresh (a new month — used only as context here)"
+  - "NLDN flash-density climatology update; a new convective season"
+  - "Plant geometry / turbine-hub-height / ownership refresh; an LPS-status field becomes available"
+  - "A served lightning strike-rate model becomes available — upgrades directional → quantitative"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"

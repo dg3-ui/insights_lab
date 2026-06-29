@@ -1,0 +1,211 @@
+identity:
+  slug: "sea_level_rise_surge"
+  title: "Sea Level Rise & Storm Surge Exposure For Coastal Thermal, Nuclear, and Grid Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-29"
+
+maturity:
+  grounding_maturity: "model-not-wired"  # EXPOSURE (tidewater siting of thermal/nuclear for cooling + low-lying coastal
+                                          # substations) + the CHRONIC trend (NOAA tide-gauge SLR) ground TODAY → directional.
+                                          # But per-plant inundation depth needs site elevation (not in the substrate), and the
+                                          # $ / decommissioning / forward-surge-probability layer is model-gpr — see blocked_claims.
+  data_maturity: "M"                      # coastal thermal/nuclear: geometry (lat/lon, county) + fuel + owner present and let us
+                                          # place an asset at tidewater; BUT site ELEVATION + design flood basis are NOT in the
+                                          # substrate, and the relevant horizon (decades, for SLR) is outside the CF series entirely.
+
+taxonomy:
+  domain: hazard                  # folder axis — shares NOAA + FEMA + hazards-news + footprint machinery with the sibling hazard resources
+  family: exposure                # primary family; the resource ALSO serves event_translation (a realized surge → asset)
+  drivers:
+    - sea_level_rise
+    - storm_surge
+    - coastal_inundation
+    - tidal_flooding
+    - natcat                       # maps the hazards-news risk_factor R12_NATCAT_FM
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:
+  predictability: "chronic-projectable-decades / acute-forecastable-during-a-storm"  # SLR is a multi-decade trend (NOAA tide
+                                                                                       # gauges + projections); a surge event is
+                                                                                       # NHC-forecastable hours-to-days during a storm
+  key_datasets: ["NOAA tide-gauge relative-SLR trends + Sea Level Rise Viewer", "NOAA NHC storm-surge (SLOSH / P-Surge) + historical high-water marks", "FEMA coastal flood zones (VE / coastal A)", "InfraSure hazards news (subcategory=surge|coastal_flood|sea_level)"]
+  climate_attribution_confidence: "high"   # SLR is among the BEST-attributed climate signals (thermal expansion + land-ice
+                                           # melt); local relative rates add vertical land motion — the chronic trend is robust
+  financial_materiality: "high"   # tidewater thermal/nuclear represents very large, long-lived, hard-to-relocate capital; chronic
+                                  # SLR erodes the design flood basis + raises decommissioning cost — TIE-BREAKER, never grounding
+  insurance_treatment: "acute surge under coastal flood / surge sub-limits; CHRONIC SLR is largely uninsurable creep (a siting / stranded-asset / planning-horizon risk, not a claim event)"
+
+question_grammar:
+  allowed_questions:
+    - "Which coastal thermal / nuclear / substation / offshore-wind-landfall assets sit in a sea-level-rise + storm-surge-exposed geography (tidewater), and how materially?"
+    - "Through what mechanism is the asset exposed — CHRONIC SLR raising the baseline (more frequent tidal/nuisance flooding + eroding the cooling-intake design basis) vs ACUTE surge inundating the switchyard / intake during a storm?"
+    - "What did a realized surge event mean for assets in the affected coastal reach (a regional event)?"
+    - "Who should monitor, plan, or harden against the exposure, and why?"
+  blocked_questions:
+    - "What is the exact $ loss / EAL / decommissioning cost / insurance payout from SLR or a surge at this plant?"
+    - "What is the forward annual surge probability or the year this site is permanently inundated?"
+    - "What exact plant-level generation loss did a surge cause, read from the CF series?"
+    - "What is the precise inundation depth at this plant's switchyard (site elevation not in the substrate)?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - nuclear                      # tidewater cooling siting — highest-consequence chronic + acute exposure
+    - gas                          # coastal thermal sited for cooling (mechanism A/B)
+    - transmission                 # low-lying coastal substations (mechanism B)
+    - wind                         # offshore-wind LANDFALL infrastructure (export cable landings, onshore substations) — emerging
+  regions_or_markets:
+    - "one selected region or market per test (test 001 = Gulf Coast / Texas tidewater thermal + nuclear)"
+  lifecycle_phases:
+    - operating
+    - queue          # siting-stage coastal elevation + design flood basis are in scope (developer actor)
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place the asset at / away from tidewater (lat/lon, coastal county, distance to shoreline)"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Determines exposure: water-sited thermal/nuclear (cooling), coastal substation, offshore-wind landfall infra"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW (nuclear/thermal units are large)"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "CONTEXT ONLY — and largely IRRELEVANT for the chronic horizon; monthly CF cannot resolve an acute surge outage either; never the damage proof"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + portfolio tidewater accumulation"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event grounding — search_news(category=hazards, query='storm surge'/'coastal flood'); VERIFY each classification"
+    - name: "nearby_plants"
+      required: false
+      use: "Same-reach fan-out — other tidewater assets along the coast"
+  external_inputs:
+    - name: "NOAA_tide_gauge_SLR_trends"
+      required: true
+      freshness: "relative-SLR trend (stable, multi-decade) + projections (dated by scenario)"
+      use: "Establish the chronic SLR rate at the nearest gauge; cite NOAA"
+    - name: "NOAA_NHC_surge_and_high_water_marks"
+      required: false
+      freshness: "SLOSH/P-Surge (event-driven) + historical high-water marks (dated)"
+      use: "Establish the acute surge envelope for the coastal reach; cite"
+    - name: "FEMA_coastal_flood_zones"
+      required: false
+      freshness: "VE / coastal-A zones (stable, periodically remapped)"
+      use: "Coastal flood-zone designation near the asset; cite FEMA"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Route the insight; insurance/financing/decommissioning relevance where available"
+
+procedure:
+  steps:
+    - "Establish the coastal geography: the CHRONIC SLR rate (NOAA tide gauge) AND/OR the ACUTE surge envelope (NHC SLOSH / FEMA VE zone) and/or a realized surge event (hazards news)."
+    - "State the TWO timescales and keep them distinct: CHRONIC SLR (decades — baseline rise → more frequent tidal flooding + eroding cooling-intake design basis) vs ACUTE surge (hours — switchyard / intake inundation during a storm). Note site elevation is not in the substrate."
+    - "Select one region/market (test 001 = Gulf Coast / Texas) and the relevant asset class(es)."
+    - "Resolve the coastal fleet via the MCP (state= proxy; the iso filter is unwired — see data_requirements)."
+    - "Place assets relative to tidewater (geometry + nearby_plants); VERIFY any hazards-news classification."
+    - "Treat get_plant.generation as CONTEXT ONLY — and note it is largely irrelevant for the chronic horizon and cannot resolve an acute surge outage."
+    - "Retrieve owner/company context for actor relevance and portfolio tidewater accumulation."
+    - "Assemble: condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade the $ loss / decommissioning cost, the year-of-inundation, the forward surge probability, the inundation-depth, and any single-cause CF attribution."
+
+allowed_claims:
+  - "Directional sea-level-rise + storm-surge exposure for a scoped coastal thermal, nuclear, grid, or offshore-wind-landfall asset set / geography"
+  - "Mechanism statements distinguishing CHRONIC SLR (baseline rise → tidal-flood frequency + design-basis erosion) from ACUTE surge (event inundation of switchyard/intake), cited"
+  - "The structural insight: tidewater cooling siting CONCENTRATES coastal-inundation exposure in large, long-lived, hard-to-relocate capital"
+  - "Realized event framing: a named surge affected a named coastal reach near a scoped asset (a regional fact, not a per-plant damage claim)"
+  - "Owner / portfolio tidewater accumulation in a high-SLR coastal geography"
+  - "Mitigation statements (sea walls / flood barriers, intake-design adaptation, switchyard elevation, long-horizon siting / relocation planning), cited"
+  - "Monitoring / planning recommendations for owners, lenders, developers"
+
+blocked_claims:
+  - "Exact $ loss, EAL, decommissioning cost, or insurance payout from SLR or a surge (model-gpr / not on the MCP)"
+  - "The specific year a site is permanently inundated, or a forward annual surge probability at a specific site (needs an SLR/surge model + site elevation)"
+  - "Per-plant generation loss attributable to a surge from the CF series alone"
+  - "Single-cause attribution — asserting an observed CF change was caused by a surge"
+  - "The precise inundation depth at a given plant's switchyard or intake (site elevation not in the substrate)"
+  - "National conclusions from one regional test"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "NOT reachable here on the substrate alone — would need verified site elevation + a served SLR/surge model (which the substrate does not carry) to claim an inundation depth or year."
+  medium: "Mechanism + coastal-geography exposure framing on a clear geography (NOAA SLR gauge or NHC/FEMA surge envelope + resolved tidewater scope), with the chronic/acute distinction stated."
+  low: "Forward / probabilistic surge or inundation-year exposure without a model + elevation; OR any event-context claim leaning on monthly CF."
+  blocked: "No verified hazard classification, scope unresolved, or a $ / decommissioning / inundation-year / surge-probability / inundation-depth / single-cause-CF claim is requested."
+
+caveats:
+  required:
+    - "The TWO timescales are DISTINCT and must not be conflated: CHRONIC SLR (decades — a planning-horizon creep that raises the baseline and erodes the cooling-intake design basis) vs ACUTE surge (hours — an event that inundates the switchyard/intake during a storm). State which one applies."
+    - "Coastal-inundation exposure is driven by site ELEVATION relative to the water surface — a field NOT in the substrate; a tidewater plant may still be elevated or sea-walled. Exposure is geographic and directional, not a per-site depth or year."
+    - "This resource covers the WATER / inundation side of a coastal storm; the WIND cut-out / structural-damage side is the hurricane_high_wind_wind resource — cross-reference, do not double-count."
+    - "Chronic SLR is largely uninsurable creep (a siting / stranded-asset / planning risk), distinct from an acute surge claim event — do not treat them with the same financial logic."
+    - "Monthly capacity factor is largely IRRELEVANT for the chronic horizon and cannot resolve an acute surge outage — never read SLR or a surge into the CF series."
+    - "Dollar severity, decommissioning cost, and insurance outcome are NOT modeled here (directional only) — that layer is model-gpr."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Long-horizon adaptation planning (sea wall / barrier, intake redesign, switchyard elevation); cooling-intake design-basis review under a rising baseline; decommissioning-timeline implications for tidewater units."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio tidewater accumulation in high-SLR coasts; chronic SLR as a long-lived stranded-asset / residual-value risk; coastal-insurance availability tightening."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "Long-tenor coastal exposure on a financed asset (SLR horizon can exceed the debt tenor — directional); coastal flood-zone status + surge-insurance adequacy as underwriting inputs."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Coastal siting + design flood basis + switchyard/intake elevation for queue-stage thermal and offshore-wind-landfall infrastructure."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "New hazards news for the scoped region/assets (a new surge event on the coast)"
+  - "Generation substrate refresh (a new month — largely irrelevant here, context only)"
+  - "NOAA tide-gauge trend or SLR-projection update for the scoped coast"
+  - "NHC SLOSH / FEMA coastal-zone remapping update"
+  - "Plant geometry / ownership refresh; a site-elevation or design-flood-basis field becomes available"
+  - "A served SLR / surge peril model becomes available — upgrades directional → quantitative"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"

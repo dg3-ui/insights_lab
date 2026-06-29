@@ -1,0 +1,209 @@
+identity:
+  slug: "flooding_multi_asset"
+  title: "Flood Inundation Exposure For Thermal, Solar, Wind, and Grid Assets"
+  version: "0.0.1-draft"
+  status: "draft"
+  owner: "InfraSure Insights"
+  last_reviewed: "2026-06-29"
+
+maturity:
+  grounding_maturity: "model-not-wired"  # EXPOSURE (low-lying coastal/riverine siting + FEMA flood-zone geography) +
+                                          # the realized EVENT (a named flood in hazards news) ground TODAY → directional.
+                                          # But per-plant inundation damage is NOT in the substrate (monthly CF cannot
+                                          # resolve a multi-day forced outage from seasonal/maintenance variation), and the
+                                          # $ / EAL / forward flood-probability layer is model-gpr — see blocked_claims.
+  data_maturity: "M"                      # plant geometry (lat/lon, county) + fuel + owner all present and let us place an
+                                          # asset relative to a flood-prone geography; BUT site ELEVATION + equipment-pad
+                                          # height are NOT in the substrate, and monthly CF is too coarse for an outage.
+
+taxonomy:
+  domain: hazard                  # folder axis — shares FEMA/NOAA + hazards-news + footprint machinery with the sibling hazard resources
+  family: exposure                # primary family; the resource ALSO serves event_translation (a realized flood → asset)
+  drivers:
+    - flooding
+    - riverine_flood
+    - flash_flood
+    - inundation
+    - natcat                       # maps the hazards-news risk_factor R12_NATCAT_FM
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+knowledge_ref: "knowledge.md"
+
+peril:
+  predictability: "forecastable-riverine-days / sudden-onset-flash"  # NWS AHPS river forecasts + USGS gauges give 1-5 days
+                                                                       # on riverine crests; flash flooding is short-fuse (minutes-to-hours)
+  key_datasets: ["FEMA National Flood Hazard Layer (NFHL) flood zones", "NOAA NWS AHPS river forecasts + USGS stream gauges", "FEMA disaster declarations", "InfraSure hazards news (subcategory=flood|flooding|inundation)"]
+  climate_attribution_confidence: "medium"   # precipitation-intensity increase (more extreme rainfall) is a reasonably
+                                              # attributed signal; riverine-frequency trends are regional and land-use-confounded
+  financial_materiality: "high"   # ground-level electrical + fuel + cooling equipment is inundation-vulnerable; a flooded
+                                  # switchyard is a long-lead repair — TIE-BREAKER, never grounding
+  insurance_treatment: "flood is commonly EXCLUDED from standard property cover; NFIP or a separate flood policy / sub-limit applies; FEMA flood-zone designation drives premium"
+
+question_grammar:
+  allowed_questions:
+    - "Which thermal / solar / wind / grid assets sit in a flood-exposed geography (coastal, riverine, FEMA flood zone), and how materially?"
+    - "Through what mechanism is the asset exposed — switchyard/substation inundation → outage; fuel-storage/plant-equipment inundation → forced outage + damage; cooling-water-intake compromise at a water-sited thermal plant?"
+    - "What did a realized flood event mean for assets in the affected watershed / floodplain?"
+    - "Who should monitor or harden against the exposure, and why?"
+  blocked_questions:
+    - "What is the exact $ loss / EAL / insurance payout from this flood at this plant?"
+    - "What is the forward annual probability or return-period of inundation at this specific site?"
+    - "What exact plant-level generation loss did the flood cause, read from the CF series?"
+    - "Which specific equipment pads or feeders went underwater at this plant?"
+    - "Which accounts should receive outreach before the insight is validated?"
+
+scope:
+  entity_types:
+    - plant
+    - generator
+    - company_owner
+  fuels_or_technologies:
+    - gas                          # thermal sited near water for cooling — the most exposed class (mechanism C)
+    - nuclear                      # tidewater / riverine cooling siting — high-consequence inundation exposure
+    - solar                        # ground-level inverters / combiner pads (mechanism B)
+    - wind                         # turbine bases + collector substation (mechanism A/B)
+    - transmission                 # low-lying substations / switchyards (mechanism A)
+    - battery                      # ground-level enclosures + inverters (mechanism B)
+  regions_or_markets:
+    - "one selected region or market per test (test 001 = Gulf Coast / Texas — the Harvey-corridor floodplain)"
+  lifecycle_phases:
+    - operating
+    - queue          # siting-stage floodplain / elevation choices are in scope (developer actor)
+  actors:
+    - owner_operator
+    - investor
+    - lender
+    - developer
+
+inputs:
+  substrate_inputs:
+    - name: "plant_location_and_geometry"
+      required: true
+      use: "Place the asset in / out of the flood-exposed geography (lat/lon, county, proximity to coast / river)"
+    - name: "fuel_or_technology"
+      required: true
+      use: "Determines which mechanism applies and whether the asset is water-sited (thermal cooling intake)"
+    - name: "capacity_mw"
+      required: true
+      use: "Materiality; recommended threshold >= 50 MW"
+    - name: "generation_monthly_cf"
+      required: false
+      use: "CONTEXT ONLY — monthly CF cannot isolate a multi-day inundation outage from seasonal/maintenance variation; never the damage proof"
+    - name: "owner_company_chain"
+      required: false
+      use: "Actor relevance + portfolio floodplain accumulation"
+    - name: "hazards_news"
+      required: false
+      use: "Realized event grounding — search_news(category=hazards, query='flood'/'flooding'/'inundation'); VERIFY each classification"
+    - name: "nearby_plants"
+      required: false
+      use: "Same-watershed fan-out — other assets in the floodplain or behind the same levee"
+  external_inputs:
+    - name: "FEMA_NFHL_flood_zones"
+      required: true
+      freshness: "flood-zone maps (stable, periodically remapped) + active declarations (dated)"
+      use: "Establish the flood-exposed geography; place the asset in / out of a 100/500-yr zone; cite FEMA"
+    - name: "NOAA_NWS_AHPS_and_USGS_gauges"
+      required: false
+      freshness: "climatology (stable) + live river stage (dated)"
+      use: "Riverine crest forecasting + historical flood stage near the asset; cite"
+  descriptive_context:
+    - name: "plant_or_company_summary"
+      required: false
+      use: "Frame the entity; never claim grounding alone"
+  actor_context:
+    - name: "owner_or_lender_context"
+      required: false
+      use: "Route the insight; insurance/financing relevance where available"
+
+procedure:
+  steps:
+    - "Establish the flood-exposed geography (FEMA NFHL flood zone + NWS AHPS / USGS gauge history) and/or a realized event (hazards news)."
+    - "State the mechanism by asset: A switchyard/substation inundation → outage; B fuel-storage / plant-equipment inundation → forced outage + damage; C cooling-water-intake compromise at a water-sited thermal plant. Note site ELEVATION is not in the substrate."
+    - "Select one region/market (test 001 = Gulf Coast / Texas) and the relevant asset class(es)."
+    - "Resolve the exposed fleet via the MCP (state= proxy; the iso filter is unwired — see data_requirements)."
+    - "Place assets relative to the floodplain (geometry + nearby_plants); VERIFY any hazards-news classification."
+    - "Where a realized event exists, use get_plant.generation ONLY as context — and explicitly note monthly CF cannot isolate an inundation outage from seasonal variation."
+    - "Retrieve owner/company context for actor relevance and portfolio floodplain accumulation."
+    - "Assemble: condition + scope + mechanism + evidence + confidence + caveat + actor relevance."
+    - "Block/downgrade the $ loss, the forward flood probability/return-period, the per-plant damage attribution, and any single-cause CF attribution."
+
+allowed_claims:
+  - "Directional flood-inundation exposure for a scoped thermal, solar, wind, or grid asset set / geography"
+  - "Mechanism statements by asset: switchyard/substation inundation → outage; fuel/equipment inundation → forced outage; cooling-intake compromise at a water-sited thermal plant (each cited)"
+  - "Realized event framing: a named flood affected a named watershed / floodplain near a scoped asset (a regional fact, not a per-plant damage claim)"
+  - "Water-sited thermal concentration as a structural vulnerability (plants sited at tidewater / riverbank for cooling)"
+  - "Owner / portfolio floodplain accumulation in a flood-exposed geography"
+  - "Mitigation statements (equipment-pad elevation, flood walls / berms, submersible-rated equipment, drainage), cited"
+  - "Monitoring / hardening recommendations for owners, lenders, developers"
+
+blocked_claims:
+  - "Exact $ damage, EAL, or insurance payout from a flood (model-gpr / not on the MCP)"
+  - "Forward annual inundation probability or return-period at a specific site (needs a flood model + site elevation)"
+  - "Per-plant generation loss attributable to a flood from the CF series alone"
+  - "Single-cause attribution — asserting an observed CF change was caused by a flood (seasonal variation and maintenance also move CF)"
+  - "Which specific equipment, pads, or feeders were inundated at a given plant (site elevation not in the substrate)"
+  - "National conclusions from one regional test"
+  - "Outreach copy before the insight is validated"
+
+confidence_rules:
+  high: "NOT reachable here on the substrate alone — would need a verified per-plant inundation-damage record (which the substrate does not carry) or a served flood-risk peril model with site elevation."
+  medium: "Mechanism + flood-geography exposure framing on a clear geography (FEMA NFHL zone or NWS/USGS gauge history + resolved scoped fleet), with the asset-specific mechanism stated."
+  low: "Forward / probabilistic flood exposure without a flood model + elevation; OR any event-context claim leaning on monthly CF."
+  blocked: "No verified hazard classification, scope unresolved, or a $ / return-period / per-plant-damage-attribution / single-cause-CF claim is requested."
+
+caveats:
+  required:
+    - "The mechanisms are DISTINCT by asset and must not be conflated: A switchyard/substation inundation (delivery outage); B fuel-storage / plant-equipment inundation (forced outage + physical damage); C cooling-water-intake compromise at a water-sited thermal plant. State which one applies."
+    - "Flood exposure is driven by site ELEVATION relative to the flood surface — a field NOT in the substrate; a plant inside a FEMA zone may still be pad-elevated or flood-walled. Exposure is geographic and directional, not a per-pad determination."
+    - "Monthly capacity factor CANNOT isolate a multi-day inundation outage from seasonal/maintenance variation — a CF dip is consistent with multiple causes and does NOT prove a flood impact."
+    - "Hazard-news flood classification is VERIFIED, not taken on the label (articles may link to grid-customer flooding or a non-asset location)."
+    - "Water-sited thermal concentration is a structural vulnerability (cooling siting), not a universal fleet risk."
+    - "Dollar severity, EAL, and insurance outcome are NOT modeled here (directional only) — that layer is model-gpr."
+
+actor_relevance:
+  - actor: "owner_operator"
+    why: "Equipment-pad elevation + flood-barrier investment decision; cooling-intake resilience for water-sited thermal; outage recovery + long-lead transformer/switchgear replacement planning."
+    renderings:
+      - platform_card
+      - account_note
+  - actor: "investor"
+    why: "Portfolio floodplain accumulation; downside to availability/revenue in a flood year; rising flood-insurance cost + FEMA remapping as a value driver."
+    renderings:
+      - platform_card
+      - portfolio_note
+  - actor: "lender"
+    why: "DSCR stress from a flood-driven forced outage on a financed asset (directional); FEMA flood-zone status + flood-insurance adequacy as underwriting inputs."
+    renderings:
+      - account_note
+  - actor: "developer"
+    why: "Siting outside the floodplain + equipment-pad elevation specification for queue-stage assets in flood-exposed geographies."
+    renderings:
+      - account_note
+
+staleness_signals:
+  - "New hazards news for the scoped region/assets (a new flood in the watershed)"
+  - "Generation substrate refresh (a new month — used only as context here)"
+  - "FEMA NFHL remapping; a new flood-zone designation for the scoped geography"
+  - "NWS AHPS / USGS gauge update; a new flood of record"
+  - "Plant geometry / ownership refresh; a site-elevation field becomes available"
+  - "A served flood-risk peril model becomes available — upgrades directional → quantitative"
+  - "A version change in a shared resources/_* layer this resource was validated against"
+
+prompt_projection:
+  include_in_prompt:
+    - "question grammar"
+    - "scope"
+    - "procedure"
+    - "allowed claims"
+    - "blocked claims"
+    - "confidence rules"
+    - "output format"
+  exclude_from_prompt:
+    - "long background prose"
+    - "full repo context"
+    - "email drafting instructions"
