@@ -1,6 +1,6 @@
 # ice_storm_transmission — Ice Storm Exposure For Transmission, Wind, and Delivery-Dependent Assets
 
-> **Status**: draft, test 001 PENDING (2026-06-29). The **ninth `hazard`-domain resource** — covering the ice-storm family alongside the sibling hazard resources. Authored to match the live InfraSure MCP data structure; test 001 targets the South-Central ice belt (OK–TX–AR).
+> **Status**: draft, manual test 001 PASS (2026-06-29, live MCP). The **ninth `hazard`-domain resource** — covering the ice-storm family alongside the sibling hazard resources. Test 001 anchored on Wagon Wheel Wind (EIA 69224, Logan Co OK, 598.4 MW, AEP/SWEPCO). Gap confirmed: no conductor/tower ratings or line geometry in the substrate; delivery-stranding framed from corridor + mechanism.
 
 ## What this is
 
@@ -9,14 +9,15 @@ A methodology package teaching a model to reason like an InfraSure analyst about
 ## Files
 
 ```text
-resource.yml          the structured seam (taxonomy · maturity · peril fields · confidence_rules + blocked_claims)
-resource.md           the human-readable method (three claim types; the delivery-infrastructure framing)
-knowledge.md          the cited mechanism (ice-load failure; blade icing; delivery stranding; ice-belt anchors)
-prompt_projection.md  the pasteable session surface
-data_requirements.md  the retrieval plan + known gaps (iso filter · no ice-load model · no conductor-rating field · CF too coarse)
-SKILL.md              the published, loadable skill — TO AUTHOR
-examples/applied_insight_001.md   the target output — OK/TX/AR ice-belt wind + corridor (PENDING)
-test_runs/test_run_001.md         the live MCP test record (PENDING)
+resource.yml                      the structured seam (taxonomy · maturity · peril fields · confidence_rules + blocked_claims)
+resource.md                       the human-readable method (three claim types; the delivery-infrastructure framing)
+knowledge.md                      the cited mechanism (ice-load failure; blade icing; delivery stranding; ice-belt anchors)
+prompt_projection.md              the pasteable session surface
+data_requirements.md              the retrieval plan + known gaps (iso filter · no ice-load model · no conductor-rating field · CF too coarse)
+SKILL.md                          the published, loadable skill
+historical_context.md             cited frames + external evidence (Great Ice Storm 1998 Hydro-Québec; Dec 2007 OK; Jan 2009 Mid-South)
+examples/applied_insight_001.md   validated output — Wagon Wheel Wind (EIA 69224), Logan Co OK, delivery-infrastructure framing, Medium confidence
+test_runs/test_run_001.md         live MCP test record — PASS 2026-06-29
 ```
 
 ## Grounding at a glance

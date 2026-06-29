@@ -1,6 +1,6 @@
 # flooding_multi_asset — Flood Inundation Exposure For Thermal, Solar, Wind, and Grid Assets
 
-> **Status**: draft, test 001 PENDING (2026-06-29). The **fifth `hazard`-domain resource** — covering the flood family alongside `hail_solar`, `hurricane_high_wind_wind`, `extreme_cold_winter_storm`, and `wildfire`. Authored to match the live InfraSure MCP data structure; test 001 targets the Gulf Coast / Texas floodplain.
+> **Status**: draft, manual test 001 PASS (2026-06-29, live MCP). The **fifth `hazard`-domain resource** — covering the flood family alongside `hail_solar`, `hurricane_high_wind_wind`, `extreme_cold_winter_storm`, and `wildfire`. Test 001 anchored on Sabine (EIA 3459, Orange Co TX, 1,811.8 MW NG steam, Entergy Texas). Gap confirmed: `search_news` has no `category=` param (live tool uses `query=` + `event_type`); `search_news(query="flood", state="TX")` returned `[]` this run.
 
 ## What this is
 
@@ -9,14 +9,15 @@ A methodology package teaching a model to reason like an InfraSure analyst about
 ## Files
 
 ```text
-resource.yml          the structured seam (taxonomy · maturity · peril fields · confidence_rules + blocked_claims)
-resource.md           the human-readable method (the THREE claim types; the elevation-not-in-substrate point)
-knowledge.md          the cited mechanism (A/B/C by asset; water-sited thermal; flood-of-record anchors)
-prompt_projection.md  the pasteable session surface
-data_requirements.md  the retrieval plan + known gaps (iso filter · no flood model · no site-elevation field · CF too coarse)
-SKILL.md              the published, loadable skill — TO AUTHOR
-examples/applied_insight_001.md   the target output — Gulf Coast / TX thermal floodplain (PENDING)
-test_runs/test_run_001.md         the live MCP test record (PENDING)
+resource.yml                      the structured seam (taxonomy · maturity · peril fields · confidence_rules + blocked_claims)
+resource.md                       the human-readable method (the THREE claim types; the elevation-not-in-substrate point)
+knowledge.md                      the cited mechanism (A/B/C by asset; water-sited thermal; flood-of-record anchors)
+prompt_projection.md              the pasteable session surface
+data_requirements.md              the retrieval plan + known gaps (iso filter · no flood model · no site-elevation field · CF too coarse)
+SKILL.md                          the published, loadable skill
+historical_context.md             cited frames + external evidence (Harvey 2017 FEMA DR-4332-TX; Fort Calhoun 2011; Sandy 2012)
+examples/applied_insight_001.md   validated output — Sabine (EIA 3459), Orange Co TX, Harvey floodplain, mechanisms C+A, Medium confidence
+test_runs/test_run_001.md         live MCP test record — PASS 2026-06-29 (VERIFY catch: Cheniere mis-tag rejected)
 ```
 
 ## Grounding at a glance

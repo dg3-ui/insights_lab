@@ -1,6 +1,6 @@
 # lightning_multi_asset — Lightning Exposure For Wind, Solar, and Electrical-Plant Assets
 
-> **Status**: draft, test 001 PENDING (2026-06-29). The **eighth `hazard`-domain resource** — covering the lightning family alongside the sibling hazard resources. Authored to match the live InfraSure MCP data structure; test 001 targets the Gulf Coast / Florida–Texas flash-density maximum.
+> **Status**: draft, manual test 001 PASS (2026-06-29, live MCP). The **eighth `hazard`-domain resource** — covering the lightning family alongside the sibling hazard resources. Test 001 anchored on Echo River Solar (EIA 62490, Suwannee Co FL, 104.5 MW, NextEra/FPL, fuel_types [SUN, MWH]) — `fuel_types` confirmed induced-surge mechanism B in-field. Gap confirmed: no LPS/surge-protection-status field in the substrate.
 
 ## What this is
 
@@ -9,14 +9,15 @@ A methodology package teaching a model to reason like an InfraSure analyst about
 ## Files
 
 ```text
-resource.yml          the structured seam (taxonomy · maturity · peril fields · confidence_rules + blocked_claims)
-resource.md           the human-readable method (direct-strike vs induced-surge; the cumulative-component framing)
-knowledge.md          the cited mechanism (direct strike vs induced surge; flash-density basis; design mitigation)
-prompt_projection.md  the pasteable session surface
-data_requirements.md  the retrieval plan + known gaps (iso filter · no strike-rate model · no LPS-status field · CF too coarse)
-SKILL.md              the published, loadable skill — TO AUTHOR
-examples/applied_insight_001.md   the target output — FL/TX wind flash-density band (PENDING)
-test_runs/test_run_001.md         the live MCP test record (PENDING)
+resource.yml                      the structured seam (taxonomy · maturity · peril fields · confidence_rules + blocked_claims)
+resource.md                       the human-readable method (direct-strike vs induced-surge; the cumulative-component framing)
+knowledge.md                      the cited mechanism (direct strike vs induced surge; flash-density basis; design mitigation)
+prompt_projection.md              the pasteable session surface
+data_requirements.md              the retrieval plan + known gaps (iso filter · no strike-rate model · no LPS-status field · CF too coarse)
+SKILL.md                          the published, loadable skill
+historical_context.md             cited frames + external evidence (no single catastrophe anchor; NLDN FL max; cumulative component attrition)
+examples/applied_insight_001.md   validated output — Echo River Solar (EIA 62490), Suwannee Co FL, induced-surge mechanism B, Medium confidence
+test_runs/test_run_001.md         live MCP test record — PASS 2026-06-29
 ```
 
 ## Grounding at a glance

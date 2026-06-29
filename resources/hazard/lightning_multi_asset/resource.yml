@@ -38,9 +38,11 @@ peril:
   key_datasets: ["NOAA / Vaisala NLDN cloud-to-ground flash-density climatology", "NOAA NWS thunderstorm / convective outlooks", "InfraSure hazards news (subcategory=lightning|convective_storm)"]
   climate_attribution_confidence: "low"   # lightning-frequency trends are weakly attributed and methodologically contested
                                           # — caps any trend claim hard
-  financial_materiality: "medium-to-high"   # mostly component replacement (inverters / transformers / control electronics) —
-                                            # high frequency, lower per-event severity; wind blade strikes can be material —
-                                            # TIE-BREAKER, never grounding
+  financial_materiality: "medium"           # enum is high|medium|low. "medium" matches this resource's defining thesis —
+                                            # high-frequency / LOWER-per-event-severity, cumulative component replacement
+                                            # (inverters / transformers / control electronics / blade receptors). A blade-
+                                            # strike-heavy wind portfolio can rise to "high" case-by-case, but the standing
+                                            # value stays "medium" so it does not contradict the framing.
   insurance_treatment: "typically covered (property / equipment-breakdown); high-frequency low-severity profile makes it more a maintenance + deductible topic than a catastrophe peril"
 
 question_grammar:
